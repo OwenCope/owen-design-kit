@@ -47,9 +47,8 @@ Open these and compare your work side by side. They live in `examples/` next to 
 
 | File | What it shows | What to copy |
 |---|---|---|
-| `good-update-card.png` | Gaze Settings > Updates | Section first, one row with Check Again, a centred card: icon → name → one blue Install → real picture → short notes |
+| `good-update-card.png` | Gaze Settings > Updates (a test copy, so it says 0.1.0 — fine for review, never in public pictures) | Section first, one row with Check Again, a centred card: icon → name → one blue Install → real picture → short notes |
 | `good-tourkit-page.png` | A Gaze setup page | Media on top, dots at its bottom, bold title, one line of text, one full-width blue button, close in the corner |
 | `good-real-screenshot-with-native-toggle.png` | Accessibility setup | A real System Settings screenshot with the real switch on it — never a drawn copy |
 | `good-release-picture.png` | 0.1.7 release picture | Tight crop of the real UI showing the release's main change, no frame |
-| `good-discord-release-post.png` | Discord release post | Title, summary, full-width picture, grouped notes, real buttons |
 | `bad-release-picture-test-version.png` | **Rejected** 0.1.7 picture | Shows "Version 0.1.0" test data and repeats an older release's picture — never do this |
