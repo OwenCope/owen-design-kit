@@ -12,6 +12,8 @@ General (every project):
 - `product-writing` — every word in the product and in replies
 - `release-notes` — the exact release format
 - `ship-and-verify` — finishing, testing, releasing, verifying
+- `design-patterns` — copy-ready code and exact tokens for approved components
+- `design-review` — the strict review before showing anything
 - `new-project-setup` — starting a project, and adding one to this kit
 
 Per project:

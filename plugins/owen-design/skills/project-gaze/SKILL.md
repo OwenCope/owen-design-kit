@@ -5,7 +5,7 @@ description: Rules, commands and context for Gaze, Owen's Mac face-unlock app (~
 
 # Project: Gaze (Mac app)
 
-Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` alongside this. The full, longest version of everything is in `~/Developer/GAZE-HANDOFF.md` — read it when you need detail.
+Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` alongside this, plus `design-patterns` (the Install morph button, progress swap, toolbar badge and release card come from this app), and run `design-review` before showing work. The full, longest version of everything is in `~/Developer/GAZE-HANDOFF.md` — read it when you need detail.
 
 ## Facts
 - Checkout `~/Developer/FaceID`, **public** repo `OwenCope/Gaze`, branch `main`.

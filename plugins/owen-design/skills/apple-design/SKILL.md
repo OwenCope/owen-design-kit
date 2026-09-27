@@ -58,7 +58,13 @@ The bar: it should look like Apple built it. The owner notices instantly when so
 | A release picture that repeated an older release's picture | "that is from 0.1.4" | A new picture of this release's main change |
 | A plain Discord card | "not as pretty as the release page" | Match the release page: title, summary, full-width picture, notes, real buttons |
 
+## Apple references to study
+- Human Interface Guidelines: https://developer.apple.com/design/human-interface-guidelines — especially Buttons, Toggles, Settings, Onboarding, Motion, Writing, Materials (Liquid Glass).
+- Apple's own apps: System Settings (settings structure), App Store (update cards), Face ID / Touch ID setup (onboarding), Photos and Music (media), apple.com product pages (web), Apple release notes and "What's New" sheets (copy).
+
 ## Related skills
+- `design-patterns` — copy-ready code and exact tokens for the approved components. Use it instead of inventing.
+- `design-review` — the strict review to run before showing anything.
 
 - `macos-app-design` — specifics for Mac/SwiftUI apps.
 - `web-design` — specifics for websites.

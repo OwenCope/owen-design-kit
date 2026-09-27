@@ -5,7 +5,7 @@ description: Rules, commands and context for gazeunlock.com, the Gaze website (~
 
 # Project: gazeunlock.com
 
-Load `apple-design`, `web-design` and `ship-and-verify` alongside this.
+Load `apple-design`, `web-design` and `ship-and-verify` alongside this, plus `design-patterns` (the download button, MorphLabel and the seven-step type scale come from this site), and run `design-review` before showing work.
 
 ## Facts
 - Checkout `~/Developer/gaze-site`, **private** repo `OwenCope/gaze-site` — never make it public.
