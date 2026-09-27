@@ -13,6 +13,7 @@ General (every project):
 - `release-notes` — the exact release format
 - `ship-and-verify` — finishing, testing, releasing, verifying
 - `design-patterns` — copy-ready code and exact tokens for approved components
+- `onboarding-design` — the smooth welcome-tour standard, with reference frames
 - `design-review` — the strict review before showing anything
 - `new-project-setup` — starting a project, and adding one to this kit
 

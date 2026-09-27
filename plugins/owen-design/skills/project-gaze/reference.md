@@ -97,3 +97,7 @@ When 0.1.8 is done, ship it with notes and a new real picture (sections 5 and 6)
 - The bot posts through webhooks. The secret names are GitHub `DISCORD_RELEASE_WEBHOOK`, and Vercel `DISCORD_PUBLIC_KEY`, `DISCORD_BUGS_WEBHOOK` and `GITHUB_ISSUES_TOKEN` (the token expires 2027-09-27).
 - `/bug` is registered to guild 1536688227761651822 for app 1553615407150141542. It opens a 5-field form with a file upload and files a GitHub issue labelled `bug` and `from-discord`.
 - Posts appear as "Gaze" with the app icon.
+
+
+## Planned: setup redesign
+Owen wants Gaze's setup redone to the `onboarding-design` standard (the Droppy tour): the lock-screen wallpaper as one full-bleed scene, a Mac frame zooming into the notch, and the real notch panel morphing through the steps (looking for you → the movement prompt → unlocked) with blur crossfades. Keep TourKit's layout and every existing setup step and permission check.

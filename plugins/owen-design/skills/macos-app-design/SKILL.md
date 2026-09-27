@@ -27,6 +27,7 @@ Load `apple-design` first. This adds the platform detail.
 - An update card reads like an App Store / GitHub release: app icon (~72 pt), "App X.Y.Z" in bold, one Install button, then the release pictures and notes rendered cleanly. A "Check Again" control lives in the row above. Only one Install button anywhere.
 
 ## Onboarding / setup
+- The bar to hit is in `onboarding-design` (full-bleed scene, zoom into the real feature, live morphing panel, blur crossfades).
 - Use the project's tour framework (in Gaze: TourKit) for **every** page. Layout: media on top, page dots or step counter at the bottom of the media, title and one or two sentences below, the blue primary button at the bottom.
 - Media is real: screenshots or short looping muted recordings of the actual app or macOS. Loops must be seamless (`AVPlayerLooper`), no playback controls.
 - Opening a single step from Settings (e.g. "Change password") opens **only that page** and closes when done — never the whole tour.
