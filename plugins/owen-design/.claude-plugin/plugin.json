@@ -1,7 +1,7 @@
 {
   "name": "owen-design",
   "description": "Apple-quality design, writing and shipping standards, plus rules for each of Owen's projects (Gaze, gazeunlock.com, and future ones).",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "author": { "name": "Owen Cope" },
   "keywords": ["design", "apple", "macos", "swiftui", "web", "nextjs", "copywriting", "release-notes"]
 }
