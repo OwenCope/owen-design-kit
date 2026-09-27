@@ -122,27 +122,51 @@ Source: `gaze-site/src/components/get-buttons.tsx` + `ui/morph-label.tsx`.
 - Hover: the label blurs out and the icon blurs in (MorphLabel below). Only on fine pointers, so touch never sticks.
 
 ### MorphLabel (label → icon blur morph)
+Copied from `gaze-site/src/components/ui/morph-label.module.css`:
 
-    .root { --morph-dur: 340ms; --morph-ease: cubic-bezier(0.22,1,0.36,1); --morph-blur: 16px;
+    .root { --morph-dur: 340ms; --morph-ease: cubic-bezier(0.22, 1, 0.36, 1); --morph-blur: 16px;
             position: relative; display: inline-grid; place-items: center; }
     .rest, .hover { grid-area: 1 / 1;
             transition: opacity var(--morph-dur) linear, filter var(--morph-dur) var(--morph-ease); }
     .rest  { opacity: 1; filter: blur(0); }
     .hover { opacity: 0; filter: blur(var(--morph-blur)); pointer-events: none; }
+    .hover svg { width: var(--morph-icon, 20px); height: var(--morph-icon, 20px); }
+
+    /* keyboard focus shows the icon too */
+    :where(a, button):focus-visible > .root .rest  { opacity: 0; filter: blur(var(--morph-blur)); }
+    :where(a, button):focus-visible > .root .hover { opacity: 1; filter: blur(0); }
+
+    /* fine pointers only, so touch never sticks mid-morph */
     @media (hover: hover) and (pointer: fine) {
       :where(a, button):hover > .root .rest  { opacity: 0; filter: blur(var(--morph-blur)); }
       :where(a, button):hover > .root .hover { opacity: 1; filter: blur(0); }
     }
-    @media (prefers-reduced-motion: reduce) { .rest, .hover { transition: none; } }
 
-Markup: `<MorphLabel icon={<Arrow/>}><span>Download</span></MorphLabel>` inside the button.
+    /* Reduce Motion: no morph at all, the label stays */
+    @media (prefers-reduced-motion: reduce) {
+      .rest, .hover { transition: none; }
+      .hover { display: none; }
+      :where(a, button):hover > .root .rest,
+      :where(a, button):focus-visible > .root .rest { opacity: 1; filter: blur(0); }
+    }
+
+Markup (`ui/morph-label.tsx`): `<MorphLabel icon={<Arrow/>}><span>Download</span></MorphLabel>` as the button's direct child.
 
 ### Secondary pill
 `inline-flex min-h-[52px] items-center gap-2 rounded-full px-[28px] text-[18px] font-medium` with the 7% → 11% neutral fill and `transition-colors duration-150`.
 
 ---
 
-## Spacing (both platforms)
-- App: 4-pt grid; common steps 4, 6, 8, 10, 14, 18, 24. Row inset matches the section's.
-- Web: 4-px grid; section padding generous (≈ 96–160 px desktop, 64–96 px phone); content width capped; one column on phones.
-- Corners: continuous. App cards 12–14 pt; pills fully rounded; images 12–14.
+## Spacing and shape (measured from the code)
+
+App (`FaceID/Sources/App/Theme.swift`):
+- `Theme.cornerRadius = 16` for grouped sections/surfaces (continuous corners); media 14; small chips 6–8.
+- `Theme.rowInset = 18` horizontal padding inside rows; `Theme.sectionSpacing = 16` between sections.
+- Stack spacing in use: 6 (label/detail pairs, most common), 8–10 (controls in a row), 12–16 (groups).
+- Use the `Theme` constants — never type raw numbers when a constant exists.
+
+Web (`gaze-site`):
+- Sections: `py-16` on phones, `sm:py-24` above (64 px / 96 px); a hero may go to `sm:py-32`.
+- Content widths: `max-w-[1000px]`–`[1100px]` for page sections, `max-w-[760px]` for reading text.
+- Pills fully rounded (`rounded-full`), min height 52 px for primary actions; small chips `py-0.5 px-2`.
+- 4-px grid (Tailwind's scale). Don't invent one-off pixel values.

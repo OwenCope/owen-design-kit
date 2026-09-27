@@ -43,7 +43,7 @@ The bar: it should look like Apple built it. The owner notices instantly when so
 - Reusing an old picture for new work.
 - Stretching a layout to fill space.
 
-## Rejected → fixed (real history, learn from it)
+## Rejected → fixed (real history from Gaze; the lessons apply to every project)
 
 | Rejected | Why | What worked |
 |---|---|---|
@@ -64,7 +64,7 @@ The bar: it should look like Apple built it. The owner notices instantly when so
 
 ## Related skills
 - `design-patterns` — copy-ready code and exact tokens for the approved components. Use it instead of inventing.
-- `design-review` — the strict review to run before showing anything.
+- `design-review` — the strict review to run before showing anything, with real approved and rejected pictures in its `examples/` folder.
 
 - `macos-app-design` — specifics for Mac/SwiftUI apps.
 - `web-design` — specifics for websites.

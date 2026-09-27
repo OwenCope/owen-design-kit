@@ -41,3 +41,15 @@ Fix every "fix", re-screenshot, re-score. Only a full pass goes to Owen.
 - Text over two lines where one would do → cut.
 - Picture from an older release → capture a new one.
 - Hover only works in the middle of the button → `contentShape`.
+
+## Reference pictures (real, approved by Owen)
+Open these and compare your work side by side. They live in `examples/` next to this file.
+
+| File | What it shows | What to copy |
+|---|---|---|
+| `good-update-card.png` | Gaze Settings > Updates | Section first, one row with Check Again, a centred card: icon → name → one blue Install → real picture → short notes |
+| `good-tourkit-page.png` | A Gaze setup page | Media on top, dots at its bottom, bold title, one line of text, one full-width blue button, close in the corner |
+| `good-real-screenshot-with-native-toggle.png` | Accessibility setup | A real System Settings screenshot with the real switch on it — never a drawn copy |
+| `good-release-picture.png` | 0.1.7 release picture | Tight crop of the real UI showing the release's main change, no frame |
+| `good-discord-release-post.png` | Discord release post | Title, summary, full-width picture, grouped notes, real buttons |
+| `bad-release-picture-test-version.png` | **Rejected** 0.1.7 picture | Shows "Version 0.1.0" test data and repeats an older release's picture — never do this |

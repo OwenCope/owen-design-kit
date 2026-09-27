@@ -5,7 +5,7 @@ description: Rules, commands and context for Gaze, Owen's Mac face-unlock app (~
 
 # Project: Gaze (Mac app)
 
-Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` alongside this, plus `design-patterns` (the Install morph button, progress swap, toolbar badge and release card come from this app), and run `design-review` before showing work. The full, longest version of everything is in `~/Developer/GAZE-HANDOFF.md` — read it when you need detail.
+Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` alongside this, plus `design-patterns` (the Install morph button, progress swap, toolbar badge and release card come from this app), and run `design-review` before showing work. Full detail (exact release steps, build and test commands, lock-screen behaviour, the 0.1.8 plan, open issues, Discord bot) is in `reference.md` next to this file.
 
 ## Facts
 - Checkout `~/Developer/FaceID`, **public** repo `OwenCope/Gaze`, branch `main`.
@@ -26,10 +26,10 @@ Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` a
 - Lock-screen pictures: run the copy with `--shoot-lockscreen --shoot-movements`, full-screen screenshot, crop, kill it.
 
 ## Releasing
-Exact steps in GAZE-HANDOFF.md §6: bump `Resources/Info.plist` → universal build → DMG made from `build/installers/release-0.1/Gaze-0.1-x86_64-arm64-local-preview.dmg` (UDRW, resize 400m, swap app, rename volume, UDZO) → sha256 into `Tools/Release/Homebrew/gaze.rb` (keep `auto_updates true`) → notes at `~/Desktop/Gaze X.Y.Z release notes.md` with a new picture in `docs/images/release-X.Y.Z-*.png` → commit, push → `gh release create` → update tap `OwenCope/homebrew-gaze` → verify DMG hash, `https://gazeunlock.com/api/latest`, and the `discord-release` workflow.
+Exact steps in `reference.md` §6: bump `Resources/Info.plist` → universal build → DMG made from `build/installers/release-0.1/Gaze-0.1-x86_64-arm64-local-preview.dmg` (UDRW, resize 400m, swap app, rename volume, UDZO) → sha256 into `Tools/Release/Homebrew/gaze.rb` (keep `auto_updates true`) → notes at `~/Desktop/Gaze X.Y.Z release notes.md` with a new picture in `docs/images/release-X.Y.Z-*.png` → commit, push → `gh release create` → update tap `OwenCope/homebrew-gaze` → verify DMG hash, `https://gazeunlock.com/api/latest`, and the `discord-release` workflow.
 
 ## Security (never weaken)
 Lock-screen flow is in `Sources/Security/LockWatcher.swift`: scans only with the display on; any key/click after the wake settle stops Gaze for that lock; 2 s match hold → movement challenge → anti-spoof → password; six misses lock out. Don't trade any of this for smoothness.
 
 ## Next up
-The approved 0.1.8 plan (faster unlocks, learning the face over time, a dark-room edge light, glasses/mask mode) and open issues are in GAZE-HANDOFF.md §9–10.
+The approved 0.1.8 plan (faster unlocks, learning the face over time, a dark-room edge light, glasses/mask mode) and open issues are in `reference.md` §9–10.
