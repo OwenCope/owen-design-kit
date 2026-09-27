@@ -36,7 +36,9 @@ Every release, every project, without being asked:
 
     Download **APP.dmg** and drag APP to Applications, update from APP Settings, or run:
 
-    (fenced sh block) brew upgrade --cask app
+    ```sh
+    brew upgrade --cask app
+    ```
 
     First-launch note, if any.
 

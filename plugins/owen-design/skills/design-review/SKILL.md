@@ -7,6 +7,11 @@ description: A strict step-by-step review to run on any screen, page, component,
 
 Do it for real: build, open, screenshot, and look at the actual pixels at full size. Reviewing code alone does not count.
 
+## Size the review to the change
+- **Small change** (one row, one string, one colour): capture that screen in light and dark, check the row with search, and score only the items that apply (2, 5, 6, 7, 8, 10, 11, 12). Mark the rest N/A.
+- **New screen or flow:** the full review below.
+- **Release pictures and posts:** items 4, 6, 7 and 11, plus `release-notes`.
+
 ## Step 1 — Capture
 - App: a review copy (never the owner's configured app), in light **and** dark, normal and narrow window, Reduce Motion on and off.
 - Web: desktop (~1440 px) and phone (~375 px), light and dark if supported, keyboard-tab through it once.

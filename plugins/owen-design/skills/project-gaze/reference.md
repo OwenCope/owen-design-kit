@@ -13,7 +13,7 @@ In `~/Developer/FaceID`:
    - `hdiutil convert /tmp/gaze-rw.dmg -format UDZO -imagekey zlib-level=9 -o build/installers/release-X.Y.Z/Gaze.dmg`.
    - Attach the result read-only, check the version and run `codesign --verify --deep --strict`.
 4. Put the version and the DMG's `shasum -a 256` into `Tools/Release/Homebrew/gaze.rb`. Keep `auto_updates true`.
-5. Write the notes to `~/Desktop/Gaze X.Y.Z release notes.md` (section 5). Make the release picture.
+5. Write the notes to `~/Desktop/Gaze X.Y.Z release notes.md` (format in the `release-notes` skill). Make the release picture.
 6. Commit and push to `main`, then run `gh release create vX.Y.Z build/installers/release-X.Y.Z/Gaze.dmg --target main --title "Gaze X.Y.Z" --notes-file ~/Desktop/"Gaze X.Y.Z release notes.md"`.
 7. Update the tap: `git clone https://github.com/OwenCope/homebrew-gaze /tmp/tap`, copy the cask to `Casks/gaze.rb`, then commit and push.
 8. Verify:
@@ -70,7 +70,7 @@ Nothing of this has been written yet. The design below has been decided; build i
    - New file `Sources/LockScreen/LockScreenLight.swift`: a borderless window adopted into the lock-screen space through `LockScreenSpace.shared.adopt`, just below the capsule's level. It shows a soft warm-white glow around the screen edges, like macOS's Edge Light, fading in over 0.3 s and out on hide.
    - New file `Sources/Recognition/FrameBrightness.swift` with `mean(_ CVPixelBuffer) -> Float?`, sampling the luma plane.
    - Show the light when frames are dark (mean below about 0.12) or faces keep failing as blurred for about 1 s; hide it when the scan ends.
-   - Add a setting, "Light up the screen when it's dark", on by default, under Unlock.
+   - Add a setting, “Light up the screen when it’s dark”, on by default: a `SettingToggle` (symbol `sun.max`, detail “Shows a soft glow so the camera can see you”) in the Unlock pane’s `unlockSection`, plus a `SettingsSearchItem` entry (keywords light, dark, glow, night, brightness).
 4. **Glasses and masks.**
    - Add an upper-face embedding: an aligned crop with the lower 45% filled neutral grey, run through the same model. Expose it as a `FaceEmbedder` protocol method with a default that returns nil.
    - Enrolment saves `upperPrints` alongside `prints`.

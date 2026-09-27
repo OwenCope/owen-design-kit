@@ -8,9 +8,10 @@ description: How every word in Owen's products, sites, posts and replies must re
 ## Rules
 - **Say what the person gets, not how the code works.** "The face in the panel now appears when you open the lid." — not "Fixed Metal drawable after display wake."
 - **Short.** One idea per sentence or bullet, under ~15 words. If a sentence could lose half its words, cut them.
+- **Naming hardware is fine** when it's how the person thinks about it ("so the camera can see you"). Internal parts aren't ("Metal renderer", "embedding").
 - **Plain words.** No jargon, no internal names, no thresholds, no HTTP codes. Those go in logs.
 - **Buttons are verbs**, one or two words: Install, Next, Check Again, Quit and Reopen, Download for Mac.
-- **Status text is calm:** "Checking…", "Installing…", "Gaze is up to date", "Couldn't check for updates. Try again." Use the real ellipsis character (…) and curly apostrophes (’) in UI.
+- **Status text is calm:** "Checking…", "Installing…", "Gaze is up to date", "Couldn't check for updates. Try again." Use the real ellipsis character (…) and curly apostrophes (’) in UI — even when the request you were given types them straight ("it's" ships as "it’s").
 - **Errors say what to do next**, in one line: "Move Gaze to Applications to install updates."
 - **No hype or filler:** no "simply", "seamlessly", "powerful", "revolutionary", "we're excited", no exclamation marks, no emoji.
 - **Consistent names.** Pick one word for a thing and use it everywhere.

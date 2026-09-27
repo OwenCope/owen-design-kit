@@ -34,7 +34,7 @@ The bar: it should look like Apple built it. The owner notices instantly when so
 
 ## Never
 
-- Gradients, glows, neon, glassmorphism *effects you drew yourself*, emoji as icons, sparkles, purple/indigo "AI" palettes.
+- Decorative gradients, glows, neon or glass effects you drew yourself, emoji as icons, sparkles, purple/indigo "AI" palettes. (A glow or gradient that *is* the feature and copies an Apple original — like macOS Edge Light, or the fade that keeps text readable over art — is fine.)
 - Drawn mock-ups of real software (System Settings, a browser, Discord…). Use a screenshot.
 - Tall capsules, grey bubbles or giant circles as badges. Use a normal icon button.
 - A transparent or blank outer window behind a sheet or panel.

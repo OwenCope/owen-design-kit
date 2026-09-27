@@ -12,11 +12,11 @@ Load `apple-design` first. This adds the platform detail.
 - **Secondary buttons:** the app's standard bordered/glass style, never custom-drawn.
 - **Switches:** a real `Toggle(...).toggleStyle(.switch)`. When a switch must appear inside a screenshot (e.g. a picture of System Settings), place the *real* Toggle on top of the real screenshot at the right pixel position — don't draw one.
 - **Progress:** real `ProgressView` (linear with a percentage while downloading, indeterminate while installing), shown *in place of* the button that started it, with a smooth transition.
-- **Icons:** SF Symbols only, matching weight to the text beside them.
+- **Icons:** SF Symbols only, matching weight to the text beside them. Pick the symbol Apple uses for the same idea in System Settings (brightness → `sun.max`, camera → `camera`, lock → `lock`, face → `faceid`, updates → `arrow.trianglehead.2.clockwise`). When unsure, pick the most literal one and mention the choice to Owen.
 - **Toolbar badges/indicators:** a normal `ToolbarItem` `Label(..., systemImage:)` with `.labelStyle(.iconOnly)` and a tint. Clicking it navigates; it never performs the action.
 
 ## Hover and motion
-- Every button has hover feedback. The signature pattern: on hover the label blurs/morphs into a symbol (e.g. "Install" → `arrow.down`), copied from the website's download button.
+- Every custom button has hover feedback. Native toggles, pickers and menus keep their system behaviour; don't add hover effects to them. The signature pattern for buttons: on hover the label blurs/morphs into a symbol (e.g. "Install" → `arrow.down`), copied from the website's download button.
 - The hover area is the whole control: `.contentShape(Capsule())` + `.onHover`. A hover that only triggers in the middle was rejected.
 - Transitions: `.smooth(duration: 0.35)`, opacity + slight scale (0.96). Read `@Environment(\.accessibilityReduceMotion)` and drop the animation when it's on.
 

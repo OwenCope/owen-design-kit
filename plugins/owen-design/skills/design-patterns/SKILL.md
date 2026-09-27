@@ -5,7 +5,7 @@ description: Copy-ready code for Owen's approved signature components and exact 
 
 # Approved patterns (copy these, don't reinvent)
 
-Every snippet here is live in Owen's products and was approved. Reuse them so new work matches.
+Every snippet here is live in Owen's products and was approved. File paths point to where they came from (Gaze and gazeunlock.com); in another project, copy the code and the values, not the paths.
 
 ## Shared motion token
 - Curve: `cubic-bezier(0.22, 1, 0.36, 1)` (fast out, gentle settle). Duration: **340 ms** for morphs, 350 ms for layout swaps, 150 ms for colour hovers.
@@ -59,6 +59,19 @@ Rules: one per screen; 160 pt wide label area; never restyle it.
 ### Button → progress swap
 Replace the button *in place* with a 260 pt linear `ProgressView` + monospaced "42%", then an indeterminate bar + "Installing…". Wrap both in a `ZStack` with fixed height 36, transition `.opacity.combined(with: .scale(scale: 0.96))`, animate with `.smooth(duration: 0.35)` (nil under Reduce Motion).
 
+### A new preference that defaults to on (Gaze `Preferences.swift`)
+
+    // Key enum
+    static let lightUpInDark = "lightUpInDark"
+    // property
+    var lightUpInDark: Bool {
+        didSet { defaults.set(lightUpInDark, forKey: Key.lightUpInDark) }
+    }
+    // init(defaults:) — `as? Bool ?? true`, so missing means on
+    lightUpInDark = defaults.object(forKey: Key.lightUpInDark) as? Bool ?? true
+
+Defaults that are off use `defaults.bool(forKey:)`. Copy the nearest existing switch, such as `showNotchCaptions`.
+
 ### Toolbar indicator (navigates, never acts)
 
     ToolbarItem(placement: .navigation) {
@@ -73,9 +86,12 @@ Replace the button *in place* with a 260 pt linear `ProgressView` + monospaced "
 Rejected before this: tall capsule, grey bubble, big blue circle.
 
 ### Settings layout
-- Sections: title above, grouped rounded container, one-sentence footer below.
-- Row: SF Symbol (secondary colour) · title · one-line detail · one trailing control. Divider inset to the text.
-- Most-needed section first. Search should find every row.
+- Sections: title above, grouped rounded container, and a one-sentence footer only when the section needs explaining. Don't add a footer to a section that doesn't already have one just for one row.
+- Row: SF Symbol (secondary colour) · title · one-line detail · one trailing control.
+- Dividers: in Gaze, use `RowDivider()` (inset to the text) between rows that have icons, and `RowDivider(inset: 0)` only above a full-width card or block. Match the dividers already in that section.
+- Toggles: use the existing `SettingToggle(title:detail:symbol:isOn:)` in `Theme.swift`. Don't build a new row.
+- Every new row also gets a Settings search entry (`SettingsSearchItem` with its pane, section id and 3–6 keywords). A row that search can't find is unfinished.
+- Most-needed section first. A new row goes in the section whose title matches what it does; if two could fit, put it next to the most closely related existing row.
 
 ### Release / update card
 Centre-aligned: app icon 72 pt (6 pt below) → "Gaze X.Y.Z" `.title2.bold` → the morph button (or progress) → release picture(s) full width with 12–14 pt continuous corners → notes (### headings semibold, bullets 13–14 pt, secondary colour). Padding 18 pt vertical. Nothing else.

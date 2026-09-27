@@ -22,12 +22,36 @@ Reference: the Droppy welcome tour (frames in `examples/`, start with `0-whole-s
    - Page dots between the art and the title; the current one is a longer pill.
 9. **One colour world.** The art, the panel glow and the button blue all belong together.
 
+## The motion, beat by beat (measured at 10 frames a second)
+
+Open `examples/timeline-1.png` … `timeline-4.png`: every tenth of a second, timestamped. Single frames are named `frame-<time>.png`.
+
+**Page 1 → 2 (click at 1.5 s)**
+- 1.5 → 1.6 s: the Mac frame is gone in about 0.1 s. The art scales up slightly so the Mac's screen now fills the window. It's fast, a cut-like zoom, not a slow push.
+- 1.6 → 2.2 s: the tiny hardware notch grows into a wide black panel, dropping down and widening over about 0.6 s, with a soft blue glow along its lower edge.
+- 1.6 → 1.9 s: the old title and body blur out (about 0.1 s), then the new ones blur in (about 0.2 s), in exactly the same position. The button label crossfades from "Take the tour" to "Continue", "Skip tour" fades away, and the back chevron fades in top-left.
+- The active page dot slides one step and stretches into the pill.
+
+**The live feature (2.3 → 3.1 s)**
+- The files arrive one by one, about 0.25 s apart: Tahoe.jpg, Brief.pdf, Notes.txt, then a folder.
+- Each starts as a small grey rounded shape, grows into its real icon, then its name fades in underneath.
+- The panel's own buttons stay pinned at the right while the items arrive.
+
+**Page 2 → 3 (click at 4.2 s), about 0.4 s in total**
+- 4.2 → 4.3 s: the shelf content blurs out while the panel stays.
+- 4.3 → 4.5 s: the same panel grows wider and taller to the player's size.
+- 4.5 → 4.6 s: the player blurs in: album art, title, scrubber, controls, "Playing Next".
+- 4.3 → 4.6 s: the text blurs out and in, as on the first transition. The art doesn't move at all.
+- After that, small things keep living: the equaliser bars animate while the rest holds still.
+
+**What never moves:** the artwork (after the first zoom), the text position, the button position, the back and close buttons. Only the panel and the words change, and that's why it reads as smooth.
+
 ## How to build it (SwiftUI)
 - A `ZStack`: full-bleed art (`.ignoresSafeArea`, `scaledToFill`), then the live feature layer, then a bottom `LinearGradient(.clear → .black.opacity(0.85))`, then the text + controls.
-- Device-frame zoom: animate a `scaleEffect` + offset on the art-plus-frame group with `matchedGeometryEffect` for the notch → panel, `.smooth(duration: 0.6)`.
-- Panel morph: one panel view whose size and content are driven by the page index; content swapped with `.transition(.opacity.combined(with: .blur))` (a custom blur modifier), size animated `.smooth(duration: 0.45)`.
-- Stagger live content (e.g. files dropping in) 80–120 ms apart.
-- Text: `.contentTransition(.opacity)` plus blur; keep a fixed frame so layout never jumps.
+- Device-frame zoom: the frame leaves in about 0.1 s while the art scales up to fill the window. Then the notch grows into the panel over about 0.6 s (`matchedGeometryEffect` from notch to panel, `.smooth(duration: 0.6)`).
+- Panel morph: one panel view whose size and content are driven by the page index; content swapped with `.transition(.opacity.combined(with: .blur))` (a custom blur modifier), size animated `.smooth(duration: 0.25)`. The whole page change is about 0.4 s: content out (0.1 s), resize (0.2 s), content in (0.1 s).
+- Stagger live content about 250 ms apart. Each item grows from a small grey placeholder into its real icon, then its label fades in.
+- Text: blur out about 0.1 s, blur in about 0.2 s, in a fixed frame so the layout never jumps. Crossfade the button label, never the button itself.
 - Reduce Motion: no zoom or morph — crossfade only.
 - Buttons: the `design-patterns` primary button; back/close are small glass circles.
 
