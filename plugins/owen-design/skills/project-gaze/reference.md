@@ -140,6 +140,33 @@ Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
 
 **Credit:** "Unxnown, for suggesting App Lock" in the 0.1.9 release notes.
 
+## From Ahmed's feedback (2026-09-28)
+
+Ahmed tested Gaze and Glance side by side. Credit "Ahmed" in the release notes for each item that ships.
+
+**0.1.9, alongside App Lock:**
+- **Detection distance.** `FrameQuality.minFaceHeight` is 0.18, so the face must fill 18% of the frame height, which is why people have to lean in.
+  - Add a "Detection distance" picker in the Unlock pane with Close (0.20), Default (0.14) and Far (0.10). Lower the default from 0.18 to 0.14.
+  - At Far, raise the match threshold by 0.03, because small faces give noisier prints. Keep anti-spoof and the movement check unchanged.
+  - Add `Tests/Recognition` cases for each level.
+- **Show in menu bar.** A `SettingToggle` "Show in menu bar", on by default.
+  - When it's off, remove the status item, but keep Gaze running.
+  - Opening Gaze again (Spotlight, Finder or Dock) must open Settings, so it's never unreachable. Handle `applicationShouldHandleReopen`.
+- **Speed: measure before changing anything.** Log the timings from the wake notification to the camera running, to the first fresh frame, to the first match, to the password typed.
+  - Get 10 real lid-open unlocks from Owen, then cut only what's slow in the camera start and first frame.
+  - Never shorten the match hold, the movement check or anti-spoof below 0.1.8's values.
+
+**0.2.0:**
+- **Photos of failed unlock attempts.**
+  - A `SettingToggle` "Take a photo when someone can’t unlock", off by default.
+  - When a lock-screen scan ends because of an unknown face, a rejected face, or the lid being opened and then closed or slept without unlocking, save one frame from that scan.
+  - Store it encrypted with `SecureVault`, next to the faces, with the date and time. Delete it after 30 days, and keep at most 50.
+  - Show the photos in a new "Unlock Attempts" list in Settings, with a thumbnail, date and time, result, and a "Delete All" button. The list also records successful unlocks with their timing, which covers the "recent unlocks" idea.
+  - Never upload them anywhere.
+  - Footer: "Photos stay on this Mac and delete themselves after 30 days."
+
+**Decided against:** a separate "Minimal" or calmer animation style (Owen, 2026-09-28). Keep Gaze's face and its animations.
+
 When 0.1.8 is done, ship it with notes and a new real picture (sections 5 and 6).
 
 ---
