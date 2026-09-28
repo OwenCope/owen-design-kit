@@ -8,7 +8,7 @@ description: The exact release-notes format Owen requires for every release of a
 Every release, every project, without being asked:
 
 1. **Header** (centred): app icon, "App X.Y.Z", one short summary line, the download-button image linking to the download.
-2. **One real picture** of this release's main change, right after the header. New for this release. Real screenshot or faithful staged shot. No black frame/outline, no nested action buttons (e.g. no Install button inside a picture of the update card), no test values (like "Version 0.1.0"). Commit/upload the image before publishing so its URL works.
+2. **One real picture**, wide (about 2.5:1 to 3:1, like 1200×460) so the in-app update card shows all of it. A full-screen 16:10 shot gets cropped to a strip in the card (rejected for 0.1.8). Composited or staged pictures read as fake; a real screenshot of the feature's UI is better than a mock-up of its effect. The picture must also be of this release's main change, right after the header. New for this release. Real screenshot or faithful staged shot. No black frame/outline, no nested action buttons (e.g. no Install button inside a picture of the update card), no test values (like "Version 0.1.0"). Commit/upload the image before publishing so its URL works.
 3. **"## What's new"** with a few plain `###` headings (e.g. Lock screen, Setup, Updates) and one short bullet per change, written per `product-writing`.
 4. **"### Thanks"** — the tester who reported it, by the name they use ("Anthony2317, for reporting the missing face.").
 5. **"## Install"** last — how to download, update in-app, the package-manager command in a code block, and any first-launch step.
@@ -47,6 +47,6 @@ The notes are written once and reused: the release page, the website's release l
 
 ## Before publishing — checklist
 - Header, picture, What's new, Thanks, Install — all present, in that order?
-- Picture new, real, clean, relevant to the *main* change?
+- Picture new, real, clean, relevant to the *main* change? Open the in-app update card and check it shows in full there too?
 - Every bullet short and about what the person gets?
 - Version numbers correct everywhere (title, links, file names)?
