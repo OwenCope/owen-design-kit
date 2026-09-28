@@ -136,6 +136,20 @@ Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
 
 **Known bug in the first App Lock build (2026-09-28):** `AppLockRecognizer` opens its own foreground `CameraController`. Starting a foreground session invalidates any other one (`CameraSessionGate.begin`), so Test Recognition's preview keeps showing video while every frame is dropped ("Getting ready…" forever, Samples 0). App Lock must only scan while its shield is up, stop the moment the shield goes, and never start while another foreground camera user (Test Recognition, setup, add face) is active. Add a test for this.
 
+**Redesigned by Owen's request (2026-09-28). Keep this design:**
+- **Settings:** App Lock has its **own toolbar pane** (`SettingsPane.apps`, "App Lock", symbol `lock.app.dashed`), placed between Unlock and Notch. Never put it back as a group at the bottom of Unlock. The pane has three groups:
+  1. a `SettingToggle` "App Lock" ("Apps you choose ask for your face before they open"), with the footer "App Lock keeps apps private from people using your Mac. It doesn’t encrypt them.";
+  2. **Locked Apps**: one row per app (icon, name, a − remove button), then a blue "+ Add App…" row. When empty, a centred state: `lock.app.dashed`, "No Locked Apps", one line of help, and an "Add App…" button;
+  3. **Options**: "Lock again" (When you quit the app / After 5 minutes away / Every time you switch to it) and "Lock from Finder" ("Right-click an app and choose Lock with Gaze", showing "Turn On…" or "On").
+  Groups 2 and 3 are dimmed and disabled while App Lock is off.
+- **Shield:** a 300 pt Liquid Glass card (`.glassEffect`, 28 pt corners, dark), over a light 25% dim of the app. Inside:
+  - the app's icon at 76 pt;
+  - "<App> is locked" in 20 pt semibold;
+  - the caption ("Looking for you", or "Use your password to open <App>");
+  - `GazeFaceMark` at 64 pt;
+  - one `.glass` capsule "Use Password" button.
+  No hint text: Esc and clicking outside still work. It fades and scales in from 0.96 over 0.35 s, with no motion under Reduce Motion. The password prompt's reason names the app, never its bundle id.
+
 **Tests:** the Finder menu showing the right item for locked, unlocked and never-lockable apps; the URL handler refusing to change anything without the face or password; and the lock state machine (locked → unlocked → locked again for each "Lock again" option, and on sleep and lock), the never-lockable list, the 3-miss switch to password-only, and that the shield is shown before any locked-app window becomes key.
 
 **Credit:** "Unxnown, for suggesting App Lock" in the 0.1.9 release notes.
