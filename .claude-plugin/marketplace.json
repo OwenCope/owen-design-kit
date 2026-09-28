@@ -3,14 +3,14 @@
   "owner": { "name": "Owen Cope" },
   "metadata": {
     "description": "Owen's design and shipping standards for every project: Apple-quality apps and websites, clean copy, real pictures, and per-project rules.",
-    "version": "1.5.3"
+    "version": "1.5.4"
   },
   "plugins": [
     {
       "name": "owen-design",
       "source": "./plugins/owen-design",
       "description": "Apple-quality design, writing and shipping standards, plus rules for each of Owen's projects (Gaze, gazeunlock.com, and future ones).",
-      "version": "1.5.3",
+      "version": "1.5.4",
       "author": { "name": "Owen Cope" },
       "keywords": ["design", "apple", "macos", "swiftui", "web", "nextjs", "copywriting", "release-notes"]
     }
