@@ -134,6 +134,8 @@ Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
 - **Turning it on:** macOS requires people to enable Finder extensions themselves. In Gaze's App Lock settings, add a row "Right-click to lock apps in Finder" with an "Open Settings…" button to System Settings > General > Login Items & Extensions > Finder (`x-apple.systempreferences:com.apple.LoginItems-Settings.extension`), and show "On" once `FIFinderSyncController.isExtensionEnabled` is true.
 - **Fallback:** if the Finder Sync extension proves unreliable on macOS 26, ship a Quick Action instead (an `NSServices` entry in `Info.plist` for `.app` files, "Lock with Gaze"). It appears under right-click > Quick Actions and needs no extension.
 
+**Known bug in the first App Lock build (2026-09-28):** `AppLockRecognizer` opens its own foreground `CameraController`. Starting a foreground session invalidates any other one (`CameraSessionGate.begin`), so Test Recognition's preview keeps showing video while every frame is dropped ("Getting ready…" forever, Samples 0). App Lock must only scan while its shield is up, stop the moment the shield goes, and never start while another foreground camera user (Test Recognition, setup, add face) is active. Add a test for this.
+
 **Tests:** the Finder menu showing the right item for locked, unlocked and never-lockable apps; the URL handler refusing to change anything without the face or password; and the lock state machine (locked → unlocked → locked again for each "Lock again" option, and on sleep and lock), the never-lockable list, the 3-miss switch to password-only, and that the shield is shown before any locked-app window becomes key.
 
 **Credit:** "Unxnown, for suggesting App Lock" in the 0.1.9 release notes.

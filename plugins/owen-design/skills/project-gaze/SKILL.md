@@ -25,6 +25,20 @@ Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` a
 - Review copy (never touch Owen's installed Gaze): `ditto` to `/tmp/gut/Gaze.app`, set version 0.1.0 with PlistBuddy, re-sign with `codesign --force --preserve-metadata=entitlements,requirements,flags,runtime -s "Apple Development: owen.o.cope@gmail.com (Y6LG3Q6HV4)"`, run with `--ui-review --settings --settings-pane=general|face|notch|about|credits` or `--ui-review --setup --setup-step=how|capture|password|permission|done`.
 - Lock-screen pictures: run the copy with `--shoot-lockscreen --shoot-movements`, full-screen screenshot, crop, kill it.
 
+## Letting Owen try a build (read this, agents get it wrong)
+Owen's Mac does **not** run Gaze from /Applications. A launch agent (`~/Library/LaunchAgents/com.gazeunlock.Gaze.agent.plist`, KeepAlive) runs `~/Developer/FaceID/build/Gaze.app`. That means:
+- **Building doesn't change what he sees.** Builds go to `build/dmg-launch/Gaze.app`, and the running copy stays the same.
+- **Quitting Gaze doesn't help.** The agent relaunches the old copy straight away.
+- **Opening another copy makes things worse.** Two Gaze processes fight over the camera and the lock screen.
+
+To let him try your build:
+1. Build: `GAZE_ARCHS=arm64 GAZE_BUILD_OUTPUT="$PWD/build/dmg-launch/Gaze.app" ./build.sh`, and run the matching tests.
+2. **Tell Owen Gaze will restart**, then run `Tools/Scripts/install-local.sh`. It stops the agent, keeps the old copy as `build/Gaze previous.app`, swaps in the new one, restarts, and prints the version now running.
+3. Tell him exactly what to try.
+4. To undo: `Tools/Scripts/install-local.sh --restore`.
+
+Never build unfinished work into the running copy without telling him, and never leave him on a half-built feature: he'll test it and report bugs that aren't his.
+
 ## Releasing
 Exact steps in `reference.md` §6: bump `Resources/Info.plist` → universal build → DMG made from `build/installers/release-0.1/Gaze-0.1-x86_64-arm64-local-preview.dmg` (UDRW, resize 400m, swap app, rename volume, UDZO) → sha256 into `Tools/Release/Homebrew/gaze.rb` (keep `auto_updates true`) → notes at `~/Desktop/Gaze X.Y.Z release notes.md` with a new picture in `docs/images/release-X.Y.Z-*.png` → commit, push → `gh release create` → update tap `OwenCope/homebrew-gaze` → verify DMG hash, `https://gazeunlock.com/api/latest`, and the `discord-release` workflow.
 
