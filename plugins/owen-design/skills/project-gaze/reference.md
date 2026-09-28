@@ -173,7 +173,7 @@ Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
 
 **Credit:** "Unxnown, for suggesting App Lock" in the 0.1.9 release notes.
 
-## From Ahmed's feedback (2026-09-28)
+## From Ahmed's feedback (2026-09-28): detection distance, menu bar, attempts log and timing are built (uncommitted, in the 0.1.9 work)
 
 Ahmed tested Gaze and Glance side by side. Credit "Ahmed" in the release notes for each item that ships.
 
@@ -189,8 +189,8 @@ Ahmed tested Gaze and Glance side by side. Credit "Ahmed" in the release notes f
   - Get 10 real lid-open unlocks from Owen, then cut only what's slow in the camera start and first frame.
   - Never shorten the match hold, the movement check or anti-spoof below 0.1.8's values.
 
-**0.2.0:**
-- **Photos of failed unlock attempts.**
+**0.2.0 (now built early, ships with 0.1.9):**
+- **Photos of failed unlock attempts.** Built in `Sources/Security/UnlockAttemptLog.swift` and `Sources/App/UnlockAttemptsSection.swift` (bottom of the Unlock pane).
   - A `SettingToggle` "Take a photo when someone can’t unlock", off by default.
   - When a lock-screen scan ends because of an unknown face, a rejected face, or the lid being opened and then closed or slept without unlocking, save one frame from that scan.
   - Store it encrypted with `SecureVault`, next to the faces, with the date and time. Delete it after 30 days, and keep at most 50.
