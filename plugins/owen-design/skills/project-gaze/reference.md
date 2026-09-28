@@ -165,11 +165,7 @@ Ahmed tested Gaze and Glance side by side. Credit "Ahmed" in the release notes f
   - Never upload them anywhere.
   - Footer: "Photos stay on this Mac and delete themselves after 30 days."
 
-- **Calmer animations and a Minimal style** (approved by Owen).
-  - Tone down the default: fewer motions, no bounce, and one smooth curve (`cubic-bezier(0.22, 1, 0.36, 1)`, 0.3–0.4 s) for the panel growing, the face and the captions. Only move the face when it means something (looking, a movement prompt, success).
-  - Add a "Style" picker in the Notch pane: **Gaze** (the face, the default) and **Minimal** (a small black pill under the notch with a padlock and a simple face glyph built from Gaze's own shapes, no character, gentle fades only).
-  - Glance has a similar option, and it's a competitor: take the idea, not its look. Don't copy its Face ID-style glyph or its layout.
-  - Capture both styles on the lock-screen mock and run `design-review` before showing Owen.
+**Decided against:** a separate "Minimal" or calmer animation style (Owen, 2026-09-28, confirmed twice). Keep Gaze's face and its animations.
 
 When 0.1.8 is done, ship it with notes and a new real picture (sections 5 and 6).
 
