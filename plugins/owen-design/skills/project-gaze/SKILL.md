@@ -10,7 +10,7 @@ Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` a
 ## Facts
 - Checkout `~/Developer/FaceID`, **public** repo `OwenCope/Gaze`, branch `main`.
 - Swift/SwiftUI/AppKit, macOS 26+. No Xcode project — `./build.sh`.
-- Latest shipped: 0.1.7 (2026-09-27).
+- Latest shipped: 0.1.8 (2026-09-28). Next: 0.1.9 (App Lock), already started (Sources/Security/AppLock*.swift, not wired in yet).
 
 ## Gaze-specific design rules
 - Setup/onboarding uses **TourKit** (`ThirdParty/TourKit/TourKit.swift`) on every page; step counter in the footer at the bottom of the media.
@@ -32,6 +32,6 @@ Exact steps in `reference.md` §6: bump `Resources/Info.plist` → universal bui
 Lock-screen flow is in `Sources/Security/LockWatcher.swift`: scans only with the display on; any key/click after the wake settle stops Gaze for that lock; 2 s match hold → movement challenge → anti-spoof → password; six misses lock out. Don't trade any of this for smoothness.
 
 ## Next up
-Ship 0.1.8 as **one** release containing everything below and any fixes since 0.1.7, after a tester has tried it on a real lid close. No more same-day release runs (see `ship-and-verify`, release rhythm).
+0.1.8 shipped 2026-09-28 as one release after Owen tested it on his Mac. Keep doing it this way: one tested release per checkpoint.
 
 The approved 0.1.8 plan (faster unlocks, learning the face over time, a dark-room edge light with full brightness, glasses/mask mode) and open issues are in `reference.md` §9–10. Bluetooth unlock was considered and rejected: the face is the only way in. After 0.1.8 ships, 0.1.9 is App Lock (also in `reference.md`).
