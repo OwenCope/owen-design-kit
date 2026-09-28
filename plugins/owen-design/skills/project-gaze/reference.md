@@ -142,12 +142,22 @@ Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
   2. **Locked Apps**: one row per app (icon, name, a − remove button), then a blue "+ Add App…" row. When empty, a centred state: `lock.app.dashed`, "No Locked Apps", one line of help, and an "Add App…" button;
   3. **Options**: "Lock again" (When you quit the app / After 5 minutes away / Every time you switch to it) and "Lock from Finder" ("Right-click an app and choose Lock with Gaze", showing "Turn On…" or "On").
   Groups 2 and 3 are dimmed and disabled while App Lock is off.
-- **Shield, "just like Gaze":** the lock-screen panel's look, not a generic glass card. Over a 30% dim of the app sits a black card (280 pt wide, 30 pt continuous corners, 8% white hairline, soft shadow). Inside:
-  - `GazeFaceMark` at 92 pt, driven by the same phases as the lock screen (`.scanning`, `.notRecognised`, `.success`);
-  - the caption in 17 pt semibold white ("Looking for you" / "Use your password to open <App>" / "Unlocked");
-  - a small row with the 18 pt app icon and "<App> is locked";
-  - one `.glass` capsule "Use Password" button.
-  On success the face smiles for 0.65 s, then the shield fades out. It enters with a scale from 0.94 on `timingCurve(0.22, 1, 0.36, 1, 0.35)`, with no motion under Reduce Motion. No hint text. The password prompt names the app.
+- **Shield (Owen's final call, 2026-09-28):** it covers **only the locked app's windows**, never the full screen, and follows them as they move or resize.
+  - It uses the union of the app's layer-0 windows, converted from CG top-left to AppKit bottom-left coordinates, with 16 pt rounded corners.
+  - For an app still launching, it waits for the first window; if none appears within 3 s, it hides the app.
+  - The ground is plain **white in Light, near-black (#141415) in Dark**, following the Mac's appearance. It's laid out like any Gaze page:
+    - `GazeFaceMark` at 96 pt, with the app's icon (34 pt) as a badge at its bottom-right;
+    - "<App> is locked" in 22 pt semibold;
+    - the caption in 15 pt secondary;
+    - a drawn capsule "Use Password" button. System button styles render greyed in a window that can't be key, so don't swap it back.
+  - The content scales down to fit small windows instead of truncating.
+  - The success smile lasts 0.65 s, then it fades out.
+- **Unlock reliability:**
+  - After an unlock, the same app is never re-shielded for 3 s (`AppLockStateMachine.unlockGrace`); quitting, sleep, screen lock and a real switch away end the grace.
+  - A late `didLaunch` notice for a process launched before the unlock doesn't relock it (`appDidLaunch(_:launchedAt:)`).
+  - A new scan waits for the previous scan's camera to close.
+  - After "Unlocked", scan reports are ignored.
+  These fixed "it unlocked and then said Camera stalled".
 - **Settings header:** the App Lock pane opens with the same header card as Unlock: the Gaze icon with a small lock badge (blue when on), "App Lock is on/off", a one-line summary ("WhatsApp asks for your face before it opens" / "3 apps ask…"), and the switch on the right.
 - **Preview for design review:** `Gaze --ui-review --app-lock-preview=<bundle id of a running app>`, plus `--app-lock-preview-success` to play the unlock.
 
