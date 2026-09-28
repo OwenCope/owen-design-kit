@@ -94,25 +94,7 @@ Nothing of this has been written yet. The design below has been decided; build i
    - When it's on and the full-face match fails, try the upper-face match with the threshold raised by 0.05. The movement challenge is always required on this path.
    - Keep the copy Apple-like, modelled on "Face ID with a Mask".
 
-5. **Bluetooth unlock** (requested by Owen, based on a "Enable Bluetooth Unlock — Automatically lock and unlock your Mac using a trusted Bluetooth device" setting he liked).
-   - **Security first.** Bluetooth signal strength can be faked or relayed, so a nearby phone or watch is *never enough on its own* to type the password. Gaze keeps requiring the face. The phone makes things faster and safer, not weaker. Tell Owen this if he asks for phone-only unlock.
-   - **What it does:**
-     1. **Lock when you walk away:** when the trusted device's signal drops below the "away" level for 10 s, lock the Mac. This works alongside the existing camera-based walk-away lock (`PresenceWatcher`, `walkAwayLock`).
-     2. **Faster unlock when it's near:** when the trusted device is near and the face matches, skip the movement challenge's second movement (require one instead of two), keeping the match hold, anti-spoof and lockout.
-     3. **Wake to unlock:** when the device comes back near a locked Mac with the display on, start a scan automatically (like the pointer rescan).
-     4. **Optional extra security:** "Only unlock when [device] is nearby". When on, the face alone can't unlock unless the device is present.
-   - **Tech:**
-     - CoreBluetooth. The person picks their device from nearby ones in Settings (iPhone, Apple Watch, AirPods and other BLE devices).
-     - Store its identifier and read RSSI by connecting (`CBCentralManager.connect` + `readRSSI` every 2 s). iPhones rotate their BLE addresses, so connecting to the chosen peripheral is what keeps it recognisable.
-     - Smooth the RSSI (median of the last 5 readings) with separate near and away levels (about −60 dBm near, −80 dBm away), so it doesn't flicker.
-     - Needs `NSBluetoothAlwaysUsageDescription` in `Resources/Info.plist` ("Gaze uses Bluetooth to tell when your trusted device is nearby.") and the Bluetooth entitlement.
-     - New file `Sources/Security/BluetoothPresence.swift` (an `@Observable @MainActor` class exposing `isNear` and `isAway`). Hook it into `LockWatcher` and `PresenceWatcher`.
-   - **Settings:** a new "Bluetooth" section in the Unlock pane, in the System Settings style, with a Liquid Glass look:
-     - a `SettingToggle` "Unlock with Bluetooth", symbol `iphone.radiowaves.left.and.right`, detail "Locks when your device moves away and unlocks faster when it’s near";
-     - a row "Trusted device" showing the device name, with a Choose… button opening a small sheet that lists nearby devices with their icons and signal;
-     - toggles "Lock when my device moves away" (on) and "Only unlock when my device is nearby" (off).
-     - Add search entries for all of them.
-   - **Tests:** the RSSI smoothing and near/away switching, the lock-when-away timing, and the rule that the device never unlocks without a face match (add this to `Tests/LockScreenSecurity`).
+**Decided against: Bluetooth unlock** (Owen, 2026-09-28). Unlocking or skipping checks because a phone or watch is nearby "defeats the purpose of Face ID". Gaze unlocks with your face only. Don't build or suggest Bluetooth or device-proximity unlock.
 
 When 0.1.8 is done, ship it with notes and a new real picture (sections 5 and 6).
 
