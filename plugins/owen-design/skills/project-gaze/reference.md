@@ -70,6 +70,15 @@ Nothing of this has been written yet. The design below has been decided; build i
    - New file `Sources/LockScreen/LockScreenLight.swift`: a borderless window adopted into the lock-screen space through `LockScreenSpace.shared.adopt`, just below the capsule's level. It shows a soft warm-white glow around the screen edges, like macOS's Edge Light, fading in over 0.3 s and out on hide.
    - New file `Sources/Recognition/FrameBrightness.swift` with `mean(_ CVPixelBuffer) -> Float?`, sampling the luma plane.
    - Show the light when frames are dark (mean below about 0.12) or faces keep failing as blurred for about 1 s; hide it when the scan ends.
+   - **Status:** built (not yet released). The glow, the per-frame brightness check (`SceneBrightness` in `FrameBrightness.swift`, fed from `CameraController.captureOutput`) and the setting exist.
+   - **Next, requested by Owen: turn the display brightness all the way up while the glow is on**, so it actually lights the face.
+     - When `LockScreenLight.show()` runs, save the built-in display's current brightness, then set it to 100%. When `hide()` runs, whatever ended the scan (unlock, give-up, lockout, display sleep or `stop()`), put it back exactly.
+     - Use the same private API macOS's brightness keys use: `DisplayServicesGetBrightness` / `DisplayServicesSetBrightness` from `/System/Library/PrivateFrameworks/DisplayServices.framework`, loaded with `dlopen` / `dlsym` and taking the `CGMainDisplayID()` display. If the symbols are missing, skip the brightness step and keep only the glow, without crashing or showing an error.
+     - Ramp the brightness up over about 0.4 s and back down over about 0.4 s, in 10–15 steps, so it doesn't flash. Do it instantly when Reduce Motion is on.
+     - Built-in display only. Don't touch external monitors (they need DDC, which is out of scope).
+     - Restore the saved value in every exit path. If Gaze quits or crashes mid-scan, the next launch restores it: save it in `UserDefaults` under `glowSavedBrightness` while boosted, and clear it after restoring.
+     - Never boost when the display is asleep (`CGDisplayIsAsleep`), or while the setting is off.
+     - Setting copy: title "Light up the screen when it’s dark", detail "Turns up the brightness so the camera can see you".
    - Add a setting, “Light up the screen when it’s dark”, on by default: a `SettingToggle` (symbol `sun.max`, detail “Shows a soft glow so the camera can see you”) in the Unlock pane’s `unlockSection`, plus a `SettingsSearchItem` entry (keywords light, dark, glow, night, brightness).
 4. **Glasses and masks.**
    - Add an upper-face embedding: an aligned crop with the lower 45% filled neutral grey, run through the same model. Expose it as a `FaceEmbedder` protocol method with a default that returns nil.
