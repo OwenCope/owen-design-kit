@@ -142,13 +142,14 @@ Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
   2. **Locked Apps**: one row per app (icon, name, a − remove button), then a blue "+ Add App…" row. When empty, a centred state: `lock.app.dashed`, "No Locked Apps", one line of help, and an "Add App…" button;
   3. **Options**: "Lock again" (When you quit the app / After 5 minutes away / Every time you switch to it) and "Lock from Finder" ("Right-click an app and choose Lock with Gaze", showing "Turn On…" or "On").
   Groups 2 and 3 are dimmed and disabled while App Lock is off.
-- **Shield:** a 300 pt Liquid Glass card (`.glassEffect`, 28 pt corners, dark), over a light 25% dim of the app. Inside:
-  - the app's icon at 76 pt;
-  - "<App> is locked" in 20 pt semibold;
-  - the caption ("Looking for you", or "Use your password to open <App>");
-  - `GazeFaceMark` at 64 pt;
+- **Shield, "just like Gaze":** the lock-screen panel's look, not a generic glass card. Over a 30% dim of the app sits a black card (280 pt wide, 30 pt continuous corners, 8% white hairline, soft shadow). Inside:
+  - `GazeFaceMark` at 92 pt, driven by the same phases as the lock screen (`.scanning`, `.notRecognised`, `.success`);
+  - the caption in 17 pt semibold white ("Looking for you" / "Use your password to open <App>" / "Unlocked");
+  - a small row with the 18 pt app icon and "<App> is locked";
   - one `.glass` capsule "Use Password" button.
-  No hint text: Esc and clicking outside still work. It fades and scales in from 0.96 over 0.35 s, with no motion under Reduce Motion. The password prompt's reason names the app, never its bundle id.
+  On success the face smiles for 0.65 s, then the shield fades out. It enters with a scale from 0.94 on `timingCurve(0.22, 1, 0.36, 1, 0.35)`, with no motion under Reduce Motion. No hint text. The password prompt names the app.
+- **Settings header:** the App Lock pane opens with the same header card as Unlock: the Gaze icon with a small lock badge (blue when on), "App Lock is on/off", a one-line summary ("WhatsApp asks for your face before it opens" / "3 apps ask…"), and the switch on the right.
+- **Preview for design review:** `Gaze --ui-review --app-lock-preview=<bundle id of a running app>`, plus `--app-lock-preview-success` to play the unlock.
 
 **Tests:** the Finder menu showing the right item for locked, unlocked and never-lockable apps; the URL handler refusing to change anything without the face or password; and the lock state machine (locked → unlocked → locked again for each "Lock again" option, and on sleep and lock), the never-lockable list, the 3-miss switch to password-only, and that the shield is shown before any locked-app window becomes key.
 
