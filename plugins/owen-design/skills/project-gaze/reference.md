@@ -97,6 +97,36 @@ Nothing of this has been written yet. The design below has been decided; build i
 
 **Decided against: Bluetooth unlock** (Owen, 2026-09-28). Unlocking or skipping checks because a phone or watch is nearby "defeats the purpose of Face ID". Gaze unlocks with your face only. Don't build or suggest Bluetooth or device-proximity unlock.
 
+## Planned for 0.1.9: App Lock (requested by Unxnown, approved by Owen 2026-09-28)
+
+Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
+
+**What it does:** people choose apps (for example Messages, Photos, Notes) that need their face to open. When a locked app comes to the front, Gaze covers it with a lock screen of its own until their face is recognised. It's modelled on iOS 18's "Require Face ID" for apps: study that and copy its feel.
+
+**How it works:**
+- **Watching apps:** listen for `NSWorkspace.didActivateApplicationNotification` and `didLaunchApplicationNotification`. When the frontmost app is locked and not currently unlocked, show the shield. This needs no new permission.
+- **The shield:** a borderless window above the app's windows (level `.floating` + 1, `collectionBehavior` `.fullScreenAuxiliary` and `.moveToActiveSpace`) covering the screen. It's a heavily blurred, dimmed copy of what's behind it, using an `NSVisualEffectView` with material `.fullScreenUI` so the app's content is unreadable. In the centre:
+  - the app's real icon (80 pt) and "<App> is locked" in bold;
+  - Gaze's face mark (`GazeFaceMark`) animating while it looks;
+  - a quiet "Use Password" text button underneath, which calls `LAContext.evaluatePolicy(.deviceOwnerAuthentication)` so Touch ID or the password works too.
+- **Recognising:** reuse the camera and `UnlockFrameEvaluator` with anti-spoof and a 1 s match hold. No movement challenge by default, to keep it quick like iOS. After 3 misses, only Use Password works until it succeeds.
+- **On success:** the shield dissolves (blur and opacity out, 0.3 s) and the app stays unlocked until it's quit, the Mac locks or sleeps, or it's been in the background longer than the "Lock again" setting.
+- **Dismissing:** Esc or clicking away hides the locked app (`NSRunningApplication.hide()`), so it can't be used behind the shield.
+- **Never lockable:** Gaze itself, Finder, System Settings and the login window.
+
+**Settings** (a new "App Lock" section on the Unlock pane, using System Settings patterns and the kit's components):
+- a `SettingToggle` "Lock apps with your face", symbol `lock.app.dashed`, detail "Choose apps that need your face to open";
+- a list of locked apps, each row showing the app's icon and name with a remove (−) control, plus an "Add App…" button that opens an `NSOpenPanel` on /Applications;
+- a picker "Lock again": After quitting (default) / After 5 minutes in the background / Every time it opens;
+- a footer: "App Lock keeps apps private from people using your Mac. It doesn’t encrypt them."
+- Add search entries for each.
+
+**Be honest about the limits.** This is a privacy shield, not encryption. The app still runs, notifications still show, and someone with an admin account could quit Gaze. Say so in the footer above and in the release notes. Don't claim more.
+
+**Tests:** the lock state machine (locked → unlocked → locked again for each "Lock again" option, and on sleep and lock), the never-lockable list, the 3-miss switch to password-only, and that the shield is shown before any locked-app window becomes key.
+
+**Credit:** "Unxnown, for suggesting App Lock" in the 0.1.9 release notes.
+
 When 0.1.8 is done, ship it with notes and a new real picture (sections 5 and 6).
 
 ---
