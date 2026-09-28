@@ -34,4 +34,4 @@ Lock-screen flow is in `Sources/Security/LockWatcher.swift`: scans only with the
 ## Next up
 Ship 0.1.8 as **one** release containing everything below and any fixes since 0.1.7, after a tester has tried it on a real lid close. No more same-day release runs (see `ship-and-verify`, release rhythm).
 
-The approved 0.1.8 plan (faster unlocks, learning the face over time, a dark-room edge light, glasses/mask mode) and open issues are in `reference.md` §9–10.
+The approved 0.1.8 plan (faster unlocks, learning the face over time, a dark-room edge light with full brightness, glasses/mask mode, Bluetooth unlock) and open issues are in `reference.md` §9–10.
