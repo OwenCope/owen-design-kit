@@ -123,7 +123,18 @@ Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
 
 **Be honest about the limits.** This is a privacy shield, not encryption. The app still runs, notifications still show, and someone with an admin account could quit Gaze. Say so in the footer above and in the release notes. Don't claim more.
 
-**Tests:** the lock state machine (locked → unlocked → locked again for each "Lock again" option, and on sleep and lock), the never-lockable list, the 3-miss switch to password-only, and that the shield is shown before any locked-app window becomes key.
+**Right-click to lock (requested by Owen).** In Finder, right-clicking an app shows "Lock with Gaze", or "Unlock with Gaze" if it's already locked, at the top level of the menu.
+- This is a **Finder Sync app extension**, not a macOS "System Extension" (those are for drivers and networking). Only Finder's menu can be extended this way: third-party apps can't add items to the Dock's right-click menu, so the Dock isn't possible.
+- Build it as a separate `.appex` bundle inside `Gaze.app/Contents/PlugIns/GazeFinder.appex`, with its own `Info.plist`:
+  - `NSExtension` with `NSExtensionPointIdentifier` `com.apple.FinderSync` and a principal class `FinderLockExtension` subclassing `FIFinderSync`;
+  - bundle id `com.gazeunlock.Gaze.Finder`.
+- `build.sh` has no extension support yet. Add a step that compiles `Sources/FinderExtension/*.swift` with `swiftc -application-extension -module-name GazeFinder -parse-as-library`, links `-e _NSExtensionMain`, and signs the appex (sandboxed, with the `com.apple.security.app-sandbox` entitlement and the shared app group) before signing Gaze.app.
+- The extension watches `/Applications` and `~/Applications` (`FIFinderSyncController.default().directoryURLs`). In `menu(for: .contextualMenuForItems)` it shows the item only when the selection is a single `.app` that isn't on the never-lockable list.
+- **Talking to Gaze:** the extension is sandboxed, so it only reads and writes the locked-apps list in the shared app group `UserDefaults` (suite `group.com.gazeunlock.Gaze`). Choosing the item opens `gaze://app-lock/toggle?bundle=<id>`. Gaze registers the `gaze` URL scheme (`CFBundleURLTypes`), and before changing anything it asks for the face or password, since locking or unlocking an app is a security change and must never happen from a click alone. Gaze moves its locked-apps list into that same app-group suite so both sides agree.
+- **Turning it on:** macOS requires people to enable Finder extensions themselves. In Gaze's App Lock settings, add a row "Right-click to lock apps in Finder" with an "Open Settings…" button to System Settings > General > Login Items & Extensions > Finder (`x-apple.systempreferences:com.apple.LoginItems-Settings.extension`), and show "On" once `FIFinderSyncController.isExtensionEnabled` is true.
+- **Fallback:** if the Finder Sync extension proves unreliable on macOS 26, ship a Quick Action instead (an `NSServices` entry in `Info.plist` for `.app` files, "Lock with Gaze"). It appears under right-click > Quick Actions and needs no extension.
+
+**Tests:** the Finder menu showing the right item for locked, unlocked and never-lockable apps; the URL handler refusing to change anything without the face or password; and the lock state machine (locked → unlocked → locked again for each "Lock again" option, and on sleep and lock), the never-lockable list, the 3-miss switch to password-only, and that the shield is shown before any locked-app window becomes key.
 
 **Credit:** "Unxnown, for suggesting App Lock" in the 0.1.9 release notes.
 
