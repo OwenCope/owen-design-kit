@@ -56,4 +56,5 @@ Open these and compare your work side by side. They live in `examples/` next to 
 | `good-tourkit-page.png` | A Gaze setup page | Media on top, dots at its bottom, bold title, one line of text, one full-width blue button, close in the corner |
 | `good-real-screenshot-with-native-toggle.png` | Accessibility setup | A real System Settings screenshot with the real switch on it — never a drawn copy |
 | `good-release-picture.png` | 0.1.7 release picture | Tight crop of the real UI showing the release's main change, no frame |
+| `good-edge-light-glow.png` | Gaze's dark-room glow, rendered | One wide, soft warm band, bright at the glass and melting inwards, with rounded inner corners, curving around the notch. Made by stroking the outline wide and blurring it once. A thick stroke (a solid frame) and a thin stroke (an outline) were both rejected. |
 | `bad-release-picture-test-version.png` | **Rejected** 0.1.7 picture | Shows "Version 0.1.0" test data and repeats an older release's picture — never do this |
