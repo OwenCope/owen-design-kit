@@ -152,6 +152,14 @@ Build this after 0.1.8 has shipped, as its own release. Don't add it to 0.1.8.
     - a drawn capsule "Use Password" button. System button styles render greyed in a window that can't be key, so don't swap it back.
   - The content scales down to fit small windows instead of truncating.
   - The success smile lasts 0.65 s, then it fades out.
+- **Settings security:** turning App Lock off, removing an app, or loosening "Lock again" calls `BiometricGate.require(.changeAppLock)`, which asks for Touch ID or the password, not the face, since a photo shouldn't be able to switch App Lock off. Turning it on, adding apps and tightening need nothing.
+- **Suggested apps:** a "Suggested" row of one-click chips under the list, showing up to 5 installed apps that people usually lock (Messages, Photos, Notes, Mail, WhatsApp, Telegram, Signal, Discord, Calendar, Passwords).
+- **Scanning:**
+  - Warm up both models while the camera starts, as `LockWatcher` does; skipping this caused "Camera stalled".
+  - Restart the camera after a hiccup, up to 3 times in a row, before showing an error.
+  - Keep looking for up to 60 s while the shield is up, then rest; clicking the face looks again.
+  - The dark-room glow and brightness boost apply here too.
+- **Rendering:** the shield window is created on a real screen at a real size, never `.zero`. A window born at `.zero` has a backing scale of 1, so the Metal face rendered pixelated. The shield tracks the app's windows every display frame (16 ms), and the content's fit-scale animates.
 - **Unlock reliability:**
   - After an unlock, the same app is never re-shielded for 3 s (`AppLockStateMachine.unlockGrace`); quitting, sleep, screen lock and a real switch away end the grace.
   - A late `didLaunch` notice for a process launched before the unlock doesn't relock it (`appDidLaunch(_:launchedAt:)`).
