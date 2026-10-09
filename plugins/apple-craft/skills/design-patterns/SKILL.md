@@ -185,16 +185,37 @@ A row per question: the question on the left, a chevron on the right, a hairline
     .faq summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
     .faq .chev { width: 16px; height: 16px; flex: none; color: var(--secondary-label);
                  transition: transform .35s cubic-bezier(.22,1,.36,1); }
-    .faq details[open] .chev { transform: rotate(180deg); }
+    .faq details.shown .chev { transform: rotate(180deg); }
     .faq .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s cubic-bezier(.22,1,.36,1); }
-    .faq details[open] .answer { grid-template-rows: 1fr; }
+    .faq details.shown .answer { grid-template-rows: 1fr; }
     .faq .answer > div { overflow: hidden; }
     .faq .answer p { margin: 0 0 22px; color: var(--secondary-label); opacity: 0; transform: translateY(-6px);
                      transition: opacity .3s ease .05s, transform .4s cubic-bezier(.22,1,.36,1); }
-    .faq details[open] .answer p { opacity: 1; transform: none; }
+    .faq details.shown .answer p { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) { .faq * { transition: none !important; } }
 
-`<details>` opens instantly, so the height animation needs the `::details-content` support in current Safari and Chrome, or a few lines of script: on click, prevent the default, set `open`, and let the grid transition run (and on close, remove `open` after the transition ends).
+`<details>` opens and closes instantly on its own, so a little script drives it. The CSS keys on a `shown` class: opening sets `open`, then adds `shown` on the next frame so the height can grow; closing removes `shown`, waits for the height to shrink, and only then removes `open`. **Closing must animate as well as opening.** An answer that slides open and then snaps shut fails review.
+
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    document.querySelectorAll('.faq details').forEach((d) => {
+      if (d.open) d.classList.add('shown');
+      d.querySelector('summary').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (reduce.matches) { d.open = !d.open; d.classList.toggle('shown', d.open); return; }
+        if (!d.open) {
+          d.open = true;
+          requestAnimationFrame(() => requestAnimationFrame(() => d.classList.add('shown')));
+        } else {
+          const answer = d.querySelector('.answer');
+          answer.addEventListener('transitionend', function done(ev) {
+            if (ev.propertyName !== 'grid-template-rows') return;
+            answer.removeEventListener('transitionend', done);
+            if (!d.classList.contains('shown')) d.open = false;
+          });
+          d.classList.remove('shown');
+        }
+      });
+    });
 
 ## Spacing and shape (measured from the code)
 
