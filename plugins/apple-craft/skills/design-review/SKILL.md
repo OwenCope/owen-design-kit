@@ -63,6 +63,19 @@ The checklist catches broken things. This catches things that are merely not goo
 13. **Signature moment.** Product pages and first-run screens have one memorable, on-brand moment (`signature-moments`) that moves and responds, and is the centrepiece of its section. A page that is only clean and correct, or whose "moment" is a static picture with a caption, **fails** this item: write three concepts, pick the boldest buildable one and build it.
 14. **Product in place.** A Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon. A floating panel or a lone menu bar strip **fails**.
 
+## Step 3b: Hard gates (pass or fail, no judgement)
+
+Each gate needs written evidence in the report. A gate with no evidence counts as failed, whatever the score above says.
+
+- **Measured gaps.** Write the real numbers: the gap between window and Dock, padding on each side of the main container, a button's position before and after hover. "Looks even" is not evidence.
+- **Zoom evidence.** Attach or name a 200 % crop of every edge, corner and cut-out. No crop, no pass.
+- **Side-by-side.** Name the reference you compared with and list at least three differences you found, even if you fixed them all.
+- **Real UI only.** Every picture of the product is a real screenshot or recording. Anything drawn, rebuilt from shapes or magnified into a second copy of the UI fails.
+- **Moving work.** Five frames from start to end, plus a frame just after every clip ends. A frame that freezes, goes black or holds the last frame of a finished clip fails.
+- **Signature moment.** A static picture with a caption fails item 13. Name the three concepts you considered.
+- **Self-score cap.** Your own rating can't go above 7/10 until the person has seen it. Say what would make it a 10.
+- **Show before done.** Never call work finished until the person has seen it. Their judgement replaces yours.
+
 ## Step 4: Fix, then capture again
 
 Fix every "fix", re-screenshot and re-score. Only a full pass gets shown.
@@ -100,3 +113,7 @@ Real, approved examples live in `examples/` next to this file. Open them and com
 | `good-edge-light-glow.png` | A dark-room screen glow | One wide, soft, warm band, bright at the edge and melting inwards, with rounded inner corners |
 | `review-web-product-page.png` | A product page an agent built with these skills, rated 8/10 | The good: one headline, one pill, a real wallpaper, a quiet feature list. The misses: the Download button goes nowhere, the panel floats without the menu bar it lives in, and an empty column sits beside the feature list |
 | `bad-release-picture-test-version.png` | **Rejected** release picture | Shows "Version 0.1.0" test data and repeats an older picture. Never do this |
+| `bad-drawn-ui-copy.png` | **Rejected** launch-video frame | The app's panel rebuilt from shapes: wrong proportions, eyes in the wrong place, flat. The person asked "use real panels" |
+| `good-real-ui-footage.png` | The fix for the frame above | A real recording of the same panel, cropped close, with one centred title. Real UI always beats a drawn copy |
+| `bad-duplicate-magnified-panel.png` | **Rejected** "zoom" effect | A magnified copy of the panel laid over the real one, so the UI appears twice and looks glitched. Zoom the camera instead |
+| `bad-frozen-last-frame.png` | **Rejected** edit | A clip's last frame held on screen for the rest of the video after the clip ended. Check a frame just after every clip's end |
