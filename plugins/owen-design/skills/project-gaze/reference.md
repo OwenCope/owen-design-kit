@@ -9,7 +9,8 @@ In `~/Developer/FaceID`:
 2. Make a universal build: `GAZE_BUILD_OUTPUT="$PWD/build/dmg-launch/Gaze.app" ./build.sh`. It needs at least 5 GB free; check with `df -h /`. Confirm with `lipo -archs` that the result is x86_64 and arm64.
 3. Make the DMG from the 0.1 layout (BuildDMG.sh's Finder step is broken):
    - `hdiutil convert build/installers/release-0.1/Gaze-0.1-x86_64-arm64-local-preview.dmg -format UDRW -o /tmp/gaze-rw.dmg`, then `hdiutil resize -size 400m /tmp/gaze-rw.dmg`.
-   - Attach it with `-nobrowse`, replace `Gaze.app` inside it using `ditto`, rename the volume to "Gaze X.Y.Z" with `diskutil rename`, then detach.
+   - Attach it with `-nobrowse`, replace `Gaze.app` inside it using `ditto`, rename the volume to "Gaze X.Y.Z" with `diskutil rename`.
+   - Renaming breaks the window background: `.DS_Store` points at `.background.tiff` through the old volume name, so Finder shows a white window. While still attached, rewrite the pointer with the `ds_store` and `mac_alias` Python packages (`pip install ds_store mac_alias` in a venv): open `<volume>/.DS_Store` read-write, set `icvp['backgroundImageAlias'] = Alias.for_file(bg).to_bytes()` and `pBBk = Bookmark.for_file(bg)` for the `'.'` entry, where `bg` is `<volume>/.background.tiff`. Then detach.
    - `hdiutil convert /tmp/gaze-rw.dmg -format UDZO -imagekey zlib-level=9 -o build/installers/release-X.Y.Z/Gaze.dmg`.
    - Attach the result read-only, check the version and run `codesign --verify --deep --strict`.
 4. Put the version and the DMG's `shasum -a 256` into `Tools/Release/Homebrew/gaze.rb`. Keep `auto_updates true`.
@@ -206,7 +207,7 @@ When 0.1.8 is done, ship it with notes and a new real picture (sections 5 and 6)
 
 ## 10. Open issues
 
-- `/bug` screenshots are temporary Discord links (they stop working in about a day). They should be saved somewhere permanent, for example uploaded to the GitHub issue or to Vercel Blob. The code is `gaze-site/src/app/api/discord/interactions/route.ts`.
+- `/bug` screenshots are temporary Discord links (they stop working in about a day). They should be saved somewhere permanent, for example uploaded to the GitHub issue or to the site's Cloud Storage bucket. The code is `gaze-site/src/app/api/discord/interactions/route.ts`.
 - ThereWasntA12: Test Recognition shows "Samples 0".
 - An M1 Mac's face scan fails (not diagnosed).
 - Owen's own Mac once hung at "Downloading… 100%" while updating (not reproduced; the installer now logs each step).
@@ -216,7 +217,7 @@ When 0.1.8 is done, ship it with notes and a new real picture (sections 5 and 6)
 
 ## 11. Discord bot facts (no secrets)
 
-- The bot posts through webhooks. The secret names are GitHub `DISCORD_RELEASE_WEBHOOK`, and Vercel `DISCORD_PUBLIC_KEY`, `DISCORD_BUGS_WEBHOOK` and `GITHUB_ISSUES_TOKEN` (the token expires 2027-09-27).
+- The bot posts through webhooks. The secret names are GitHub `DISCORD_RELEASE_WEBHOOK`, and, in the site's Google Secret Manager, `DISCORD_PUBLIC_KEY`, `DISCORD_BUGS_WEBHOOK` and `GITHUB_ISSUES_TOKEN` (the token expires 2027-10-03).
 - `/bug` is registered to guild 1536688227761651822 for app 1553615407150141542. It opens a 5-field form with a file upload and files a GitHub issue labelled `bug` and `from-discord`.
 - Posts appear as "Gaze" with the app icon.
 

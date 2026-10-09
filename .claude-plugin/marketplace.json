@@ -2,17 +2,25 @@
   "name": "owen-design-kit",
   "owner": { "name": "Owen Cope" },
   "metadata": {
-    "description": "Owen's design and shipping standards for every project: Apple-quality apps and websites, clean copy, real pictures, and per-project rules.",
-    "version": "1.6.8"
+    "description": "Apple-quality design and shipping skills for coding agents, plus Owen's private project rules.",
+    "version": "2.0.0"
   },
   "plugins": [
     {
+      "name": "apple-craft",
+      "source": "./plugins/apple-craft",
+      "description": "Make apps and websites look like Apple made them: method and review, Liquid Glass, copy-ready components, Mac and web rules, onboarding, writing, release notes and shipping.",
+      "version": "2.0.0",
+      "author": { "name": "Owen Cope" },
+      "keywords": ["design", "apple", "liquid-glass", "macos", "swiftui", "web", "onboarding", "release-notes"]
+    },
+    {
       "name": "owen-design",
       "source": "./plugins/owen-design",
-      "description": "Apple-quality design, writing and shipping standards, plus rules for each of Owen's projects (Gaze, gazeunlock.com, and future ones).",
-      "version": "1.6.8",
+      "description": "Owen's private layer on top of apple-craft: his profile, picks and per-project rules.",
+      "version": "2.0.0",
       "author": { "name": "Owen Cope" },
-      "keywords": ["design", "apple", "macos", "swiftui", "web", "nextjs", "copywriting", "release-notes"]
+      "keywords": ["owen", "projects"]
     }
   ]
 }
