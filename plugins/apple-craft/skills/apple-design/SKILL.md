@@ -49,6 +49,8 @@ The bar is simple: it should look like Apple shipped it. People notice at once w
 
 ## Rejected → fixed (real examples)
 
+The full field guide, covering websites, pictures, icons, video, copy and process, is in `lessons.md` next to this file. Read it before starting and before showing anything.
+
 | Rejected | Why | What worked |
 |---|---|---|
 | A drawn SwiftUI copy of System Settings | "looks too AI, use a real image" | A real screenshot with the real native Toggle placed on it |
