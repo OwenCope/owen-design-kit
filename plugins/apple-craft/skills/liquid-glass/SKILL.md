@@ -20,6 +20,8 @@ Open these in Figma whenever you need an exact value, a state or a component thi
 
 When the kit and this skill disagree, the newer kit wins: check its change log, then update this file.
 
+The values in this skill are already read from these kits, so work from them first. A Figma tool or connector usually needs a `figma.com/design/…` file key, which a Community link doesn't have; don't stop work to ask for one. Only ask the person to duplicate a kit when you need something this skill doesn't cover.
+
 ## Recommended picks
 
 The kit offers five control sizes: mini (16), small (20), medium (24), large (28) and extra large (36). Mini, small and medium controls are rounded rectangles at radius about 6; large and extra large are capsules. This kit recommends the capsules and the larger, rounder containers: they read as current Apple and age better. Use these picks unless you are matching a dense native AppKit layout.

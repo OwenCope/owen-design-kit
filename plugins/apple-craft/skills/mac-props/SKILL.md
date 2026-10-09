@@ -7,9 +7,26 @@ description: How to show a Mac app on a believable Mac - a MacBook frame with a 
 
 A product picture sells the app when it looks like a real Mac someone just photographed. It looks fake the moment one detail is off: a window covering the Dock, a cut-off title bar, a blurry icon, a dark screenshot on a light page. Every rule here comes from one of those mistakes.
 
+## Everything you need ships with this skill
+
+Don't stop to ask for assets or Figma files. Build the scene from these:
+
+- `assets/macbook-air-shell.webp`: the laptop frame (1920×1280, transparent screen). The CSS below is measured for it.
+- `scripts/make-assets.swift`: run it on any Mac to make the rest from the system itself, the real Dock icons, menu bar SF Symbols and a macOS wallpaper:
+
+      swift scripts/make-assets.swift ./mac-assets --app /Applications/YourApp.app
+
+  No app or icon yet? Make a temporary icon from an SF Symbol on a tinted rounded square, and say it's temporary:
+
+      swift scripts/make-assets.swift ./mac-assets --symbol doc.on.clipboard --tint "#0A84FF"
+
+- `examples/mac.html`: a complete, working scene (laptop, menu bar, window, Dock with the app and a running dot, light and dark). Copy it, drop in your window screenshots, and adapt.
+
+If the app isn't built yet, build its main window as real HTML or SwiftUI and screenshot that; never draw a fake one.
+
 ## The layers, back to front
 
-1. **The laptop shell**: a real MacBook image with a transparent screen. Good sources: the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. For the menu bar and Dock, copy sizes from the menu bar and Dock pages of Apple's macOS 27 Figma kit (linked in `liquid-glass`).
+1. **The laptop shell**: `assets/macbook-air-shell.webp`, or another MacBook image with a transparent screen. Other sources: the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. The menu bar and Dock sizes below are already measured; Apple's macOS 27 Figma kit (linked in `liquid-glass`) is only needed for something not covered here.
 2. **A black plate** behind the screen, so the bezel never shows the page through.
 3. **The wallpaper**: a real macOS or brand wallpaper, filling the screen.
 4. **The menu bar**: the Apple logo on the left; battery, Wi-Fi, Control Center and the time on the right, starting *after* the notch.
