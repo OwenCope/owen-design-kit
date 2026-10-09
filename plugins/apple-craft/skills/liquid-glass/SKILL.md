@@ -9,6 +9,17 @@ Source: Apple's "macOS 27 (Community)" Figma kit, pages Materials, Buttons, Tool
 
 On Apple platforms, use the system API. Everything here is for checking that work, and for the web, where you have to build glass yourself.
 
+## Figma files
+
+Open these in Figma whenever you need an exact value, a state or a component this skill doesn't list. Duplicate a file to your drafts, then inspect a layer: fills, effects, radii and spacing are all in the right panel.
+
+- **Apple's macOS 27 UI kit** (the source for this skill): https://www.figma.com/community/file/1651309434229735362/macos-27. Sidebars, toolbars, buttons, menus, popovers, alerts, sheets, windows, the menu bar, the Dock and notifications, in light and dark.
+- **Apple's iOS and iPadOS 27 UI kit:** https://www.figma.com/community/file/1651309003795292092/ios-and-ipados-27
+- **All of Apple's design resources** (Sketch kits, SF Symbols, fonts, product bezels): https://developer.apple.com/design/resources/
+- **iOS 26 Toggle (Liquid Glass)**, a clear study of how the pressed knob turns into a glass lens: https://www.figma.com/community/file/1519712588579681470/ios-26-toggle-liquid-glass
+
+When the kit and this skill disagree, the newer kit wins: check its change log, then update this file.
+
 ## Recommended picks
 
 The kit offers five control sizes: mini (16), small (20), medium (24), large (28) and extra large (36). Mini, small and medium controls are rounded rectangles at radius about 6; large and extra large are capsules. This kit recommends the capsules and the larger, rounder containers: they read as current Apple and age better. Use these picks unless you are matching a dense native AppKit layout.

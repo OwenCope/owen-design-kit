@@ -65,6 +65,7 @@ The bar is simple: it should look like Apple shipped it. People notice at once w
 ## Apple references to study
 
 - Human Interface Guidelines: https://developer.apple.com/design/human-interface-guidelines, especially Buttons, Toggles, Settings, Onboarding, Motion, Writing and Materials.
+- Apple's Figma kits, for exact values and every component state: macOS 27 https://www.figma.com/community/file/1651309434229735362/macos-27 and iOS and iPadOS 27 https://www.figma.com/community/file/1651309003795292092/ios-and-ipados-27. More are listed in `liquid-glass`.
 - Apple's own apps: System Settings (structure), App Store (update cards), Face ID setup (onboarding), Photos and Music (media), apple.com product pages (web), release notes and "What's New" sheets (copy).
 
 ## Related skills

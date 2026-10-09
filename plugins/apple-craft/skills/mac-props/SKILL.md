@@ -9,7 +9,7 @@ A product picture sells the app when it looks like a real Mac someone just photo
 
 ## The layers, back to front
 
-1. **The laptop shell**: a real MacBook image with a transparent screen (Apple's marketing images, a licensed mockup, or a device-frame tool such as MacProps if you have it).
+1. **The laptop shell**: a real MacBook image with a transparent screen. Good sources: the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. For the menu bar and Dock, copy sizes from the menu bar and Dock pages of Apple's macOS 27 Figma kit (linked in `liquid-glass`).
 2. **A black plate** behind the screen, so the bezel never shows the page through.
 3. **The wallpaper**: a real macOS or brand wallpaper, filling the screen.
 4. **The menu bar**: the Apple logo on the left; battery, Wi-Fi, Control Center and the time on the right, starting *after* the notch.
