@@ -70,7 +70,7 @@ Each gate needs written evidence in the report. A gate with no evidence counts a
 - **Measured gaps.** Write the real numbers: the gap between window and Dock, padding on each side of the main container, a button's position before and after hover. "Looks even" is not evidence.
 - **Zoom evidence.** Attach or name a 200 % crop of every edge, corner and cut-out. No crop, no pass.
 - **Side-by-side.** Name the reference you compared with and list at least three differences you found, even if you fixed them all.
-- **Real UI only.** Every picture of the product is a real screenshot or recording. Anything drawn, rebuilt from shapes or magnified into a second copy of the UI fails.
+- **Real UI only.** Every picture of the product is a real screenshot or recording. Anything drawn, rebuilt from shapes or magnified into a second copy of the UI fails. A mock-up of an unbuilt app is allowed only when built from `mac-props/examples/mac-ui.css`, with each part compared against its picture in `liquid-glass/reference/` and the differences listed.
 - **Moving work.** Five frames from start to end, plus a frame just after every clip ends. A frame that freezes, goes black or holds the last frame of a finished clip fails.
 - **Signature moment.** A static picture with a caption fails item 13. Name the three concepts you considered.
 - **Self-score cap.** Your own rating can't go above 7/10 until the person has seen it. Say what would make it a 10.

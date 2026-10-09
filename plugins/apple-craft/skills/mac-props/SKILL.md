@@ -30,7 +30,23 @@ If the app isn't built yet, build its main window as real HTML or SwiftUI and sc
 - for notch or menu bar apps, the real shapes: the notch's black, its exact corner curve, a menu bar extra, a popover with an arrow, glass material;
 - real-looking data: names, times and icons, never "Lorem" or one line of text in an empty card.
 
-A rounded rectangle with a few words in it is not a mock-up and fails review. If SwiftUI is available, building the view in SwiftUI and screenshotting it beats any HTML copy.
+A rounded rectangle with a few words in it is not a mock-up and fails review.
+
+**Start from the parts kit, every time.** `examples/mac-ui.css` and `examples/mac-ui.html` are working macOS 27 parts measured from Apple's Figma kit, in light and dark: window with traffic lights, inset glass sidebar, toolbar with glass capsule groups and search, inset grouped rows with icons and values, switch, segmented control, capsule buttons, popover, menu, notch panel and notification. Copy the markup and change only the content. Don't write your own window, row or toggle CSS.
+
+**Then compare, part by part.** Before showing a mock-up, open the matching picture and put your render next to it at the same size:
+
+| You built | Compare with (in `liquid-glass/reference/`) |
+|---|---|
+| Any window, sidebar, toolbar | `window-toolbar-sidebar-light.png` / `-dark.png`, `sidebar-*.png` |
+| Switches, segmented controls, sliders | `toggles-*.png`, `segmented-*.png`, `sliders-*.png` |
+| Buttons | `buttons-push-*.png` |
+| Popovers, menus, alerts | `popover-*.png`, `menus-*.png`, `alert-*.png` |
+| Notifications, Dock | `desktop-notifications-dock-*.png` |
+| Glass surfaces | `glass-material-*.png`, `blur-materials-*.png` |
+| The whole parts kit | `mac-ui-parts-light.png`, `mac-ui-parts-dark.png` |
+
+List the differences you see (radius, padding, font size, colour, shadow) and fix them. A part with no comparison listed in the report fails review. If SwiftUI is available, building the view in SwiftUI and screenshotting it beats any HTML copy.
 
 ## The layers, back to front
 

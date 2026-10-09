@@ -1,0 +1,105 @@
+/* macOS 27 UI parts for web mock-ups, measured from Apple's macOS 27 Figma kit.
+   Paste these instead of drawing boxes. Every part has a light and a dark look:
+   put class="dark" on any ancestor (or use prefers-color-scheme) for dark.
+   Pair with mac-ui.html, which shows every part assembled. */
+
+.mac {
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
+  --label: rgba(0,0,0,.85); --label-2: rgba(0,0,0,.5); --label-3: rgba(0,0,0,.26);
+  --separator: rgba(0,0,0,.1); --fill: rgba(0,0,0,.05); --fill-2: rgba(0,0,0,.08);
+  --window: #ffffff; --content: #ffffff; --sidebar: rgba(246,246,248,.82); --grouped: #f2f2f7;
+  --glass: rgba(255,255,255,.62); --glass-rim: rgba(255,255,255,.75); --glass-edge: rgba(0,0,0,.08);
+  --accent: #0088ff; --green: #34c759; --red: #ff3b30; --orange: #ff9500;
+  --shadow-window: 0 0 0 .5px rgba(0,0,0,.18), 0 22px 70px rgba(0,0,0,.28), 0 6px 18px rgba(0,0,0,.12);
+  font-family: var(--font); font-size: 13px; line-height: 16px; color: var(--label);
+  -webkit-font-smoothing: antialiased; letter-spacing: -.08px;
+}
+.dark .mac, .mac.dark {
+  --label: rgba(255,255,255,.88); --label-2: rgba(255,255,255,.55); --label-3: rgba(255,255,255,.25);
+  --separator: rgba(255,255,255,.1); --fill: rgba(255,255,255,.07); --fill-2: rgba(255,255,255,.11);
+  --window: #1e1e1e; --content: #1e1e1e; --sidebar: rgba(40,40,42,.78); --grouped: #161616;
+  --glass: rgba(50,50,52,.55); --glass-rim: rgba(255,255,255,.14); --glass-edge: rgba(0,0,0,.4);
+  --accent: #0091ff;
+  --shadow-window: 0 0 0 .5px rgba(255,255,255,.14), 0 0 0 1px rgba(0,0,0,.7), 0 22px 70px rgba(0,0,0,.55);
+}
+
+/* Liquid Glass surface: blur + light rim on top, soft edge. Used by toolbars, popovers, Dock, notch panels. */
+.mac .glass {
+  background: var(--glass); backdrop-filter: blur(24px) saturate(1.8); -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  box-shadow: inset 0 .5px 0 var(--glass-rim), inset 0 0 0 .5px var(--glass-edge), 0 8px 24px rgba(0,0,0,.12);
+}
+
+/* Window: radius 26 with a toolbar (macOS 27 concentric corners), real traffic lights. */
+.mac .window { position: relative; background: var(--window); border-radius: 26px; box-shadow: var(--shadow-window);
+  overflow: hidden; display: flex; min-height: 360px; }
+.mac .traffic { display: flex; gap: 9px; padding: 0 2px; }
+.mac .traffic i { width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.18); }
+.mac .traffic i:nth-child(1) { background: #ff5f57; } .mac .traffic i:nth-child(2) { background: #febc2e; }
+.mac .traffic i:nth-child(3) { background: #28c840; }
+.mac .window.inactive .traffic i { background: var(--fill-2); }
+
+/* Sidebar: floating inset glass panel, rows with SF Symbol-style icons. */
+.mac .sidebar { width: 220px; flex: none; margin: 8px 0 8px 8px; border-radius: 18px; padding: 14px 10px;
+  background: var(--sidebar); box-shadow: inset 0 0 0 .5px var(--separator); }
+.mac .sidebar .traffic { margin: 4px 6px 18px; }
+.mac .side-head { font-size: 11px; font-weight: 600; color: var(--label-2); padding: 10px 10px 4px; }
+.mac .side-row { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border-radius: 9px; }
+.mac .side-row svg { width: 16px; height: 16px; color: var(--accent); flex: none; }
+.mac .side-row.selected { background: var(--fill-2); font-weight: 500; }
+
+/* Toolbar: title on the left, glass capsule button groups on the right. Height 52. */
+.mac .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.mac .toolbar { height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 14px 0 18px; }
+.mac .toolbar .title { font-size: 15px; font-weight: 700; letter-spacing: -.2px; margin-right: auto; }
+.mac .tb-group { display: flex; height: 36px; border-radius: 18px; padding: 0 4px; align-items: center; }
+.mac .tb-btn { width: 32px; height: 28px; display: grid; place-items: center; border-radius: 14px; color: var(--label); }
+.mac .tb-btn svg { width: 17px; height: 17px; }
+.mac .search { height: 36px; width: 180px; border-radius: 18px; display: flex; align-items: center; gap: 6px;
+  padding: 0 12px; color: var(--label-2); }
+
+/* Content: inset grouped list, the System Settings look. */
+.mac .content { flex: 1; padding: 8px 22px 22px; overflow: hidden; }
+.mac .group-title { font-size: 13px; font-weight: 600; margin: 16px 10px 8px; }
+.mac .group { background: var(--fill); border-radius: 14px; }
+.mac .row { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 8px 12px; }
+.mac .row + .row { box-shadow: inset 0 .5px 0 var(--separator); }
+.mac .row .icon { width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; color: #fff; flex: none; }
+.mac .row .icon svg { width: 15px; height: 15px; }
+.mac .row .text { flex: 1; min-width: 0; }
+.mac .row .secondary { display: block; color: var(--label-2); font-size: 11px; line-height: 14px; margin-top: 1px; }
+.mac .row .value { color: var(--label-2); font-variant-numeric: tabular-nums; }
+
+/* Switch (macOS 27): 38 x 22 capsule, knob 18. */
+.mac .switch { width: 38px; height: 22px; border-radius: 11px; background: var(--fill-2); position: relative; flex: none; }
+.mac .switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25), 0 0 0 .5px rgba(0,0,0,.06); transition: transform .25s cubic-bezier(.22,1,.36,1); }
+.mac .switch.on { background: var(--accent); } .mac .switch.on::after { transform: translateX(16px); }
+
+/* Segmented control: capsule track, raised selected segment. Height 28. */
+.mac .segmented { display: inline-flex; height: 28px; padding: 2px; border-radius: 14px; background: var(--fill-2); }
+.mac .segmented span { padding: 0 14px; display: grid; place-items: center; border-radius: 12px; font-weight: 500; }
+.mac .segmented .on { background: var(--window); box-shadow: 0 1px 3px rgba(0,0,0,.14), 0 0 0 .5px rgba(0,0,0,.05); }
+
+/* Buttons: capsule push buttons, large size (28). */
+.mac .button { border: 0; font: inherit; color: inherit; height: 28px; padding: 0 14px; border-radius: 14px; display: inline-grid; place-items: center;
+  font-weight: 500; background: var(--fill-2); }
+.mac .button.primary { background: var(--accent); color: #fff; }
+
+/* Popover / menu bar extra panel: glass, radius 20. */
+.mac .popover { position: relative; width: 300px; border-radius: 20px; padding: 14px; }
+.mac .menu { width: 220px; border-radius: 14px; padding: 5px; }
+.mac .menu .item { height: 24px; padding: 0 10px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; }
+.mac .menu .item.hl { background: var(--accent); color: #fff; }
+.mac .menu hr { border: 0; height: .5px; background: var(--separator); margin: 5px 10px; }
+
+/* Notch: the real cut-out shape (flat top, rounded bottom corners) and a notch panel that grows from it. */
+.mac .notch { width: 200px; height: 32px; background: #000; border-radius: 0 0 12px 12px; }
+.mac .notch-panel { position: relative; background: #000; color: #fff; border-radius: 0 0 26px 26px; padding: 40px 20px 16px; min-width: 340px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.mac .notch-panel .secondary { color: rgba(255,255,255,.55); }
+
+/* Notification banner. */
+.mac .notification { width: 340px; border-radius: 22px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; }
+.mac .notification img, .mac .notification .app-icon { width: 34px; height: 34px; border-radius: 8px; flex: none; }
+.mac .notification b { display: block; font-weight: 600; }
+.mac .notification time { margin-left: auto; color: var(--label-2); font-size: 11px; }
