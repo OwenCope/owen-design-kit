@@ -28,7 +28,7 @@ If the app isn't built yet, build its main window as real HTML or SwiftUI and sc
 
 1. **The laptop shell**: `assets/macbook-air-shell.webp`, or another MacBook image with a transparent screen. Other sources: the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. The menu bar and Dock sizes below are already measured; Apple's macOS 27 Figma kit (linked in `liquid-glass`) is only needed for something not covered here.
 2. **A black plate** behind the screen, so the bezel never shows the page through.
-3. **The wallpaper**: a real macOS or brand wallpaper, filling the screen.
+3. **The wallpaper**: a real macOS or brand wallpaper, filling the screen. Pick one that lets the product read: calm, low contrast behind the window. A loud, saturated wallpaper (the bright blue macOS default) drowns the UI. Don't reuse the same wallpaper as the last site you made.
 4. **The menu bar**: the Apple logo on the left; battery, Wi-Fi, Control Center and the time on the right, starting *after* the notch.
 5. **The app's window**: a real screenshot, sitting between the menu bar and the Dock.
 6. **The Dock**: a glass capsule of real app icons, with the product's icon in it and a running dot under it.
@@ -44,6 +44,8 @@ If the app isn't built yet, build its main window as real HTML or SwiftUI and sc
 - **Even padding around the laptop.** Laptop images have wide transparent margins; crop them with negative margins so the laptop, not the empty PNG, sets the spacing. Then the gap from the card edge to the laptop is equal on all sides.
 - **Use the largest source image you have.** An icon or screenshot scaled up from a small file is blurry however good the layout is. App icons: asset catalogues hold 1024 to 2048 px versions even when the `.icns` stops at 256.
 - **Show what the app does, not just that it exists.** A welcome screen, the feature in use, the window people will actually see.
+- **The product is the hero of the shot.** Its UI must be readable at the page's normal size: at least 13 px text on screen, not a tiny card lost in the wallpaper. If the app lives in the notch or menu bar, add a close-up of that area next to or after the full Mac, so the actual feature can be read.
+- **No notes to yourself on the page.** Captions like "icon is temporary" or "window art is a concept" are leftovers and fail review.
 
 ## Full-screen desktop scenes
 

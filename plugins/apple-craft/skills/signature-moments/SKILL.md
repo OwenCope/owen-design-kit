@@ -1,6 +1,6 @@
 ---
 name: signature-moments
-description: How to be creative without looking generic - finding the one memorable, on-brand moment a product site or app deserves (like sakura petals that drift across the page and gather into the app icon as you scroll), then building it so it feels Apple-quality - fast, purposeful, ending on the real product, with Reduce Motion handled. Includes a ready-made "gather into the icon" particle scene. Use for every landing page, product page and first-run screen, and whenever a page or app feels plain, correct but forgettable, or "the same as every other site", when asked to make something "cool", "creative" or "memorable", or before adding any showpiece animation.
+description: How to be creative without looking generic - finding the one memorable, on-brand moment a product site or app deserves that could only belong to that product, then building it so it feels Apple-quality - fast, purposeful, ending on the real product, with Reduce Motion handled. Use for every landing page, product page and first-run screen, and whenever a page or app feels plain, correct but forgettable, or "the same as every other site", when asked to make something "cool", "creative" or "memorable", or before adding any showpiece animation.
 ---
 
 # Signature moments
@@ -17,6 +17,10 @@ Don't take the first idea, and don't pick from the examples below; they show the
 4. **Show the person the three concepts and your pick** in a few lines, then build it.
 
 SakuraCord worked because the question "what is this made of?" gave petals, and petals gathering into the icon says "many pieces, one native app" with no words.
+
+**That idea is taken.** Particles, drops, petals or any shape drifting and gathering into an app icon is SakuraCord's moment, and using it for another product fails review, however it's reskinned. So does anything else listed below as an example. If your concept could be described as "X gathers into the icon", start again.
+
+**The test:** cover the product's name. Could the moment belong to any other app? If yes, it isn't a signature. A countdown app's moment should be about time running out; a face unlock's about being recognised; it comes from what the product *does*, not from a decorative material.
 
 ## What counts
 
@@ -40,7 +44,7 @@ They show the ambition to aim for; don't copy them.
 
 ## Patterns that have worked
 
-- **Gather into the icon:** particles of the brand's own shape drift, then form the app icon on scroll and dissolve into the real icon. Code in `examples/gather-into-icon.js`.
+- **Gather into the icon** (SakuraCord's, taken; shown only so you know not to reuse it): particles drift, then form the app icon on scroll. Code in `examples/gather-into-icon.js` exists for SakuraCord's own site, not as a starting point.
 - **Zoom into the real feature:** start on the whole device, then zoom until the screen *is* the page and the real UI takes over (see `onboarding-design`).
 - **The product working on the page:** copy text on the page and it appears in the clipboard app's panel; hover a song and the player shows it.
 - **A statement that lights up as you read**, but only when the words are the point. It's a known Apple pattern, so it marks a site as a copy if every site you make has it.
@@ -62,13 +66,13 @@ They show the ambition to aim for; don't copy them.
 - **Land the ending.** The last frame is the payoff: the product, centred and big enough to read, filling the space the moment emptied. A small window in a corner of a bare wallpaper is an anticlimax.
 - **The real end state must be pixel-perfect:** the formed icon has to line up exactly with the real icon it dissolves into, or the handover jumps. Zoom in to check.
 
-## Building "gather into the icon"
+## How SakuraCord built "gather into the icon" (reference for the technique, not the idea)
 
 1. A section about 300vh tall with a sticky full-screen stage inside it; a `<canvas>` fills the stage, and the headline sits on top.
 2. On scroll, set `scene.progress` from 0 to 1 as the section passes.
 3. First half: the shapes drift and sway across the whole screen. Second half: each flies to its own point of the icon, staggered so they don't move as one sheet, taking on the icon's colour as it arrives.
 4. Last few per cent: the real icon fades in underneath while the shapes, trimmed to the icon's outline, fade out. It ends crisp, with no fuzzy ring.
-5. Swap the `petal` shape for one from your brand.
+5. The technique (sticky stage, scroll progress, staggered motion, crisp handover) carries to other ideas; the gathering-into-the-icon idea does not.
 
 ## Check before showing
 
