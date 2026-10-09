@@ -11,7 +11,7 @@ Load `apple-design` first; this adds the web detail. For glass materials and com
 
 - **An Apple product page, not a SaaS template.** A big confident headline, one short line under it, one primary action, a real product picture, then generous space. No hero badges, stat rows, testimonial grids, logo walls, bento boxes or rows of identical icon cards.
 - **The "AI template" look gets rejected on sight:** gradient text, colour glows behind things, uniform grids of identical cards, fake app windows, drawn browser chrome.
-- **Give each product its own signature.** Shared craft (space, type, real pictures) is good; reusing another site's signature effects makes the new one read as a recolour.
+- **Give each product its own signature.** Shared craft (space, type, real pictures) is good; reusing another site's signature effects makes the new one read as a recolour. See `signature-moments` for finding one, and `mac-props` for showing the app on a Mac.
 - **Type:** the system stack first, `-apple-system, BlinkMacSystemFont, <web font>, "Segoe UI", sans-serif`. Tight, bold headlines; body about 17 px with line height about 1.5; lines under about 70 characters. A brand font can carry the wordmark.
 - **Colour:** mostly neutral, with one accent used for the action. Dark sections are true dark, not purple-tinted.
 - **Light and dark both ship.** Follow the system setting, give a visible switch in the nav that remembers the choice, and set the theme before first paint so the page never flashes.
