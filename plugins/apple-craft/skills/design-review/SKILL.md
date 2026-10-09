@@ -10,6 +10,7 @@ Do it for real: build, open, screenshot, and look at the pixels at full size. Re
 ## Size the review to the change
 
 - **Small change** (one row, one string, one colour): capture that screen in light and dark and score only items 2, 5, 6, 7, 8, 10, 11 and 12. Mark the rest N/A.
+- **Fixing reported problems on a page:** fix them, then still score items 13 and 14. Doing only what was listed is how a page stays forgettable.
 - **New screen or flow:** the full review below.
 - **Release pictures and posts:** items 4, 6, 7 and 11, plus `release-notes`.
 
@@ -46,6 +47,8 @@ A full-page screenshot hides most problems. Before scoring:
 10. **Accessibility.** Labels, focus, contrast, text read once, touch targets at least 44 px on the web.
 11. **Leftovers.** No ghost windows, stray shadows, debug text, placeholder copy or console errors.
 12. **Consistency.** Matches `design-patterns` and the rest of the product. Anything new looks like it always existed.
+13. **Signature moment.** Product pages and first-run screens have one memorable, on-brand moment (`signature-moments`). A page that is only clean and correct **fails** this item: design one and build it.
+14. **Product in place.** A Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon. A floating panel or a lone menu bar strip **fails**.
 
 ## Step 4: Fix, then capture again
 

@@ -17,12 +17,16 @@ The bar is simple: it should look like Apple shipped it. People notice at once w
 6. **Keep one visual language.** The same button shape and size everywhere, one corner-radius family, one spacing scale, one animation curve. Capsule controls and large concentric containers read as current Apple (see `liquid-glass`). A new screen should look like it was always there.
 7. **Make motion alive but quiet.** Hover and press feedback on everything interactive, covering the whole control, not just its centre. Transitions morph instead of popping. Always honour Reduce Motion.
 8. **Put important things where people look.** What a person came for goes first (Updates at the top of Settings). A badge or indicator takes you to the thing; it never does the action behind your back.
-9. **Look at it before calling it done.** Build it, run it, screenshot it and look at the image at full size. Check light and dark, Reduce Motion, small windows and, on the web, a phone width. Most rejections would have been caught by looking.
-10. **Show the real result**, a screenshot, not a description of it.
+9. **Give it one signature moment.** Correct isn't enough; a page that only follows the rules is forgettable. Every product page or first-run screen gets one memorable moment that could only belong to this product. Load `signature-moments` and build it; don't skip it because nobody asked.
+10. **Show the product where it lives.** A Mac app is shown on a Mac: the laptop, a real menu bar, the app's window, and the Dock with the app's icon in it. Load `mac-props` and build the whole scene, not a floating panel or a strip of menu bar.
+11. **Look at it before calling it done.** Build it, run it, screenshot it and look at the image at full size. Check light and dark, Reduce Motion, small windows and, on the web, a phone width. Most rejections would have been caught by looking.
+12. **Show the real result**, a screenshot, not a description of it.
 
 ## Before showing anything
 
 - Does it look like Apple shipped it, or like a template? If a template, go back to step 1.
+- Is there one signature moment someone would describe to a friend? If it's only correct, it's not done.
+- Is a Mac app shown on a full Mac scene (laptop, menu bar, window, Dock), not a floating panel?
 - Is every control native, and the same size and shape as the rest of the product?
 - Is there exactly one prominent button, with a one- or two-word verb?
 - Is every picture real, new for this context, uncluttered, with no black frame, and no test data such as "Version 0.1.0"?

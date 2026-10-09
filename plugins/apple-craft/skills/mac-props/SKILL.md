@@ -1,6 +1,6 @@
 ---
 name: mac-props
-description: How to show a Mac app on a believable Mac - a MacBook frame with a real macOS desktop inside it (wallpaper, menu bar that clears the notch, the app's window sitting just above a glass Dock), for websites, README images and release pictures. Covers capturing clean window screenshots, light and dark versions, the exact layout rules, and copy-ready HTML and CSS. Use whenever a page, hero, feature section or picture shows an app "on a Mac", or when a product shot looks fake, cropped wrong, blurry or badly placed.
+description: How to show a Mac app on a believable Mac - a MacBook frame with a real macOS desktop inside it (wallpaper, menu bar that clears the notch, the app's window sitting just above a glass Dock), for websites, README images and release pictures. Covers capturing clean window screenshots, light and dark versions, the exact layout rules, and copy-ready HTML and CSS. Use for every landing page, product page, hero or release picture of a Mac app, whenever a page shows an app "on a Mac", or when a product shot looks fake, cropped wrong, blurry or badly placed.
 ---
 
 # Mac props

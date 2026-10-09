@@ -1,6 +1,6 @@
 ---
 name: signature-moments
-description: How to be creative without looking generic - finding the one memorable, on-brand moment a product site or app deserves (like sakura petals that drift across the page and gather into the app icon as you scroll), then building it so it feels Apple-quality - fast, purposeful, ending on the real product, with Reduce Motion handled. Includes a ready-made "gather into the icon" particle scene. Use when a page or app feels plain, correct but forgettable, or "the same as every other site", when asked to make something "cool", "creative" or "memorable", or before adding any showpiece animation.
+description: How to be creative without looking generic - finding the one memorable, on-brand moment a product site or app deserves (like sakura petals that drift across the page and gather into the app icon as you scroll), then building it so it feels Apple-quality - fast, purposeful, ending on the real product, with Reduce Motion handled. Includes a ready-made "gather into the icon" particle scene. Use for every landing page, product page and first-run screen, and whenever a page or app feels plain, correct but forgettable, or "the same as every other site", when asked to make something "cool", "creative" or "memorable", or before adding any showpiece animation.
 ---
 
 # Signature moments

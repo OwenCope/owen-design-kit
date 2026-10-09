@@ -20,6 +20,15 @@ Load `apple-design` first; this adds the web detail. For glass materials and com
 - **Every button does what it says.** If the product isn't out yet, the primary action is "Notify me" or "Join the beta", never a Download that goes nowhere.
 - **Balance two-column sections.** A short heading beside a long list leaves an empty column: make the heading sticky (`position: sticky`) or stack it above.
 
+## A product page, section by section
+
+1. **Hero:** headline, one line, one action, then the product on a Mac (`mac-props`), large.
+2. **The signature moment** (`signature-moments`): one section built around something only this product has.
+3. **What it does:** a few features, each shown with the real UI, not a bare list.
+4. **Closing:** the headline idea again in a few words, and the same action.
+
+A text-only list of features beside an empty column is the weakest version of step 3.
+
 ## Buttons and controls
 
 - **The download button is the signature.** A pill, a clear label ("Download for Mac"), a lively hover (the label morphs into an icon), and the same component everywhere it appears. Code is in `design-patterns`.
