@@ -56,6 +56,10 @@ They show the ambition to aim for; don't copy them.
 - **No hover-and-wiggle filler:** bouncing icons, floating blobs, parallax layers and gradient orbs are the generic version of this. They carry no message.
 - **The objects look like the thing they're named after.** Pebbles are smooth, shaded stones with a contact shadow, not grey capsules; petals are petals. Flat UI chips make a physical idea read as tags.
 - **Fill the stage.** The moment is the composition: the action happens across the middle of the screen, not along one edge with empty wallpaper above it.
+- **Never cover the words.** Moving objects pass behind the headline or steer around it. A pebble sitting on top of the headline makes the page look broken.
+- **Physically believable.** If it's a physical thing, it behaves like one: long objects topple and lie flat instead of standing on their ends against a wall; things settle, they don't hover. Keep labels short enough to fit the object without turning it into a pill.
+- **Every frame is a good still.** Scrub through the moment and judge each frame as if it were a poster. The first frame shouldn't be an empty stage, the middle shouldn't be clutter, and no frame should look like something went wrong.
+- **Land the ending.** The last frame is the payoff: the product, centred and big enough to read, filling the space the moment emptied. A small window in a corner of a bare wallpaper is an anticlimax.
 - **The real end state must be pixel-perfect:** the formed icon has to line up exactly with the real icon it dissolves into, or the handover jumps. Zoom in to check.
 
 ## Building "gather into the icon"

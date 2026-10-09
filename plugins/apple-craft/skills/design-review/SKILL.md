@@ -33,6 +33,19 @@ A full-page screenshot hides most problems. Before scoring:
 - **Light and dark separately.** A screenshot or colour that works in one mode often looks wrong in the other; ship a version for each.
 - **Scroll-driven and animated sections:** scroll to them for real and capture mid-animation, not just the first frame.
 
+## Step 2b: Critique like a director
+
+The checklist catches broken things. This catches things that are merely not good yet. For anything that moves, and for every page as a whole:
+
+- **Scrub the timeline.** Capture at least five frames from start to end of every animation or scroll scene (start, building, peak, resolving, end) and lay them side by side.
+- **Judge each frame as a still.** Is it composed? Is anything sitting on top of text? Is a large area empty for no reason? Does any frame look like a bug?
+- **Collisions:** moving or decorative things must never cover headlines, body text, buttons or the product itself.
+- **Plausibility:** physical things behave physically (they fall, settle, topple); UI behaves like the real OS (windows open from where they belong, menus drop from the menu bar).
+- **Start and end:** the first frame invites, the last frame pays off. The payoff is the product, big and centred enough to read.
+- **The friend test:** in one sentence, what would someone tell a friend about this page? If you can't write that sentence, the page has no moment yet.
+- **Rate it honestly out of 10**, and list exactly what would make it a 10. Fix those before reporting, or report them as the remaining gap.
+- **Don't trust a report, including your own.** Reload from scratch, look at the real page, then judge. Pages edited while open can show stale or doubled animation.
+
 ## Step 3: Score each item (pass or fix)
 
 1. **Apple test.** Put it next to the Apple screen it's modelled on. Would it look out of place? Name the reference.
