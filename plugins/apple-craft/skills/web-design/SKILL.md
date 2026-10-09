@@ -42,7 +42,7 @@ A text-only list of features beside an empty column is the weakest version of st
 - No scroll-jacking, parallax, auto-advancing carousels, or fading in every element on scroll.
 - Respect `prefers-reduced-motion`.
 - **Every interactive part animates its change, both ways.** Whatever animates in also animates out: closing, collapsing, dismissing and switching back get the same motion as opening, reversed. An opening animation with an instant close fails review.
-- **Not just its hover.** A static page with only a colour change on hover fails review. The minimum set on any product page:
+- **More than hover.** A static page with only a colour change on hover fails review. The minimum set on any product page:
   - **Disclosures (FAQ, "show more"):** the answer opens with a height animation (`grid-template-rows: 0fr → 1fr`, about 350 ms, ease-out), its text fades and rises a few pixels, and a chevron on the right rotates 180°. Never an instant jump. Code in `design-patterns` → FAQ disclosure.
   - **Buttons:** the label-to-symbol morph from `design-patterns`, and a pressed state (`scale(0.97)` while held, never on hover).
   - **Theme switch:** a smooth cross-fade of colours (about 300 ms), not a flash.
