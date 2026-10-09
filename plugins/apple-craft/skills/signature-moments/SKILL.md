@@ -54,6 +54,8 @@ They show the ambition to aim for; don't copy them.
 - **Light and dark:** read the appearance and rebuild colours and images when it changes.
 - **Reduce Motion:** show the end state, a still image of the real icon or feature. Never just a blank space.
 - **No hover-and-wiggle filler:** bouncing icons, floating blobs, parallax layers and gradient orbs are the generic version of this. They carry no message.
+- **The objects look like the thing they're named after.** Pebbles are smooth, shaded stones with a contact shadow, not grey capsules; petals are petals. Flat UI chips make a physical idea read as tags.
+- **Fill the stage.** The moment is the composition: the action happens across the middle of the screen, not along one edge with empty wallpaper above it.
 - **The real end state must be pixel-perfect:** the formed icon has to line up exactly with the real icon it dissolves into, or the handover jumps. Zoom in to check.
 
 ## Building "gather into the icon"

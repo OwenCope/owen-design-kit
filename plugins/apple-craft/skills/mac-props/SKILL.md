@@ -45,6 +45,12 @@ If the app isn't built yet, build its main window as real HTML or SwiftUI and sc
 - **Use the largest source image you have.** An icon or screenshot scaled up from a small file is blurry however good the layout is. App icons: asset catalogues hold 1024 to 2048 px versions even when the `.icns` stops at 256.
 - **Show what the app does, not just that it exists.** A welcome screen, the feature in use, the window people will actually see.
 
+## Full-screen desktop scenes
+
+When a section *becomes* the Mac's desktop (a signature moment that fills the screen):
+- Keep the Dock, with the app's icon in it; the scene is a Mac, not a wallpaper.
+- Don't stack the website's own nav on top of the scene's menu bar. Hide or fade the site nav while the scene is pinned, so there's one bar at the top.
+
 ## Capturing clean window screenshots (macOS)
 
 - Run a separate copy of the app with demo data, never the person's own account or data.

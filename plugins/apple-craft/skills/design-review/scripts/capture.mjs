@@ -40,6 +40,15 @@ for (const [size, viewport] of Object.entries(sizes)) {
         const href = await control.getAttribute('href');
         if (href !== null && /^#(top)?$/.test(href) && /download|get|buy|install/i.test(label))
           problems.push(`"${label}" looks like a main action but links to ${href}`);
+        // Skip controls that aren't really there yet (hidden, transparent, inert or aria-hidden).
+        const shown = await control.evaluate((el) => {
+          for (let n = el; n && n !== document.body; n = n.parentElement) {
+            const st = getComputedStyle(n);
+            if (n.inert || n.getAttribute('aria-hidden') === 'true' || st.visibility === 'hidden' || st.display === 'none' || Number(st.opacity) < 0.05) return false;
+          }
+          return true;
+        });
+        if (!shown) continue;
         // Scroll it into view first, so hovering doesn't scroll the page and fake a move.
         await control.scrollIntoViewIfNeeded().catch(() => {});
         await page.mouse.move(0, 0);
