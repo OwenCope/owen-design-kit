@@ -27,7 +27,7 @@ Load `apple-design` first; this adds the web detail. For glass materials and com
 3. **What it does:** a few features, each shown with the real UI, not a bare list.
 4. **Closing:** the headline idea again in a few words, and the same action.
 
-A text-only list of features beside an empty column is the weakest version of step 3.
+A text-only list of features beside an empty column is the weakest version of step 3. The next weakest is picture-left, text-right rows that swap sides all the way down: it's the most common template there is. Vary the layout to suit each feature: one full-width scene, a pair side by side, a feature shown inside the Mac scene itself.
 
 ## Buttons and controls
 

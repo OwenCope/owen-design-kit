@@ -9,12 +9,36 @@ Clean and correct isn't enough: a page can pass every rule and still be forgetta
 
 ## Finding the idea
 
-1. **Start from the product's own world**: its name, icon, colour, story. SakuraCord is named after cherry blossom, so the petals were obvious once someone asked "what is this product made of?" A clipboard app might stack copied snippets into its icon; a weather app might let rain fall into the page; a face-unlock app might sweep a scan line across a face.
-2. **Make it carry the message.** The petals gather into the icon while the headline says "Everything you love about Discord, native on your Mac". The motion says the same thing as the words: many small pieces becoming one native app.
-3. **End on the real thing.** The moment resolves into the real icon, the real window or the real feature, never just decoration that fades away.
-4. **Write the idea in one sentence before building it.** If it takes a paragraph to explain, it's too much.
+Don't take the first idea, and don't pick from the examples below; they show the bar, not a menu.
 
-## Good moments
+1. **List what the product is made of**: its name, icon and colour; the physical thing it's named after; what it does as a verb (copies, unlocks, catches, stacks, forms); the feeling after using it.
+2. **Write at least three different concepts**, one sentence each, built from that list. Make at least one of them uncomfortably ambitious.
+3. **Score each 1 to 5 on four things:** only this product could have it; it says the headline without words; someone would describe it to a friend; it can be built well in a day. Pick the highest total, preferring the bolder one on a tie.
+4. **Show the person the three concepts and your pick** in a few lines, then build it.
+
+SakuraCord worked because the question "what is this made of?" gave petals, and petals gathering into the icon says "many pieces, one native app" with no words.
+
+## What counts
+
+A signature moment **moves and responds**: to scroll, to the pointer, to what the person does on the page. It is the **centrepiece of its section**, full width or full screen, not a caption under a picture.
+
+These do **not** count, and fail review:
+- A static picture with "try it" under it.
+- A feature you could show with a screenshot.
+- Hover effects, fades on scroll, parallax, gradients, floating blobs.
+- Repeating the hero picture bigger.
+
+## Ideas at the right level, for different kinds of app
+
+They show the ambition to aim for; don't copy them.
+
+- **Clipboard history:** the words you select on the page peel off and fly up into the menu bar icon, which bounces; scrolling then fans the whole history out of the icon like a deck of cards, newest on top.
+- **Face unlock:** the lock screen's notch reads the visitor's cursor as a face. A scan line sweeps, the padlock opens and the page itself "unlocks" into the next section.
+- **Notes app:** the headline is typed live; scrolling turns the paragraphs into a tidy outline, then folds them into the app icon.
+- **Weather:** the page's own background is today's sky, and scrolling moves through the day, sunrise to night.
+- **Music player:** the section's colours and motion follow a song's beat as it plays when the person presses play.
+
+## Patterns that have worked
 
 - **Gather into the icon:** particles of the brand's own shape drift, then form the app icon on scroll and dissolve into the real icon. Code in `examples/gather-into-icon.js`.
 - **Zoom into the real feature:** start on the whole device, then zoom until the screen *is* the page and the real UI takes over (see `onboarding-design`).
