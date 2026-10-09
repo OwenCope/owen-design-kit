@@ -165,6 +165,37 @@ The frosted glass pill (LiquidButton's `glass` variant) and glossy 2000s-style g
 
 ---
 
+### FAQ disclosure (animated)
+
+A row per question: the question on the left, a chevron on the right, a hairline between rows. Opening animates the height, fades the answer in and turns the chevron.
+
+    <div class="faq">
+      <details>
+        <summary>What happens at two minutes?<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="answer"><div><p>One soft chime, then the countdown turns blue.</p></div></div>
+      </details>
+    </div>
+
+    .faq details { border-top: 1px solid var(--hairline); }
+    .faq summary { list-style: none; display: flex; justify-content: space-between; align-items: center;
+                   gap: 24px; padding: 22px 12px; margin: 0 -12px; border-radius: 14px; cursor: pointer;
+                   font-weight: 600; transition: background-color .25s ease; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary:hover { background: var(--fill-quaternary); }
+    .faq summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .faq .chev { width: 16px; height: 16px; flex: none; color: var(--secondary-label);
+                 transition: transform .35s cubic-bezier(.22,1,.36,1); }
+    .faq details[open] .chev { transform: rotate(180deg); }
+    .faq .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s cubic-bezier(.22,1,.36,1); }
+    .faq details[open] .answer { grid-template-rows: 1fr; }
+    .faq .answer > div { overflow: hidden; }
+    .faq .answer p { margin: 0 0 22px; color: var(--secondary-label); opacity: 0; transform: translateY(-6px);
+                     transition: opacity .3s ease .05s, transform .4s cubic-bezier(.22,1,.36,1); }
+    .faq details[open] .answer p { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .faq * { transition: none !important; } }
+
+`<details>` opens instantly, so the height animation needs the `::details-content` support in current Safari and Chrome, or a few lines of script: on click, prevent the default, set `open`, and let the grid transition run (and on close, remove `open` after the transition ends).
+
 ## Spacing and shape (measured from the code)
 
 App (keep these as named constants in one `Theme` file):

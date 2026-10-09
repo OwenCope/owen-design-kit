@@ -41,6 +41,14 @@ A text-only list of features beside an empty column is the weakest version of st
 - Hover and press states on everything clickable: subtle, fast (about 200 to 350 ms), eased.
 - No scroll-jacking, parallax, auto-advancing carousels, or fading in every element on scroll.
 - Respect `prefers-reduced-motion`.
+- **Every interactive part animates its change, not just its hover.** A static page with only a colour change on hover fails review. The minimum set on any product page:
+  - **Disclosures (FAQ, "show more"):** the answer opens with a height animation (`grid-template-rows: 0fr → 1fr`, about 350 ms, ease-out), its text fades and rises a few pixels, and a chevron on the right rotates 180°. Never an instant jump. Code in `design-patterns` → FAQ disclosure.
+  - **Buttons:** the label-to-symbol morph from `design-patterns`, and a pressed state (`scale(0.97)` while held, never on hover).
+  - **Theme switch:** a smooth cross-fade of colours (about 300 ms), not a flash.
+  - **Product pictures:** swap with a cross-fade and slight scale, never a hard cut.
+  - **Sections:** headline and product enter once, together, with a short rise and fade the first time they're seen. One entrance per section, not every paragraph.
+- **Focus rings belong to the control:** rounded to match it, inset or offset so they never touch dividers or neighbours (`outline-offset: 4px; border-radius` equal to the control's). A square ring cutting across the lines above and below fails review.
+- **Timing:** 200 to 350 ms for controls, 500 to 800 ms for section entrances, eased out (`cubic-bezier(0.22, 1, 0.36, 1)`). Nothing linear, nothing bouncy.
 
 ## Layout
 
