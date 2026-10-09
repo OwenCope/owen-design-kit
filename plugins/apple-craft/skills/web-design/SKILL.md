@@ -16,6 +16,9 @@ Load `apple-design` first; this adds the web detail. For glass materials and com
 - **Colour:** mostly neutral, with one accent used for the action. Dark sections are true dark, not purple-tinted.
 - **Light and dark both ship.** Follow the system setting, give a visible switch in the nav that remembers the choice, and set the theme before first paint so the page never flashes.
 - **Imagery:** real screenshots and recordings, crisp at 2×, with no frames or drop-shadow boxes unless they copy a real device. Every image has meaningful alt text.
+- **Show the product where it lives.** A menu bar app is shown under the real menu bar, a notch feature at the notch, a Mac app inside a real window on a real desktop. The product fills most of the picture; the wallpaper is context, not the subject.
+- **Every button does what it says.** If the product isn't out yet, the primary action is "Notify me" or "Join the beta", never a Download that goes nowhere.
+- **Balance two-column sections.** A short heading beside a long list leaves an empty column: make the heading sticky (`position: sticky`) or stack it above.
 
 ## Buttons and controls
 
@@ -32,7 +35,7 @@ Load `apple-design` first; this adds the web detail. For glass materials and com
 
 ## Layout
 
-- **Phone is first-class.** Check about 375 px wide every time you touch layout: no horizontal scroll, touch targets at least 44 px, headlines that wrap nicely (`text-wrap: balance`).
+- **Phone is first-class.** Check about 375 px wide every time you touch layout: no horizontal scroll, touch targets at least 44 px, headlines that wrap nicely (`text-wrap: balance`), and no product picture that clips its own text. Give pictures a phone crop if they need one.
 - One spacing scale and one container width across pages.
 - Release pages keep the release pictures and read like the GitHub release.
 

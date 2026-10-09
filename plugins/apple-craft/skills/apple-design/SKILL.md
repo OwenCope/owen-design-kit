@@ -56,6 +56,10 @@ The bar is simple: it should look like Apple shipped it. People notice at once w
 | Two Install buttons | confusing | One |
 | A release picture with a black outline and the Install button inside it | cluttered, nested | A clean crop, no frame, nothing nested |
 | A release picture reused from an older release | stale | A new picture of this release's main change |
+| A product picture with a window cut too high and a grey band under it | it no longer sat on the Dock like the others | Measure the gap to the Dock and match it exactly |
+| An icon edited from the 256 px `.icns` and blown up | "extremely blurry" | The 2048 px version from the asset catalogue |
+| A cut-out shape whose outline sat outside its own rim light | a dark outline around it | Trace the outline from the rim itself, then check at 300 % |
+| Buttons that lift a few pixels on hover | "not needed" | Change colour, glow or content instead; never move the button |
 | A website that copied another product's signature effects | "it looks like that other site with a new colour" | Keep the shared craft (space, type, real pictures) but give the product its own signature pieces |
 
 ## Apple references to study
