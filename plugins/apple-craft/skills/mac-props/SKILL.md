@@ -24,6 +24,14 @@ Don't stop to ask for assets or Figma files. Build the scene from these:
 
 If the app isn't built yet, build its main window as real HTML or SwiftUI and screenshot that; never draw a fake one.
 
+**Build the mock-up from Apple's parts, not boxes.** When the app isn't built, its window and panels are assembled from real macOS 27 components, taken from Apple's macOS 27 Figma kit (linked in `liquid-glass`) or rebuilt to its exact measurements:
+- a real window: traffic lights, a toolbar with Liquid Glass buttons and SF Symbols, the title in the toolbar, the system corner radius and shadow;
+- real content structure: a sidebar with SF Symbol rows, grouped list rows or an inset form, segmented controls, switches, the system fonts and secondary label colours;
+- for notch or menu bar apps, the real shapes: the notch's black, its exact corner curve, a menu bar extra, a popover with an arrow, glass material;
+- real-looking data: names, times and icons, never "Lorem" or one line of text in an empty card.
+
+A rounded rectangle with a few words in it is not a mock-up and fails review. If SwiftUI is available, building the view in SwiftUI and screenshotting it beats any HTML copy.
+
 ## The layers, back to front
 
 1. **The laptop shell**: `assets/macbook-air-shell.webp`, or another MacBook image with a transparent screen. Other sources: the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. The menu bar and Dock sizes below are already measured; Apple's macOS 27 Figma kit (linked in `liquid-glass`) is only needed for something not covered here.
