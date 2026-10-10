@@ -32,6 +32,8 @@ If the app isn't built yet, build its main window as real HTML or SwiftUI and sc
 
 A rounded rectangle with a few words in it is not a mock-up and fails review.
 
+**Build the screen at real size, then scale it.** Lay out the desktop at a real 1470 x 956 pt and scale the whole thing to the laptop's screen with one `transform: scale()` (see `web-design/examples/product-page.html`). Sizing UI parts in `cqw` or percentages squashes them: fonts, toolbars and rows stop matching macOS.
+
 **Start from the parts kit, every time.** `examples/mac-ui.css` and `examples/mac-ui.html` are working macOS 27 parts measured from Apple's Figma kit, in light and dark: window with traffic lights, inset glass sidebar, toolbar with glass capsule groups and search, inset grouped rows with icons and values, switch, segmented control, capsule buttons, popover, menu, notch panel and notification. Copy the markup and change only the content. Don't write your own window, row or toggle CSS.
 
 **Then compare, part by part.** Before showing a mock-up, open the matching picture and put your render next to it at the same size:

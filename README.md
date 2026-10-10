@@ -24,18 +24,33 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 
 ## Install
 
-Claude Code:
+### Claude Code
 
-    /plugin marketplace add OwenCope/owen-design-kit
-    /plugin install apple-craft@owen-design-kit
+Add the marketplace, then install the plugin.
 
-The skills load on their own when the work matches. You can also ask for one by name, for example "run design-review on this page".
+    claude plugin marketplace add OwenCope/owen-design-kit
+    claude plugin install apple-craft@owen-design-kit
 
-Other agents: add this to your project's `AGENTS.md`, pointing at wherever you cloned the kit:
+To update later, update the marketplace, then update the plugin, then restart Claude Code.
 
-    Before any UI work, read <kit>/plugins/apple-craft/skills/apple-design/SKILL.md
-    and run <kit>/plugins/apple-craft/skills/design-review/SKILL.md before showing results.
-    Load the other skills in that folder when the work matches their description.
+    claude plugin marketplace update owen-design-kit
+    claude plugin update apple-craft@owen-design-kit
+
+Only apple-craft is for sharing; owen-design is the author's private layer.
+
+### OpenCode
+
+OpenCode does not read Claude Code plugins. Clone the repo, then copy every folder in plugins/apple-craft/skills/ into ~/.config/opencode/skills/.
+
+    for d in plugins/apple-craft/skills/*/; do cp -R "$d" ~/.config/opencode/skills/; done
+
+Copy, because symlinks may not be followed. Quit OpenCode fully (Cmd+Q) and reopen, because skills load at start. Copies do not update themselves: pull the repo and copy again after updates.
+
+### Other agents (Codex, Cursor and others)
+
+Copy the same folders into that tool's skills folder if it supports SKILL.md skills, or point the agent at plugins/apple-craft/skills/*/SKILL.md and ask it to read apple-design first.
+
+Check it works: ask the agent "load the apple-design skill and tell me its first rule"; if it says the skill is not found, it was not installed or the app was not restarted.
 
 ## Make it yours
 

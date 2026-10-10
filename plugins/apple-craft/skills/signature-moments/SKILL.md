@@ -16,11 +16,40 @@ Don't take the first idea, and don't pick from the examples below; they show the
 3. **Score each 1 to 5 on four things:** only this product could have it; it says the headline without words; someone would describe it to a friend; it can be built well in a day. Pick the highest total, preferring the bolder one on a tie.
 4. **Show the person the three concepts and your pick** in a few lines, then build it.
 
+### From verb to moment
+
+Start from the verb the product performs for the person: counts down, unlocks, parks, catches, translates.
+Ask what that verb would look like happening to the page itself, not to a picture of the product.
+Make the visitor cause it: scroll, pointer, typing, selecting text.
+The page becomes the product's material.
+If you remove the verb and the moment still works, it is not the moment.
+
 SakuraCord worked because the question "what is this made of?" gave petals, and petals gathering into the icon says "many pieces, one native app" with no words.
 
 **That idea is taken.** Particles, drops, petals or any shape drifting and gathering into an app icon is SakuraCord's moment, and using it for another product fails review, however it's reskinned. So does anything else listed below as an example. If your concept could be described as "X gathers into the icon", start again.
 
 **The test:** cover the product's name. Could the moment belong to any other app? If yes, it isn't a signature. A countdown app's moment should be about time running out; a face unlock's about being recognised; it comes from what the product *does*, not from a decorative material.
+
+### Worked examples (reasoning, not ideas to copy)
+
+These are here to show the thinking. Do not reuse them.
+
+- **Meeting countdown in the notch.** Verb: counts down. The page's own scroll length is the meeting's remaining time. A full-screen Mac scene keeps the notch visible at top; the time left in it shrinks as you scroll. At the end the chime rings visually as a soft pulse through the whole page and the call window opens. The visitor's scrolling is time passing. Only a countdown owns the feeling of time running out.
+- **Clipboard manager.** Verb: keeps what you copy. The page holds real sentences worth selecting. Each time the visitor selects text, a dated slip stays pinned where it was and a copy stacks on a shelf at the edge. Scrolling back walks the shelf in order. Only a clipboard manager keeps every copy.
+- **Password manager.** Verb: hides until it trusts you. The section's logins render as scrambled glyphs. While the visitor presses and holds anywhere, the glyphs settle line by line into real usernames; release and they scramble again. It ends on the open vault. Only a password manager decides what you may read.
+- **Screenshot tool.** Verb: frames. The visitor drags a rectangle over the page itself. Everything outside the drag dims, edge rulers read the pixel size, and on release the real editor opens with that exact shot inside. Only a screenshot tool frames the screen.
+- **Focus timer.** Verb: quiets. The section starts noisy: badges, tickers, banners at the margins. As the visitor scrolls, each metre of scroll clears one layer until only one line of work stays centred. Then the timer UI takes over. Only a focus timer trades passing time for quiet.
+- **Menu bar weather app.** Verb: tells the sky. A thin hour strip sits under the headline. As the visitor drags across it, the section's light, shadows and a small street scene shift to that hour's weather. It ends on the menu bar forecast. Only a weather app owns the light.
+
+### Red flags in your own concept
+
+- It would still work if you swapped the product name.
+- It is decoration on top of a screenshot.
+- It needs a paragraph to explain.
+- It ends on anything other than the real product UI.
+- It only plays once on load.
+- It uses the same technique as the last site you made.
+- It covers the headline.
 
 ## What counts
 
@@ -79,4 +108,6 @@ They show the ambition to aim for; don't copy them.
 - Scroll through it slowly and quickly, in light and dark, on a phone, and with Reduce Motion on.
 - Capture frames at the start, the middle and the end, and zoom into the end state.
 - Ask: would someone describe this to a friend? Does it belong only to this product?
+- Write the friend sentence ("the page where scrolling ..."). If it does not start with the product's verb, start over.
+- Capture five frames of the moment and check each is a good still.
 - Run `design-review`.
