@@ -5,132 +5,206 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>motion-kit: notch shelf</title>
 <!-- Reference build of a notch interaction with motion-kit. Needs ./mac-assets (run mac-props/scripts/make-assets.swift ./mac-assets).
-     Copy the patterns, not the page: one shape that grows out of the notch, files that fly in on an arc,
-     a catch bump, a staggered shelf, and every move reversed on the way out. -->
+     Copy the patterns, not the page:
+     - one shape that grows out of the notch, with the notch's own shoulders, never a box underneath
+     - a notch that answers when something comes near (grows, glows) and pulls it in (magnet)
+     - files that fly in on an arc, tilt into the turn and land with a squash
+     - parked files peeking inside the closed notch as tiny icons
+     - a shelf whose items stagger in, lift on hover, and come out by pulling down or clicking
+     - every move reversed on the way out, and Clear sending each file home on its own arc -->
 <style>
-  :root { --bg: #f5f5f7; --ink: #1d1d1f; --muted: rgba(0,0,0,.55); color-scheme: light dark; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #000; --ink: #f5f5f7; --muted: rgba(255,255,255,.6); } }
+  :root { --bg: #f2f2f5; --ink: #1d1d1f; --muted: rgba(0,0,0,.5); color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0b0b0d; --ink: #f5f5f7; --muted: rgba(255,255,255,.55); } }
   * { box-sizing: border-box; }
-  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); overflow: hidden;
          font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; -webkit-font-smoothing: antialiased; }
 
-  /* The notch is one element. It never gets a second box underneath: it grows into the shelf. */
+  /* The notch: one black shape. Its shoulders are concave curves where it meets the top edge, like the real one. */
   .notch { position: fixed; top: 0; left: 50%; translate: -50% 0; width: 200px; height: 32px; background: #000;
-           border-radius: 0 0 12px 12px; z-index: 10; overflow: hidden; color: #fff; }
-  .notch .count { position: absolute; top: 8px; right: 14px; font: 600 12px/16px -apple-system, sans-serif;
-                  color: rgba(255,255,255,.7); opacity: 0; transition: opacity .2s; }
-  .notch.has .count { opacity: 1; }
-  .shelf { position: absolute; left: 0; right: 0; top: 44px; padding: 0 56px; display: flex; justify-content: center; gap: 18px; }
-  .item { width: 76px; text-align: center; opacity: 0; cursor: pointer; }
-  .item img { width: 56px; height: 56px; display: block; margin: 0 auto 6px; }
-  .item span { display: block; font-size: 11px; line-height: 14px; color: rgba(255,255,255,.85);
-               white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .clear { position: absolute; right: 14px; bottom: 12px; width: 28px; height: 28px; border-radius: 14px; border: 0;
-           background: rgba(255,255,255,.12); cursor: pointer; opacity: 0; display: grid; place-items: center; }
-  .clear img { width: 14px; height: 14px; filter: invert(1); }
+           border-radius: 0 0 12px 12px; z-index: 10; color: #fff; outline: none;
+           box-shadow: 0 0 0 0 rgba(255,255,255,0); transition: box-shadow .25s ease; }
+  .notch::before, .notch::after { content: ""; position: absolute; top: 0; width: 10px; height: 10px; pointer-events: none;
+           background: radial-gradient(circle at 0 100%, transparent 9.5px, #000 10px); }
+  .notch::before { left: -10px; } .notch::after { right: -10px; transform: scaleX(-1); }
+  .notch.near { box-shadow: inset 0 -1px 0 rgba(255,255,255,.18), 0 6px 24px rgba(0,0,0,.25); }
+  .notch:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
+  .clip { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
 
-  .stage { min-height: 100vh; display: grid; place-content: center; justify-items: center; gap: 56px; padding-top: 80px; }
-  h1 { margin: 0; font-size: 64px; line-height: 1.05; letter-spacing: -.03em; text-align: center; }
-  .desk { display: flex; gap: 48px; }
-  .file { width: 96px; text-align: center; user-select: none; }
-  .file img { width: 80px; height: 80px; display: block; margin: 0 auto 8px; pointer-events: none; }
+  /* Closed: up to three parked files peek inside the notch, beside the camera area. */
+  .peek { position: absolute; top: 7px; right: 12px; height: 18px; display: flex; flex-direction: row-reverse; }
+  .notch[aria-expanded="true"] .peek { opacity: 0; }
+  .peek { transition: opacity .15s; }
+  .peek img { width: 20px; height: 20px; margin-left: -7px; filter: drop-shadow(0 0 1px #000); }
+  .peek b { font: 600 11px/18px -apple-system, sans-serif; color: rgba(255,255,255,.6); margin-left: 4px; order: -1; }
+
+  /* Open: the shelf. */
+  .head { position: absolute; top: 40px; left: 22px; right: 16px; display: flex; align-items: center; justify-content: space-between;
+          opacity: 0; font: 600 12px/16px -apple-system, sans-serif; color: rgba(255,255,255,.55); }
+  .clear { width: 26px; height: 26px; border-radius: 13px; border: 0; background: rgba(255,255,255,.12); cursor: pointer;
+           display: grid; place-items: center; }
+  .clear:hover { background: rgba(255,255,255,.2); }
+  .clear img { width: 12px; height: 12px; filter: invert(1); }
+  .shelf { position: absolute; left: 0; right: 0; top: 74px; padding: 0 22px; display: flex; justify-content: center; gap: 14px; }
+  .item { width: 78px; text-align: center; opacity: 0; cursor: grab; touch-action: none; border-radius: 12px; padding: 6px 0 4px; }
+  .item:hover { background: rgba(255,255,255,.08); }
+  .item img { width: 52px; height: 52px; display: block; margin: 0 auto 6px; pointer-events: none; }
+  .item span { display: block; padding: 0 4px; font-size: 11px; line-height: 14px; color: rgba(255,255,255,.88);
+               white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* The desk. */
+  .stage { height: 100%; display: grid; place-content: center; justify-items: center; gap: 64px; padding-top: 40px; }
+  h1 { margin: 0; font-size: clamp(40px, 6vw, 72px); line-height: 1.04; letter-spacing: -.035em; text-align: center; font-weight: 700; }
+  .desk { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
+  .file { width: 104px; padding: 8px 0; border-radius: 14px; text-align: center; user-select: none; outline: none; }
+  .file:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
+  .file img { width: 84px; height: 84px; display: block; margin: 0 auto 8px; pointer-events: none; }
   .file span { font-size: 13px; }
-  .file.parked { visibility: hidden; }
-  .hint { color: var(--muted); font-size: 15px; }
+  .hint { color: var(--muted); font-size: 15px; margin: 0; transition: opacity .3s; }
+  @media (max-width: 600px) { .desk { display: grid; grid-template-columns: repeat(2, 120px); gap: 28px 36px; } .file { width: 120px; } .file img { width: 72px; height: 72px; } }
 </style>
 </head>
 <body>
-  <div class="notch" id="notch" aria-label="Shelf">
-    <span class="count" id="count"></span>
-    <div class="shelf" id="shelf"></div>
-    <button class="clear" id="clear" aria-label="Clear the shelf"><img src="mac-assets/menubar/xmark.png" alt=""></button>
+  <div class="notch" id="notch" tabindex="0" role="button" aria-label="Shelf, empty" aria-expanded="false">
+    <div class="clip">
+      <div class="peek" id="peek"></div>
+      <div class="head" id="head"><span id="title"></span>
+        <button class="clear" id="clear" aria-label="Clear the shelf"><img src="mac-assets/menubar/xmark.png" alt=""></button></div>
+      <div class="shelf" id="shelf"></div>
+    </div>
   </div>
 
   <main class="stage">
     <h1>Put it in the notch.</h1>
     <div class="desk" id="desk">
-      <div class="file" data-name="Proposal.pdf" data-icon="pdf"><img src="mac-assets/files/pdf.png" alt=""><span>Proposal.pdf</span></div>
-      <div class="file" data-name="Launch.key" data-icon="keynote"><img src="mac-assets/files/keynote.png" alt=""><span>Launch.key</span></div>
-      <div class="file" data-name="Moodboard.png" data-icon="png"><img src="mac-assets/files/png.png" alt=""><span>Moodboard.png</span></div>
-      <div class="file" data-name="Clip.mov" data-icon="movie"><img src="mac-assets/files/movie.png" alt=""><span>Clip.mov</span></div>
+      <div class="file" tabindex="0" data-name="Proposal.pdf" data-icon="pdf"><img src="mac-assets/files/pdf.png" alt=""><span>Proposal.pdf</span></div>
+      <div class="file" tabindex="0" data-name="Launch.key" data-icon="keynote"><img src="mac-assets/files/keynote.png" alt=""><span>Launch.key</span></div>
+      <div class="file" tabindex="0" data-name="Moodboard.png" data-icon="png"><img src="mac-assets/files/png.png" alt=""><span>Moodboard.png</span></div>
+      <div class="file" tabindex="0" data-name="Clip.mov" data-icon="movie"><img src="mac-assets/files/movie.png" alt=""><span>Clip.mov</span></div>
     </div>
-    <p class="hint">Drag a file to the notch. Hover the notch to see what's waiting.</p>
+    <p class="hint" id="hint">Drag a file to the notch, or flick it up.</p>
   </main>
 
 <script src="motion.js"></script>
 <script>
-  const notch = document.getElementById('notch'), shelf = document.getElementById('shelf');
-  const count = document.getElementById('count'), clear = document.getElementById('clear');
+  const $ = (id) => document.getElementById(id);
+  const notch = $('notch'), shelf = $('shelf'), peek = $('peek'), head = $('head'), title = $('title'), hint = $('hint');
   const parked = [];
-  let open = false, closeTimer = 0;
+  let open = false, closeTimer = 0, busy = Promise.resolve();
+  const queue = (fn) => (busy = busy.then(fn, fn));   // one notch animation at a time, in order
 
   const CLOSED = { width: 200, height: 32, radius: 12 };
-  const NEAR = { width: 236, height: 38, radius: 14 };
-  const openSize = () => ({ width: Math.max(320, 112 + parked.length * 94), height: 136, radius: 28 });
+  const peekWidth = () => (parked.length ? 236 + Math.min(parked.length, 3) * 11 : 200);
+  const closedSize = () => ({ ...CLOSED, width: peekWidth() });
+  const NEAR = () => ({ width: peekWidth() + 40, height: 42, radius: 16 });
+  const openSize = () => ({ width: Math.max(300, 44 + parked.length * 92), height: 186, radius: 30 });
 
-  function render() {
-    shelf.innerHTML = '';
-    parked.forEach((f) => {
-      const item = document.createElement('div');
-      item.className = 'item';
-      item.innerHTML = `<img src="mac-assets/files/${f.dataset.icon}.png" alt=""><span>${f.dataset.name}</span>`;
-      item.addEventListener('click', () => unpark(f, item));
-      shelf.appendChild(item);
+  function renderPeek() {
+    peek.innerHTML = parked.slice(-3).map((f) => `<img src="mac-assets/files/${f.dataset.icon}.png" alt="">`).join('')
+      + (parked.length > 3 ? `<b>+${parked.length - 3}</b>` : '');
+    title.textContent = parked.length === 1 ? '1 waiting' : `${parked.length} waiting`;
+    notch.setAttribute('aria-label', parked.length ? `Shelf, ${parked.length} waiting` : 'Shelf, empty');
+    hint.textContent = parked.length === 4 ? 'Hover the notch to see what’s waiting.' : 'Drag a file to the notch, or flick it up.';
+  }
+  function makeItem(f) {
+    const item = document.createElement('div');
+    item.className = 'item'; item.file = f;
+    item.innerHTML = `<img src="mac-assets/files/${f.dataset.icon}.png" alt=""><span>${f.dataset.name}</span>`;
+    // Take it out: click, or pull it down out of the shelf.
+    let y0 = null;
+    item.addEventListener('pointerdown', (e) => { y0 = e.clientY; item.setPointerCapture(e.pointerId); });
+    item.addEventListener('pointermove', (e) => {
+      if (y0 === null) return;
+      const dy = Math.max(0, e.clientY - y0);
+      item.style.transform = `translateY(${dy * 0.35}px)`;
+      if (dy > 46) { y0 = null; unpark(item); }
     });
-    count.textContent = parked.length ? parked.length : '';
-    notch.classList.toggle('has', parked.length > 0);
+    item.addEventListener('pointerup', () => { if (y0 !== null) { y0 = null; unpark(item); } });
+    item.addEventListener('pointerenter', () => Motion.spring({ s: 1 }, { s: 1.07 }, ({ s }) => { item.style.scale = s; }, 'snappy'));
+    item.addEventListener('pointerleave', () => Motion.spring({ s: parseFloat(item.style.scale) || 1 }, { s: 1 }, ({ s }) => { item.style.scale = s; }, 'snappy'));
+    return item;
   }
 
-  async function openShelf() {
+  const openShelf = () => queue(async () => {
     if (open || !parked.length) return; open = true;
-    count.style.opacity = 0;
+    notch.setAttribute('aria-expanded', 'true');
+    Motion.stagger(peek.children, { show: false, gap: 0 });
     await Motion.morph(notch, openSize(), 'smooth');
-    clear.style.opacity = 1;
-    Motion.stagger(shelf.children, { show: true });
-  }
-  async function closeShelf() {
-    if (!open) return; open = false;
-    clear.style.opacity = 0;
-    await Motion.stagger(shelf.children, { show: false, gap: 25 });
-    await Motion.morph(notch, CLOSED, 'snappy');
-    count.style.opacity = '';
-  }
-
-  async function park(file) {
-    file.style.visibility = 'hidden';            // the file leaves the desk the moment it is let go
-    await Motion.flyTo(file.querySelector('img'), notch, { scale: 0.2, lift: 90 });
-    file.style.visibility = ''; file.classList.add('parked'); parked.push(file); render();
-    if (open) { await Motion.morph(notch, openSize(), 'smooth'); Motion.stagger([shelf.lastElementChild], { show: true }); }
-  }
-  async function unpark(file, item) {
-    parked.splice(parked.indexOf(file), 1);
-    file.classList.remove('parked');
-    file.style.visibility = 'hidden';
-    await Motion.flyTo(item.querySelector('img'), file.querySelector('img'), { scale: 1.4, lift: -40, bump: false });
-    file.style.visibility = '';
-    Motion.catchBump(file);
-    render(); Motion.stagger(shelf.children, { show: true, gap: 0 });
-    if (!parked.length) closeShelf(); else Motion.morph(notch, openSize(), 'smooth');
-  }
-
-  document.querySelectorAll('.file').forEach((file) => Motion.draggable(file, {
-    targets: [{ el: notch, radius: 170,
-      onEnter: () => !open && Motion.morph(notch, NEAR, 'snappy'),
-      onLeave: () => !open && Motion.morph(notch, CLOSED, 'snappy'),
-      onDrop: (el) => { Motion.morph(notch, open ? openSize() : CLOSED, 'snappy'); park(el); } }],
-  }));
-
-  notch.addEventListener('pointerenter', () => { clearTimeout(closeTimer); openShelf(); });
-  notch.addEventListener('pointerleave', () => { closeTimer = setTimeout(closeShelf, 250); });
-  notch.addEventListener('click', () => (open ? closeShelf() : openShelf()));
-  clear.addEventListener('click', async (e) => {
-    e.stopPropagation();
-    const items = [...shelf.children], files = [...parked];
-    await Motion.stagger(items, { show: false, gap: 40 });
-    parked.length = 0; render();
-    files.forEach((f, i) => setTimeout(() => { f.classList.remove('parked'); Motion.catchBump(f); }, i * 60));
-    closeShelf();
+    Motion.stagger([head], { show: true });
+    await Motion.stagger(shelf.children, { show: true });
   });
+  const closeShelf = (fast = false) => queue(async () => {
+    if (!open) return; open = false;
+    peek.innerHTML = '';
+    notch.setAttribute('aria-expanded', 'false');
+    Motion.stagger([head], { show: false });
+    if (!fast) await Motion.stagger(shelf.children, { show: false, gap: 22 });
+    await Motion.morph(notch, closedSize(), 'snappy');
+    renderPeek(); Motion.stagger(peek.children, { show: true, gap: 30, distance: 4 });
+  });
+
+  async function park(file, from) {
+    if (file.dataset.parked) return;
+    file.dataset.parked = '1';
+    file.style.visibility = 'hidden';            // it leaves the desk the moment it is let go
+    hint.style.opacity = 0;
+    await Motion.flyTo(file.querySelector('img'), notch, { scale: 0.18, lift: 110,
+      from: from && from.width ? { left: from.left + (from.width - 84) / 2, top: from.top + 8, width: 84, height: 84 } : undefined });
+    parked.push(file);
+    const item = makeItem(file); shelf.appendChild(item);
+    renderPeek(); hint.style.opacity = '';
+    if (open) { await Motion.morph(notch, openSize(), 'smooth'); Motion.stagger([item], { show: true }); }
+    else { await Motion.morph(notch, closedSize(), 'snappy'); Motion.stagger([peek.lastElementChild || peek.firstElementChild], { show: true, distance: 4 }); }
+  }
+
+  async function unpark(item, { quiet = false } = {}) {
+    const file = item.file; if (!file.dataset.parked) return;
+    delete file.dataset.parked;
+    parked.splice(parked.indexOf(file), 1);
+    const from = item.querySelector('img').getBoundingClientRect();
+    item.style.visibility = 'hidden';
+    const fly = Motion.flyTo(item.querySelector('img'), file.querySelector('img'), { from, scale: 84 / 52, lift: -30, bump: false });
+    if (!quiet) {
+      await Motion.stagger([item], { show: false, gap: 0 });
+      item.remove(); renderPeek();
+      if (!parked.length) closeShelf(); else Motion.morph(notch, openSize(), 'smooth');
+    }
+    await fly;
+    file.style.visibility = ''; Motion.catchBump(file, 0.08);
+    if (quiet) item.remove();
+  }
+
+  // Desk files: drag (with magnet and flick), keyboard Enter or Space to send.
+  document.querySelectorAll('.file').forEach((file) => {
+    Motion.draggable(file, {
+      targets: [{ el: notch, radius: 190, magnet: 0.3,
+        onEnter: () => { if (!open) { notch.classList.add('near'); Motion.morph(notch, NEAR(), 'snappy'); } },
+        onLeave: () => { notch.classList.remove('near'); if (!open) Motion.morph(notch, closedSize(), 'snappy'); },
+        onDrop: (el, from) => park(el, from) }],
+    });
+    file.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); park(file); } });
+  });
+
+  // The notch: hover to peek, click or keyboard to toggle.
+  notch.addEventListener('pointerenter', () => { clearTimeout(closeTimer); openShelf(); });
+  notch.addEventListener('pointerleave', () => { closeTimer = setTimeout(closeShelf, 320); });
+  notch.addEventListener('click', (e) => { if (e.target.closest('.item, .clear')) return; open ? closeShelf() : openShelf(); });
+  notch.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open ? closeShelf() : openShelf(); } if (e.key === 'Escape') closeShelf(); });
+
+  // Clear: every file goes home on its own arc, a beat apart, then the notch closes.
+  Motion.pressable($('clear'));
+  $('clear').addEventListener('click', async (e) => {
+    e.stopPropagation();
+    const items = [...shelf.children];
+    head.style.opacity = 0;
+    // Launch every file home a beat apart, and shrink the notch back while they are still in the air.
+    const flights = items.map((item, i) => new Promise((r) => setTimeout(() => unpark(item, { quiet: true }).then(r), i * 90)));
+    closeShelf(true);
+    await Promise.all(flights);
+    renderPeek(); Motion.morph(notch, closedSize(), 'snappy');
+  });
+
+  renderPeek();
 </script>
 </body>
 </html>

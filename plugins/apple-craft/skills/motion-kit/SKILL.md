@@ -14,11 +14,12 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 
 ## The parts
 
-- **Springs:** `Motion.spring(from, to, onUpdate, preset)` animates any numbers. Presets: `snappy` (controls), `smooth` (panels, morphs), `bouncy` (landing in place, one small bounce), `gentle` (big moves). Pick by name. Never change the numbers per page.
+- **Springs:** `Motion.spring(from, to, onUpdate, preset)` animates any numbers. Presets: `snappy` (controls), `smooth` (panels, morphs), `bouncy` (landing in place, one small bounce), `gentle` (big moves), `flight` (objects travelling along a path). Pass a starting velocity to continue a gesture. A new animation on the same element takes over from the current one smoothly, so opening and closing can interrupt each other. Pick by name. Never change the numbers per page.
 - **Morph:** `Motion.morph(el, { width, height, radius })` grows one element into a new size and corner radius. Use it whenever something opens out of something else (notch into shelf, button into panel). One element, never a second box placed underneath.
-- **Fly to a target:** `Motion.flyTo(source, target, { scale, lift })` sends a copy along an arc, shrinking as it goes, and gives the target a small catch bump when it lands. Hide the source the moment the flight starts.
-- **Catch bump:** `Motion.catchBump(el)` for "it arrived" or "it's back".
-- **Drag:** `Motion.draggable(el, { targets: [{ el, radius, onEnter, onLeave, onDrop }] })` lifts the element while held, tells the target when it's near (grow the target a little in `onEnter`), and springs home with a bounce if dropped anywhere else. Works with mouse, pen and touch.
+- **Fly to a target:** `Motion.flyTo(source, target, { scale, lift, from })` sends a copy along an arc; it tilts into the turn, shrinks, blurs slightly at full speed, and the target catches it with a squash. Hide the source the moment the flight starts. Use a negative `lift` to drop things back down.
+- **Catch bump:** `Motion.catchBump(el)` for "it arrived" or "it's back" (a quick squash and settle).
+- **Press:** `Motion.pressable(button)` shrinks a control while held and springs it back.
+- **Drag:** `Motion.draggable(el, { targets: [{ el, radius, magnet, onEnter, onLeave, onDrop }] })` lifts the element and tilts it with its speed, pulls it towards a target when close (`magnet`, 0 to 0.5), lets the visitor flick it at a target, tells the target when it's near (grow it a little in `onEnter`), and springs home with the throw's momentum if it misses. Works with mouse, pen and touch.
 - **Stagger:** `Motion.stagger(children, { show })` brings items in one after another, and out in reverse.
 - **Reveal:** `Motion.reveal('[data-reveal]')` gives each section one entrance the first time it is seen. Put `data-reveal` on the headline group and the visual, not on every paragraph.
 - **Scene:** `Motion.scene(section, p => …)` gives 0 to 1 progress through a pinned scroll section; `Motion.segment(p, a, b)` turns part of it into its own eased 0 to 1 for choreography.
@@ -31,6 +32,14 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 - **Leave:** what left comes back the same way it went, reversed.
 - **One motion at a time** per area; don't start a second animation on an element that is still moving.
 - **Reduce Motion:** every function jumps to the end state. Don't add your own motion around it.
+
+## What the notch-shelf reference adds
+
+- The notch's own shoulders (concave curves where it meets the top edge), so the shape looks like hardware, not a rounded box.
+- Parked items peeking inside the closed notch as tiny real icons with a +N count, instead of a number badge.
+- Taking items out by clicking or by pulling them down out of the shelf.
+- Clear sending each item home on its own arc, a beat apart, while the shelf closes.
+- Keyboard (Enter or Space on files and the notch, Escape to close) and Reduce Motion (everything jumps to its end state).
 
 ## Never
 
