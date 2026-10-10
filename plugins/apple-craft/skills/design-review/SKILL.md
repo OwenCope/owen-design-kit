@@ -20,8 +20,15 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 - **App:** a review copy, never the person's own configured app. Light and dark, normal and narrow window, Reduce Motion on and off. Apps can be captured with scripts/capture-app.sh <AppName>, which covers light, dark, a narrow window and Reduce Motion.
 - **Web:** desktop (about 1440 px) and phone (about 375 px), light and dark if supported. Tab through it once with the keyboard. `scripts/capture.mjs` does the four captures in one go and flags console errors, sideways scrolling, buttons that move on hover and main actions that link nowhere. It also runs an axe accessibility check and writes axe-*.json; every violation of impact serious or critical must be fixed or explained:
 
-      npx -y -p playwright node scripts/capture.mjs http://localhost:3000 review
+    npm i -D playwright && npx playwright install chromium
+    node scripts/capture.mjs http://localhost:3000 review
 - Hover every control and watch every transition once.
+
+## Run the slop linter
+
+    node scripts/lint-slop.mjs http://localhost:3000
+
+Fix every FAIL and run it again until it is clean, before any visual review. It checks letter-tile icons, tiny text, dead buttons, decorative chips, text-only theme toggles, fake Mac scenes, emoji or symbol icons, duplicate strings and phone-width overflow.
 
 ## If you can't see images
 
@@ -34,6 +41,10 @@ A full-page screenshot hides most problems. Before scoring, zoom to 200 to 300 %
 ### Director critique
 
 The checklist catches broken things; this catches things merely not good yet. Scrub every animation or scroll scene with at least five frames start to end (start, building, peak, resolving, end) side by side, and judge each frame as a still: composed, nothing covering text, no large empty area for no reason, no frame that looks like a bug. Moving or decorative things must never cover headlines, body text, buttons or the product. Physical things behave physically and UI behaves like the real OS. The first frame invites and the last pays off with the product big and centred enough to read. Write the friend test in one sentence: what would someone tell a friend about this page. Without that sentence the page has no moment yet. Rate the work honestly out of 10 and list exactly what would make it a 10. Reload from scratch and judge the real page, never a report, including your own.
+
+## Check against the brief
+
+If a design brief exists (design-brief skill), answer each 'Done means' check with pass or fail using the screenshots, and check that the first screen shows the brief's one thing and that the product is the largest readable element. Every fail is fixed before scoring.
 
 ## Step 3: Score each item (pass or fix)
 

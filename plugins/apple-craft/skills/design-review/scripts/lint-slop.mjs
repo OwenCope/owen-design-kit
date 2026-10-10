@@ -1,0 +1,203 @@
+// Slop linter for design review: catches AI-looking placeholders before the visual pass.
+//
+// Usage:
+//   node lint-slop.mjs <url-or-file> [--width 1440]
+//
+// What each check catches:
+//   a. letter-tile icons - square coloured tiles with 1-2 letters standing in for a real icon or logo.
+//   b. tiny text - visible text under 11 px, usually unreadable fine print or leftover debug copy.
+//   c. dead buttons - buttons or links styled as actions that go nowhere ('#', empty, javascript:void(0), .txt downloads).
+//   d. decorative chips - rows of small non-interactive pills with 1-3 words that decorate instead of informing.
+//   e. text-only theme toggle - a Theme/Light/Dark button with words instead of the platform switch or icon.
+//   f. fake Mac - a drawn menu bar, clock or notch without a real laptop shell image.
+//   g. emoji or unicode symbols used as icons - magnifiers, squares, check marks standing in for real icons.
+//   h. duplicate visible strings - the same sentence appearing twice inside one section, usually copy-paste filler.
+//   i. horizontal overflow at 390 px - the page scrolls sideways on a phone.
+//
+// Run this until it is clean before any visual review: fix every FAIL, then run it again.
+import { chromium } from 'playwright';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+const args = process.argv.slice(2);
+let target = args.find((a) => !a.startsWith('--'));
+let width = 1440;
+const widthIdx = args.indexOf('--width');
+if (widthIdx !== -1 && args[widthIdx + 1]) width = Number(args[widthIdx + 1]) || 1440;
+if (!target) { console.error('usage: node lint-slop.mjs <url-or-file> [--width 1440]'); process.exit(1); }
+if (existsSync(resolve(target))) target = pathToFileURL(resolve(target)).href;
+
+const results = [];
+const report = (name, offenders) => {
+  const list = (offenders ?? []).slice(0, 5);
+  results.push({ name, pass: list.length === 0, list });
+};
+
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width, height: 900 } });
+await page.goto(target, { waitUntil: 'networkidle' });
+const pageHeight = await page.evaluate(() => document.body.scrollHeight);
+for (let y = 0; y < pageHeight; y += 450) {
+  await page.evaluate((v) => scrollTo(0, v), y);
+  await page.waitForTimeout(60);
+}
+await page.evaluate(() => scrollTo(0, 0));
+await page.waitForTimeout(400);
+
+// a. letter-tile icons
+report('letter-tile icons', await page.evaluate(() => {
+  const out = [];
+  for (const el of document.querySelectorAll('body *')) {
+    const r = el.getBoundingClientRect();
+    if (r.width < 16 || r.width > 80 || r.height < 16 || r.height > 80) continue;
+    if (Math.abs(r.width - r.height) / Math.max(r.width, r.height) > 0.15) continue;
+    const bg = getComputedStyle(el).backgroundColor;
+    if (!bg || bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') continue;
+    const text = (el.textContent ?? '').trim();
+    if (/^.{1,2}$/s.test(text) && el.children.length === 0) {
+      out.push(`${el.tagName.toLowerCase()} "${text}" ${Math.round(r.width)}x${Math.round(r.height)}`);
+    }
+  }
+  return out;
+}));
+
+// b. tiny text
+report('tiny text', await page.evaluate(() => {
+  const out = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let node;
+  while ((node = walker.nextNode())) {
+    const text = (node.textContent ?? '').trim();
+    if (!text) continue;
+    const el = node.parentElement;
+    if (!el) continue;
+    const r = el.getBoundingClientRect();
+    if (r.width === 0 && r.height === 0) continue;
+    const st = getComputedStyle(el);
+    if (st.display === 'none' || st.visibility === 'hidden' || Number(st.opacity) < 0.05) continue;
+    if (parseFloat(st.fontSize) < 11) out.push(`"${text.slice(0, 60)}" ${st.fontSize}`);
+    if (out.length >= 40) break;
+  }
+  return out;
+}));
+
+// c. dead buttons
+report('dead buttons', await page.evaluate(() => {
+  const out = [];
+  for (const el of document.querySelectorAll('a, button')) {
+    const label = ((el.textContent ?? '').trim() || el.getAttribute('aria-label') || el.tagName).slice(0, 40);
+    const href = (el.getAttribute('href') ?? '').trim().toLowerCase();
+    if (href === '#' || href === '' && el.tagName === 'A' || href === 'javascript:void(0)' || href.endsWith('.txt')) {
+      out.push(`${el.tagName.toLowerCase()} "${label}" href="${href || '(empty)'}"`);
+    }
+  }
+  return out;
+}));
+
+// d. decorative chips
+report('decorative chips', await page.evaluate(() => {
+  const out = [];
+  const parents = new Set();
+  for (const el of document.querySelectorAll('body *')) parents.add(el.parentElement);
+  for (const parent of parents) {
+    if (!parent || parent === document.body) continue;
+    const kids = [...parent.children].filter((el) => {
+      if (/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) return false;
+      const r = el.getBoundingClientRect();
+      if (r.height >= 30 || r.height === 0) return false;
+      const br = parseFloat(getComputedStyle(el).borderRadius);
+      if (br < r.height / 2) return false;
+      const words = (el.textContent ?? '').trim().split(/\s+/).filter(Boolean);
+      return words.length >= 1 && words.length <= 3;
+    });
+    if (kids.length >= 3) out.push(`${kids.length} pills in <${parent.tagName.toLowerCase()}>: ${kids.slice(0, 3).map((k) => `"${k.textContent.trim().slice(0, 20)}"`).join(', ')}`);
+  }
+  return out;
+}));
+
+// e. text-only theme toggle
+report('text-only theme toggle', await page.evaluate(() => {
+  const out = [];
+  for (const el of document.querySelectorAll('button')) {
+    const text = (el.textContent ?? '').trim().toLowerCase();
+    if ((text === 'theme' || text === 'light' || text === 'dark' || text === 'toggle theme') && !el.querySelector('svg, img')) {
+      out.push(`button "${el.textContent.trim().slice(0, 30)}"`);
+    }
+  }
+  return out;
+}));
+
+// f. fake Mac
+report('fake Mac', await page.evaluate(() => {
+  const clockRe = /\b([01]?\d|2[0-3]):[0-5]\d\b/;
+  let hasChrome = false;
+  for (const el of document.querySelectorAll('body *')) {
+    if (el.children.length === 0 && clockRe.test(el.textContent ?? '')) { hasChrome = true; break; }
+  }
+  if (!hasChrome) return [];
+  const hasShell = [...document.querySelectorAll('img')].some((img) =>
+    /macbook|shell/i.test(img.getAttribute('src') ?? ''));
+  return hasShell ? [] : ['Mac scene without a laptop shell'];
+}));
+
+// g. emoji or unicode symbols used as icons
+report('emoji or symbol icons', await page.evaluate(() => {
+  const out = [];
+  const symbolRe = /^[\p{Emoji}\u2318\u2315\u25A0-\u25FF\u2600-\u27BF\u2B00-\u2BFF\uFE0E\uFE0F\s]+$/u;
+  const scope = (el) => el.closest('button, nav, [role="menubar"], li, [role="menuitem"], [role="listitem"]');
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let node;
+  while ((node = walker.nextNode())) {
+    const text = (node.textContent ?? '').trim();
+    if (text.length === 0 || text.length > 8) continue;
+    if (!symbolRe.test(text)) continue;
+    const holder = scope(node.parentElement);
+    if (holder) out.push(`"${text}" in <${holder.tagName.toLowerCase()}>`);
+    if (out.length >= 40) break;
+  }
+  return out;
+}));
+
+// h. duplicate visible strings
+report('duplicate visible strings', await page.evaluate(() => {
+  const out = [];
+  for (const section of document.querySelectorAll('section')) {
+    const seen = new Map();
+    const walker = document.createTreeWalker(section, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      const text = (node.textContent ?? '').trim();
+      if (text.length < 5 || /\n/.test(text)) continue;
+      const el = node.parentElement;
+      if (!el) continue;
+      const st = getComputedStyle(el);
+      if (st.display === 'none' || st.visibility === 'hidden') continue;
+      seen.set(text, (seen.get(text) ?? 0) + 1);
+      if (seen.get(text) === 2) out.push(`"${text.slice(0, 60)}" twice in <section>`);
+      if (out.length >= 40) break;
+    }
+  }
+  return out;
+}));
+
+await browser.close();
+
+// i. horizontal overflow at 390 px wide
+{
+  const phoneBrowser = await chromium.launch();
+  const phone = await phoneBrowser.newPage({ viewport: { width: 390, height: 844 } });
+  await phone.goto(target, { waitUntil: 'networkidle' });
+  const scrollWidth = await phone.evaluate(() => document.documentElement.scrollWidth);
+  report('horizontal overflow at 390px', scrollWidth > 390 ? [`scrollWidth ${scrollWidth}px exceeds 390`] : []);
+  await phoneBrowser.close();
+}
+
+let failed = 0;
+for (const r of results) {
+  console.log(`${r.pass ? 'PASS' : 'FAIL'} ${r.name}`);
+  for (const item of r.list) console.log(`  - ${item}`);
+  if (!r.pass) failed++;
+}
+console.log(failed ? `\n${failed} check(s) failed.` : '\nAll checks passed.');
+process.exit(failed ? 1 : 0);

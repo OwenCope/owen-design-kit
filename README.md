@@ -17,6 +17,7 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 | `mac-props` | Showing a Mac app on a believable Mac: the laptop, menu bar, window above the Dock, clean window screenshots, copy-ready CSS |
 | `signature-moments` | Being creative without looking generic: one on-brand moment per product, found from what the app does, with worked examples |
 | `figma-mockups` | Connecting the Figma MCP and building mock-ups from Apple's macOS 27 and iOS 27 kits instead of drawing controls |
+| `design-brief` | The decisions to write down before building: the one thing, the hero frame, what moves, what's cut, three concepts, and worked examples of the reasoning |
 | `match-the-project` | Working on someone else's app or site: read its design system first, write it down, and match it instead of restyling |
 | `onboarding-design` | A welcome tour that feels smooth, measured frame by frame from a real app |
 | `product-writing` | Every word in the product and in the agent's replies |

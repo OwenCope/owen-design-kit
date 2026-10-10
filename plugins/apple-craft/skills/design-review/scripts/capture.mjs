@@ -1,7 +1,11 @@
 // Capture a web page for design review: desktop and phone, light and dark, plus quick checks.
 //
-//   npx -y -p playwright node capture.mjs http://localhost:3000 [out-dir]
-//   (first run: npx -y playwright install chromium-headless-shell)
+// Install Playwright in the project first, then run with node:
+//
+//   npm i -D playwright && npx playwright install chromium
+//   node capture.mjs http://localhost:3000 [out-dir]
+//
+// Note: 'npx -p playwright node ...' does not work with ESM imports; install first and run with node.
 //
 // Writes full-page screenshots to out-dir (default ./review) and prints problems it can measure:
 // console errors, sideways scrolling on phones, buttons that move on hover, and links that go nowhere.
