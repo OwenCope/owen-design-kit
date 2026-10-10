@@ -31,6 +31,7 @@ What got approved and what got rejected across many rounds of building apps, web
 | "Download" for a product that isn't out | A button that says what it does: "Notify me at launch" |
 | Notes left on the page ("icon is temporary", "concept") | Nothing that only makes sense to the builder |
 | A loud, saturated wallpaper behind the product | A calm wallpaper so the product reads |
+| A teal toggle and other system controls in a brand colour | System controls keep the system colours from Apple's kit |
 | A mock-up window that's a box with a line of text | A window built from real macOS parts: toolbar, sidebar, rows, symbols |
 
 ## Pictures and icons
