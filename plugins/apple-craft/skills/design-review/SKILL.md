@@ -30,6 +30,8 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 Fix every FAIL and run it again until it is clean, before any visual review. It checks letter-tile icons, tiny text, dead buttons, decorative chips, text-only theme toggles, fake Mac scenes, emoji or symbol icons, duplicate strings and phone-width overflow.
 
+Then run the self-improve loop (at least two rounds) before scoring; the review scores the result of that loop.
+
 ## If you can't see images
 
 Agents without image input, or running in CI, must say so plainly in the report. List which checks could not be done. Run every check that does not need eyes: axe results, measured numbers from the DOM or view hierarchy, lint. Never claim to have looked at a screenshot. The person then does the visual pass.

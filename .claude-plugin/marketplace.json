@@ -3,14 +3,14 @@
   "owner": { "name": "Owen Cope" },
   "metadata": {
     "description": "Apple-quality design and shipping skills for coding agents, plus Owen's private project rules.",
-    "version": "2.8.0"
+    "version": "2.9.0"
   },
   "plugins": [
     {
       "name": "apple-craft",
       "source": "./plugins/apple-craft",
       "description": "Make apps and websites look like Apple made them: method and review, Liquid Glass, copy-ready components, Mac and web rules, onboarding, writing, release notes and shipping.",
-      "version": "2.8.0",
+      "version": "2.9.0",
       "author": { "name": "Owen Cope" },
       "keywords": ["design", "apple", "liquid-glass", "macos", "swiftui", "web", "onboarding", "release-notes"]
     },
@@ -18,7 +18,7 @@
       "name": "owen-design",
       "source": "./plugins/owen-design",
       "description": "Owen's private layer on top of apple-craft: his profile, picks and per-project rules.",
-      "version": "2.8.0",
+      "version": "2.9.0",
       "author": { "name": "Owen Cope" },
       "keywords": ["owen", "projects"]
     }

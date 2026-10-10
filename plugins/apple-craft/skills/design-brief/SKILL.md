@@ -32,6 +32,7 @@ No item may be blank or 'n/a' on a product page.
 If an item can't be answered, ask the person or stop.
 The brief is shown to the person with the first screenshot.
 After building, check the work against item 9 and say pass or fail for each.
+After the first build, run self-improve; if a structural problem survives two rounds, come back here and pick a different concept.
 
 ## Examples
 
