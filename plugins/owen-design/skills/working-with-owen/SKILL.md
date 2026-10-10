@@ -47,3 +47,9 @@ Owen builds products solo with testers and agents: Gaze (a Mac face-unlock app),
 1. Load `apple-craft:apple-design` and the matching `project-*` skill.
 2. Read the project's AGENTS.md / handoff file if it has one.
 3. Check git status and recent commits before changing anything.
+
+## Apple Figma kits (Owen's copies)
+
+Use these with `figma-mockups`; they are Owen's duplicated copies, so the Figma tools can read them:
+- macOS 27: https://www.figma.com/design/psmd2v7ftwhNCn0yh6JUk0/macOS-27--Community-
+- iOS and iPadOS 27: https://www.figma.com/design/j2esmSA6gZA9scyN82vp5j/iOS-and-iPadOS-27--Community-

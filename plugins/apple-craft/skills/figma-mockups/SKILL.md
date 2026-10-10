@@ -23,7 +23,7 @@ Community files have no file key, so tools can't read them directly. Ask the per
 - macOS 27: https://www.figma.com/community/file/1651309434229735362/macos-27
 - iOS and iPadOS 27: https://www.figma.com/community/file/1651309003795292092/ios-and-ipados-27
 
-Save the URLs in the project's notes so nobody asks again.
+Save the URLs in the project's notes or the person's profile skill so nobody asks again. Check there first before asking.
 
 ## 3. Read before you build
 
