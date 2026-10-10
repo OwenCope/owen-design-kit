@@ -51,6 +51,18 @@ A text-only list of features beside an empty column is the weakest version of st
 - **Focus rings belong to the control:** rounded to match it, inset or offset so they never touch dividers or neighbours (`outline-offset: 4px; border-radius` equal to the control's). A square ring cutting across the lines above and below fails review.
 - **Timing:** 200 to 350 ms for controls, 500 to 800 ms for section entrances, eased out (`cubic-bezier(0.22, 1, 0.36, 1)`). Nothing linear, nothing bouncy.
 
+## Ambitious motion
+
+Restraint means no filler, not no motion. Good product pages have rich, crafted animation where it carries meaning, like the SakuraCord site. Aim for that level everywhere it earns its place:
+
+- **One signature moment** per page (`signature-moments`), scroll-driven, filling the screen.
+- **Product reveals:** the Mac scene assembles as it enters (wallpaper, then menu bar, then the window rising onto the Dock), or the camera zooms from the whole laptop into the feature.
+- **Live UI on the page:** the mock-up actually works: countdowns tick, toggles switch, panels open from the notch when the section comes into view.
+- **Scroll-linked storytelling:** a sticky stage where scrolling steps through the feature's states, the copy changing beside it.
+- **Transitions between states** that morph (size, position, corner radius) instead of fading.
+
+Craft rules: canvas or transforms only, 60 fps, scroll-driven not time-driven, every frame a good still, Reduce Motion shows the end state. If it's filler (floating blobs, parallax layers, every paragraph fading in), cut it.
+
 ## Layout
 
 - **Phone is first-class.** Check about 375 px wide every time you touch layout: no horizontal scroll, touch targets at least 44 px, headlines that wrap nicely (`text-wrap: balance`), and no product picture that clips its own text. Give pictures a phone crop if they need one.

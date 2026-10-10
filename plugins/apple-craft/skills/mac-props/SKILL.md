@@ -20,6 +20,7 @@ Don't stop to ask for assets or Figma files. Build the scene from these:
 
       swift scripts/make-assets.swift ./mac-assets --symbol doc.on.clipboard --tint "#0A84FF"
 
+- **The menu bar's right side must be the real SF Symbols** from `make-assets.swift` (battery, Wi-Fi, Control Center, Spotlight), exported as images at 2x and drawn at the real size: about 15 pt tall glyphs, 18 to 22 pt apart, the clock in SF Pro Medium 13 pt. Hand-drawn or emoji-like icons, wrong weights, or symbols floating at different heights fail review. Compare with a real screenshot of your own menu bar at the same scale.
 - `examples/mac.html`: a complete, working scene (laptop, menu bar, window, Dock with the app and a running dot, light and dark). Copy it, drop in your window screenshots, and adapt.
 
 If the app isn't built yet, build its main window as real HTML or SwiftUI and screenshot that; never draw a fake one.
