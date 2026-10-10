@@ -88,6 +88,7 @@ The full field guide, covering websites, pictures, icons, video, copy and proces
 ## Related skills
 
 - `design-brief`: the decisions to write down before building.
+- `motion-kit`: finished, tuned motion to wire up instead of hand-writing.
 - `self-improve`: the self-reflection loop to run after every first build.
 - `design-patterns`: copy-ready code and tokens for proven components. Use it instead of inventing.
 - `design-review`: the strict review to run before showing anything, with real approved and rejected pictures.

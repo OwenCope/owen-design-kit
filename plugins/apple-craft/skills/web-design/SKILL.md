@@ -46,6 +46,9 @@ A text-only list of features beside an empty column is the weakest version of st
 
 ## Motion
 
+Use `motion-kit` for every interaction and animation: tuned springs, morphs, fly-to-target, drag, stagger, reveal and pinned scenes. Don't write timing or physics by hand.
+
+
 ### Every page
 
 - **Every interactive part animates its change, both ways.** Whatever animates in also animates out: closing, collapsing, dismissing and switching back get the same motion as opening, reversed. An opening animation with an instant close fails review.

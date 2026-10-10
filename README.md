@@ -18,6 +18,7 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 | `signature-moments` | Being creative without looking generic: one on-brand moment per product, found from what the app does, with worked examples |
 | `figma-mockups` | Connecting the Figma MCP and building mock-ups from Apple's macOS 27 and iOS 27 kits instead of drawing controls |
 | `design-brief` | The decisions to write down before building: the one thing, the hero frame, what moves, what's cut, three concepts, and worked examples of the reasoning |
+| `motion-kit` | Finished, tuned motion in one small file: springs, morphs, fly-to-target, drag, stagger, reveal and pinned scroll scenes, with a working notch-shelf reference |
 | `self-improve` | A self-reflection loop that lets any agent, including smaller models, raise its own design quality: capture, test, critique with evidence, fix five problems, repeat |
 | `match-the-project` | Working on someone else's app or site: read its design system first, write it down, and match it instead of restyling |
 | `onboarding-design` | A welcome tour that feels smooth, measured frame by frame from a real app |

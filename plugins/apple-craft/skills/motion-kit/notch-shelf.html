@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>motion-kit: notch shelf</title>
+<!-- Reference build of a notch interaction with motion-kit. Needs ./mac-assets (run mac-props/scripts/make-assets.swift ./mac-assets).
+     Copy the patterns, not the page: one shape that grows out of the notch, files that fly in on an arc,
+     a catch bump, a staggered shelf, and every move reversed on the way out. -->
+<style>
+  :root { --bg: #f5f5f7; --ink: #1d1d1f; --muted: rgba(0,0,0,.55); color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #000; --ink: #f5f5f7; --muted: rgba(255,255,255,.6); } }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+         font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; -webkit-font-smoothing: antialiased; }
+
+  /* The notch is one element. It never gets a second box underneath: it grows into the shelf. */
+  .notch { position: fixed; top: 0; left: 50%; translate: -50% 0; width: 200px; height: 32px; background: #000;
+           border-radius: 0 0 12px 12px; z-index: 10; overflow: hidden; color: #fff; }
+  .notch .count { position: absolute; top: 8px; right: 14px; font: 600 12px/16px -apple-system, sans-serif;
+                  color: rgba(255,255,255,.7); opacity: 0; transition: opacity .2s; }
+  .notch.has .count { opacity: 1; }
+  .shelf { position: absolute; left: 0; right: 0; top: 44px; padding: 0 56px; display: flex; justify-content: center; gap: 18px; }
+  .item { width: 76px; text-align: center; opacity: 0; cursor: pointer; }
+  .item img { width: 56px; height: 56px; display: block; margin: 0 auto 6px; }
+  .item span { display: block; font-size: 11px; line-height: 14px; color: rgba(255,255,255,.85);
+               white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .clear { position: absolute; right: 14px; bottom: 12px; width: 28px; height: 28px; border-radius: 14px; border: 0;
+           background: rgba(255,255,255,.12); cursor: pointer; opacity: 0; display: grid; place-items: center; }
+  .clear img { width: 14px; height: 14px; filter: invert(1); }
+
+  .stage { min-height: 100vh; display: grid; place-content: center; justify-items: center; gap: 56px; padding-top: 80px; }
+  h1 { margin: 0; font-size: 64px; line-height: 1.05; letter-spacing: -.03em; text-align: center; }
+  .desk { display: flex; gap: 48px; }
+  .file { width: 96px; text-align: center; user-select: none; }
+  .file img { width: 80px; height: 80px; display: block; margin: 0 auto 8px; pointer-events: none; }
+  .file span { font-size: 13px; }
+  .file.parked { visibility: hidden; }
+  .hint { color: var(--muted); font-size: 15px; }
+</style>
+</head>
+<body>
+  <div class="notch" id="notch" aria-label="Shelf">
+    <span class="count" id="count"></span>
+    <div class="shelf" id="shelf"></div>
+    <button class="clear" id="clear" aria-label="Clear the shelf"><img src="mac-assets/menubar/xmark.png" alt=""></button>
+  </div>
+
+  <main class="stage">
+    <h1>Put it in the notch.</h1>
+    <div class="desk" id="desk">
+      <div class="file" data-name="Proposal.pdf" data-icon="pdf"><img src="mac-assets/files/pdf.png" alt=""><span>Proposal.pdf</span></div>
+      <div class="file" data-name="Launch.key" data-icon="keynote"><img src="mac-assets/files/keynote.png" alt=""><span>Launch.key</span></div>
+      <div class="file" data-name="Moodboard.png" data-icon="png"><img src="mac-assets/files/png.png" alt=""><span>Moodboard.png</span></div>
+      <div class="file" data-name="Clip.mov" data-icon="movie"><img src="mac-assets/files/movie.png" alt=""><span>Clip.mov</span></div>
+    </div>
+    <p class="hint">Drag a file to the notch. Hover the notch to see what's waiting.</p>
+  </main>
+
+<script src="motion.js"></script>
+<script>
+  const notch = document.getElementById('notch'), shelf = document.getElementById('shelf');
+  const count = document.getElementById('count'), clear = document.getElementById('clear');
+  const parked = [];
+  let open = false, closeTimer = 0;
+
+  const CLOSED = { width: 200, height: 32, radius: 12 };
+  const NEAR = { width: 236, height: 38, radius: 14 };
+  const openSize = () => ({ width: Math.max(320, 112 + parked.length * 94), height: 136, radius: 28 });
+
+  function render() {
+    shelf.innerHTML = '';
+    parked.forEach((f) => {
+      const item = document.createElement('div');
+      item.className = 'item';
+      item.innerHTML = `<img src="mac-assets/files/${f.dataset.icon}.png" alt=""><span>${f.dataset.name}</span>`;
+      item.addEventListener('click', () => unpark(f, item));
+      shelf.appendChild(item);
+    });
+    count.textContent = parked.length ? parked.length : '';
+    notch.classList.toggle('has', parked.length > 0);
+  }
+
+  async function openShelf() {
+    if (open || !parked.length) return; open = true;
+    count.style.opacity = 0;
+    await Motion.morph(notch, openSize(), 'smooth');
+    clear.style.opacity = 1;
+    Motion.stagger(shelf.children, { show: true });
+  }
+  async function closeShelf() {
+    if (!open) return; open = false;
+    clear.style.opacity = 0;
+    await Motion.stagger(shelf.children, { show: false, gap: 25 });
+    await Motion.morph(notch, CLOSED, 'snappy');
+    count.style.opacity = '';
+  }
+
+  async function park(file) {
+    file.style.visibility = 'hidden';            // the file leaves the desk the moment it is let go
+    await Motion.flyTo(file.querySelector('img'), notch, { scale: 0.2, lift: 90 });
+    file.style.visibility = ''; file.classList.add('parked'); parked.push(file); render();
+    if (open) { await Motion.morph(notch, openSize(), 'smooth'); Motion.stagger([shelf.lastElementChild], { show: true }); }
+  }
+  async function unpark(file, item) {
+    parked.splice(parked.indexOf(file), 1);
+    file.classList.remove('parked');
+    file.style.visibility = 'hidden';
+    await Motion.flyTo(item.querySelector('img'), file.querySelector('img'), { scale: 1.4, lift: -40, bump: false });
+    file.style.visibility = '';
+    Motion.catchBump(file);
+    render(); Motion.stagger(shelf.children, { show: true, gap: 0 });
+    if (!parked.length) closeShelf(); else Motion.morph(notch, openSize(), 'smooth');
+  }
+
+  document.querySelectorAll('.file').forEach((file) => Motion.draggable(file, {
+    targets: [{ el: notch, radius: 170,
+      onEnter: () => !open && Motion.morph(notch, NEAR, 'snappy'),
+      onLeave: () => !open && Motion.morph(notch, CLOSED, 'snappy'),
+      onDrop: (el) => { Motion.morph(notch, open ? openSize() : CLOSED, 'snappy'); park(el); } }],
+  }));
+
+  notch.addEventListener('pointerenter', () => { clearTimeout(closeTimer); openShelf(); });
+  notch.addEventListener('pointerleave', () => { closeTimer = setTimeout(closeShelf, 250); });
+  notch.addEventListener('click', () => (open ? closeShelf() : openShelf()));
+  clear.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    const items = [...shelf.children], files = [...parked];
+    await Motion.stagger(items, { show: false, gap: 40 });
+    parked.length = 0; render();
+    files.forEach((f, i) => setTimeout(() => { f.classList.remove('parked'); Motion.catchBump(f); }, i * 60));
+    closeShelf();
+  });
+</script>
+</body>
+</html>

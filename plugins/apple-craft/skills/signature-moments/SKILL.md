@@ -80,6 +80,9 @@ They show the ambition to aim for; don't copy them.
 
 ## Rules
 
+Build the moment with `motion-kit` (morph, flyTo, draggable, scene); `motion-kit/notch-shelf.html` shows a full one working.
+
+
 - **One per page.** Two showpieces fight; the second makes both feel cheap.
 - **Never reuse a signature from another product you made.** A site with the same tricks as your last one reads as a recolour, and people notice.
 - **Scroll-driven, not time-driven,** so the person stays in control. Never hijack the scroll; use a tall section with a sticky stage and read the scroll position.
