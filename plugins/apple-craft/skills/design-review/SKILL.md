@@ -5,7 +5,7 @@ description: A strict, step-by-step review of any screen, page, component, pictu
 
 # Design review
 
-Do it for real: build, open, screenshot, and look at the pixels at full size. Reviewing code alone does not count.
+Build, open, screenshot, and look at the pixels at full size. Reviewing code alone does not count.
 
 ## Size the review to the change
 
@@ -24,82 +24,52 @@ Do it for real: build, open, screenshot, and look at the pixels at full size. Re
 
 ## Step 2: Look at the pixels
 
-A full-page screenshot hides most problems. Before scoring:
+A full-page screenshot hides most problems. Before scoring, zoom to 200 to 300 % on every edge, corner and cut-out: jagged edges, dark fringes, halos, blur, a dark band where a shape stops short of its rim light. Read real numbers instead of guessing: window-to-Dock gap, button position before and after hover, whether two items line up. A 4 px difference is a real bug. Put the work next to its reference at the same size and list every difference before calling it done. Find the largest source asset: upscaled small files stay blurry, and catalogues often hold 1024 or 2048 px when the `.icns` stops at 256. Check light and dark separately and ship a version for each. Scroll to animated sections for real and capture mid-animation.
 
-- **Zoom to 200 to 300 %** on every edge, corner and cut-out: icons, window crops, rounded corners, the outline of anything you cut out or masked. Look for jagged edges, dark fringes, halos, blur, and a dark band where a shape stops short of its own rim light.
-- **Measure, don't guess.** Read real numbers from the page or app: the gap between a window and the Dock, a button's position before and after hover, whether two items line up. A 4 px difference is a real bug.
-- **Compare side by side** with the reference you're copying: the real app icon, the Apple screen, the earlier approved version. Put them next to each other at the same size and list every difference before calling it done.
-- **Check the source resolution.** An image scaled up from a small file is blurry however good the layout is. Find the largest version (asset catalogues often hold 1024 or 2048 px when the `.icns` stops at 256).
-- **Light and dark separately.** A screenshot or colour that works in one mode often looks wrong in the other; ship a version for each.
-- **Scroll-driven and animated sections:** scroll to them for real and capture mid-animation, not just the first frame.
+### Director critique
 
-## Step 2b: Critique like a director
-
-The checklist catches broken things. This catches things that are merely not good yet. For anything that moves, and for every page as a whole:
-
-- **Scrub the timeline.** Capture at least five frames from start to end of every animation or scroll scene (start, building, peak, resolving, end) and lay them side by side.
-- **Judge each frame as a still.** Is it composed? Is anything sitting on top of text? Is a large area empty for no reason? Does any frame look like a bug?
-- **Collisions:** moving or decorative things must never cover headlines, body text, buttons or the product itself.
-- **Plausibility:** physical things behave physically (they fall, settle, topple); UI behaves like the real OS (windows open from where they belong, menus drop from the menu bar).
-- **Start and end:** the first frame invites, the last frame pays off. The payoff is the product, big and centred enough to read.
-- **The friend test:** in one sentence, what would someone tell a friend about this page? If you can't write that sentence, the page has no moment yet.
-- **Rate it honestly out of 10**, and list exactly what would make it a 10. Fix those before reporting, or report them as the remaining gap.
-- **Don't trust a report, including your own.** Reload from scratch, look at the real page, then judge. Pages edited while open can show stale or doubled animation.
+The checklist catches broken things; this catches things merely not good yet. Scrub every animation or scroll scene with at least five frames start to end (start, building, peak, resolving, end) side by side, and judge each frame as a still: composed, nothing covering text, no large empty area for no reason, no frame that looks like a bug. Moving or decorative things must never cover headlines, body text, buttons or the product. Physical things behave physically and UI behaves like the real OS. The first frame invites and the last pays off with the product big and centred enough to read. Write the friend test in one sentence: what would someone tell a friend about this page. Without that sentence the page has no moment yet. Rate the work honestly out of 10 and list exactly what would make it a 10. Reload from scratch and judge the real page, never a report, including your own.
 
 ## Step 3: Score each item (pass or fix)
 
 This is the full version of the short checklist in `apple-design`; when both are loaded, score this one and don't repeat the other.
 
-1. **Apple test.** Put it next to the Apple screen it's modelled on. Would it look out of place? Name the reference.
+1. **Apple test.** Put it next to the Apple screen it is modelled on and name the reference; list at least three differences found, even if fixed.
 2. **Native.** Every control is the platform's own, in the product's one button style and size.
 3. **One primary action**, labelled with a verb, and nothing duplicated.
-4. **Real pictures.** Real, new, relevant, crisp, no black frame, no nested buttons, no test data.
+4. **Real pictures.** Real, new, relevant, crisp, no black frame, no nested buttons, no test data; every product picture is a real screenshot or recording, never drawn, rebuilt from shapes or magnified into a second copy; attach a 200 % crop of every edge, corner and cut-out.
 5. **Hierarchy.** At a glance: what is this, and what do I do? One headline, one line of support, then the action.
-6. **Space.** Nothing long, stretched, tall or crammed. Consistent spacing steps and aligned edges.
+6. **Space.** Nothing long, stretched, tall or crammed, with consistent spacing steps and aligned edges; write the real numbers for window-to-Dock gap, main-container side padding and button position before and after hover.
 7. **Words.** Every string passes `product-writing`. Read them aloud.
 8. **Motion.** Hover and press feedback on everything interactive, a whole-control hit area, a smooth curve, off under Reduce Motion.
 9. **States.** Loading, empty, error, disabled and success are all designed, not just the happy path.
 10. **Accessibility.** Labels, focus, contrast, text read once, touch targets at least 44 px on the web.
 11. **Leftovers.** No ghost windows, stray shadows, debug text, placeholder copy or console errors.
 12. **Consistency.** Matches `design-patterns` and the rest of the product. Anything new looks like it always existed.
-13. **Signature moment.** Product pages and first-run screens have one memorable, on-brand moment (`signature-moments`) that moves and responds, and is the centrepiece of its section. A page that is only clean and correct, or whose "moment" is a static picture with a caption, **fails** this item: write three concepts, pick the boldest buildable one and build it.
-14. **Product in place.** A Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon. A floating panel or a lone menu bar strip **fails**.
+13. **Signature moment.** Product pages and first-run screens have one memorable, on-brand, moving, responsive centrepiece (`signature-moments`); a static picture with a caption fails, so write three concepts, pick the boldest buildable one, build it and name the three considered.
+14. **Product in place.** A Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon; a floating panel or a lone menu bar strip fails.
 
-## Step 3b: Hard gates (pass or fail, no judgement)
+## Step 4: Hard gates (pass or fail, no judgement)
 
-Each gate needs written evidence in the report. A gate with no evidence counts as failed, whatever the score above says.
-
-- **Measured gaps.** Write the real numbers: the gap between window and Dock, padding on each side of the main container, a button's position before and after hover. "Looks even" is not evidence.
-- **Zoom evidence.** Attach or name a 200 % crop of every edge, corner and cut-out. No crop, no pass.
-- **Side-by-side.** Name the reference you compared with and list at least three differences you found, even if you fixed them all.
-- **Real UI only.** Every picture of the product is a real screenshot or recording. Anything drawn, rebuilt from shapes or magnified into a second copy of the UI fails. A mock-up of an unbuilt app is allowed only when built from `mac-props/examples/mac-ui.css`, with each part compared against its picture in `liquid-glass/reference/` and the differences listed.
-- **Moving work.** Five frames from start to end, plus a frame just after every clip ends. A frame that freezes, goes black or holds the last frame of a finished clip fails.
-- **Not a reference copy.** Put the page next to `web-design/examples/product-page.html` and every example it was built from. List five real differences (layout order, hero picture, wallpaper and colours, feature visuals, signature moment). Fewer than five, or the same wallpaper or the same section order, fails.
-- **Signature moment.** A static picture with a caption fails item 13. Name the three concepts you considered.
-- **Self-score cap.** Your own rating can't go above 7/10 until the person has seen it. Say what would make it a 10.
+- **Not a reference copy.** Put the page next to `web-design/examples/product-page.html` and every example it used and list five real differences (layout order, hero picture, wallpaper and colours, feature visuals, signature moment). Fewer than five, or the same wallpaper or section order, fails.
+- **Moving work.** Show five frames from start to end, plus a frame just after every clip ends. A frame that freezes, goes black or holds a finished clip's last frame fails.
+- **Mock-ups.** An unbuilt app is shown only from `mac-props/examples/mac-ui.css`, each part compared against `liquid-glass/reference/` with differences listed.
+- **Self-score cap.** Your own rating cannot go above 7/10 until the person has seen it. Say what would make it a 10.
 - **Show before done.** Never call work finished until the person has seen it. Their judgement replaces yours.
+- Any gate without written evidence fails.
 
-## Step 4: Fix, then capture again
+## Step 5: Fix and capture again
 
 Fix every "fix", re-screenshot and re-score. Only a full pass gets shown.
 
-## Step 5: Report
+## Step 6: Report
 
-- Show the screenshots.
-- One line per notable change.
-- Say what couldn't be checked ("not tried on a real lock screen").
+Show the screenshots, one line per notable change, and say what could not be checked ("not tried on a real lock screen").
 
 ## Hunt for these first
 
-- A control styled by hand: replace it with the native one.
-- A second button doing the same job: delete it.
-- A drawn illustration of real software: use a real screenshot.
 - Text on two lines that fits on one: cut it.
-- A picture from an older release: capture a new one.
-- Hover that only works in the middle of a button: fix the hit area (`contentShape` in SwiftUI, padding on the link on the web).
-- Leftover effects from another product's design: a site or app should have its own signature pieces.
-- A primary button that goes nowhere ("Download" linking to `#top`, with "Coming soon" under it). If the thing isn't available, the button says what it really does: "Notify me", "Join the beta".
-- A product picture that doesn't show where the product lives. A menu bar app needs the menu bar in the shot; a notch feature needs the notch.
+- A primary button that goes nowhere ("Download" linking to `#top`, with "Coming soon" under it). If the thing is not available, the button says what it really does: "Notify me", "Join the beta".
 - A two-column section with a short heading beside a long list, leaving a tall empty column. Make the heading sticky, or stack it above the list.
 - Content clipped on phones (text cut off with "…" inside a product picture). Use a crop or layout made for the phone width.
 

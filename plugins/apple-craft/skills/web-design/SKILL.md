@@ -7,6 +7,11 @@ description: How to build websites that feel like apple.com product pages - layo
 
 Load `apple-design` first; this adds the web detail. For glass materials and components, load `liquid-glass`. For copy-ready CSS, load `design-patterns`.
 
+## Start here
+- Read `apple-design` and its lessons.md first.
+- Copy the craft from `examples/product-page.html` but never the page; see `examples/README.md`.
+- Design the signature moment with `signature-moments`.
+
 ## Look and feel
 
 - **An Apple product page, not a SaaS template.** A big confident headline, one short line under it, one primary action, a real product picture, then generous space. No hero badges, stat rows, testimonial grids, logo walls, bento boxes or rows of identical icon cards.
@@ -38,20 +43,20 @@ A text-only list of features beside an empty column is the weakest version of st
 
 ## Motion
 
-- Hover and press states on everything clickable: subtle, fast (about 200 to 350 ms), eased.
-- No scroll-jacking, parallax, auto-advancing carousels, or fading in every element on scroll.
-- Respect `prefers-reduced-motion`.
+### Every page
+
 - **Every interactive part animates its change, both ways.** Whatever animates in also animates out: closing, collapsing, dismissing and switching back get the same motion as opening, reversed. An opening animation with an instant close fails review.
+- Hover and press states on everything clickable: subtle, fast (about 200 to 350 ms), eased.
 - **More than hover.** A static page with only a colour change on hover fails review. The minimum set on any product page:
   - **Disclosures (FAQ, "show more"):** the answer opens with a height animation (`grid-template-rows: 0fr → 1fr`, about 350 ms, ease-out), its text fades and rises a few pixels, and a chevron on the right rotates 180°. Never an instant jump. Code in `design-patterns` → FAQ disclosure.
   - **Buttons:** the label-to-symbol morph from `design-patterns`, and a pressed state (`scale(0.97)` while held, never on hover).
   - **Theme switch:** a smooth cross-fade of colours (about 300 ms), not a flash.
   - **Product pictures:** swap with a cross-fade and slight scale, never a hard cut.
   - **Sections:** headline and product enter once, together, with a short rise and fade the first time they're seen. One entrance per section, not every paragraph.
-- **Focus rings belong to the control:** rounded to match it, inset or offset so they never touch dividers or neighbours (`outline-offset: 4px; border-radius` equal to the control's). A square ring cutting across the lines above and below fails review.
 - **Timing:** 200 to 350 ms for controls, 500 to 800 ms for section entrances, eased out (`cubic-bezier(0.22, 1, 0.36, 1)`). Nothing linear, nothing bouncy.
+- Respect `prefers-reduced-motion`.
 
-## Ambitious motion
+### Where it earns its place
 
 Restraint means no filler, not no motion. Good product pages have rich, crafted animation where it carries meaning, like the SakuraCord site. Aim for that level everywhere it earns its place:
 
@@ -60,8 +65,16 @@ Restraint means no filler, not no motion. Good product pages have rich, crafted 
 - **Live UI on the page:** the mock-up actually works: countdowns tick, toggles switch, panels open from the notch when the section comes into view.
 - **Scroll-linked storytelling:** a sticky stage where scrolling steps through the feature's states, the copy changing beside it.
 - **Transitions between states** that morph (size, position, corner radius) instead of fading.
+- Craft rules: canvas or transforms only, 60 fps, scroll-driven not time-driven, every frame a good still, Reduce Motion shows the end state.
 
-Craft rules: canvas or transforms only, 60 fps, scroll-driven not time-driven, every frame a good still, Reduce Motion shows the end state. If it's filler (floating blobs, parallax layers, every paragraph fading in), cut it.
+### Never
+
+- Scroll-jacking.
+- Parallax layers.
+- Auto-advancing carousels.
+- Fading in every paragraph on scroll.
+- Hover lifts.
+- Floating blobs.
 
 ## Layout
 
@@ -73,6 +86,7 @@ Craft rules: canvas or transforms only, 60 fps, scroll-driven not time-driven, e
 
 - Headlines are read once by screen readers (no duplicated animated text in the accessibility tree).
 - Visible focus rings, correct labels, enough contrast, semantic headings.
+- **Focus rings belong to the control:** rounded to match it, inset or offset so they never touch dividers or neighbours (`outline-offset: 4px; border-radius` equal to the control's). A square ring cutting across the lines above and below fails review.
 
 ## Engineering discipline
 
