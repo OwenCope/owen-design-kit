@@ -25,6 +25,12 @@ Community files have no file key, so tools can't read them directly. Ask the per
 
 Save the URLs in the project's notes or the person's profile skill so nobody asks again. Check there first before asking.
 
+### Ready-made copies
+
+Shared copies of both kits that the Figma tools can read directly (use these first; duplicate your own only if they don't open):
+- macOS 27: https://www.figma.com/design/psmd2v7ftwhNCn0yh6JUk0/macOS-27--Community-?node-id=131-8996
+- iOS and iPadOS 27: https://www.figma.com/design/j2esmSA6gZA9scyN82vp5j/iOS-and-iPadOS-27--Community-?node-id=221-56229
+
 ## 3. Read before you build
 
 For every part of the mock-up, look it up in the kit first:
