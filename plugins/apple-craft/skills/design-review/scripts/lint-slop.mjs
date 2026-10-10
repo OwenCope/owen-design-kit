@@ -13,6 +13,7 @@
 //   g. emoji or unicode symbols used as icons - magnifiers, squares, check marks standing in for real icons.
 //   h. duplicate visible strings - the same sentence appearing twice inside one section, usually copy-paste filler.
 //   i. horizontal overflow at 390 px - the page scrolls sideways on a phone.
+//   j. real Mac assets - in a Mac scene, Dock and file-row icons that are not mac-assets exports.
 //
 // Run this until it is clean before any visual review: fix every FAIL, then run it again.
 import { chromium } from 'playwright';
@@ -177,6 +178,94 @@ report('duplicate visible strings', await page.evaluate(() => {
       if (seen.get(text) === 2) out.push(`"${text.slice(0, 60)}" twice in <section>`);
       if (out.length >= 40) break;
     }
+  }
+  return out;
+}));
+
+// j. real Mac assets
+report('real Mac assets', await page.evaluate(() => {
+  const out = [];
+  const clockRe = /\b([01]?\d|2[0-3]):[0-5]\d\b/;
+  const cls = (el) => (typeof el.className === 'string' ? el.className : el.className?.baseVal ?? '');
+  let hasScene = [...document.querySelectorAll('img')].some((img) =>
+    /macbook|shell/i.test(img.getAttribute('src') ?? ''));
+  if (!hasScene) hasScene = [...document.querySelectorAll('body *')].some((el) => /dock/i.test(cls(el)));
+  if (!hasScene) {
+    for (const el of document.querySelectorAll('body *')) {
+      if (el.children.length === 0 && clockRe.test(el.textContent ?? '')) { hasScene = true; break; }
+    }
+  }
+  if (!hasScene) return [];
+  const docks = [...document.querySelectorAll('body *')].filter((el) => /dock/i.test(cls(el)));
+  for (const el of document.querySelectorAll('body *')) {
+    if (docks.includes(el)) continue;
+    const kids = [...el.children];
+    if (kids.length < 4) continue;
+    const r = el.getBoundingClientRect();
+    if (r.width === 0) continue;
+    const square = kids.filter((k) => {
+      const kr = k.getBoundingClientRect();
+      return kr.width >= 16 && kr.width <= 96 && Math.abs(kr.width - kr.height) / kr.width < 0.2;
+    });
+    if (square.length < 4) continue;
+    const tops = square.map((k) => k.getBoundingClientRect().top);
+    if (Math.max(...tops) - Math.min(...tops) > 24) continue;
+    const vr = el.getBoundingClientRect();
+    if (vr.bottom < innerHeight * 0.5) continue;
+    docks.push(el);
+  }
+  const symbolRe = /^[\p{Emoji}\u2318\u2315\u25A0-\u25FF\u2600-\u27BF\u2B00-\u2BFF\uFE0E\uFE0F\s]+$/u;
+  const maskUrl = (el) => {
+    const st = getComputedStyle(el);
+    return `${st.maskImage ?? ''} ${st.webkitMaskImage ?? ''} ${st.backgroundImage ?? ''}`;
+  };
+  for (const dock of docks) {
+    for (const svg of dock.querySelectorAll('svg')) {
+      out.push(`inline svg icon in Dock container <${dock.tagName.toLowerCase()} class="${cls(dock).slice(0, 40)}">`);
+      if (out.length >= 40) break;
+    }
+    if (out.length >= 40) break;
+    for (const el of dock.querySelectorAll('div, span')) {
+      const st = getComputedStyle(el);
+      const bg = st.backgroundColor;
+      const hasBg = bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent';
+      if (hasBg && !/mac-assets/.test(maskUrl(el)) && !el.querySelector('img')) {
+        out.push(`css-shape icon <${el.tagName.toLowerCase()}> in Dock container`);
+        if (out.length >= 40) break;
+      }
+    }
+    if (out.length >= 40) break;
+    const walker = document.createTreeWalker(dock, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      const text = (node.textContent ?? '').trim();
+      if (!text || text.length > 8 || node.parentElement?.querySelector('img')) continue;
+      if (symbolRe.test(text)) {
+        out.push(`emoji/symbol "${text.slice(0, 10)}" in Dock container`);
+        if (out.length >= 40) break;
+      }
+    }
+    if (out.length >= 40) break;
+    for (const img of dock.querySelectorAll('img')) {
+      if (!/mac-assets/.test(img.getAttribute('src') ?? '')) {
+        out.push(`img "${(img.getAttribute('src') ?? '(no src)').slice(0, 60)}" in Dock is not a mac-assets export`);
+        if (out.length >= 40) break;
+      }
+    }
+    if (out.length >= 40) break;
+  }
+  const fileRe = /\.(pdf|png|jpe?g|key|txt|mov|md|zip|html|swift|numbers|pages|m4a|mp3|wav)\b/i;
+  for (const el of document.querySelectorAll('body *')) {
+    if (out.length >= 40) break;
+    const r = el.getBoundingClientRect();
+    if (r.width < 14 || r.width > 48 || r.height < 14 || r.height > 48) continue;
+    if (Math.abs(r.width - r.height) / Math.max(r.width, r.height) > 0.2) continue;
+    const context = el.parentElement?.textContent ?? '';
+    if (!fileRe.test(context)) continue;
+    if (docks.some((d) => d.contains(el))) continue;
+    if (el.tagName === 'IMG' && /mac-assets/.test(el.getAttribute('src') ?? '')) continue;
+    if (/mac-assets/.test(maskUrl(el))) continue;
+    out.push(`file-row icon <${el.tagName.toLowerCase()}> next to "${(context.trim().match(fileRe) ?? ['file'])[0]}" is not a mac-assets export`);
   }
   return out;
 }));

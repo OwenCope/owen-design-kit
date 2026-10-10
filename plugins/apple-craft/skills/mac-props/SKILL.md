@@ -25,6 +25,25 @@ Don't stop to ask for assets or Figma files. Build the scene from these:
 
 ## Building the scene
 
+### Step 0: generate the real assets (required)
+
+Run this before building anything:
+
+    swift scripts/make-assets.swift ./mac-assets --app /path/To/YourApp.app
+
+Or, when the app has no icon yet:
+
+    swift scripts/make-assets.swift ./mac-assets --symbol <name> --tint #hex
+
+It exports the real Dock icons, document icons (`mac-assets/files/`), SF Symbols, a wallpaper and `manifest.json`. Every icon in a Mac scene — Dock, menu bar, notch panel, file rows, window sidebar — must be one of these files, used as an `img` or as a CSS mask image. Never draw an icon with SVG paths, CSS shapes, emoji, Unicode symbols or letters; lint-slop fails any scene that does.
+
+| You need | Use |
+|---|---|
+| App in Dock | `mac-assets/dock/<name>.png` |
+| File in a list | `mac-assets/files/<type>.png` |
+| Menu bar or row symbol | `mac-assets/symbols/<name>.png` as a mask in the label colour |
+| Product's own icon | `mac-assets/app.png` (or the `--symbol` icon) |
+
 The layers, back to front:
 
 1. **The laptop shell**: `assets/macbook-air-shell.webp`, or another MacBook image with a transparent screen. Other sources: the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. The menu bar and Dock sizes below are already measured; Apple's macOS 27 Figma kit (linked in `liquid-glass`) is only needed for something not covered here.
