@@ -280,6 +280,11 @@ Figma blur radii are about twice CSS `blur()` values (estimated), so frost 6 map
   min-height: 44px;
   padding: 0 18px;
   border: 0;
+  border-radius: var(--glass-radius);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
+  color: inherit;
   font: 500 13px/1 system-ui, -apple-system, sans-serif;
   cursor: pointer;
   box-shadow:
@@ -309,7 +314,6 @@ Figma blur radii are about twice CSS `blur()` values (estimated), so frost 6 map
   backdrop-filter: none;
   box-shadow: none;
 }
-.glass .glass-button::before { content: none; }
 
 /* No backdrop-filter support, or the user asks for less transparency: go solid. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -397,7 +401,7 @@ When to use which:
 
 - **Glass is for controls and navigation that float over content.** Toolbars, floating buttons, menus, popovers, alerts, the Dock. Not for content: no glass cards in a list, no glass page sections, no glass behind body text.
 - **Never glass on glass.** Controls on a glass bar are flat. Group neighbours in one container.
-- **One tint colour.** Use the app's accent (#0088FF in the kit) for the one prominent action and for selection. Everything else stays untinted glass. Do not colour glass for decoration.
+- **One tint colour.** Use the app's accent (#0088FF in the kit; websites use apple.com's #0071e3 instead, see `design-patterns`) for the one prominent action and for selection. Everything else stays untinted glass. Do not colour glass for decoration.
 - **Keep text readable over anything.** Text and symbols on glass must hit WCAG AA (4.5:1 for body text, 3:1 for large text and icons) over the worst background they can float over. Test over white, black and a busy photo. If it fails, raise the fill opacity or frost before you change the text colour.
 - **Respect Reduce Transparency, Increase Contrast and Reduce Motion.** Native APIs do this for you. On the web, ship the solid, forced-colours and reduced-motion fallbacks above.
 - **Concentric corners.** Inner radius = outer radius minus inset. Capsules inside capsules stay capsules.

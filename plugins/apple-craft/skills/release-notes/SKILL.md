@@ -61,3 +61,7 @@ Write the notes once and reuse them: the release page, the website's release lis
 - Is the picture new, real, clean and about the main change? Does it show in full in the in-app card?
 - Is every bullet short and about what the person gets?
 - Are version numbers right everywhere: title, links, file names?
+
+## A release with no visual change
+
+Fixes and speed-ups still get a picture: show the part of the app the fix touches (the screen that used to fail), or the app's icon on its own on the release card. Never reuse an older release's picture, and never invent a UI change to have something to show. Lead the notes with what the person will notice ("Unlocks faster after sleep").

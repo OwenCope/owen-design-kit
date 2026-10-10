@@ -32,7 +32,7 @@ A text-only list of features beside an empty column is the weakest version of st
 ## Buttons and controls
 
 - **The download button is the signature.** A pill, a clear label ("Download for Mac"), a lively hover (the label morphs into an icon), and the same component everywhere it appears. Code is in `design-patterns`.
-- **Primary:** a solid accent pill with a faint 1 px gradient rim. **Secondary:** the same pill filled with the page's ink colour, text in the background colour. Frosted or glossy glass pills read as dated.
+- **Primary:** a solid accent pill with a faint 1 px gradient rim. **Secondary:** the same pill filled with the page's ink colour, text in the background colour. Frosted or glossy glass pills read as dated *as page buttons on a plain background*. Glass belongs only where something floats over moving content: a sticky nav over scrolling pictures, controls laid over a video or a Mac scene. There, use the `.glass` and `.glass-button` recipe from `liquid-glass`.
 - **Every control 44 px or shorter is a capsule:** buttons, inputs, search fields, selects, segmented controls and chips. Containers are large and concentric: cards 28 to 34, menus and popovers 16 to 20.
 - Hover effects never move a button; a slight lift on hover reads as cheap. Change colour, glow or content instead.
 

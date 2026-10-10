@@ -54,7 +54,7 @@ From Gaze (github.com/OwenCope/Gaze, `Sources/App/SettingsView.swift`).
         }
     }
 
-Rules: one per screen; 160 pt wide label area; never restyle it.
+Rules: one per screen; never restyle it. The 160 pt label area fits short English labels like "Install"; for longer labels or other languages size it to the widest label (`.fixedSize()` on a hidden copy, or measure) instead of truncating.
 
 ### Button → progress swap
 Replace the button *in place* with a 260 pt linear `ProgressView` + monospaced "42%", then an indeterminate bar + "Installing…". Wrap both in a `ZStack` with fixed height 36, transition `.opacity.combined(with: .scale(scale: 0.96))`, animate with `.smooth(duration: 0.35)` (nil under Reduce Motion).
@@ -112,7 +112,7 @@ Centre-aligned: app icon 72 pt (6 pt below) → "App X.Y.Z" `.title2.bold` → t
 Font stack: `-apple-system, BlinkMacSystemFont, var(--font-inter), "Segoe UI", sans-serif`. Don't add sizes; map to the nearest step.
 
 ### Colour
-- Action blue: `#0071e3` (`--action-fill`). The only accent.
+- Action blue on websites: `#0071e3` (`--action-fill`), apple.com's link and button blue. The only accent on a web page. Inside apps and app mock-ups use the system accent `#0088FF` (light) / `#0091FF` (dark) from `liquid-glass`, so an app screenshot and its mock-up match.
 - Neutral fills from the foreground colour: `color-mix(in oklab, var(--foreground) 7%, transparent)`, 11% on hover.
 - No purple/indigo, no gradient text, no neon.
 
@@ -220,8 +220,7 @@ A row per question: the question on the left, a chevron on the right, a hairline
 ## Spacing and shape (measured from the code)
 
 App (keep these as named constants in one `Theme` file):
-- Corner radius 16 for grouped sections and surfaces (continuous corners); media 14; small chips are capsules.
-- New work follows "Recommended picks" in `liquid-glass`: capsule controls at the large sizes, cards 28 to 34, menus and popovers 16 to 20, inner items concentric.
+- Existing apps (Gaze, Droppy) use radius 16 for grouped sections and 14 for media. **New work does not:** it follows "Recommended picks" in `liquid-glass`: capsule controls at the large sizes, cards 28 to 34, menus and popovers 16 to 20, inner items concentric.
 - Row inset 18 pt horizontal padding inside rows; section spacing 16 between sections.
 - Stack spacing in use: 6 (label/detail pairs, most common), 8–10 (controls in a row), 12–16 (groups).
 - Use the named constants; never type raw numbers when a constant exists.

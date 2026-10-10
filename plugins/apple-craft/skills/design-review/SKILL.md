@@ -48,6 +48,8 @@ The checklist catches broken things. This catches things that are merely not goo
 
 ## Step 3: Score each item (pass or fix)
 
+This is the full version of the short checklist in `apple-design`; when both are loaded, score this one and don't repeat the other.
+
 1. **Apple test.** Put it next to the Apple screen it's modelled on. Would it look out of place? Name the reference.
 2. **Native.** Every control is the platform's own, in the product's one button style and size.
 3. **One primary action**, labelled with a verb, and nothing duplicated.

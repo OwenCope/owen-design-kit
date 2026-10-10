@@ -1,9 +1,9 @@
 ---
 name: macos-app-design
-description: How Mac apps (and Apple-platform apps generally) should look and behave on macOS 26 and later - SwiftUI and AppKit controls, Liquid Glass buttons, settings windows, update UI, onboarding, toolbars, windows, motion, and taking screenshots of the app. Use with apple-design whenever building or reviewing any macOS, iOS or SwiftUI interface.
+description: How Mac apps (and Apple-platform apps generally) should look and behave on macOS 26 and later (current target macOS 27) - SwiftUI and AppKit controls, Liquid Glass buttons, settings windows, update UI, onboarding, toolbars, windows, motion, and taking screenshots of the app. Use with apple-design whenever building or reviewing any macOS, iOS or SwiftUI interface.
 ---
 
-# Mac app design (SwiftUI and AppKit, macOS 26 and later)
+# Mac app design (SwiftUI and AppKit, macOS 26 and later (current target macOS 27))
 
 Load `apple-design` first; this adds the platform detail. For glass, load `liquid-glass`. For copy-ready SwiftUI, load `design-patterns`.
 
@@ -55,3 +55,12 @@ Load `apple-design` first; this adds the platform detail. For glass, load `liqui
 ## Words inside the app
 
 Follow `product-writing`: "Version 0.1.7 is available.", "Check Again", "Checking…", "Installing…", "Couldn't check for updates. Try again." Never show HTTP codes, model names or thresholds; log them instead.
+
+## Accessibility in apps
+
+- **Dynamic Type:** use text styles (`.font(.body)`, `.headline`), never fixed point sizes, so text follows the user's size. Let rows grow in height; never clip text with a fixed frame.
+- **Increase Contrast** (`@Environment(\.colorSchemeContrast)`): add a visible 1 pt border to glass and custom surfaces, and use full-strength label colours.
+- **Reduce Transparency** (`accessibilityReduceTransparency`): replace glass and blur with a solid window background.
+- **Reduce Motion:** swap slides and scales for cross-fades or nothing.
+- **VoiceOver:** every icon-only button gets an `.accessibilityLabel`; group a row's parts with `.accessibilityElement(children: .combine)`.
+- **Keyboard:** every action reachable with Tab and Return, with a visible focus ring.

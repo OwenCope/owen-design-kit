@@ -66,3 +66,7 @@ Same structure: fixed full-bleed art, one persistent panel element animated with
 - Title ends with a full stop and names the benefit; body ≤ 2 lines?
 - "Skip tour" on page 1; Continue / back / close after?
 - Works with Reduce Motion?
+
+## Apps without a notch panel
+
+The "zoom into the device" opening is for apps that live in the notch or menu bar. For a normal window app, open on the app's own icon instead: it scales up from the centre and the welcome window grows out of it (the same timing, about 0.6 s, eased out). For a menu bar app without a notch panel, zoom into its menu bar icon and let the popover open from it.
