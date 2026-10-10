@@ -46,8 +46,8 @@ This is the full version of the short checklist in `apple-design`; when both are
 10. **Accessibility.** Labels, focus, contrast, text read once, touch targets at least 44 px on the web.
 11. **Leftovers.** No ghost windows, stray shadows, debug text, placeholder copy or console errors.
 12. **Consistency.** Matches `design-patterns` and the rest of the product. Anything new looks like it always existed.
-13. **Signature moment.** Product pages and first-run screens have one memorable, on-brand, moving, responsive centrepiece (`signature-moments`); a static picture with a caption fails, so write three concepts, pick the boldest buildable one, build it and name the three considered.
-14. **Product in place.** A Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon; a floating panel or a lone menu bar strip fails.
+13. **Signature moment.** Product, launch and first-run pages (N/A for everything else) have one memorable, on-brand, moving, responsive centrepiece (`signature-moments`); a static picture with a caption fails, so write three concepts, pick the boldest buildable one, build it and name the three considered.
+14. **Product in place.** In heroes and product pictures (N/A for release pictures and docs, which use a tight crop), a Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon; a floating panel or a lone menu bar strip fails.
 
 ## Step 4: Hard gates (pass or fail, no judgement)
 

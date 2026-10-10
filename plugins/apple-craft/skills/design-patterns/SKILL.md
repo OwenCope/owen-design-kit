@@ -31,16 +31,16 @@ From Gaze (github.com/OwenCope/Gaze, `Sources/App/SettingsView.swift`).
             Button(action: action) {
                 ZStack {
                     Text(title)
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(.headline)            // a text style, so it follows Dynamic Type
                         .opacity(morphed ? 0 : 1)
                         .blur(radius: morphed ? 8 : 0)
                     Image(systemName: symbol)
-                        .font(.system(size: 15, weight: .semibold))
+                        .font(.headline)
                         .opacity(morphed ? 1 : 0)
                         .blur(radius: morphed ? 0 : 8)
                         .accessibilityHidden(true)
                 }
-                .frame(width: 160, height: 22)
+                .frame(minWidth: 160, minHeight: 22)
                 .animation(.timingCurve(0.22, 1, 0.36, 1, duration: 0.34), value: morphed)
             }
             .buttonStyle(.glassProminent)
