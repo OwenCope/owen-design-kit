@@ -15,7 +15,8 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 | `macos-app-design` | Mac and SwiftUI apps: controls, settings, update UI, onboarding, windows, screenshots |
 | `web-design` | Websites that feel like apple.com: layout, type, buttons, light and dark, phones, accessibility |
 | `mac-props` | Showing a Mac app on a believable Mac: the laptop, menu bar, window above the Dock, clean window screenshots, copy-ready CSS |
-| `signature-moments` | Being creative without looking generic: one on-brand moment per product, with a ready-made "gather into the icon" particle scene |
+| `signature-moments` | Being creative without looking generic: one on-brand moment per product, found from what the app does, with worked examples |
+| `figma-mockups` | Connecting the Figma MCP and building mock-ups from Apple's macOS 27 and iOS 27 kits instead of drawing controls |
 | `onboarding-design` | A welcome tour that feels smooth, measured frame by frame from a real app |
 | `product-writing` | Every word in the product and in the agent's replies |
 | `release-notes` | A clean release format with a header, one real picture, short bullets, credits and install steps |

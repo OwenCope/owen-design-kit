@@ -83,6 +83,7 @@ The full field guide, covering websites, pictures, icons, video, copy and proces
 - `onboarding-design`: welcome tours and first-run flows.
 - `mac-props`: showing an app on a believable Mac.
 - `signature-moments`: the one creative, on-brand moment that makes a product memorable.
+- `figma-mockups`: building mock-ups from Apple's Figma kits through the Figma MCP.
 - `product-writing` and `release-notes`: every word the product shows.
 - `ship-and-verify`: proving it works before saying so.
 - If the person you work for has a profile skill (`working-with-<name>`) or the project has a `project-<name>` skill, load it too. Their picks override the defaults here.
