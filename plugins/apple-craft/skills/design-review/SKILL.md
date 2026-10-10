@@ -9,6 +9,7 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 ## Size the review to the change
 
+- **Contribution to someone else's project:** follow `match-the-project`. Capture before and after screenshots in light and dark, put them next to the 3 nearby screens you compared, and check states and accessibility. Skip signature moments, Mac scenes, reference-copy checks and the self-score; the project's own design is the standard.
 - **Small change** (one row, one string, one colour): capture that screen in light and dark and score only items 2, 5, 6, 7, 8, 10, 11 and 12. Mark the rest N/A.
 - **Fixing reported problems on a page:** fix them, then still score items 13 and 14. Doing only what was listed is how a page stays forgettable.
 - **New screen or flow:** the full review below.
@@ -16,11 +17,15 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 ## Step 1: Capture
 
-- **App:** a review copy, never the person's own configured app. Light and dark, normal and narrow window, Reduce Motion on and off.
-- **Web:** desktop (about 1440 px) and phone (about 375 px), light and dark if supported. Tab through it once with the keyboard. `scripts/capture.mjs` does the four captures in one go and flags console errors, sideways scrolling, buttons that move on hover and main actions that link nowhere:
+- **App:** a review copy, never the person's own configured app. Light and dark, normal and narrow window, Reduce Motion on and off. Apps can be captured with scripts/capture-app.sh <AppName>, which covers light, dark, a narrow window and Reduce Motion.
+- **Web:** desktop (about 1440 px) and phone (about 375 px), light and dark if supported. Tab through it once with the keyboard. `scripts/capture.mjs` does the four captures in one go and flags console errors, sideways scrolling, buttons that move on hover and main actions that link nowhere. It also runs an axe accessibility check and writes axe-*.json; every violation of impact serious or critical must be fixed or explained:
 
       npx -y -p playwright node scripts/capture.mjs http://localhost:3000 review
 - Hover every control and watch every transition once.
+
+## If you can't see images
+
+Agents without image input, or running in CI, must say so plainly in the report. List which checks could not be done. Run every check that does not need eyes: axe results, measured numbers from the DOM or view hierarchy, lint. Never claim to have looked at a screenshot. The person then does the visual pass.
 
 ## Step 2: Look at the pixels
 
@@ -45,7 +50,7 @@ This is the full version of the short checklist in `apple-design`; when both are
 9. **States.** Loading, empty, error, disabled and success are all designed, not just the happy path.
 10. **Accessibility.** Labels, focus, contrast, text read once, touch targets at least 44 px on the web.
 11. **Leftovers.** No ghost windows, stray shadows, debug text, placeholder copy or console errors.
-12. **Consistency.** Matches `design-patterns` and the rest of the product. Anything new looks like it always existed.
+12. **Consistency.** Matches the rest of the product; the product's existing design wins over apple-craft picks when they differ (see `match-the-project`). Anything new looks like it always existed.
 13. **Signature moment.** Product, launch and first-run pages (N/A for everything else) have one memorable, on-brand, moving, responsive centrepiece (`signature-moments`); a static picture with a caption fails, so write three concepts, pick the boldest buildable one, build it and name the three considered.
 14. **Product in place.** In heroes and product pictures (N/A for release pictures and docs, which use a tight crop), a Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon; a floating panel or a lone menu bar strip fails.
 
@@ -65,6 +70,10 @@ Fix every "fix", re-screenshot and re-score. Only a full pass gets shown.
 ## Step 6: Report
 
 Show the screenshots, one line per notable change, and say what could not be checked ("not tried on a real lock screen").
+
+## Last step: record what was rejected
+
+When the person rejects or corrects something, add one row to apple-craft's apple-design/lessons.md in the right table (what was rejected | what worked). Write it in general words with no private names. Keep it to one line. If the same lesson is already there, do not add it twice.
 
 ## Hunt for these first
 

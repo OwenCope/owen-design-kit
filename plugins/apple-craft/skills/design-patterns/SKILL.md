@@ -93,6 +93,55 @@ Centre-aligned: app icon 72 pt (6 pt below) → "App X.Y.Z" `.title2.bold` → t
 
 (Hairline at 12% white, never a black border. Loops with `AVPlayerLooper`, muted, no controls.)
 
+### States (never custom)
+Use the system views for every state, so empty, error, loading, disabled and success all match the OS.
+
+    struct PanelStates: View {
+        var body: some View {
+            VStack(spacing: 12) {
+                ContentUnavailableView("No results", systemImage: "magnifyingglass",
+                    description: Text("Try a different search."))          // empty
+                ContentUnavailableView("Something went wrong", systemImage: "wifi.exclamationmark",
+                    description: Text("Check your connection."),
+                    actions: { Button("Try Again") {} })                    // error with retry
+                ProgressView("Loading…")                                    // loading
+                Button("Save") {}.disabled(true)                            // disabled, system look
+                Label("Saved", systemImage: "checkmark.circle.fill")       // short success confirmation
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+Rules: ContentUnavailableView for empty and error, ProgressView for loading, .disabled for disabled, a short confirmation for success. Never build custom versions of these.
+
+### Form (grouped)
+A grouped form with labelled rows, inline validation below the field, and a submit that stays disabled until valid.
+
+    Form {
+        Section("Account") {
+            LabeledContent("Name") {
+                TextField("Ada", text: $name, prompt: Text("Your name"))
+                    .multilineTextAlignment(.trailing)
+            }
+            LabeledContent("Email") {
+                TextField("ada@example.com", text: $email, prompt: Text("you@example.com"))
+                    .multilineTextAlignment(.trailing)
+                    #if os(macOS)
+                    .textFieldStyle(.roundedBorder)
+                    #endif
+            }
+            if let error {
+                Text(error).font(.caption).foregroundStyle(.red)    // validation below the field
+            } else {
+                Text("We only use this to sign you in.").font(.caption).foregroundStyle(.secondary)
+            }
+            Button("Continue") { submit() }.disabled(!isValid)     // disabled until valid
+        }
+    }
+    .formStyle(.grouped)
+
+Rules: Form with .formStyle(.grouped), LabeledContent rows, TextField with a prompt, helper in .secondary or the error in red below, submit disabled until valid.
+
 ---
 
 ## Website (Next.js / CSS)
@@ -216,6 +265,166 @@ A row per question: the question on the left, a chevron on the right, a hairline
         }
       });
     });
+
+### States (one card, five variants)
+One card with class modifiers for loading, empty, error, disabled and success, so every panel handles every case.
+
+    <div class="state state-loading">
+      <div class="skeleton skeleton-title"></div>
+      <div class="skeleton skeleton-line"></div>
+      <div class="skeleton skeleton-line short"></div>
+    </div>
+    <div class="state state-empty">
+      <svg class="state-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <p class="state-title">No results yet</p>
+      <p class="state-sub">Add your first item to get started.</p>
+      <button class="pill" type="button">Add item</button>
+    </div>
+    <div class="state state-error" role="alert">
+      <p class="state-title">We could not load this.</p>
+      <p class="state-sub">Check your connection and try again.</p>
+      <button class="pill" type="button">Try Again</button>
+    </div>
+    <button class="pill" type="button" disabled aria-disabled="true">Save</button>
+    <p class="state-success"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="tick" d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Saved</p>
+
+    .state { border: 1px solid var(--hairline); border-radius: 20px; padding: 28px; text-align: center; }
+    .skeleton { border-radius: 8px; background: var(--fill-quaternary); height: 14px; margin: 8px auto; max-width: 320px; position: relative; overflow: hidden; }
+    .skeleton-title { height: 20px; max-width: 180px; }
+    .skeleton.short { max-width: 140px; }
+    .skeleton::after { content: ""; position: absolute; inset: 0;
+      background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.5) 50%, transparent 80%);
+      animation: shimmer 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+    @keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+    .state-icon { width: 28px; height: 28px; color: var(--secondary-label); }
+    .state-title { font-weight: 600; margin: 12px 0 4px; }
+    .state-sub { color: var(--secondary-label); margin: 0 0 16px; }
+    .pill[disabled] { opacity: .5; cursor: not-allowed; }
+    .state-success .tick { stroke-dasharray: 20; stroke-dashoffset: 20; animation: draw .5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: reduce) { .skeleton::after, .state-success .tick { animation: none; } .state-success .tick { stroke-dashoffset: 0; } }
+
+Rules: loading is a skeleton with a soft shimmer, never a spinner for content. Empty is one line icon, one title, one supporting line, one button. Error says what happened in plain words with one Try Again button, no error codes up front. Disabled is 50 percent opacity plus cursor not-allowed plus aria-disabled, never hidden. Success draws the checkmark in, then shows the result.
+
+### Form (labels above, capsule fields)
+A short form with the label above each field, helper text below, inline errors on blur, and a submit that turns into progress.
+
+    <form class="form" novalidate>
+      <div class="field">
+        <label for="f-email">Email</label>
+        <input id="f-email" type="email" placeholder="you@example.com" aria-describedby="f-email-help f-email-err" />
+        <p class="help" id="f-email-help">We only use this to sign you in.</p>
+        <p class="err" id="f-email-err" hidden>Enter an email like you@example.com.</p>
+      </div>
+      <button class="pill pill-primary" type="submit">Continue</button>
+    </form>
+
+    .form .field { margin-bottom: 20px; }
+    .form label { display: block; font-weight: 600; margin-bottom: 8px; }
+    .form input { width: 100%; min-height: 44px; border-radius: 999px; border: 1px solid var(--hairline);
+                  padding: 0 18px; font-size: 16px; background: var(--bg); color: var(--foreground); }
+    .form input:focus { outline: 2px solid var(--accent); outline-offset: 2px; border-color: transparent; }
+    .form input[aria-invalid="true"] { border-color: #d70015; }
+    .form .help { color: var(--secondary-label); font-size: 14px; margin: 8px 2px 0; }
+    .form .err { color: #d70015; font-size: 14px; margin: 8px 2px 0; }
+    .pill-primary { background: var(--accent); background: #0071e3; color: #fff; }
+    .form button[aria-busy="true"] { opacity: .7; pointer-events: none; }
+    @media (prefers-reduced-motion: reduce) { .form * { transition: none !important; } }
+
+    const form = document.querySelector('.form');
+    const input = form.querySelector('input');
+    input.addEventListener('blur', () => {
+      const bad = !input.checkValidity() || !input.value;
+      input.setAttribute('aria-invalid', bad);
+      form.querySelector('.err').hidden = !bad;
+    });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn.getAttribute('aria-busy') === 'true') return;
+      btn.setAttribute('aria-busy', 'true');
+      const label = btn.textContent; btn.textContent = 'Saving…';
+      save().finally(() => { btn.removeAttribute('aria-busy'); btn.textContent = label; });
+    });
+
+Rules: label above each field, 44 px capsule inputs at 16 px so iOS never zooms, helper below, inline error under the field on blur not on every keystroke with aria-describedby. Submit turns into a progress state and ignores a second press.
+
+### Table (dashboards)
+A dense table with a sticky header, right-aligned numbers, hairline dividers and a scroll wrapper on phones.
+
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Usage">
+      <table class="tbl">
+        <thead><tr><th scope="col">Plan</th><th scope="col" class="num">Seats</th><th scope="col" class="num">Cost</th></tr></thead>
+        <tbody>
+          <tr><td>Starter</td><td class="num">5</td><td class="num">$49</td></tr>
+          <tr><td>Team</td><td class="num">25</td><td class="num">$199</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--hairline); border-radius: 16px; }
+    .tbl { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .tbl th, .tbl td { padding: 0 16px; height: 40px; text-align: left; white-space: nowrap; }
+    .tbl thead th { position: sticky; top: 0; background: var(--bg); font-size: 13px; color: var(--secondary-label);
+                     font-weight: 600; border-bottom: 1px solid var(--hairline); }
+    .tbl tbody tr + tr td { border-top: 1px solid var(--hairline); }
+    .tbl tbody tr:hover td { background: var(--fill-quaternary); }
+    .tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+    @media (prefers-reduced-motion: reduce) { .tbl tbody tr:hover td { transition: none; } }
+
+Rules: sticky header, tabular-nums for numbers, numeric columns right-aligned, hairline row dividers, hover tint, compact 40 px rows, horizontal scroll wrapper on phones.
+
+### Navigation bar (transparent, then glass)
+Sticky bar that starts transparent and turns to glass after scrolling, with 3 to 5 links and one action.
+
+    <header class="nav" id="nav">
+      <a class="brand" href="/">Gaze</a>
+      <nav aria-label="Primary"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+      <a class="pill pill-small" href="#download">Download</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+      <div class="menu" id="nav-menu" hidden><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+    </header>
+
+    .nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 24px;
+           padding: 14px 24px; background: transparent; transition: background-color .35s cubic-bezier(0.22, 1, 0.36, 1); }
+    .nav.scrolled { background: var(--bg); }
+    @supports (backdrop-filter: blur(20px)) {
+      .nav.scrolled { background: color-mix(in srgb, var(--bg) 72%, transparent); backdrop-filter: blur(20px) saturate(1.6); }
+    }
+    .nav .brand { font-weight: 700; margin-right: auto; }
+    .nav nav { display: flex; gap: 20px; }
+    .pill-small { border-radius: 999px; padding: 8px 18px; min-height: 44px; display: inline-flex; align-items: center; }
+    .nav .menu { overflow: hidden; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s cubic-bezier(0.22, 1, 0.36, 1); }
+    .nav .menu.open { grid-template-rows: 1fr; }
+    @media (prefers-reduced-motion: reduce) { .nav, .nav .menu { transition: none; } }
+
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+    const btn = nav.querySelector('.menu-btn'), menu = nav.querySelector('.menu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      menu.hidden = false;
+      btn.setAttribute('aria-expanded', open);
+      if (!open) menu.addEventListener('transitionend', () => menu.hidden = true, { once: true });
+    });
+
+Rules: sticky, transparent at the top and glass (backdrop-filter blur with a solid fallback) after scrolling, product name left, 3 to 5 links, one action right. The phone menu opens and closes with the same animation.
+
+### Footer (one row)
+One row of small links with the product name and year, in light and dark.
+
+    <footer class="footer">
+      <p class="fine">© 2026 Gaze</p>
+      <nav aria-label="Footer"><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#contact">Contact</a></nav>
+    </footer>
+
+    .footer { display: flex; justify-content: space-between; align-items: center; gap: 16px;
+              padding: 24px; border-top: 1px solid var(--hairline); font-size: 13px; color: var(--secondary-label); }
+    .footer nav { display: flex; gap: 16px; }
+    .footer a { color: inherit; text-decoration: none; }
+    .footer a:hover { color: var(--foreground); }
+
+Rules: one row of small links, product name and year, secondary colour so it reads in light and dark.
 
 ## Spacing and shape (measured from the code)
 

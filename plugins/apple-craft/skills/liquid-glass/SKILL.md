@@ -5,6 +5,8 @@ description: Apple's Liquid Glass material and the macOS 27 components built on 
 
 # Liquid Glass
 
+Rules marked (house pick) are this kit's taste, not Apple's; change them freely if your product calls for it. Everything else follows Apple.
+
 Source: Apple's "macOS 27 (Community)" Figma kit, pages Materials, Buttons, Toolbars, Segmented Controls, Toggles, Sliders and Dials, Sidebars, Menus, Popovers, Alerts, Sheets, Windows, Notifications. Values below were read from the layer properties unless marked *estimated*. Pictures are in `reference/`.
 
 On Apple platforms, use the system API. Everything here is for checking that work, and for the web, where you have to build glass yourself.
@@ -24,11 +26,11 @@ The values in this skill are already read from these kits, so work from them fir
 
 ## Recommended picks
 
-The kit offers five control sizes: mini (16), small (20), medium (24), large (28) and extra large (36). Mini, small and medium controls are rounded rectangles at radius about 6; large and extra large are capsules. This kit recommends the capsules and the larger, rounder containers: they read as current Apple and age better. Use these picks unless you are matching a dense native AppKit layout.
+The kit offers five control sizes: mini (16), small (20), medium (24), large (28) and extra large (36). Mini, small and medium controls are rounded rectangles at radius about 6; large and extra large are capsules. This kit recommends the capsules and the larger, rounder containers: they read as current Apple and age better. Use these picks unless you are matching a dense native AppKit layout (house pick).
 
-- **Capsules for controls.** Every standalone button or field in an app, and every web control 44 px high or less, is fully rounded (radius = height / 2).
-- **Large sizes by default.** Large (28) for controls in content, extra large (36) for toolbars and the main action. On the web, controls are 44 px high, 52 px for the primary download button.
-- **Large concentric containers.** Cards and panels 28 to 34, menus and popovers 16 to 20. Anything inside a container uses the container radius minus the inset.
+- **Capsules for controls.** Every standalone button or field in an app, and every web control 44 px high or less, is fully rounded (radius = height / 2) (house pick).
+- **Large sizes by default.** Large (28) for controls in content, extra large (36) for toolbars and the main action. On the web, controls are 44 px high, 52 px for the primary download button (house pick).
+- **Large concentric containers.** Cards and panels 28 to 34, menus and popovers 16 to 20 (house pick). Anything inside a container uses the container radius minus the inset.
 
 | Component | Pick | Size | Radius | Reference |
 |---|---|---|---|---|
@@ -47,7 +49,7 @@ The kit offers five control sizes: mini (16), small (20), medium (24), large (28
 | Toolbars | Floating capsule groups, extra large | groups 36, inner buttons 28, icon buttons 36 circles | capsule | `window-toolbar-sidebar-light.png` |
 | Dock-like bars | One floating glass shelf, icons flat on it | about 55 high | capsule (radius = height / 2) | `desktop-notifications-dock-light.png` |
 
-Not preferred: radius 6 push buttons, pop-up buttons and segmented controls at mini, small and medium sizes; menus at radius 12 with radius 8 highlights; sidebar selection at radius 8; the Dock fill's radius 15. Use them only when matching dense native AppKit layouts.
+Not preferred: radius 6 push buttons, pop-up buttons and segmented controls at mini, small and medium sizes; menus at radius 12 with radius 8 highlights; sidebar selection at radius 8; the Dock fill's radius 15. Use them only when matching dense native AppKit layouts (house pick).
 
 ## What Liquid Glass is
 
@@ -69,10 +71,10 @@ See `glass-material-light.png` and `glass-material-dark.png`: the same small, me
 
 - **Glass is for controls and navigation that float over content.** Toolbars, floating buttons, menus, popovers, alerts, the Dock. Not for content: no glass cards in a list, no glass page sections, no glass behind body text.
 - **Never glass on glass.** Controls on a glass bar are flat. Group neighbours in one container.
-- **One tint colour.** Use the app's accent (#0088FF in the kit; websites use apple.com's #0071e3 instead, see `design-patterns`) for the one prominent action and for selection. Everything else stays untinted glass. Do not colour glass for decoration.
+- **One tint colour.** Use the app's accent (#0088FF in the kit; websites use apple.com's #0071e3 instead, see `design-patterns`) for the one prominent action and for selection (house pick). Everything else stays untinted glass. Do not colour glass for decoration.
 - **Keep text readable over anything.** Text and symbols on glass must hit WCAG AA (4.5:1 for body text, 3:1 for large text and icons) over the worst background they can float over. Test over white, black and a busy photo. If it fails, raise the fill opacity or frost before you change the text colour.
 - **Respect Reduce Transparency, Increase Contrast and Reduce Motion.** Native APIs do this for you. On the web, ship the solid, forced-colours and reduced-motion fallbacks in `web.md`.
 - **Concentric corners.** Inner radius = outer radius minus inset. Capsules inside capsules stay capsules.
-- **Capsules and large sizes.** Follow "Recommended picks": capsule controls at the large sizes, containers at 16 to 34. Radius 6 controls only to match dense native AppKit layouts.
+- **Capsules and large sizes.** Follow "Recommended picks": capsule controls at the large sizes, containers at 16 to 34. Radius 6 controls only to match dense native AppKit layouts (house pick).
 - **Clear before frosty.** Small controls are nearly clear (frost 6, see `values.md`); only text-heavy surfaces get heavier frost (25). If it looks like frosted plastic, there is too much blur.
 - **Look at it over real content**, in light and dark, before showing it (see `apple-design`).

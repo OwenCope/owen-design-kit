@@ -6,7 +6,7 @@
 // Writes full-page screenshots to out-dir (default ./review) and prints problems it can measure:
 // console errors, sideways scrolling on phones, buttons that move on hover, and links that go nowhere.
 import { chromium } from 'playwright';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 
 const url = process.argv[2];
 const out = process.argv[3] ?? 'review';
@@ -29,6 +29,19 @@ for (const [size, viewport] of Object.entries(sizes)) {
     await page.evaluate(() => scrollTo(0, 0));
     await page.waitForTimeout(400);
     await page.screenshot({ path: `${out}/${size}-${scheme}.png`, fullPage: true });
+
+    try {
+      await page.addScriptTag({ url: 'https://cdn.jsdelivr.net/npm/axe-core@4/axe.min.js' });
+      const violations = (await page.evaluate(() => axe.run())).violations;
+      console.log(`${size}/${scheme}: axe: ${violations.length} violations`);
+      for (const v of violations) {
+        const targets = v.nodes.flatMap((n) => n.target).slice(0, 3).join(', ');
+        console.log(`- ${v.id} (${v.impact}): ${targets}`);
+      }
+      writeFileSync(`${out}/axe-${size}-${scheme}.json`, JSON.stringify(violations, null, 2));
+    } catch (e) {
+      console.warn(`${size}/${scheme}: axe check skipped (CDN failed): ${e.message}`);
+    }
 
     const sideways = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     if (sideways > 0) problems.push(`${size}/${scheme}: page scrolls sideways by ${sideways}px`);

@@ -7,6 +7,16 @@ description: The core standard for making any app, website or visual look like A
 
 The bar is simple: it should look like Apple shipped it. People notice at once when something looks generated, templated or "AI". Everything here comes from real work that was rejected and then fixed.
 
+## Alongside other design skills
+
+When general design skills are also loaded (antislop, emil-*, ui-ux-pro-max, frontend or macOS design packs): on Apple-platform products and Apple-style sites, apple-craft wins where they disagree. On other projects, the project's own design wins (`match-the-project`) and the general skills fill in. Use one review, `design-review`, not several.
+
+## Whose design wins
+
+- Your own product or a new one: apple-craft's picks apply.
+- Someone else's project or an existing design system: theirs wins; run `match-the-project` first and change only what you were asked to.
+- A brand with its own identity: keep its colours, fonts and imagery, apply apple-craft's craft (space, type hierarchy, real pictures, states, motion discipline), not its look.
+
 ## The method, in order, every time
 
 1. **Find Apple's version first.** Before designing, name where Apple already solved this: System Settings, the App Store update card, Face ID setup, the lock screen, Photo Booth, apple.com product pages, Apple's release notes and "What's New" sheets. Copy that pattern's structure, spacing, hierarchy and wording. Only invent when Apple has nothing.
@@ -84,6 +94,7 @@ The full field guide, covering websites, pictures, icons, video, copy and proces
 - `mac-props`: showing an app on a believable Mac.
 - `signature-moments`: the one creative, on-brand moment that makes a product memorable.
 - `figma-mockups`: building mock-ups from Apple's Figma kits through the Figma MCP.
+- `match-the-project`: adapting to a project's existing design before changing it.
 - `product-writing` and `release-notes`: every word the product shows.
 - `ship-and-verify`: proving it works before saying so.
 - If the person you work for has a profile skill (`working-with-<name>`) or the project has a `project-<name>` skill, load it too. Their picks override the defaults here.
