@@ -21,7 +21,7 @@
          font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; -webkit-font-smoothing: antialiased; }
 
   /* The notch: one black shape. Its shoulders are concave curves where it meets the top edge, like the real one. */
-  .notch { position: fixed; top: 0; left: 50%; translate: -50% 0; width: 200px; height: 32px; background: #000;
+  .notch { position: fixed; top: 0; left: 50%; translate: -50% 0; width: 200px; height: 32px; background: transparent;
            border-radius: 0 0 12px 12px; z-index: 10; color: #fff; outline: none;
            box-shadow: 0 0 0 0 rgba(255,255,255,0); transition: box-shadow .25s ease; }
   .notch::before, .notch::after { content: ""; position: absolute; top: 0; width: 10px; height: 10px; pointer-events: none;
@@ -29,7 +29,17 @@
   .notch::before { left: -10px; } .notch::after { right: -10px; transform: scaleX(-1); }
   .notch.near { box-shadow: inset 0 -1px 0 rgba(255,255,255,.18), 0 6px 24px rgba(0,0,0,.25); }
   .notch:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
-  .clip { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+  .clip { position: absolute; inset: 0; overflow: hidden; border-radius: inherit;
+          /* Black where it meets the notch, fading into frosted glass below, like the real panel. */
+          background: linear-gradient(#000 0, #000 34px, rgba(22,22,24,.78) 96px, rgba(48,48,52,.62) 100%);
+          -webkit-backdrop-filter: blur(26px) saturate(1.7); backdrop-filter: blur(26px) saturate(1.7); }
+  /* While a file is being dragged: the drop panel with its target tile. */
+  .drops { position: absolute; left: 14px; right: 14px; top: 40px; bottom: 14px; display: flex; gap: 10px; opacity: 0; pointer-events: none; }
+  .tile { flex: 1; border-radius: 18px; background: rgba(255,255,255,.08); display: grid; place-content: center; justify-items: center; gap: 6px;
+          color: rgba(255,255,255,.8); font: 600 12px/1 -apple-system, sans-serif; transition: background .2s, color .2s; }
+  .tile img { width: 22px; height: 22px; filter: invert(1); opacity: .8; }
+  .tile.hot { background: rgba(255,255,255,.22); color: #fff; }
+  .notch.dragging .peek, .notch.dragging .head, .notch.dragging .shelf { opacity: 0 !important; }
 
   /* Closed: up to three parked files peek inside the notch, beside the camera area. */
   .peek { position: absolute; top: 7px; right: 12px; height: 18px; display: flex; flex-direction: row-reverse; }
@@ -41,10 +51,11 @@
   /* Open: the shelf. */
   .head { position: absolute; top: 40px; left: 22px; right: 16px; display: flex; align-items: center; justify-content: space-between;
           opacity: 0; font: 600 12px/16px -apple-system, sans-serif; color: rgba(255,255,255,.55); }
-  .clear { width: 26px; height: 26px; border-radius: 13px; border: 0; background: rgba(255,255,255,.12); cursor: pointer;
+  .clear, .done { width: 34px; height: 34px; border-radius: 17px; border: 0; background: rgba(255,255,255,.14); cursor: pointer;
            display: grid; place-items: center; }
-  .clear:hover { background: rgba(255,255,255,.2); }
-  .clear img { width: 12px; height: 12px; filter: invert(1); }
+  .clear:hover, .done:hover { background: rgba(255,255,255,.24); }
+  .clear img, .done img { width: 14px; height: 14px; filter: invert(1); }
+  .actions { display: flex; gap: 8px; }
   .shelf { position: absolute; left: 0; right: 0; top: 74px; padding: 0 22px; display: flex; justify-content: center; gap: 14px; }
   .item { width: 78px; text-align: center; opacity: 0; cursor: grab; touch-action: none; border-radius: 12px; padding: 6px 0 4px; }
   .item:hover { background: rgba(255,255,255,.08); }
@@ -69,8 +80,9 @@
     <div class="clip">
       <div class="peek" id="peek"></div>
       <div class="head" id="head"><span id="title"></span>
-        <button class="clear" id="clear" aria-label="Clear the shelf"><img src="mac-assets/menubar/xmark.png" alt=""></button></div>
+        <span class="actions"><button class="done" id="done" aria-label="Close the shelf"><img src="mac-assets/menubar/checkmark.png" alt=""></button><button class="clear" id="clear" aria-label="Clear the shelf"><img src="mac-assets/menubar/trash.png" alt=""></button></span></div>
       <div class="shelf" id="shelf"></div>
+      <div class="drops" id="drops"><div class="tile" id="keep"><img src="mac-assets/menubar/tray.png" alt=""><span>Keep</span></div></div>
     </div>
   </div>
 
@@ -97,7 +109,8 @@
   const peekWidth = () => (parked.length ? 236 + Math.min(parked.length, 3) * 11 : 200);
   const closedSize = () => ({ ...CLOSED, width: peekWidth() });
   const NEAR = () => ({ width: peekWidth() + 40, height: 42, radius: 16 });
-  const openSize = () => ({ width: Math.max(300, 44 + parked.length * 92), height: 186, radius: 30 });
+  const openSize = () => ({ width: Math.max(340, 44 + parked.length * 92), height: 196, radius: 30 });
+  const DROP = () => ({ width: Math.max(340, open ? openSize().width : 0), height: open ? 196 : 132, radius: 30 });
 
   function renderPeek() {
     peek.innerHTML = parked.slice(-3).map((f) => `<img src="mac-assets/files/${f.dataset.icon}.png" alt="">`).join('')
@@ -148,7 +161,7 @@
     file.dataset.parked = '1';
     file.style.visibility = 'hidden';            // it leaves the desk the moment it is let go
     hint.style.opacity = 0;
-    await Motion.flyTo(file.querySelector('img'), notch, { scale: 0.18, lift: 110,
+    await Motion.flyTo(file.querySelector('img'), notch.classList.contains('dragging') ? keep : notch, { scale: 0.22, lift: 110,
       from: from && from.width ? { left: from.left + (from.width - 84) / 2, top: from.top + 8, width: 84, height: 84 } : undefined });
     parked.push(file);
     const item = makeItem(file); shelf.appendChild(item);
@@ -175,11 +188,25 @@
   }
 
   // Desk files: drag (with magnet and flick), keyboard Enter or Space to send.
+  // Desk files. As soon as a drag starts, the notch opens into a drop panel; the Keep tile lights up
+  // when the file is over it. Keyboard: Enter or Space sends the focused file.
+  const keep = $('keep'), drops = $('drops');
+  const showDrops = async () => {
+    clearTimeout(closeTimer); notch.classList.add('dragging');
+    Motion.morph(notch, DROP(), 'smooth'); setTimeout(() => Motion.stagger([drops], { show: true, distance: 6 }), 120);
+  };
+  const hideDrops = async (dropped) => {
+    notch.classList.remove('dragging'); keep.classList.remove('hot');
+    await Motion.stagger([drops], { show: false, distance: 6 });
+    if (!dropped) Motion.morph(notch, open ? openSize() : closedSize(), 'smooth');
+  };
   document.querySelectorAll('.file').forEach((file) => {
     Motion.draggable(file, {
-      targets: [{ el: notch, radius: 190, magnet: 0.3,
-        onEnter: () => { if (!open) { notch.classList.add('near'); Motion.morph(notch, NEAR(), 'snappy'); } },
-        onLeave: () => { notch.classList.remove('near'); if (!open) Motion.morph(notch, closedSize(), 'snappy'); },
+      onStart: showDrops,
+      onEnd: (dropped) => hideDrops(dropped),
+      targets: [{ el: keep, radius: 150, magnet: 0.3,
+        onEnter: () => keep.classList.add('hot'),
+        onLeave: () => keep.classList.remove('hot'),
         onDrop: (el, from) => park(el, from) }],
     });
     file.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); park(file); } });
@@ -188,11 +215,12 @@
   // The notch: hover to peek, click or keyboard to toggle.
   notch.addEventListener('pointerenter', () => { clearTimeout(closeTimer); openShelf(); });
   notch.addEventListener('pointerleave', () => { closeTimer = setTimeout(closeShelf, 320); });
-  notch.addEventListener('click', (e) => { if (e.target.closest('.item, .clear')) return; open ? closeShelf() : openShelf(); });
+  notch.addEventListener('click', (e) => { if (e.target.closest('.item, .clear, .done')) return; open ? closeShelf() : openShelf(); });
   notch.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open ? closeShelf() : openShelf(); } if (e.key === 'Escape') closeShelf(); });
 
   // Clear: every file goes home on its own arc, a beat apart, then the notch closes.
-  Motion.pressable($('clear'));
+  Motion.pressable($('clear')); Motion.pressable($('done'));
+  $('done').addEventListener('click', (e) => { e.stopPropagation(); closeShelf(); });
   $('clear').addEventListener('click', async (e) => {
     e.stopPropagation();
     const items = [...shelf.children];

@@ -35,6 +35,9 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 
 ## What the notch-shelf reference adds
 
+- A drop panel that opens the moment a drag starts, with a target tile that lights up under the file.
+- The real panel material: black where it meets the notch, fading into frosted glass with the page blurred behind it.
+- Round glass action buttons (done, clear) instead of text links.
 - The notch's own shoulders (concave curves where it meets the top edge), so the shape looks like hardware, not a rounded box.
 - Parked items peeking inside the closed notch as tiny real icons with a +N count, instead of a number badge.
 - Taking items out by clicking or by pulling them down out of the shelf.
