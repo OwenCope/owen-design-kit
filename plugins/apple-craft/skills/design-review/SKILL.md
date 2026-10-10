@@ -74,6 +74,7 @@ Each gate needs written evidence in the report. A gate with no evidence counts a
 - **Side-by-side.** Name the reference you compared with and list at least three differences you found, even if you fixed them all.
 - **Real UI only.** Every picture of the product is a real screenshot or recording. Anything drawn, rebuilt from shapes or magnified into a second copy of the UI fails. A mock-up of an unbuilt app is allowed only when built from `mac-props/examples/mac-ui.css`, with each part compared against its picture in `liquid-glass/reference/` and the differences listed.
 - **Moving work.** Five frames from start to end, plus a frame just after every clip ends. A frame that freezes, goes black or holds the last frame of a finished clip fails.
+- **Not a reference copy.** Put the page next to `web-design/examples/product-page.html` and every example it was built from. List five real differences (layout order, hero picture, wallpaper and colours, feature visuals, signature moment). Fewer than five, or the same wallpaper or the same section order, fails.
 - **Signature moment.** A static picture with a caption fails item 13. Name the three concepts you considered.
 - **Self-score cap.** Your own rating can't go above 7/10 until the person has seen it. Say what would make it a 10.
 - **Show before done.** Never call work finished until the person has seen it. Their judgement replaces yours.
