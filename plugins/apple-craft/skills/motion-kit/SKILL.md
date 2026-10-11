@@ -16,7 +16,7 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 
 ## The parts
 
-- **Springs:** `Motion.spring(from, to, onUpdate, preset)` animates any numbers. Presets: `snappy` (controls), `smooth` (panels, morphs), `bouncy` (landing in place, one small bounce), `gentle` (big moves), `flight` (objects travelling along a path). Pass a starting velocity to continue a gesture. A new animation on the same element takes over from the current one smoothly, so opening and closing can interrupt each other. Pick by name. Never change the numbers per page.
+- **Springs:** `Motion.spring(from, to, onUpdate, preset)` animates any numbers. Presets: `snappy` (controls), `smooth` (panels, morphs), `bouncy` (landing in place, one small bounce), `gentle` (big moves), `flight` (objects travelling along a path), `island` (Dynamic Island panels: fast, no overshoot), `swap` (content resizing inside a panel). Pass a starting velocity to continue a gesture. A new animation on the same element takes over from the current one smoothly, so opening and closing can interrupt each other. Pick by name. Never change the numbers per page.
 - **Morph:** `Motion.morph(el, { width, height, radius })` grows one element into a new size and corner radius. Use it whenever something opens out of something else (notch into shelf, button into panel). One element, never a second box placed underneath.
 - **Fly to a target:** `Motion.flyTo(source, target, { scale, lift, from })` sends a copy along an arc; it tilts into the turn, shrinks, blurs slightly at full speed, and the target catches it with a squash. Hide the source the moment the flight starts. Use a negative `lift` to drop things back down.
 - **Catch bump:** `Motion.catchBump(el)` for "it arrived" or "it's back" (a quick squash and settle).
@@ -32,6 +32,9 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 - **Tilt:** `Motion.tilt(el)` follows the pointer in 3D on cards and product pictures; springs back flat.
 - **Blur crossfade:** `Motion.blurSwap(el, () => write())` swaps content in place: old blurs out, new blurs in. Use for titles, button labels and panel content between pages.
 - **Camera zoom:** `Motion.zoomTo(stage, focus, frame)` scales a whole scene so one part of it fills the frame (the Mac's screen becoming the window).
+- **Headline reveal:** `Motion.textReveal(h1)` brings words out of a blur one by one when first seen. One headline per page, not every line.
+- **Notification stack:** `Motion.stack(el)` piles cards with depth (lower, smaller, dimmer, slightly blurred); hover fans them out; `.push(card)` adds one on top.
+- **Dock magnification:** `Motion.dock(el)` swells icons with pointer distance, like the macOS Dock.
 - **Scene:** `Motion.scene(section, p => …)` gives 0 to 1 progress through a pinned scroll section; `Motion.segment(p, a, b)` turns part of it into its own eased 0 to 1 for choreography.
 
 ## Choreography rules

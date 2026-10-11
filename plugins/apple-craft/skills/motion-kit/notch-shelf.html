@@ -148,7 +148,7 @@
     notch.setAttribute('aria-expanded', 'true');
     Motion.stagger(peek.children, { show: false, gap: 0 });
     // Don't wait for the spring to fully settle: content starts once the shape is mostly open.
-    Motion.morph(notch, openSize(), 'smooth');
+    Motion.morph(notch, openSize(), 'island');
     await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 90));
     Motion.stagger([head], { show: true });
     await Motion.stagger(shelf.children, { show: true, gap: 22 });
@@ -174,7 +174,7 @@
     parked.push(file);
     const item = makeItem(file); shelf.appendChild(item);
     renderPeek(); hint.style.opacity = '';
-    if (open) { await Motion.morph(notch, openSize(), 'smooth'); Motion.stagger([item], { show: true }); }
+    if (open) { await Motion.morph(notch, openSize(), 'island'); Motion.stagger([item], { show: true }); }
     else { await Motion.morph(notch, closedSize(), 'snappy'); Motion.stagger([peek.lastElementChild || peek.firstElementChild], { show: true, distance: 4 }); }
   }
 
@@ -188,7 +188,7 @@
     if (!quiet) {
       await Motion.stagger([item], { show: false, gap: 0 });
       item.remove(); renderPeek();
-      if (!parked.length) closeShelf(); else Motion.morph(notch, openSize(), 'smooth');
+      if (!parked.length) closeShelf(); else Motion.morph(notch, openSize(), 'island');
     }
     await fly;
     file.style.visibility = ''; Motion.catchBump(file, 0.08);
@@ -201,7 +201,7 @@
   const keep = $('keep'), drops = $('drops');
   const showDrops = async () => {
     clearTimeout(closeTimer); notch.classList.add('dragging');
-    Motion.morph(notch, DROP(), 'smooth'); setTimeout(() => Motion.stagger([drops], { show: true, distance: 6 }), 120);
+    Motion.morph(notch, DROP(), 'island'); setTimeout(() => Motion.stagger([drops], { show: true, distance: 6 }), 120);
   };
   const hideDrops = async (dropped) => {
     notch.classList.remove('dragging'); keep.classList.remove('hot');

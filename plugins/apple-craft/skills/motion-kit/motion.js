@@ -14,6 +14,8 @@
     bouncy: { k: 340, c: 17, m: 1 },   // things landing in place: one small, visible bounce
     gentle: { k: 140, c: 22, m: 1 },   // large moves across the screen
     flight: { k: 90,  c: 19, m: 1 },   // objects flying along a path: accelerate, then glide in
+    island: { k: 420, c: 40, m: 0.5 }, // Dynamic Island style panel: fast, no overshoot, settles cleanly
+    swap:   { k: 460, c: 30, m: 0.55 },// content swapping size inside a panel
   };
 
   // Animate any set of numbers with a spring. `from`/`to` are objects of numbers.
@@ -336,5 +338,76 @@
     }, preset));
   }
 
-  global.Motion = { SPRINGS, spring, morph, flyTo, catchBump, pressable, draggable, stagger, reveal, scene, segment, expand, collapse, slideTo, countTo, popIn, toast, tilt, blurSwap, zoomTo, reduced, clamp, lerp };
+
+  // Headline reveal: words rise out of a blur one after another, the first time the text is seen.
+  function textReveal(el, { gap = 70, by = 'words' } = {}) {
+    if (el.dataset.split !== '1') {
+      const parts = by === 'letters' ? [...el.textContent] : el.textContent.split(/(\s+)/);
+      el.innerHTML = parts.map((p) => /^\s+$/.test(p) ? p : `<span class="mk-w" style="display:inline-block;opacity:0;filter:blur(10px);transform:translateY(.35em)">${p}</span>`).join('');
+      el.dataset.split = '1';
+    }
+    const words = el.querySelectorAll('.mk-w');
+    const run = () => words.forEach((w, i) => setTimeout(() => spring({ o: 0, b: 10, y: 0.35 }, { o: 1, b: 0, y: 0 }, ({ o, b, y }) => {
+      w.style.opacity = clamp(o); w.style.filter = b > 0.05 ? `blur(${b}px)` : ''; w.style.transform = `translateY(${y}em)`;
+    }, 'gentle'), reduced() ? 0 : i * gap));
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.disconnect(); run(); } }), { threshold: 0.4 });
+    io.observe(el);
+  }
+
+  // Notification stack: cards pile up with depth (each one lower, smaller, dimmer, a touch blurred);
+  // hovering fans them out into a list. Call stack.push(el) to add a card on top.
+  function stack(container, { peek = 12, depthScale = 0.045, depthBlur = 0.9, gap = 10, max = 3 } = {}) {
+    let expanded = false;
+    const layout = (preset = 'island') => {
+      const cards = [...container.children].reverse();   // newest first
+      let y = 0;
+      cards.forEach((c, d) => {
+        const target = expanded
+          ? { y, s: 1, b: 0, o: 1 }
+          : { y: Math.min(d, max) * peek, s: 1 - Math.min(d, max) * depthScale, b: Math.min(d, max) * depthBlur, o: d > max ? 0 : 1 - d * 0.12 };
+        if (expanded) y += c.offsetHeight + gap;
+        const cur = { y: +c.dataset.y || 0, s: +c.dataset.s || 1, b: +c.dataset.b || 0, o: c.dataset.o ? +c.dataset.o : 1 };
+        c.style.zIndex = 100 - d;
+        claim(c, 'stack', spring(cur, target, (v) => {
+          Object.assign(c.dataset, { y: v.y, s: v.s, b: v.b, o: v.o });
+          c.style.transform = `translateY(${v.y}px) scale(${v.s})`; c.style.filter = v.b > 0.05 ? `blur(${v.b}px)` : '';
+          c.style.opacity = clamp(v.o);
+        }, preset));
+      });
+      container.style.height = (expanded ? y : (cards[0]?.offsetHeight || 0) + Math.min(cards.length - 1, max) * peek) + 'px';
+    };
+    container.addEventListener('pointerenter', () => { expanded = true; layout(); });
+    container.addEventListener('pointerleave', () => { expanded = false; layout(); });
+    layout();
+    return {
+      push(el) {
+        Object.assign(el.dataset, { y: -40, s: 0.9, b: 6, o: 0 });
+        el.style.transform = 'translateY(-40px) scale(.9)'; el.style.opacity = 0;
+        container.appendChild(el); layout('swap');
+      },
+      layout,
+    };
+  }
+
+  // macOS Dock magnification: icons swell with distance to the pointer (cosine falloff) and push
+  // their neighbours apart; everything springs back when the pointer leaves.
+  function dock(container, { base = 48, max = 84, reach = 150 } = {}) {
+    const icons = [...container.children];
+    const size = icons.map(() => base);
+    const set = (targets, preset) => icons.forEach((el, i) => {
+      claim(el, 'dock', spring({ s: size[i] }, { s: targets[i] }, ({ s }) => {
+        size[i] = s; el.style.width = el.style.height = s + 'px';
+      }, preset));
+    });
+    container.addEventListener('pointermove', (e) => {
+      if (reduced()) return;
+      set(icons.map((el) => {
+        const r = el.getBoundingClientRect(), d = Math.abs(e.clientX - (r.left + r.width / 2));
+        return d > reach ? base : base + (max - base) * (Math.cos((d / reach) * Math.PI) + 1) / 2;
+      }), 'island');
+    });
+    container.addEventListener('pointerleave', () => set(icons.map(() => base), 'smooth'));
+  }
+
+  global.Motion = { SPRINGS, spring, morph, flyTo, catchBump, pressable, draggable, stagger, reveal, scene, segment, expand, collapse, slideTo, countTo, popIn, toast, tilt, blurSwap, zoomTo, textReveal, stack, dock, reduced, clamp, lerp };
 })(window);

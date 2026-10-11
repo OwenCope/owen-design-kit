@@ -63,6 +63,17 @@
   .big { height: 52px; padding: 0 28px; border-radius: 26px; font-size: 17px; }
   .ml { display: inline-grid; place-items: center; } .ml span { grid-area: 1/1; transition: opacity 340ms linear, filter 340ms cubic-bezier(.22,1,.36,1); }
   .ml .h { opacity: 0; filter: blur(16px); font-size: 20px; } .ml:hover .r { opacity: 0; filter: blur(16px); } .ml:hover .h { opacity: 1; filter: blur(0); }
+  /* 13-15 */
+  .reveal { margin: 0; font-size: 34px; letter-spacing: -.03em; text-align: center; }
+  .nstack { position: absolute; top: 56px; left: 50%; margin-left: -140px; width: 280px; }
+  .ncard { position: absolute; left: 0; right: 0; top: 0; display: flex; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 16px;
+           background: rgba(246,246,248,.92); box-shadow: 0 0 0 .5px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.12); transform-origin: 50% 0; color: #1d1d1f; }
+  @media (prefers-color-scheme: dark) { .ncard { background: rgba(44,44,46,.92); color: #f5f5f7; } }
+  .ncard img { width: 32px; height: 32px; } .ncard b { display: block; font-size: 13px; } .ncard span { font-size: 12px; opacity: .65; }
+  .ncard time { margin-left: auto; align-self: flex-start; font-size: 11px; opacity: .5; }
+  .mdock { display: flex; align-items: flex-end; gap: 5px; padding: 6px 8px; border-radius: 18px; height: 80px;
+           background: rgba(255,255,255,.35); box-shadow: inset 0 0 0 .5px rgba(0,0,0,.08), 0 10px 30px rgba(0,0,0,.12); align-self: end; margin-bottom: 40px; }
+  .mdock img { width: 36px; height: 36px; display: block; }
   /* 11 download */
   .dl { position: relative; height: 52px; width: 230px; border: 0; border-radius: 26px; background: var(--accent); color: #fff; cursor: pointer;
         font: 600 17px -apple-system, sans-serif; display: grid; place-items: center; overflow: hidden; }
@@ -138,6 +149,15 @@
       <span class="done" aria-hidden="true"><i class="ok"></i>Open Gaze</span></button></div>
     <div class="meta"><b>Download button</b><span>Hover: the label blurs into a symbol. Click: the same capsule turns into progress, then into the next action. The button never moves.</span><code>design-patterns › MorphLabel + progress swap</code></div></section>
 
+  <section class="demo"><div class="stage"><h2 class="reveal" id="rev">Your Mac. Unlocked.</h2><button class="ghost" id="b13" style="position:absolute;bottom:16px">Replay</button></div>
+    <div class="meta"><b>Headline reveal</b><span>Words rise out of a blur one after another, the first time they’re seen.</span><code>Motion.textReveal(h1)</code></div></section>
+
+  <section class="demo"><div class="stage"><div class="nstack" id="nstack"></div><button class="ghost" id="b14" style="position:absolute;top:14px;right:14px">Add</button></div>
+    <div class="meta"><b>Notification stack</b><span>Cards pile up with depth: lower, smaller, dimmer, a touch of blur. Hover fans them out.</span><code>const s = Motion.stack(el); s.push(card)</code></div></section>
+
+  <section class="demo"><div class="stage"><div class="mdock" id="mdock"></div></div>
+    <div class="meta"><b>Dock magnification</b><span>Icons swell with distance to the pointer and push their neighbours apart, like the macOS Dock.</span><code>Motion.dock(el, { base: 48, max: 84 })</code></div></section>
+
   <section class="demo"><div class="stage" style="display:block"><div class="scene-wrap" id="sw"><div class="scene" id="scene"><div class="pin">
       <div class="mini" id="mini"><div class="mnotch2" id="mn"><div class="mface" id="mface"><i></i><i></i></div></div>
         <div class="mlock" id="mlock"><b id="mtime">9:41</b><span id="mstate">Locked</span></div></div>
@@ -194,6 +214,18 @@
 
   // 10 tilt, 11 press
   Motion.tilt($('card3d'));
+
+  // 13 reveal, 14 stack, 15 dock
+  Motion.textReveal($('rev'));
+  $('b13').onclick = () => { const h = $('rev'); h.dataset.split = ''; h.textContent = 'Your Mac. Unlocked.'; Motion.textReveal(h); };
+  const ns = Motion.stack($('nstack'));
+  const notes = [['messages', 'Messages', 'Priya: on my way'], ['mail', 'Mail', 'Your invoice is ready'], ['calendar', 'Calendar', 'Design review in 10 min'], ['photos', 'Photos', 'New memory: Lisbon']];
+  let ni = 0;
+  const addNote = () => { const [i, t, b] = notes[ni++ % notes.length]; const c = document.createElement('div'); c.className = 'ncard';
+    c.innerHTML = `<img src="mac-assets/dock/${i}.png" alt=""><div><b>${t}</b><span>${b}</span></div><time>now</time>`; ns.push(c); };
+  addNote(); addNote(); addNote(); $('b14').onclick = addNote;
+  $('mdock').innerHTML = ['finder', 'safari', 'messages', 'mail', 'photos', 'notes'].map((n) => `<img src="mac-assets/dock/${n}.png" alt="">`).join('');
+  Motion.dock($('mdock'), { base: 36, max: 56, reach: 110 });
 
   // 11 download: rest → progress → done, in the same capsule.
   const dl = $('b11'); dl.dataset.s = 'rest';

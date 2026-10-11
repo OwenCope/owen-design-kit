@@ -225,7 +225,7 @@
     }
 
     // Page to page: the same panel reshapes while old content leaves and new content arrives over it.
-    Motion.morph($('panel'), P.size, 'smooth');
+    Motion.morph($('panel'), P.size, 'island');
     swapContent(P.render ? P.render() : '', P.enter);
     await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 380));
     busy = false;
