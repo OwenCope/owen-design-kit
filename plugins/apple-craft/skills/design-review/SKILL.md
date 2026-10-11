@@ -25,6 +25,7 @@ Review what changed, not the whole product: a checklist is not a reason to redes
     npm i -D playwright && npx playwright install chromium
     node scripts/capture.mjs http://localhost:3000 review
 - Hover every control and watch every transition once.
+- **Stress it** (web): `node scripts/stress.mjs http://localhost:3000 stress` refills the page with long German words, doubled text, 200 % text, right-to-left, 320 px width, empty and 200-item lists and a slow network, then reports anything that overflows, clips or overlaps. Real content breaks layouts that sample data never does.
 
 ## Run the slop linter
 

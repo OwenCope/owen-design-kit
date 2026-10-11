@@ -76,7 +76,8 @@
   .file { width: 104px; padding: 8px 0; border-radius: 14px; text-align: center; user-select: none; outline: none; }
   .file:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
   .file img { width: 84px; height: 84px; display: block; margin: 0 auto 8px; pointer-events: none; }
-  .file span { font-size: 13px; }
+  /* Long names stay on one line and end in an ellipsis, like Finder. */
+  .file span { display: block; padding: 0 4px; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .hint { color: var(--muted); font-size: 15px; margin: 0; transition: opacity .3s; }
   @media (max-width: 600px) { .desk { display: grid; grid-template-columns: repeat(2, 120px); gap: 28px 36px; } .file { width: 120px; } .file img { width: 72px; height: 72px; } }
 </style>

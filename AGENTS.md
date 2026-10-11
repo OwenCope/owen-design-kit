@@ -8,6 +8,6 @@ This project follows the apple-craft skills. Before doing any work:
 4. Before writing any text, read `product-writing/SKILL.md`. Before any release, read `release-notes/SKILL.md` and `ship-and-verify/SKILL.md`.
 5. In Owen's projects, also read `plugins/owen-design/skills/working-with-owen/SKILL.md` and the matching `project-<name>/SKILL.md` there. Owen's picks override the defaults.
 
-Skills live at `plugins/<plugin>/skills/<skill>/SKILL.md` and refer to each other by skill name.
+Skills live at `plugins/<plugin>/skills/<skill>/SKILL.md` and refer to each other by skill name. After editing any skill, run `node scripts/check-kit.mjs` and fix every FAIL.
 
 Follow these over your own defaults. The standard: it should look and read like Apple made it.

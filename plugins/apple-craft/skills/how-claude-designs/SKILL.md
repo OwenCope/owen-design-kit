@@ -17,6 +17,8 @@ If I can't say the moment, I'm not ready to build. I ask Owen, or I look at the 
 
 The fastest way to look fake is to draw something that exists. A recording of the real panel beat every drawn copy of it. Real Dock icons beat tidy squares with letters. Owen's own app beat a reskin of someone else's tour.
 
+The same goes for words and data. I write the real headline, the real labels and use real-looking data before the layout, because a layout built around "Lorem ipsum" and invented stats fits nothing real and is where the generic look comes from.
+
 So my first move is always to find the real thing: run the app, take the screenshot, export the icon, record the panel. Only when it truly doesn't exist do I build it, and then I build it from the platform's real parts, at real size.
 
 ## 3. Compare against the real thing, not a rule
@@ -80,4 +82,4 @@ Say it plainly, fix it, and fix the reason it happened: a script, a default, a s
 
 ## Where the tools are
 
-`apple-design` (the core standard), `web-design`, `macos-app-design`, `mac-props` (real Mac scenes and assets), `liquid-glass`, `design-patterns`, `design-brief`, `design-review`, `self-improve`, `motion-kit`, `onboarding-design`, `product-writing`, `match-the-project` for other people's projects. Reach for them when the thinking above calls for them.
+`apple-design` (the core standard), `web-design`, `macos-app-design`, `mac-props` (real Mac scenes and assets), `liquid-glass`, `design-patterns`, `design-brief`, `design-review`, `self-improve`, `motion-kit`, `onboarding-design`, `product-writing`, `match-the-project` for other people's projects, `improve-existing` for making existing work better, `product-ui` for app screens and flows, and in Owen's kit `design-directions` and `site-gallery` for products that shouldn't look like Apple. Reach for them when the thinking above calls for them.

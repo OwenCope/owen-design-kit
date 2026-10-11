@@ -1,0 +1,568 @@
+{
+  "site": "duolingo",
+  "url": "https://www.duolingo.com",
+  "viewport": {
+    "w": 1440,
+    "h": 900
+  },
+  "body": {
+    "font-family": "sans-serif",
+    "font-size": "17px",
+    "line-height": "20px",
+    "color": "rgb(60, 60, 60)",
+    "background-color": "rgb(255, 255, 255)"
+  },
+  "elements": {
+    "h1": {
+      "font-family": "duolingo-sans, sans-serif",
+      "font-size": "32px",
+      "font-weight": "700",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(75, 75, 75)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(75, 75, 75)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "88px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "h2": {
+      "font-family": "feather, sans-serif",
+      "font-size": "48px",
+      "font-weight": "700",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(88, 204, 2)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(88, 204, 2)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "60px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "h3": null,
+    "p": {
+      "font-family": "duolingo-sans, sans-serif",
+      "font-size": "17px",
+      "font-weight": "500",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgb(119, 119, 119)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(119, 119, 119)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "72px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "a": {
+      "font-family": "duolingo-sans, sans-serif",
+      "font-size": "17px",
+      "font-weight": "500",
+      "line-height": "20px",
+      "letter-spacing": "normal",
+      "color": "rgb(0, 0, 238)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(0, 0, 238)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "46px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "button": {
+      "font-family": "duolingo-sans, sans-serif",
+      "font-size": "15px",
+      "font-weight": "700",
+      "line-height": "17.25px",
+      "letter-spacing": "0.8px",
+      "color": "rgb(175, 175, 175)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(175, 175, 175)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "17.25px",
+      "transition": "filter 0.2s",
+      "transition-duration": "0.2s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "nav": {
+      "font-family": "duolingo-sans, sans-serif",
+      "font-size": "17px",
+      "font-weight": "500",
+      "line-height": "20px",
+      "letter-spacing": "normal",
+      "color": "rgb(60, 60, 60)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(60, 60, 60)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "70px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "header": {
+      "font-family": "duolingo-sans, sans-serif",
+      "font-size": "17px",
+      "font-weight": "500",
+      "line-height": "20px",
+      "letter-spacing": "normal",
+      "color": "rgb(60, 60, 60)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(60, 60, 60)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "70px 0px 0px",
+      "height": "900px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "footer": {
+      "font-family": "duolingo-sans, sans-serif",
+      "font-size": "17px",
+      "font-weight": "500",
+      "line-height": "20px",
+      "letter-spacing": "normal",
+      "color": "rgb(60, 60, 60)",
+      "background-color": "rgb(88, 204, 2)",
+      "background-image": "none",
+      "border": "0px none rgb(60, 60, 60)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "827.188px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    }
+  },
+  "primaryButtons": [
+    {
+      "text": "Get started",
+      "tag": "A",
+      "href": "/register",
+      "rect": {
+        "x": 809,
+        "y": 453,
+        "w": 330,
+        "h": 50
+      },
+      "style": {
+        "font-family": "duolingo-sans, sans-serif",
+        "font-size": "15px",
+        "font-weight": "700",
+        "line-height": "normal",
+        "letter-spacing": "0.8px",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "background-image": "none",
+        "border": "",
+        "border-radius": "12px",
+        "box-shadow": "none",
+        "padding": "0px 16px",
+        "height": "50px",
+        "transition": "all",
+        "transition-duration": "0s",
+        "transition-timing-function": "ease",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "text": "I ALREADY HAVE AN ACCOUNT",
+      "tag": "BUTTON",
+      "href": null,
+      "rect": {
+        "x": 809,
+        "y": 515,
+        "w": 330,
+        "h": 50
+      },
+      "style": {
+        "font-family": "duolingo-sans, sans-serif",
+        "font-size": "15px",
+        "font-weight": "700",
+        "line-height": "normal",
+        "letter-spacing": "0.8px",
+        "color": "rgb(28, 176, 246)",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "background-image": "none",
+        "border": "",
+        "border-radius": "12px",
+        "box-shadow": "none",
+        "padding": "0px 16px",
+        "height": "50px",
+        "transition": "all",
+        "transition-duration": "0s",
+        "transition-timing-function": "ease",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "text": "English",
+      "tag": "A",
+      "href": "/course/en/en/Learn-English",
+      "rect": {
+        "x": 219,
+        "y": 846,
+        "w": 107,
+        "h": 28
+      },
+      "style": {
+        "font-family": "duolingo-sans, sans-serif",
+        "font-size": "17px",
+        "font-weight": "500",
+        "line-height": "20px",
+        "letter-spacing": "normal",
+        "color": "rgb(119, 119, 119)",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "background-image": "none",
+        "border": "0px none rgb(119, 119, 119)",
+        "border-radius": "0px",
+        "box-shadow": "none",
+        "padding": "0px",
+        "height": "27.7656px",
+        "transition": "all",
+        "transition-duration": "0s",
+        "transition-timing-function": "ease",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "text": "Chess",
+      "tag": "A",
+      "href": "/chess",
+      "rect": {
+        "x": 349,
+        "y": 846,
+        "w": 92,
+        "h": 28
+      },
+      "style": {
+        "font-family": "duolingo-sans, sans-serif",
+        "font-size": "17px",
+        "font-weight": "500",
+        "line-height": "20px",
+        "letter-spacing": "normal",
+        "color": "rgb(119, 119, 119)",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "background-image": "none",
+        "border": "0px none rgb(119, 119, 119)",
+        "border-radius": "0px",
+        "box-shadow": "none",
+        "padding": "0px",
+        "height": "27.7656px",
+        "transition": "all",
+        "transition-duration": "0s",
+        "transition-timing-function": "ease",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "text": "Math",
+      "tag": "A",
+      "href": "/math",
+      "rect": {
+        "x": 463,
+        "y": 846,
+        "w": 86,
+        "h": 28
+      },
+      "style": {
+        "font-family": "duolingo-sans, sans-serif",
+        "font-size": "17px",
+        "font-weight": "500",
+        "line-height": "20px",
+        "letter-spacing": "normal",
+        "color": "rgb(119, 119, 119)",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "background-image": "none",
+        "border": "0px none rgb(119, 119, 119)",
+        "border-radius": "0px",
+        "box-shadow": "none",
+        "padding": "0px",
+        "height": "27.7656px",
+        "transition": "all",
+        "transition-duration": "0s",
+        "transition-timing-function": "ease",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    }
+  ],
+  "contentWidthsSample": [
+    473,
+    502,
+    503,
+    530
+  ],
+  "heroContainerWidth": 988,
+  "sectionCount": 11,
+  "sectionGaps": [
+    0,
+    0,
+    0,
+    96,
+    0,
+    0,
+    96
+  ],
+  "topColors": [
+    {
+      "color": "rgb(60, 60, 60)",
+      "count": 7640
+    },
+    {
+      "color": "rgb(119, 119, 119)",
+      "count": 264
+    },
+    {
+      "color": "rgb(75, 75, 75)",
+      "count": 34
+    },
+    {
+      "color": "rgb(88, 204, 2)",
+      "count": 19
+    },
+    {
+      "color": "rgb(175, 175, 175)",
+      "count": 14
+    },
+    {
+      "color": "rgb(28, 176, 246)",
+      "count": 8
+    },
+    {
+      "color": "rgb(255, 255, 255)",
+      "count": 7
+    },
+    {
+      "color": "rgb(0, 0, 238)",
+      "count": 4
+    },
+    {
+      "color": "rgb(0, 4, 55)",
+      "count": 3
+    },
+    {
+      "color": "rgb(4, 44, 96)",
+      "count": 2
+    },
+    {
+      "color": "rgb(60, 60, 60) rgb(60, 60, 60) rgba(0, 0, 0, 0)",
+      "count": 1
+    },
+    {
+      "color": "rgb(229, 229, 229) rgb(60, 60, 60)",
+      "count": 1
+    },
+    {
+      "color": "rgb(221, 244, 255)",
+      "count": 1
+    },
+    {
+      "color": "rgb(16, 15, 62)",
+      "count": 1
+    }
+  ],
+  "fontSizes": [
+    {
+      "size": "17px",
+      "count": 3922
+    },
+    {
+      "size": "15px",
+      "count": 66
+    },
+    {
+      "size": "48px",
+      "count": 7
+    },
+    {
+      "size": "64px",
+      "count": 2
+    },
+    {
+      "size": "14px",
+      "count": 2
+    },
+    {
+      "size": "32px",
+      "count": 1
+    }
+  ],
+  "borderRadii": [
+    {
+      "radius": "12px",
+      "count": 7
+    }
+  ],
+  "boxShadows": [],
+  "rootVars": {},
+  "imgCount": 53,
+  "svgCount": 8,
+  "bigImgCount": 8,
+  "bigSvgCount": 4,
+  "bigMedia": [
+    {
+      "src": "https://d35aaqx5ub95lt.cloudfront.net/images/splash/lottie/23ab11cb1e1a9aff54facdf57833373d.svg",
+      "w": 530,
+      "h": 530,
+      "alt": ""
+    },
+    {
+      "src": "https://d35aaqx5ub95lt.cloudfront.net/images/splash/lottie/08ec8d0260c55c054e1b97bcbc96ea0f.svg",
+      "w": 530,
+      "h": 530,
+      "alt": ""
+    },
+    {
+      "src": "https://d35aaqx5ub95lt.cloudfront.net/images/splash/lottie/833a22b2834050d139f266a29899bb00.svg",
+      "w": 530,
+      "h": 530,
+      "alt": ""
+    },
+    {
+      "src": "https://d35aaqx5ub95lt.cloudfront.net/images/splash/lottie/9d3c2c99dd19996319a372f79b2ed3c1.svg",
+      "w": 530,
+      "h": 530,
+      "alt": ""
+    },
+    {
+      "src": "https://d35aaqx5ub95lt.cloudfront.net/images/splash/lottie/229d5f88cc9df2eb0b68f39466500911.svg",
+      "w": 2000,
+      "h": 1122,
+      "alt": ""
+    },
+    {
+      "src": "https://d35aaqx5ub95lt.cloudfront.net/images/splash/lottie/22fce01f6df43e0472d7585afad9a43a.svg",
+      "w": 530,
+      "h": 530,
+      "alt": ""
+    },
+    {
+      "src": "https://d35aaqx5ub95lt.cloudfront.net/images/splash/lottie/a50e95b2b4e8c91d610b9c7318389c1e.svg",
+      "w": 530,
+      "h": 530,
+      "alt": ""
+    },
+    {
+      "src": "https://d35aaqx5ub95lt.cloudfront.net/images/splash/lottie/890eb76de9a395b182c1c28322721405.svg",
+      "w": 1440,
+      "h": 949,
+      "alt": ""
+    }
+  ],
+  "media": {
+    "lottie": 0,
+    "video": [],
+    "canvas": [],
+    "videoCount": 0,
+    "canvasCount": 0
+  },
+  "hero": {
+    "h1": "The most fun way to learn languages, chess, and more!",
+    "sub": null,
+    "buttons": [
+      "Get started",
+      "I ALREADY HAVE AN ACCOUNT"
+    ]
+  },
+  "animationsAtLoad": [
+    {
+      "target": "DIV",
+      "duration": 300,
+      "easing": "ease",
+      "iterations": "1"
+    },
+    {
+      "target": "DIV",
+      "duration": 300,
+      "easing": "ease",
+      "iterations": "1"
+    }
+  ],
+  "hover": {
+    "btnText": null,
+    "linkText": "",
+    "linkBefore": {
+      "transform": "none",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 238)",
+      "boxShadow": "none",
+      "opacity": "1",
+      "borderBottom": "0px none rgb(0, 0, 238)",
+      "textDecoration": "none"
+    },
+    "btnAfter": null,
+    "linkAfter": null
+  },
+  "scroll": {
+    "changed": [
+      {
+        "tag": "IMG",
+        "cls": "_3fvmi _9lHjd",
+        "opacity": "",
+        "transform": "",
+        "y": 600
+      }
+    ],
+    "animationsAfterScroll": [
+      {
+        "target": "DIV",
+        "duration": 300,
+        "easing": "ease",
+        "iterations": "1"
+      },
+      {
+        "target": "DIV",
+        "duration": 300,
+        "easing": "ease",
+        "iterations": "1"
+      }
+    ],
+    "pageHeight": 7803
+  }
+}

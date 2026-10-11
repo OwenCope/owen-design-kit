@@ -18,6 +18,7 @@ When general design skills are also loaded (antislop, emil-*, ui-ux-pro-max, fro
 - Your own product or a new one: apple-craft's picks apply.
 - Someone else's project or an existing design system: theirs wins; run `match-the-project` first and change only what you were asked to.
 - A brand with its own identity: keep its colours, fonts and imagery, apply apple-craft's craft (space, type hierarchy, real pictures, states, motion discipline), not its look.
+- A product the Apple look doesn't suit (a developer tool, a payments API, a kids' app): pick a direction first with `design-directions` and keep apple-craft's craft, not its look.
 
 ## Size the work to the task
 
@@ -25,6 +26,8 @@ When general design skills are also loaded (antislop, emil-*, ui-ux-pro-max, fro
 |---|---|
 | Text or isolated styling fix | The relevant guidance and a focused look at the result |
 | Change to an existing component | Existing patterns, affected states, a before and after comparison |
+| Improving an existing page or app | `improve-existing`: what works, the one thing hurting it most, structure before polish, before and after |
+| App screens and flows | `product-ui`: every state, errors and recovery, keyboard, 0 / 1 / many items |
 | New screen or page | A short brief (the moment, real content, what is cut), then a visual and interaction check |
 | New product direction | Concepts that differ in structure or interaction, the reasoning for the pick, a prototype and refinement |
 | Release | Release checks, only when asked |

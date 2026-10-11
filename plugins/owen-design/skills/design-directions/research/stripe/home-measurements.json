@@ -1,0 +1,866 @@
+{
+  "body": {
+    "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+    "font-size": "16px",
+    "line-height": "normal",
+    "color": "rgb(0, 0, 0)",
+    "background-color": "rgba(0, 0, 0, 0)"
+  },
+  "elements": {
+    "h1": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "48px",
+      "font-weight": "300",
+      "line-height": "55.2px",
+      "letter-spacing": "-0.96px",
+      "color": "rgb(129, 184, 26)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(129, 184, 26)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "220.75px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "h2": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "32px",
+      "font-weight": "300",
+      "line-height": "35.2px",
+      "letter-spacing": "-0.64px",
+      "color": "rgb(6, 27, 49)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(6, 27, 49)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "auto",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "h3": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "26px",
+      "font-weight": "300",
+      "line-height": "29.12px",
+      "letter-spacing": "-0.26px",
+      "color": "rgb(6, 27, 49)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(6, 27, 49)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "58.2188px",
+      "transition": "transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "transition-duration": "0.8s",
+      "transition-timing-function": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "p": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "32px",
+      "font-weight": "300",
+      "line-height": "35.2px",
+      "letter-spacing": "-0.64px",
+      "color": "rgb(100, 116, 141)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(100, 116, 141)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "auto",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "a": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(83, 58, 253)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(83, 58, 253)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "25px",
+      "transition": "opacity 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "transition-duration": "0.24s",
+      "transition-timing-function": "cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "button": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "14px",
+      "font-weight": "400",
+      "line-height": "14px",
+      "letter-spacing": "normal",
+      "color": "rgb(6, 27, 49)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(6, 27, 49)",
+      "border-radius": "4px",
+      "box-shadow": "none",
+      "padding": "12px 0px",
+      "height": "40px",
+      "transition": "color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), background-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), border-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "transition-duration": "0.24s, 0.24s, 0.24s",
+      "transition-timing-function": "cubic-bezier(0.45, 0.05, 0.55, 0.95), cubic-bezier(0.45, 0.05, 0.55, 0.95), cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "nav": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(0, 0, 0)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(0, 0, 0)",
+      "border-radius": "6px",
+      "box-shadow": "none",
+      "padding": "10px 16px",
+      "height": "64px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "detect-scroll",
+      "animation-duration": "auto"
+    },
+    "header": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(0, 0, 0)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(0, 0, 0)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "76px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "footer": {
+      "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(0, 0, 0)",
+      "background-color": "rgb(248, 250, 253)",
+      "background-image": "none",
+      "border": "0px none rgb(0, 0, 0)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px 16px",
+      "height": "1101.77px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "table": null,
+    "th": null,
+    "td": null,
+    "code": null,
+    "pre": null
+  },
+  "primaryButtons": [
+    {
+      "tag": "A",
+      "text": "Contact sales",
+      "rect": {
+        "x": 1197.625,
+        "y": 18,
+        "width": 137.375,
+        "height": 40,
+        "top": 18,
+        "right": 1335,
+        "bottom": 58,
+        "left": 1197.625
+      },
+      "styles": {
+        "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+        "font-size": "14px",
+        "font-weight": "400",
+        "line-height": "14px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(83, 58, 253)",
+        "background-image": "none",
+        "border": "0px none rgb(255, 255, 255)",
+        "border-radius": "4px",
+        "box-shadow": "none",
+        "padding": "11.5px 20px 12.5px",
+        "height": "40px",
+        "transition": "color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), background-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), border-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+        "transition-duration": "0.24s, 0.24s, 0.24s",
+        "transition-timing-function": "cubic-bezier(0.45, 0.05, 0.55, 0.95), cubic-bezier(0.45, 0.05, 0.55, 0.95), cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Get started",
+      "rect": {
+        "x": 208,
+        "y": 518.875,
+        "width": 141.453125,
+        "height": 48,
+        "top": 518.875,
+        "right": 349.453125,
+        "bottom": 566.875,
+        "left": 208
+      },
+      "styles": {
+        "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+        "font-size": "16px",
+        "font-weight": "400",
+        "line-height": "16px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(83, 58, 253)",
+        "background-image": "none",
+        "border": "0px none rgb(255, 255, 255)",
+        "border-radius": "4px",
+        "box-shadow": "none",
+        "padding": "15.5px 24px 16.5px",
+        "height": "48px",
+        "transition": "background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s cubic-bezier(0.25, 1, 0.5, 1), outline-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), border 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+        "transition-duration": "0.3s, 0.3s, 0.3s, 0.3s",
+        "transition-timing-function": "cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Sign up with Google",
+      "rect": {
+        "x": 357.453125,
+        "y": 518.875,
+        "width": 211.953125,
+        "height": 48,
+        "top": 518.875,
+        "right": 569.40625,
+        "bottom": 566.875,
+        "left": 357.453125
+      },
+      "styles": {
+        "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+        "font-size": "16px",
+        "font-weight": "400",
+        "line-height": "16px",
+        "letter-spacing": "normal",
+        "color": "rgb(83, 58, 253)",
+        "background-color": "rgba(255, 255, 255, 0.65)",
+        "background-image": "none",
+        "border": "1px solid rgb(185, 185, 249)",
+        "border-radius": "4px",
+        "box-shadow": "none",
+        "padding": "14.5px 24px 15.5px",
+        "height": "48px",
+        "transition": "background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s cubic-bezier(0.25, 1, 0.5, 1), outline-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), border 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+        "transition-duration": "0.3s, 0.3s, 0.3s, 0.3s",
+        "transition-timing-function": "cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Watch now",
+      "rect": {
+        "x": 128,
+        "y": 3199.4375,
+        "width": 138.984375,
+        "height": 48,
+        "top": 3199.4375,
+        "right": 266.984375,
+        "bottom": 3247.4375,
+        "left": 128
+      },
+      "styles": {
+        "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+        "font-size": "16px",
+        "font-weight": "400",
+        "line-height": "16px",
+        "letter-spacing": "normal",
+        "color": "rgb(83, 58, 253)",
+        "background-color": "rgb(255, 255, 255)",
+        "background-image": "none",
+        "border": "0px none rgb(83, 58, 253)",
+        "border-radius": "4px",
+        "box-shadow": "none",
+        "padding": "15.5px 24px 16.5px",
+        "height": "48px",
+        "transition": "background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+        "transition-duration": "0.3s, 0.3s",
+        "transition-timing-function": "cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Stripe for enterprises",
+      "rect": {
+        "x": 104,
+        "y": 4871.640625,
+        "width": 212.296875,
+        "height": 48,
+        "top": 4871.640625,
+        "right": 316.296875,
+        "bottom": 4919.640625,
+        "left": 104
+      },
+      "styles": {
+        "font-family": "sohne-var, \"SF Pro Display\", sans-serif",
+        "font-size": "16px",
+        "font-weight": "400",
+        "line-height": "16px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(83, 58, 253)",
+        "background-image": "none",
+        "border": "0px none rgb(255, 255, 255)",
+        "border-radius": "4px",
+        "box-shadow": "none",
+        "padding": "15.5px 24px 16.5px",
+        "height": "48px",
+        "transition": "background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s cubic-bezier(0.25, 1, 0.5, 1), outline-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), border 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+        "transition-duration": "0.3s, 0.3s, 0.3s, 0.3s",
+        "transition-timing-function": "cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1), cubic-bezier(0.25, 1, 0.5, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    }
+  ],
+  "contentMaxWidth": null,
+  "sectionGaps": [
+    {
+      "index": 0,
+      "tag": "DIV",
+      "cls": "",
+      "top": 0,
+      "height": 14573,
+      "paddingTop": "0px",
+      "paddingBottom": "0px",
+      "marginTop": "0px",
+      "marginBottom": "0px"
+    }
+  ],
+  "topColors": [
+    {
+      "value": "rgb(0, 0, 0)",
+      "count": 1372
+    },
+    {
+      "value": "rgb(83, 58, 253)",
+      "count": 788
+    },
+    {
+      "value": "rgb(80, 97, 122)",
+      "count": 171
+    },
+    {
+      "value": "rgb(6, 27, 49)",
+      "count": 156
+    },
+    {
+      "value": "rgb(255, 255, 255)",
+      "count": 143
+    },
+    {
+      "value": "rgb(100, 116, 141)",
+      "count": 89
+    },
+    {
+      "value": "rgb(0, 0, 238)",
+      "count": 46
+    },
+    {
+      "value": "rgb(127, 125, 252)",
+      "count": 34
+    },
+    {
+      "value": "rgb(115, 137, 255)",
+      "count": 33
+    },
+    {
+      "value": "rgba(255, 255, 255, 0)",
+      "count": 27
+    },
+    {
+      "value": "rgb(229, 237, 245)",
+      "count": 24
+    },
+    {
+      "value": "rgb(60, 79, 105)",
+      "count": 18
+    },
+    {
+      "value": "rgb(39, 57, 81)",
+      "count": 16
+    },
+    {
+      "value": "rgb(26, 44, 68)",
+      "count": 14
+    },
+    {
+      "value": "rgb(255, 97, 24)",
+      "count": 14
+    },
+    {
+      "value": "rgb(248, 250, 253)",
+      "count": 10
+    },
+    {
+      "value": "rgb(125, 139, 164)",
+      "count": 7
+    },
+    {
+      "value": "rgb(90, 102, 119)",
+      "count": 5
+    },
+    {
+      "value": "rgb(232, 233, 255)",
+      "count": 4
+    },
+    {
+      "value": "rgb(131, 155, 200)",
+      "count": 4
+    },
+    {
+      "value": "rgb(129, 184, 26)",
+      "count": 3
+    },
+    {
+      "value": "rgba(0, 14, 255, 0.5)",
+      "count": 3
+    },
+    {
+      "value": "rgb(226, 228, 255)",
+      "count": 3
+    },
+    {
+      "value": "rgba(16, 16, 16, 0.3)",
+      "count": 3
+    },
+    {
+      "value": "rgb(227, 236, 247)",
+      "count": 3
+    }
+  ],
+  "fontSizes": [
+    {
+      "value": "16px",
+      "count": 2484
+    },
+    {
+      "value": "10px",
+      "count": 107
+    },
+    {
+      "value": "14px",
+      "count": 88
+    },
+    {
+      "value": "26px",
+      "count": 50
+    },
+    {
+      "value": "9px",
+      "count": 29
+    },
+    {
+      "value": "48px",
+      "count": 23
+    },
+    {
+      "value": "22px",
+      "count": 20
+    },
+    {
+      "value": "8px",
+      "count": 18
+    },
+    {
+      "value": "32px",
+      "count": 12
+    },
+    {
+      "value": "12px",
+      "count": 11
+    },
+    {
+      "value": "18px",
+      "count": 11
+    },
+    {
+      "value": "11px",
+      "count": 5
+    },
+    {
+      "value": "56px",
+      "count": 1
+    },
+    {
+      "value": "20px",
+      "count": 1
+    }
+  ],
+  "borderRadii": [
+    {
+      "value": "4px",
+      "count": 74
+    },
+    {
+      "value": "6px",
+      "count": 48
+    },
+    {
+      "value": "1px",
+      "count": 31
+    },
+    {
+      "value": "5px",
+      "count": 6
+    },
+    {
+      "value": "8px",
+      "count": 4
+    },
+    {
+      "value": "100%",
+      "count": 3
+    },
+    {
+      "value": "3px",
+      "count": 2
+    },
+    {
+      "value": "2px",
+      "count": 2
+    },
+    {
+      "value": "16px",
+      "count": 1
+    },
+    {
+      "value": "6px 6px 0px 0px",
+      "count": 1
+    },
+    {
+      "value": "0px 0px 6px 6px",
+      "count": 1
+    },
+    {
+      "value": "6px 0px 0px 6px",
+      "count": 1
+    }
+  ],
+  "boxShadows": [
+    {
+      "value": "rgba(50, 50, 93, 0.12) 0px 16px 32px 0px",
+      "count": 2
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.1) 0px 30px 60px -50px, rgba(50, 50, 93, 0.25) 0px 30px 60px -10px",
+      "count": 1
+    },
+    {
+      "value": "rgba(23, 23, 23, 0.08) 0px 15px 35px 0px",
+      "count": 1
+    },
+    {
+      "value": "rgba(23, 23, 23, 0.06) 0px 3px 6px 0px",
+      "count": 1
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.06) 0px 4px 24px 0px, rgba(0, 0, 0, 0.03) 0px 1px 2px 0px",
+      "count": 1
+    }
+  ],
+  "gradients": [
+    "radial-gradient(66.35% 66.35%, rgba(255, 255, 255, 0.9) 0px, rgba(255, 255, 255, 0) 100%), none",
+    "radial-gradient(circle, rgb(127, 125, 252), rgb(244, 75, 204) 33%, rgb(229, 237, 245) 66%)",
+    "radial-gradient(50% 50%, rgba(83, 58, 253, 0.8) 62.5%, rgba(83, 58, 253, 0) 100%)",
+    "radial-gradient(50% 50%, rgba(243, 99, 243, 0.8) 53.85%, rgba(243, 99, 243, 0) 100%)",
+    "radial-gradient(50% 50%, rgb(255, 207, 94) 41.35%, rgba(255, 207, 94, 0) 100%)",
+    "linear-gradient(rgb(255, 255, 255) 41.35%, rgba(255, 255, 255, 0))",
+    "linear-gradient(90deg, rgb(114, 50, 241) 3.13%, rgb(251, 118, 250) 50%, rgb(255, 207, 94))",
+    "linear-gradient(90deg, rgba(0, 0, 0, 0) 0px, rgb(40, 116, 173) 50%, rgba(0, 0, 0, 0) 100%)",
+    "radial-gradient(103.24% 102.63% at 50% 102.63%, rgb(72, 111, 253) 0px, rgb(127, 129, 243) 9.84%, rgb(196, 137, 255) 20.83%, rgb(218, 192, 255) 34.13%, rgb(234, 220, 255) 44.86%, rgb(249, 246, 255) 58.59%, rgb(248, 250, 253) 100%)",
+    "radial-gradient(102.68% 99.11% at 50% 104.6%, rgb(203, 131, 255) 0px, rgb(255, 144, 185) 15.77%, rgb(255, 201, 119) 30.62%, rgb(255, 215, 155) 38.04%, rgb(255, 241, 220) 50.11%, rgb(255, 255, 255) 63.1%, rgb(252, 253, 254) 77.95%, rgb(248, 250, 253) 98.81%)",
+    "radial-gradient(102.84% 104.98% at 50% 104.98%, rgb(0, 113, 193) 1.33%, rgb(96, 168, 226) 15.71%, rgb(180, 216, 255) 33.15%, rgb(217, 235, 255) 45%, rgb(248, 250, 253) 60%)",
+    "radial-gradient(102.83% 103.24% at 49.98% 104.51%, rgb(255, 180, 81) 0px, rgb(239, 198, 128) 16.73%, rgb(180, 216, 255) 33.03%, rgb(210, 232, 255) 43.38%, rgb(250, 253, 255) 59.16%, rgb(253, 254, 255) 76.24%, rgb(248, 250, 253) 100%)",
+    "radial-gradient(103.12% 100% at 50% 100%, rgb(255, 165, 119) 0px, rgb(255, 144, 161) 15.52%, rgb(221, 173, 255) 30.09%, rgb(236, 216, 255) 45.72%, rgb(245, 234, 255) 54.96%, rgb(248, 250, 253) 88.16%)",
+    "radial-gradient(102.82% 106.44% at 50% 106.44%, rgb(252, 253, 254) 1.11%, rgb(103, 99, 228) 28.73%, rgb(69, 59, 179) 45.76%, rgb(41, 34, 125) 63.37%, rgb(30, 32, 100) 78.67%, rgb(20, 30, 75) 100%)",
+    "radial-gradient(circle, rgb(247, 45, 243), rgb(83, 58, 253) 33%, rgb(229, 237, 245) 66%)",
+    "radial-gradient(circle, rgb(255, 173, 0), rgb(255, 118, 0) 33%, rgb(229, 237, 245) 66%)",
+    "linear-gradient(68deg, rgba(83, 58, 253, 0.08) 0.78%, rgba(255, 140, 108, 0.8) 30.61%, rgba(218, 75, 254, 0.8) 79.02%), none",
+    "linear-gradient(73.3deg, rgba(218, 75, 254, 0.8) 9.85%, rgba(113, 92, 255, 0.48) 61.94%), none",
+    "linear-gradient(74.71deg, rgba(83, 58, 253, 0.08) -215.1%, rgba(255, 140, 108, 0.8) -169.26%, rgba(218, 75, 254, 0.8) -12.8%, rgba(113, 92, 255, 0.8) 18.59%, rgba(83, 58, 253, 0.8) 39.04%), none"
+  ],
+  "rootVars": {
+    "__crossOriginBlocked": true
+  },
+  "canvasElements": [
+    {
+      "width": 1392,
+      "height": 761,
+      "rect": {
+        "x": 337,
+        "y": 0,
+        "w": 1393,
+        "h": 761
+      },
+      "cls": "single-wave__canvas"
+    },
+    {
+      "width": 300,
+      "height": 150,
+      "rect": {
+        "x": 104,
+        "y": 11446,
+        "w": 1232,
+        "h": 460
+      },
+      "cls": "squeezy-carousel__canvas"
+    }
+  ],
+  "webglInfo": "WebKit WebGL | WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+  "docAnimations": [
+    {
+      "target": "H2.hds-heading stats-section__title hds-heading--xxl",
+      "duration": 1200,
+      "easing": "cubic-bezier(0.65, 0, 0.35, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.stats-animation-gradient__gradient stats-animation-gradient_",
+      "duration": 1200,
+      "easing": "cubic-bezier(0.65, 0, 0.35, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.stats-animation-gradient__gradient stats-animation-gradient_",
+      "duration": 1200,
+      "easing": "cubic-bezier(0.65, 0, 0.35, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.customer-stories__customer-content",
+      "duration": 500,
+      "easing": "cubic-bezier(0.65, 0, 0.35, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__media",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "IMG.case-study-card__image",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__mediaLogo",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__media",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "IMG.case-study-card__image",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__mediaLogo",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__media",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "IMG.case-study-card__image",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__mediaLogo",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__media",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "IMG.case-study-card__image",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__mediaLogo",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__media",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "IMG.case-study-card__image",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__mediaLogo",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__media",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "IMG.case-study-card__image",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__mediaLogo",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__media",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "IMG.case-study-card__image",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__mediaLogo",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__media",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "IMG.case-study-card__image",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "DIV.case-study-card__mediaLogo",
+      "duration": 800,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "NAV.hds-navigation-menu navigation-menu navigation-menu--homepag",
+      "duration": "auto",
+      "easing": "linear",
+      "playState": "running"
+    },
+    {
+      "target": "SPAN.",
+      "duration": 325,
+      "easing": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "SPAN.",
+      "duration": 325,
+      "easing": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "SPAN.",
+      "duration": 325,
+      "easing": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "SPAN.",
+      "duration": 325,
+      "easing": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "playState": "running"
+    }
+  ],
+  "url": "https://stripe.com/",
+  "title": "Stripe | Financial Infrastructure to Grow Your Revenue",
+  "scrollHeight": 14803
+}

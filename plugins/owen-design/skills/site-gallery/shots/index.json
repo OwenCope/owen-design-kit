@@ -1,0 +1,233 @@
+[
+  {
+    "folder": "apple-airpods",
+    "url": "https://www.apple.com/airpods-pro/",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "section-06.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "AirPods Pro 3 - Apple",
+    "error": ""
+  },
+  {
+    "folder": "linear-method",
+    "url": "https://linear.app/method",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Linear Method – Practices for building",
+    "error": ""
+  },
+  {
+    "folder": "raycast-store",
+    "url": "https://www.raycast.com/store",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Raycast - Store",
+    "error": ""
+  },
+  {
+    "folder": "arc",
+    "url": "https://arc.net",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Arc from The Browser Company",
+    "error": ""
+  },
+  {
+    "folder": "things",
+    "url": "https://culturedcode.com/things/",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "section-06.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Things - To-Do List App for Mac & iOS",
+    "error": ""
+  },
+  {
+    "folder": "vercel",
+    "url": "https://vercel.com",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Agentic Infrastructure - Vercel",
+    "error": ""
+  },
+  {
+    "folder": "figma",
+    "url": "https://www.figma.com/",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "section-06.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Figma: The collaborative canvas for design, code, and AI",
+    "error": ""
+  },
+  {
+    "folder": "framer",
+    "url": "https://www.framer.com",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "section-06.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Framer: AI design agent",
+    "error": ""
+  },
+  {
+    "folder": "superhuman",
+    "url": "https://superhuman.com",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "section-06.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Superhuman: Docs, Mail, and AI That Work Everywhere",
+    "error": ""
+  },
+  {
+    "folder": "notion-calendar",
+    "url": "https://www.notion.com/product/calendar",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "section-06.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Notion Calendar",
+    "error": ""
+  },
+  {
+    "folder": "stripe-payments",
+    "url": "https://stripe.com/payments",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "section-06.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Stripe Payments | Global Payment Processing Platform",
+    "error": ""
+  },
+  {
+    "folder": "rauno",
+    "url": "https://rauno.me",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "section-05.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "Rauno Freiberg",
+    "error": ""
+  },
+  {
+    "folder": "teenage-engineering",
+    "url": "https://www.teenage.engineering",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "teenage engineering",
+    "error": ""
+  },
+  {
+    "folder": "posthog",
+    "url": "https://posthog.com",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "phone-hero.jpg",
+      "phone-section-01.jpg"
+    ],
+    "title": "PostHog - your product’s context layer",
+    "error": ""
+  }
+]

@@ -1,0 +1,851 @@
+{
+  "site": "notion",
+  "url": "https://www.notion.com",
+  "viewport": {
+    "w": 1440,
+    "h": 900
+  },
+  "body": {
+    "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+    "font-size": "16px",
+    "line-height": "24px",
+    "color": "rgba(0, 0, 0, 0.95)",
+    "background-color": "rgb(255, 255, 255)"
+  },
+  "elements": {
+    "h1": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "96px",
+      "font-weight": "600",
+      "line-height": "100px",
+      "letter-spacing": "-4.6px",
+      "color": "rgba(0, 0, 0, 0.95)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgba(0, 0, 0, 0.95)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "210.109px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "h2": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "54px",
+      "font-weight": "700",
+      "line-height": "56px",
+      "letter-spacing": "-1.87501px",
+      "color": "rgba(0, 0, 0, 0.95)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgba(0, 0, 0, 0.95)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "56px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "h3": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "22px",
+      "font-weight": "700",
+      "line-height": "28px",
+      "letter-spacing": "-0.25px",
+      "color": "rgb(0, 0, 0)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(0, 0, 0)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "28px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "p": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "14px",
+      "font-weight": "400",
+      "line-height": "20px",
+      "letter-spacing": "normal",
+      "color": "rgba(0, 0, 0, 0.898)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgba(0, 0, 0, 0.898)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "40px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "a": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgba(0, 0, 0, 0.95)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgba(0, 0, 0, 0.95)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "34px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "button": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgba(0, 0, 0, 0.898)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgba(0, 0, 0, 0.898)",
+      "border-radius": "4px",
+      "box-shadow": "none",
+      "padding": "5px 10px",
+      "height": "30px",
+      "transition": "background-color 0.15s",
+      "transition-duration": "0.15s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "nav": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgba(0, 0, 0, 0.898)",
+      "background-color": "rgb(255, 255, 255)",
+      "background-image": "none",
+      "border": "0px none rgba(0, 0, 0, 0.898)",
+      "border-radius": "0px",
+      "box-shadow": "rgba(0, 0, 0, 0) 0px 1px 0px 0px",
+      "padding": "0px",
+      "height": "64px",
+      "transition": "box-shadow 0.2s cubic-bezier(0.42, 0, 1, 1)",
+      "transition-duration": "0.2s",
+      "transition-timing-function": "cubic-bezier(0.42, 0, 1, 1)",
+      "animation-name": "globalNavigation-module-scss-module__HWB10a__navShadowScrolled",
+      "animation-duration": "auto"
+    },
+    "header": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgba(0, 0, 0, 0.898)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgba(0, 0, 0, 0.898)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "308.109px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "footer": {
+      "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgba(0, 0, 0, 0.898)",
+      "background-color": "rgb(255, 255, 255)",
+      "background-image": "none",
+      "border": "",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "80px 0px 24px",
+      "height": "396px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    }
+  },
+  "primaryButtons": [
+    {
+      "text": "Get Notion free",
+      "tag": "A",
+      "href": "/signup?from=marketing&pathname=%2F&tid=42566ead5d864f0090ab19f9513d383e",
+      "rect": {
+        "x": 1284,
+        "y": 14,
+        "w": 132,
+        "h": 36
+      },
+      "style": {
+        "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+        "font-size": "16px",
+        "font-weight": "500",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(0, 117, 222)",
+        "background-image": "none",
+        "border": "1px solid rgba(255, 255, 255, 0)",
+        "border-radius": "8px",
+        "box-shadow": "none",
+        "padding": "4px 14px",
+        "height": "36px",
+        "transition": "all",
+        "transition-duration": "0s",
+        "transition-timing-function": "ease",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "text": "Get Notion free",
+      "tag": "A",
+      "href": "/signup?from=marketing&pathname=%2F&tid=42566ead5d864f0090ab19f9513d383e",
+      "rect": {
+        "x": 556,
+        "y": 414,
+        "w": 156,
+        "h": 38
+      },
+      "style": {
+        "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+        "font-size": "16px",
+        "font-weight": "500",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(0, 117, 222)",
+        "background-image": "none",
+        "border": "1px solid rgba(255, 255, 255, 0)",
+        "border-radius": "8px",
+        "box-shadow": "none",
+        "padding": "6px 15px",
+        "height": "38px",
+        "transition": "background-color 0.2s cubic-bezier(0.42, 0, 1, 1), color 0.2s cubic-bezier(0.42, 0, 1, 1)",
+        "transition-duration": "0.2s",
+        "transition-timing-function": "cubic-bezier(0.42, 0, 1, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "text": "Request a demo",
+      "tag": "A",
+      "href": "/contact-sales",
+      "rect": {
+        "x": 728,
+        "y": 414,
+        "w": 156,
+        "h": 38
+      },
+      "style": {
+        "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+        "font-size": "16px",
+        "font-weight": "500",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(0, 91, 171)",
+        "background-color": "rgb(230, 243, 254)",
+        "background-image": "none",
+        "border": "1px solid rgba(255, 255, 255, 0)",
+        "border-radius": "8px",
+        "box-shadow": "none",
+        "padding": "6px 15px",
+        "height": "38px",
+        "transition": "background-color 0.2s cubic-bezier(0.42, 0, 1, 1), color 0.2s cubic-bezier(0.42, 0, 1, 1)",
+        "transition-duration": "0.2s",
+        "transition-timing-function": "cubic-bezier(0.42, 0, 1, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "text": "Get Notion free",
+      "tag": "A",
+      "href": "/signup?from=marketing&pathname=%2F&tid=42566ead5d864f0090ab19f9513d383e",
+      "rect": {
+        "x": 562,
+        "y": 3989,
+        "w": 149,
+        "h": 38
+      },
+      "style": {
+        "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+        "font-size": "16px",
+        "font-weight": "500",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(0, 117, 222)",
+        "background-image": "none",
+        "border": "1px solid rgba(255, 255, 255, 0)",
+        "border-radius": "8px",
+        "box-shadow": "none",
+        "padding": "6px 15px",
+        "height": "38px",
+        "transition": "background-color 0.2s cubic-bezier(0.42, 0, 1, 1), color 0.2s cubic-bezier(0.42, 0, 1, 1)",
+        "transition-duration": "0.2s",
+        "transition-timing-function": "cubic-bezier(0.42, 0, 1, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "text": "Request a demo",
+      "tag": "A",
+      "href": "/contact-sales",
+      "rect": {
+        "x": 723,
+        "y": 3989,
+        "w": 156,
+        "h": 38
+      },
+      "style": {
+        "font-family": "NotionInter, Inter, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+        "font-size": "16px",
+        "font-weight": "500",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(9, 127, 232)",
+        "background-color": "rgb(255, 255, 255)",
+        "background-image": "none",
+        "border": "1px solid rgba(255, 255, 255, 0)",
+        "border-radius": "8px",
+        "box-shadow": "none",
+        "padding": "6px 15px",
+        "height": "38px",
+        "transition": "background-color 0.2s cubic-bezier(0.42, 0, 1, 1), color 0.2s cubic-bezier(0.42, 0, 1, 1)",
+        "transition-duration": "0.2s",
+        "transition-timing-function": "cubic-bezier(0.42, 0, 1, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    }
+  ],
+  "contentWidthsSample": [
+    655,
+    1229,
+    1252
+  ],
+  "heroContainerWidth": 1252,
+  "sectionCount": 4,
+  "sectionGaps": [
+    0,
+    0,
+    12
+  ],
+  "topColors": [
+    {
+      "color": "rgba(0, 0, 0, 0.898)",
+      "count": 549
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.95)",
+      "count": 322
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.75)",
+      "count": 161
+    },
+    {
+      "color": "rgb(255, 255, 255)",
+      "count": 117
+    },
+    {
+      "color": "rgb(0, 0, 0)",
+      "count": 98
+    },
+    {
+      "color": "rgb(163, 158, 152)",
+      "count": 90
+    },
+    {
+      "color": "rgba(255, 255, 255, 0)",
+      "count": 51
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.54)",
+      "count": 48
+    },
+    {
+      "color": "rgb(97, 93, 89)",
+      "count": 30
+    },
+    {
+      "color": "rgb(0, 117, 222)",
+      "count": 21
+    },
+    {
+      "color": "rgb(9, 127, 232)",
+      "count": 17
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.1)",
+      "count": 8
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.59)",
+      "count": 8
+    },
+    {
+      "color": "rgb(249, 249, 248)",
+      "count": 7
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.05)",
+      "count": 5
+    },
+    {
+      "color": "rgb(0, 91, 171)",
+      "count": 2
+    },
+    {
+      "color": "rgb(255, 177, 16)",
+      "count": 2
+    },
+    {
+      "color": "rgb(246, 73, 50)",
+      "count": 2
+    },
+    {
+      "color": "rgb(242, 249, 255)",
+      "count": 1
+    },
+    {
+      "color": "rgb(254, 243, 241)",
+      "count": 1
+    },
+    {
+      "color": "rgb(255, 245, 224)",
+      "count": 1
+    },
+    {
+      "color": "rgb(208, 244, 216)",
+      "count": 1
+    },
+    {
+      "color": "rgb(230, 243, 254)",
+      "count": 1
+    },
+    {
+      "color": "rgb(26, 174, 57)",
+      "count": 1
+    },
+    {
+      "color": "rgb(19, 19, 186)",
+      "count": 1
+    }
+  ],
+  "fontSizes": [
+    {
+      "size": "16px",
+      "count": 535
+    },
+    {
+      "size": "14px",
+      "count": 107
+    },
+    {
+      "size": "24px",
+      "count": 45
+    },
+    {
+      "size": "12px",
+      "count": 22
+    },
+    {
+      "size": "20px",
+      "count": 12
+    },
+    {
+      "size": "22px",
+      "count": 10
+    },
+    {
+      "size": "40px",
+      "count": 10
+    },
+    {
+      "size": "72px",
+      "count": 3
+    },
+    {
+      "size": "18px",
+      "count": 3
+    },
+    {
+      "size": "0px",
+      "count": 3
+    },
+    {
+      "size": "54px",
+      "count": 2
+    },
+    {
+      "size": "96px",
+      "count": 1
+    },
+    {
+      "size": "42px",
+      "count": 1
+    }
+  ],
+  "borderRadii": [
+    {
+      "radius": "8px",
+      "count": 90
+    },
+    {
+      "radius": "4px",
+      "count": 22
+    },
+    {
+      "radius": "12px",
+      "count": 18
+    },
+    {
+      "radius": "9999.01px",
+      "count": 7
+    },
+    {
+      "radius": "8px 8px 0px 0px",
+      "count": 3
+    },
+    {
+      "radius": "100%",
+      "count": 3
+    },
+    {
+      "radius": "16px",
+      "count": 2
+    },
+    {
+      "radius": "12px 12px 0px 0px",
+      "count": 2
+    },
+    {
+      "radius": "12px 0px 0px",
+      "count": 2
+    },
+    {
+      "radius": "50%",
+      "count": 1
+    },
+    {
+      "radius": "5px",
+      "count": 1
+    }
+  ],
+  "boxShadows": [
+    {
+      "shadow": "rgba(0, 0, 0, 0.01) 0px 0.175px 1.041px 0px, rgba(0, 0, 0, 0.02) 0px 0.8px 2.925px 0px, rgba(0, 0, 0, 0.027) 0px 2.025px 7.847px 0px, rgba(0, 0, 0, 0.04) 0px 4px 18px 0px",
+      "count": 7
+    },
+    {
+      "shadow": "rgba(0, 0, 0, 0) 0px 1px 0px 0px",
+      "count": 1
+    },
+    {
+      "shadow": "rgba(0, 0, 0, 0.008) 0px 0.667px 3.502px 0px, rgba(0, 0, 0, 0.016) 0px 2.933px 7.252px 0px, rgba(0, 0, 0, 0.02) 0px 7.2px 14.462px 0px, rgba(0, 0, 0, 0.024) 0px 13.867px 28.348px 0px, rgba(0, 0, 0, 0.03) 0px 23.333px 52.123px 0px, rgba(0, 0, 0, 0.04) 0px 36px 89px 0px",
+      "count": 1
+    }
+  ],
+  "rootVars": {
+    "--direction": "1",
+    "--tatami-border-radius-0": "0",
+    "--tatami-border-radius-200": ".25rem",
+    "--tatami-border-radius-300": ".3125rem",
+    "--tatami-border-radius-400": ".375rem",
+    "--tatami-border-radius-500": ".5rem",
+    "--tatami-border-radius-600": ".625rem",
+    "--tatami-border-radius-700": ".75rem",
+    "--tatami-border-radius-800": ".875rem",
+    "--tatami-border-radius-900": "1rem",
+    "--tatami-border-radius-round": "624.938rem",
+    "--tatami-border-width-1": ".0625rem",
+    "--tatami-border-style-solid": "solid",
+    "--tatami-border-style-dashed": "dashed",
+    "--tatami-color-gray-100": "#f9f9f8",
+    "--tatami-color-gray-200": "#f6f5f4",
+    "--tatami-color-gray-300": "#dfdcd9",
+    "--tatami-color-gray-400": "#a39e98",
+    "--tatami-color-gray-500": "#78736f",
+    "--tatami-color-gray-600": "#615d59",
+    "--tatami-color-gray-700": "#494744",
+    "--tatami-color-gray-800": "#31302e",
+    "--tatami-color-gray-900": "#191918",
+    "--tatami-color-red-100": "#fef3f1",
+    "--tatami-color-red-200": "#fdd3cd",
+    "--tatami-color-red-300": "#ff8b7c",
+    "--tatami-color-red-400": "#f77463",
+    "--tatami-color-red-500": "#f64932",
+    "--tatami-color-red-600": "#e32d14",
+    "--tatami-color-red-700": "#b01601",
+    "--tatami-color-red-800": "#6f0d00",
+    "--tatami-color-red-900": "#4f0900",
+    "--tatami-color-orange-100": "#fff5ed",
+    "--tatami-color-orange-200": "#ffdec4",
+    "--tatami-color-orange-300": "#ffad71",
+    "--tatami-color-orange-400": "#ff8a33",
+    "--tatami-color-orange-500": "#ff6d00",
+    "--tatami-color-orange-600": "#dd5b00",
+    "--tatami-color-orange-700": "#ab4a00",
+    "--tatami-color-orange-800": "#793400",
+    "--tatami-color-orange-900": "#532200",
+    "--tatami-color-yellow-100": "#fff5e0",
+    "--tatami-color-yellow-200": "#ffe4af",
+    "--tatami-color-yellow-300": "#ffd786",
+    "--tatami-color-yellow-400": "#ffc95e",
+    "--tatami-color-yellow-500": "#ffb110",
+    "--tatami-color-yellow-600": "#e89d01",
+    "--tatami-color-yellow-700": "#c78600",
+    "--tatami-color-yellow-800": "#a16c00",
+    "--tatami-color-yellow-900": "#704b00",
+    "--tatami-color-teal-100": "#f2fafa",
+    "--tatami-color-teal-200": "#bde6e4",
+    "--tatami-color-teal-300": "#83cbc9",
+    "--tatami-color-teal-400": "#2a9d99",
+    "--tatami-color-teal-500": "#27918d",
+    "--tatami-color-teal-600": "#0a7b77",
+    "--tatami-color-teal-700": "#126764",
+    "--tatami-color-teal-800": "#0a4d4b",
+    "--tatami-color-teal-900": "#042b29",
+    "--tatami-color-blue-100": "#f2f9ff",
+    "--tatami-color-blue-200": "#e6f3fe",
+    "--tatami-color-blue-300": "#93cdfe",
+    "--tatami-color-blue-400": "#62aef0",
+    "--tatami-color-blue-500": "#097fe8",
+    "--tatami-color-blue-600": "#0075de",
+    "--tatami-color-blue-700": "#005bab",
+    "--tatami-color-blue-800": "#00396b",
+    "--tatami-color-blue-900": "#002a4f",
+    "--tatami-color-purple-100": "#f8f5fc",
+    "--tatami-color-purple-200": "#eadbfa",
+    "--tatami-color-purple-300": "#d6b6f6",
+    "--tatami-color-purple-400": "#ad6ded",
+    "--tatami-color-purple-500": "#9849e8",
+    "--tatami-color-purple-600": "#7237ae",
+    "--tatami-color-purple-700": "#562983",
+    "--tatami-color-purple-800": "#391c57",
+    "--tatami-color-purple-900": "#1c0e2c",
+    "--tatami-color-green-100": "#f0faf2",
+    "--tatami-color-green-200": "#d0f4d8",
+    "--tatami-color-green-300": "#abe5b8",
+    "--tatami-color-green-400": "#68ce7e",
+    "--tatami-color-green-500": "#1aae39",
+    "--tatami-color-green-600": "#14832b",
+    "--tatami-color-green-700": "#0f6220",
+    "--tatami-color-green-800": "#0a4216",
+    "--tatami-color-green-900": "#05210b",
+    "--tatami-color-pink-100": "#fff5fc",
+    "--tatami-color-pink-200": "#ffcdf1",
+    "--tatami-color-pink-300": "#ffb5eb",
+    "--tatami-color-pink-400": "#ff83dd",
+    "--tatami-color-pink-500": "#ff64c8",
+    "--tatami-color-pink-600": "#d13f9d",
+    "--tatami-color-pink-700": "#9d2472",
+    "--tatami-color-pink-800": "#6c1b4f",
+    "--tatami-color-pink-900": "#481034",
+    "--tatami-color-brown-100": "#fcf8f5",
+    "--tatami-color-brown-200": "#ebd5c5",
+    "--tatami-color-brown-300": "#d9b79f",
+    "--tatami-color-brown-400": "#b18164",
+    "--tatami-color-brown-500": "#9c7054",
+    "--tatami-color-brown-600": "#885d3d",
+    "--tatami-color-brown-700": "#744d2d",
+    "--section-padding": "",
+    "--thumbnail-container-reference-width": ""
+  },
+  "imgCount": 60,
+  "svgCount": 27,
+  "bigImgCount": 15,
+  "bigSvgCount": 0,
+  "bigMedia": [
+    {
+      "src": "https://www.notion.com/_next/image?url=%2Ffront-static%2Fnav%2FallFeaturesNav%2Fcapture.png&w=256&q=75",
+      "w": 220,
+      "h": 126,
+      "alt": "Capture"
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=%2Ffront-static%2Fnav%2FallFeaturesNav%2Ffind.png&w=256&q=75",
+      "w": 220,
+      "h": 126,
+      "alt": "Find"
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=%2Ffront-static%2Fnav%2FallFeaturesNav%2Fautomate.png&w=256&q=75",
+      "w": 220,
+      "h": 126,
+      "alt": "Automate"
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=%2Ffront-static%2Faccent-illustrations%2FagentTop-v2.png&w=256&q=75",
+      "w": 160,
+      "h": 170,
+      "alt": ""
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=%2Ffront-static%2Faccent-illustrations%2FpersonPeekLeft2-v1.png&w=256&q=75",
+      "w": 160,
+      "h": 170,
+      "alt": ""
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3kVtQWll6jUqQepQ0kaYlz%2F382b34f23ecb349129239f0b649aba8c%2Fweb-homepage-hero-1920x1200_final.jpg&w=1080&q=90",
+      "w": 958,
+      "h": 599,
+      "alt": ""
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5s8E0EU3tXEvGrFrRwgxhb%2Fc44fce43494ccd6f098746c64b679aab%2Fcapture_desktop.jpg&w=640&q=75",
+      "w": 554,
+      "h": 554,
+      "alt": ""
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5bqhI7eaPc7AeAtuuTvtuh%2F915d56f683fcd7edbd9f1e0434136b0d%2Fpin_capture.png&w=640&q=75",
+      "w": 554,
+      "h": 136,
+      "alt": ""
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1FOyxGfzHA9kKA1BVPQa4m%2F721dc34d66976c6dbaa4b16b260b9a97%2Ffind_desktop.png&w=640&q=75",
+      "w": 554,
+      "h": 554,
+      "alt": ""
+    },
+    {
+      "src": "https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3PH2HDqwPQKa0Xtq1EzIHs%2Fdf192356392843cf5999e8691221fae1%2Fimage.png&w=640&q=75",
+      "w": 602,
+      "h": 313,
+      "alt": ""
+    }
+  ],
+  "media": {
+    "lottie": 0,
+    "video": [
+      {
+        "w": 958,
+        "h": 599,
+        "src": "https://videos.ctfassets.net/spoqsaf9291f/1EL7UZIXfcqngxsNSbL8tR/291f61f56f29dd8e788deaec8561d882/web-homepage-hero-1920x1200_final.mp4"
+      }
+    ],
+    "canvas": [],
+    "videoCount": 1,
+    "canvasCount": 0
+  },
+  "hero": {
+    "h1": "Where teams and agents Ship together.",
+    "sub": "Capture context, find answers, and automate tasks with AI built for your team.",
+    "buttons": [
+      "Get Notion free",
+      "Request a demo"
+    ]
+  },
+  "animationsAtLoad": [
+    {
+      "target": "NAV",
+      "duration": {},
+      "easing": "linear",
+      "iterations": "1"
+    },
+    {
+      "target": "DIV",
+      "duration": {},
+      "easing": "linear",
+      "iterations": "1"
+    },
+    {
+      "target": "DIV",
+      "duration": 60000,
+      "easing": "linear",
+      "iterations": "Infinity"
+    }
+  ],
+  "hover": {
+    "btnText": "Get Notion free",
+    "linkText": "",
+    "btnBefore": {
+      "transform": "none",
+      "backgroundColor": "rgb(0, 117, 222)",
+      "color": "rgb(255, 255, 255)",
+      "boxShadow": "none",
+      "opacity": "1",
+      "borderBottom": "1px solid rgba(255, 255, 255, 0)",
+      "textDecoration": "none"
+    },
+    "linkBefore": {
+      "transform": "none",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgba(0, 0, 0, 0.95)",
+      "boxShadow": "none",
+      "opacity": "1",
+      "borderBottom": "0px none rgba(0, 0, 0, 0.95)",
+      "textDecoration": "none"
+    },
+    "btnAfter": {
+      "transform": "none",
+      "backgroundColor": "rgb(0, 91, 171)",
+      "color": "rgb(255, 255, 255)",
+      "boxShadow": "none",
+      "opacity": "1",
+      "borderBottom": "1px solid rgba(255, 255, 255, 0)",
+      "textDecoration": "none"
+    },
+    "linkAfter": null
+  },
+  "scroll": {
+    "changed": [],
+    "animationsAfterScroll": [
+      {
+        "target": "NAV",
+        "duration": {},
+        "easing": "linear",
+        "iterations": "1"
+      },
+      {
+        "target": "DIV",
+        "duration": {},
+        "easing": "linear",
+        "iterations": "1"
+      },
+      {
+        "target": "DIV",
+        "duration": 60000,
+        "easing": "linear",
+        "iterations": "Infinity"
+      }
+    ],
+    "pageHeight": 4687
+  }
+}

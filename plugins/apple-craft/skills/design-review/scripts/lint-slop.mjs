@@ -16,7 +16,12 @@
 //   j. real Mac assets - in a Mac scene, Dock and file-row icons that are not mac-assets exports.
 //
 // Run this until it is clean before any visual review: fix every FAIL, then run it again.
-import { chromium } from 'playwright';
+import { createRequire as __cr } from 'node:module';
+import { join as __join } from 'node:path';
+// Load Playwright from the project you run this in, so the script works from the kit's own folder.
+let chromium;
+try { ({ chromium } = __cr(__join(process.cwd(), 'package.json'))('playwright')); }
+catch { console.error('Playwright not found here. Run: npm i -D playwright && npx playwright install chromium'); process.exit(1); }
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';

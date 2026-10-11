@@ -12,6 +12,16 @@ description: How to start a new app or website so it meets the apple-craft stand
 - Use native controls and the system font from the first screen. Choose one button style, one spacing scale and one animation curve, and reuse them (`design-patterns` has proven ones).
 - Plan real pictures: how will you capture real screenshots for the site and release notes?
 - Write releases in the `release-notes` format from version one.
+- Start a `DESIGN-NOTES.md` at the project root and keep it short. It is the first thing every later session reads, so the design stays one design instead of drifting:
+
+      # Design notes
+      Moment: the one thing someone should remember.
+      Direction: Apple product page / precise tool / ... and why.
+      Type, colour, corners, motion: the choices, with values.
+      Kept on purpose: things that look odd but are deliberate.
+      Rejected: what was tried and turned down, and why.
+
+  Add a line whenever a decision is made or something is rejected. Read it before changing anything.
 
 ## 2. A profile skill: teach the agent about you
 

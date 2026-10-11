@@ -19,9 +19,11 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 | `signature-moments` | Being creative without looking generic: one on-brand moment per product, found from what the app does, with worked examples |
 | `figma-mockups` | Connecting the Figma MCP and building mock-ups from Apple's macOS 27 and iOS 27 kits instead of drawing controls |
 | `design-brief` | The decisions to write down before building: the one thing, the hero frame, what moves, what's cut, concepts only when the idea is still open, and worked examples of the reasoning |
-| `motion-kit` | Finished, tuned motion in one small file: springs, morphs, fly-to-target, drag, stagger, reveal and pinned scroll scenes, with a working notch-shelf reference, how to approach new or broken motion, and a capture tool that records an interaction and checks its states |
+| `motion-kit` | Finished, tuned motion in one small file: springs, morphs, fly-to-target, drag, stagger, reveal and pinned scroll scenes, with a working notch-shelf reference, how to approach new or broken motion, and a guide to inspecting it with Lapse |
 | `self-improve` | A self-reflection loop that lets any agent, including smaller models, raise its own design quality: capture, test, say what you see, fix what's broken or off-brief, repeat while it helps |
 | `match-the-project` | Working on someone else's app or site: read its design system first, write it down, and match it instead of restyling |
+| `improve-existing` | Making an existing site or app better: what works, the one thing hurting it most, structure before polish, before and after |
+| `product-ui` | The inside of a product: tables, dashboards, settings, search, editors, and full flows with every state, error and way back |
 | `onboarding-design` | A welcome tour that feels smooth, measured frame by frame from a real app |
 | `product-writing` | Every word in the product and in the agent's replies |
 | `release-notes` | A clean release format with a header, one real picture, short bullets, credits and install steps |
@@ -76,3 +78,7 @@ The `owen-design` plugin in this repo is a real example of both: it's Owen's pri
 ## Updating
 
     /plugin marketplace update owen-design-kit
+
+## Checking the kit
+
+`node scripts/check-kit.mjs` checks every skill for broken links, missing skills and lines that contradict the kit's own rules (`scripts/check-kit.rules.json`). Run it after editing any skill.

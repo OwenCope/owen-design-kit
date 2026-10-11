@@ -1,0 +1,24 @@
+# Linear.app (home) — design measurements, 2026-10-11
+
+Measured at 1440x900, deviceScaleFactor 1, desktop Chrome UA. Page title: "Linear – The system for product development". Total elements: 4851.
+
+- Typeface everywhere: "Inter Variable", "SF Pro Display", -apple-system, system-ui, Segoe UI, Roboto, sans-serif.
+- Headline (h1): 64px, weight 510, line-height 64px, letter-spacing -1.408px, color #F7F8F8.
+- Section headline (h2): 48px, weight 510, line-height 48px, letter-spacing -1.056px, color #8A8F98.
+- Card title (h3): 20px, weight 590, line-height 26.6px, letter-spacing -0.24px, color #D0D6E0.
+- Body (p): 15px, weight 400, line-height 24px, letter-spacing -0.165px, color #8A8F98.
+- Small text: 12px (257 uses), 13px (228 uses), 13.3333px (137 uses), 14px (313 uses). Dominant size on page: 16px (3748 uses). Display sizes seen: 64px, 48px, 72px (1 use), 32px (2 uses), 24px, 20px, 18px.
+- Palette (hex, measured counts): background #08090A; primary text #F7F8F8 (3516); secondary text #8A8F98 (409); muted text #62666D (292); card title #D0D6E0 (193); white #FFFFFF (165); light border/text #E2E4E7 (142); accent indigo #5E6AD2 (skip-link bg); button bg #E5E5E6 with button text #08090A; hairlines rgba(255,255,255,0.08) (36) and rgba(255,255,255,0.02); panel bg #0F1011 (37); accent pastels #F79CE0 (45), #F7BF8B, #8FA6FF, #83DCDC, #FFDF9F; status tints rgba(0,255,5,0.1), rgba(243,78,82,0.1), rgba(39,166,68,0.07); customer-card lime #E4F222 (bg) with #08090A text.
+- How light or dark: very dark. Body background #08090A, near-white #F7F8F8 text.
+- Content width: no centered auto-margin container detected by measurement (widest auto-margin element: none). Sections are full-bleed; hero text is left-aligned to page padding.
+- Section spacing: top-level section gaps measured as none — document.body has a single root div (React root, 9960px tall), so no separable top-level sections. Visually the page alternates full-bleed bands: hero, logo strip, three-icon row, then repeating left-headline plus right-screenshot feature bands, changelog, footer CTA.
+- Radii: mostly 0px (4599). Pills 9999px (76 uses, all CTA buttons). Cards 8px (30). Circles 50% (28). Also 4px, 6px, 9px, 12px, 16px, 999px.
+- Shadows: hairline rings rgba(0,0,0,0.2) 0 0 0 1px and inset glows rgba(0,0,0,0.2) 0 0 12px inset; white inset hairlines rgba(255,255,255,0.05-0.08) 0 0 0 1px inset; soft drop rgba(0,0,0,0.25) 0 2px 32px; CTA buttons carry a layered soft black stack (0 8px 2px transparent … 0 0 1px rgba(0,0,0,0.08)).
+- Button sizes and styles: "Sign up" small pill — 13px/32px, weight 510, #08090A on #E5E5E6, radius 9999px, padding 0 12px, height 32px, width 73px, 1px solid #E5E5E6 border. "Get started" large pill — 16px/44px, weight 510, same colors, radius 9999px, padding 0 20px, height 44px, width 127px. Pill buttons transition border, background-color, color, box-shadow, opacity, filter, transform, each 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94).
+- Nav style: transparent dark bar over page bg, hairline bottom divider. Left: Linear logo + "Linear". Center links: Product, Resources, Customers, Pricing, Now, Contact. Right: "Log in" text link plus "Sign up" white pill. Nav link text 13px, weight 400, #8A8F98 on transparent.
+- Hover behaviour: no hover delta captured — the first primary-background element was the invisible "Skip to content" link (opacity 0, unchanged after 400ms) and the sampled nav link was empty with no change. CSS declares 0.16s transitions (above) on the pill buttons.
+- Scroll and entrance animations: 20 of the first 600 sampled elements changed opacity or transform across a 600px-step scroll pass (e.g. "Thinking…" opacity 0.997379 to 1 with matrix-to-none transform; property columns fading 0.8 to 1). Indicates reveal-on-scroll fading.
+- Web Animations after load and after scroll: repeating SVG circle loops, duration 2800ms, easing linear, 15 opacity keyframes, playState running (ambient hero glow/particles). Same set before and after scrolling.
+- :root custom properties: none readable — 0 extracted, 48 of 68 stylesheets blocked cross-origin.
+- Product screenshot presentation: full-bleed dark Linear app UI (issue "DRV-8852 Faster app launch" with sidebar, activity feed, properties column) sits directly under the hero in a thin rounded frame, edge to edge. Below: customer logo strip (OpenAI, Vercel, Figma, Cash App, Coinbase, Ramp), then feature bands each pairing a left headline ("Intake and integrations", "Planning and monitoring", "AI and automations", "Build, review, and ship") with dark app-screenshot cards on the right.
+- Hero copy quoted exactly: headline "The product development system for teams and agents"; subhead "Purpose-built for planning and building products. Designed for the AI era." The hero viewport has no CTA buttons; calls to action are the nav "Log in" / "Sign up" and the in-page "Get started" pill.

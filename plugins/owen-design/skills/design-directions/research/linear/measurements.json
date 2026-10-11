@@ -1,0 +1,1525 @@
+{
+  "site": "https://linear.app",
+  "headlessNote": "headless:undefined",
+  "measuredAt": "2026-10-11T10:01:31.632Z",
+  "body": {
+    "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "font-size": "16px",
+    "line-height": "24px",
+    "color": "rgb(247, 248, 248)",
+    "background-color": "rgb(8, 9, 10)"
+  },
+  "elements": {
+    "h1": {
+      "text": "The product development\nsystem for teams and agents\nThe product development system for teams and agents",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "64px",
+      "font-weight": "510",
+      "line-height": "64px",
+      "letter-spacing": "-1.408px",
+      "color": "rgb(247, 248, 248)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(247, 248, 248)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": 128,
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 1282
+    },
+    "h2": {
+      "text": "A new species of product tool. Purpose-built for modern teams with AI workflows at its core, Linear sets a new standard ",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "48px",
+      "font-weight": "510",
+      "line-height": "48px",
+      "letter-spacing": "-1.056px",
+      "color": "rgb(138, 143, 152)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(138, 143, 152)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px 32px",
+      "height": 144,
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 1250
+    },
+    "h3": {
+      "text": "Faster app launch",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "20px",
+      "font-weight": "590",
+      "line-height": "26.6px",
+      "letter-spacing": "-0.24px",
+      "color": "rgb(208, 214, 224)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(208, 214, 224)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": 27,
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 630
+    },
+    "p": {
+      "text": "Purpose-built for planning and building products. Designed for the AI era.",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "15px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "-0.165px",
+      "color": "rgb(138, 143, 152)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(138, 143, 152)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": 25,
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 505
+    },
+    "a": {
+      "text": "Skip to content →",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "14px",
+      "font-weight": "510",
+      "line-height": "21px",
+      "letter-spacing": "normal",
+      "color": "rgb(255, 255, 255)",
+      "background-color": "rgb(94, 106, 210)",
+      "background-image": "none",
+      "border": "0px none rgb(255, 255, 255)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px 16px",
+      "height": 32,
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 1440
+    },
+    "button": {
+      "text": "Product",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "13px",
+      "font-weight": "400",
+      "line-height": "19.5px",
+      "letter-spacing": "normal",
+      "color": "rgb(138, 143, 152)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(138, 143, 152)",
+      "border-radius": "9999px",
+      "box-shadow": "none",
+      "padding": "0px 12px",
+      "height": 32,
+      "transition": "color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "transition-duration": "0.1s",
+      "transition-timing-function": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 72
+    },
+    "nav": {
+      "text": "Product\nResources\nCustomers\nPricing\nNow\nContact\nLog in\nSign up",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgb(247, 248, 248)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(247, 248, 248)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": 72,
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 1440
+    },
+    "header": {
+      "text": "Product\nResources\nCustomers\nPricing\nNow\nContact\nLog in\nSign up",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgb(247, 248, 248)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "linear-gradient(rgba(11, 11, 11, 0.8) 0%, oklab(0.149576 0.00000680983 0.00000298768 / 0.761905) 100%)",
+      "border": "",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": 73,
+      "transition": "border-color 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "transition-duration": "0.1s",
+      "transition-timing-function": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 1440
+    },
+    "footer": {
+      "text": "Product\nIntake\nPlan\nAI\nBuild\nPricing\nSecurity\nFeatures\nAsks\nAgents\nCoding Sessions\nCustomer Requests\nInsights\nMobile\nInt",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgb(247, 248, 248)",
+      "background-color": "rgb(8, 9, 10)",
+      "background-image": "none",
+      "border": "",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": 494,
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s",
+      "width": 1440
+    }
+  },
+  "primaryButtons": [
+    {
+      "tag": "a",
+      "text": "Skip to content →",
+      "class": "LSqk9q_root",
+      "href": "https://linear.app/#skip-nav",
+      "width": 1440,
+      "height": "32px",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "14px",
+      "font-weight": "510",
+      "line-height": "21px",
+      "letter-spacing": "normal",
+      "color": "rgb(255, 255, 255)",
+      "background-color": "rgb(94, 106, 210)",
+      "background-image": "none",
+      "border": "0px none rgb(255, 255, 255)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px 16px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    {
+      "tag": "a",
+      "text": "Sign up",
+      "class": "S36ykG_root S36ykG_variant-invert S36ykG_size-small S36ykG_variant I_mUeq_root",
+      "href": "https://linear.app/signup",
+      "width": 73,
+      "height": "32px",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "13px",
+      "font-weight": "510",
+      "line-height": "32px",
+      "letter-spacing": "normal",
+      "color": "rgb(8, 9, 10)",
+      "background-color": "rgb(229, 229, 230)",
+      "background-image": "none",
+      "border": "1px solid rgb(229, 229, 230)",
+      "border-radius": "9999px",
+      "box-shadow": "rgba(0, 0, 0, 0) 0px 8px 2px 0px, rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px, rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+      "padding": "0px 12px",
+      "transition": "border 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "transition-duration": "0.16s",
+      "transition-timing-function": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    {
+      "tag": "button",
+      "text": "Faster app launch",
+      "class": "Mmx1Wq_navItem",
+      "href": null,
+      "width": 208,
+      "height": "28px",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "13px",
+      "font-weight": "510",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(208, 214, 224)",
+      "background-color": "rgba(255, 255, 255, 0.04)",
+      "background-image": "none",
+      "border": "0px none rgb(208, 214, 224)",
+      "border-radius": "8px",
+      "box-shadow": "none",
+      "padding": "0px 7px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    {
+      "tag": "a",
+      "text": "Our speed is intense and Linear helps us be action biased.\n\nNik Koblov\nHead of E",
+      "class": "Dc5tqa_customerCard Dc5tqa_secondary I_mUeq_root",
+      "href": "https://linear.app/customers/ramp",
+      "width": 432,
+      "height": "480px",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "400",
+      "line-height": "24px",
+      "letter-spacing": "normal",
+      "color": "rgb(247, 248, 248)",
+      "background-color": "rgb(228, 242, 34)",
+      "background-image": "none",
+      "border": "0px none rgb(247, 248, 248)",
+      "border-radius": "8px",
+      "box-shadow": "none",
+      "padding": "24px 32px",
+      "transition": "filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "transition-duration": "0.16s",
+      "transition-timing-function": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    {
+      "tag": "a",
+      "text": "Get started",
+      "class": "S36ykG_root S36ykG_variant-invert S36ykG_size-large S36ykG_variant I_mUeq_root",
+      "href": "https://linear.app/signup",
+      "width": 127,
+      "height": "44px",
+      "font-family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, \"system-ui\", \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+      "font-size": "16px",
+      "font-weight": "510",
+      "line-height": "44px",
+      "letter-spacing": "normal",
+      "color": "rgb(8, 9, 10)",
+      "background-color": "rgb(229, 229, 230)",
+      "background-image": "none",
+      "border": "1px solid rgb(229, 229, 230)",
+      "border-radius": "9999px",
+      "box-shadow": "rgba(0, 0, 0, 0) 0px 8px 2px 0px, rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px, rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+      "padding": "0px 20px",
+      "transition": "border 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.16s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "transition-duration": "0.16s",
+      "transition-timing-function": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    }
+  ],
+  "contentMaxWidth": {
+    "width": 0,
+    "tag": null,
+    "cls": null
+  },
+  "topLevelSections": [
+    {
+      "tag": "div",
+      "cls": "",
+      "top": 0,
+      "height": 9960
+    }
+  ],
+  "sectionGaps": [],
+  "topColors": [
+    {
+      "value": "rgb(247, 248, 248)",
+      "count": 3516
+    },
+    {
+      "value": "rgb(138, 143, 152)",
+      "count": 409
+    },
+    {
+      "value": "rgb(98, 102, 109)",
+      "count": 292
+    },
+    {
+      "value": "rgb(208, 214, 224)",
+      "count": 193
+    },
+    {
+      "value": "rgb(255, 255, 255)",
+      "count": 165
+    },
+    {
+      "value": "rgb(226, 228, 231)",
+      "count": 142
+    },
+    {
+      "value": "rgb(247, 156, 224)",
+      "count": 45
+    },
+    {
+      "value": "rgb(15, 16, 17)",
+      "count": 37
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.08)",
+      "count": 36
+    },
+    {
+      "value": "rgb(8, 9, 10)",
+      "count": 27
+    },
+    {
+      "value": "rgb(247, 191, 139)",
+      "count": 22
+    },
+    {
+      "value": "rgba(0, 255, 5, 0.1)",
+      "count": 19
+    },
+    {
+      "value": "rgb(143, 166, 255)",
+      "count": 16
+    },
+    {
+      "value": "rgb(255, 223, 159)",
+      "count": 10
+    },
+    {
+      "value": "rgb(131, 220, 220)",
+      "count": 10
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.02)",
+      "count": 9
+    },
+    {
+      "value": "rgba(243, 78, 82, 0.1)",
+      "count": 7
+    },
+    {
+      "value": "rgba(39, 166, 68, 0.07)",
+      "count": 7
+    },
+    {
+      "value": "rgba(255, 0, 0, 0.12)",
+      "count": 6
+    },
+    {
+      "value": "rgb(46, 46, 50)",
+      "count": 5
+    },
+    {
+      "value": "rgb(0, 0, 0)",
+      "count": 5
+    },
+    {
+      "value": "rgb(229, 229, 230)",
+      "count": 4
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.05)",
+      "count": 4
+    },
+    {
+      "value": "rgb(78, 167, 252)",
+      "count": 4
+    },
+    {
+      "value": "rgba(0, 0, 0, 0)",
+      "count": 4
+    }
+  ],
+  "fontSizes": [
+    {
+      "value": "16px",
+      "count": 3748
+    },
+    {
+      "value": "14px",
+      "count": 313
+    },
+    {
+      "value": "12px",
+      "count": 257
+    },
+    {
+      "value": "13px",
+      "count": 228
+    },
+    {
+      "value": "13.3333px",
+      "count": 137
+    },
+    {
+      "value": "15px",
+      "count": 88
+    },
+    {
+      "value": "10px",
+      "count": 23
+    },
+    {
+      "value": "18px",
+      "count": 20
+    },
+    {
+      "value": "64px",
+      "count": 13
+    },
+    {
+      "value": "48px",
+      "count": 11
+    },
+    {
+      "value": "24px",
+      "count": 7
+    },
+    {
+      "value": "11px",
+      "count": 2
+    },
+    {
+      "value": "32px",
+      "count": 2
+    },
+    {
+      "value": "20px",
+      "count": 1
+    },
+    {
+      "value": "72px",
+      "count": 1
+    }
+  ],
+  "borderRadii": [
+    {
+      "value": "0px",
+      "count": 4599
+    },
+    {
+      "value": "9999px",
+      "count": 76
+    },
+    {
+      "value": "8px",
+      "count": 30
+    },
+    {
+      "value": "50%",
+      "count": 28
+    },
+    {
+      "value": "4px",
+      "count": 21
+    },
+    {
+      "value": "12px",
+      "count": 18
+    },
+    {
+      "value": "9px",
+      "count": 18
+    },
+    {
+      "value": "6px",
+      "count": 13
+    },
+    {
+      "value": "2px",
+      "count": 9
+    },
+    {
+      "value": "12px 12px 0px 0px",
+      "count": 7
+    },
+    {
+      "value": "999px",
+      "count": 7
+    },
+    {
+      "value": "16px",
+      "count": 6
+    },
+    {
+      "value": "2px 0px 0px 2px",
+      "count": 4
+    },
+    {
+      "value": "0px 2px 2px 0px",
+      "count": 4
+    },
+    {
+      "value": "4px 0px 0px 4px",
+      "count": 3
+    },
+    {
+      "value": "0px 4px 4px 0px",
+      "count": 3
+    },
+    {
+      "value": "22px",
+      "count": 2
+    },
+    {
+      "value": "400px",
+      "count": 1
+    },
+    {
+      "value": "1.5px",
+      "count": 1
+    },
+    {
+      "value": "3px",
+      "count": 1
+    }
+  ],
+  "boxShadows": [
+    {
+      "value": "rgba(0, 0, 0, 0.2) 0px 0px 12px 0px inset",
+      "count": 7
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.2) 0px 0px 0px 1px",
+      "count": 6
+    },
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 8px 2px 0px, rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px, rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+      "count": 4
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset",
+      "count": 4
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.25) 0px 2px 32px 0px",
+      "count": 4
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.08) 0px 0px 0px 0.5px inset",
+      "count": 4
+    },
+    {
+      "value": "rgb(35, 37, 42) 0px 0px 0px 1px inset",
+      "count": 3
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.03) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.04) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.6) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 4px 4px 0px",
+      "count": 2
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.2) 0px 0px 0px 2px",
+      "count": 1
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.4) 0px 1px 0px 0px",
+      "count": 1
+    }
+  ],
+  "rootCustomProps": {},
+  "rootCustomPropsCount": 0,
+  "stylesheetInfo": {
+    "total": 68,
+    "blocked": 48
+  },
+  "meta": {
+    "title": "Linear – The system for product development",
+    "totalElements": 4851,
+    "sampled": 4851,
+    "viewport": {
+      "w": 1440,
+      "h": 900
+    },
+    "scrollHeight": 9960
+  },
+  "hero": "The product development\nsystem for teams and agents\nThe product development system for teams and agents",
+  "motion": {
+    "hoverButton": {
+      "kind": "button",
+      "found": true,
+      "label": "a \"Skip to content →\"",
+      "before": {
+        "transform": "none",
+        "background-color": "rgb(94, 106, 210)",
+        "color": "rgb(255, 255, 255)",
+        "box-shadow": "none",
+        "opacity": "0"
+      },
+      "after": {
+        "transform": "none",
+        "background-color": "rgb(94, 106, 210)",
+        "color": "rgb(255, 255, 255)",
+        "box-shadow": "none",
+        "opacity": "0"
+      }
+    },
+    "hoverNav": {
+      "kind": "navlink",
+      "found": true,
+      "label": "a \"\"",
+      "before": {
+        "transform": "none",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "color": "rgb(247, 248, 248)",
+        "box-shadow": "none",
+        "opacity": "1"
+      },
+      "after": {
+        "transform": "none",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "color": "rgb(247, 248, 248)",
+        "box-shadow": "none",
+        "opacity": "1"
+      }
+    },
+    "scrollChanged": [
+      {
+        "tag": "p",
+        "class": "q1lnWq_thinking",
+        "text": "Thinking… Thinking…",
+        "before": {
+          "opacity": "0.997379",
+          "transform": "matrix(1, 0, 0, 1, 0, 0.0198973)"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "_8Qm5kG_input",
+        "text": "Reply…  Skills",
+        "before": {
+          "opacity": "1",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "0.8",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "p",
+        "class": "_8Qm5kG_placeholder",
+        "text": "Reply…",
+        "before": {
+          "opacity": "1",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "0.9",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "KFZpfa_propertiesColumn",
+        "text": "Reviews Revert Properties In Progress Me",
+        "before": {
+          "opacity": "0.8",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "ImRUSq_root",
+        "text": "Performance iOS",
+        "before": {
+          "opacity": "1",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "0.8",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "SPbJba_grain SPbJba_grainSubtle WS84WW_grainOverlay",
+        "text": "",
+        "before": {
+          "opacity": "0.6",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "",
+        "text": "",
+        "before": {
+          "opacity": "0",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "MR81zG_marqueeItem",
+        "text": "",
+        "before": {
+          "opacity": "1",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "0.6",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "MR81zG_marqueeItem",
+        "text": "",
+        "before": {
+          "opacity": "1",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "0",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "span",
+        "class": "sc-KOGVz eHoboT GJ9TEa_figure",
+        "text": "FIG 0.1",
+        "before": {
+          "opacity": "0.4",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "span",
+        "class": "sc-KOGVz eHoboT GJ9TEa_figure",
+        "text": "FIG 0.2",
+        "before": {
+          "opacity": "0.4",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "span",
+        "class": "sc-KOGVz eHoboT GJ9TEa_figure",
+        "text": "FIG 0.3",
+        "before": {
+          "opacity": "0.4",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "",
+        "text": "",
+        "before": {
+          "opacity": "1",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "0.4",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "Fzcv4W_inset Fzcv4W_insetLarge b-30Va_titleContainer",
+        "text": "Intake and integrations",
+        "before": {
+          "opacity": "1",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "0.4",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "b-30Va_illustration",
+        "text": "Backlog 8 ENG-2085 Reduce UI flicker dur",
+        "before": {
+          "opacity": "1",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "0.4",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "MwJdiW_container qM9FAa_container",
+        "text": "Backlog 8 ENG-2085 Reduce UI flicker dur",
+        "before": {
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, -120, 0)"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "MwJdiW_panel qM9FAa_panel",
+        "text": "Backlog 8 ENG-2085 Reduce UI flicker dur",
+        "before": {
+          "opacity": "0.8",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "span",
+        "class": "qM9FAa_colIcon",
+        "text": "",
+        "before": {
+          "opacity": "0.9",
+          "transform": "none"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "_5k-xcq_card qM9FAa_issue",
+        "text": "ENG-2085 Reduce UI flicker during autono",
+        "before": {
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      },
+      {
+        "tag": "div",
+        "class": "_5k-xcq_card qM9FAa_issue",
+        "text": "ENG-2094 Add buffering for autonomy even",
+        "before": {
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        "after": {
+          "opacity": "1",
+          "transform": "none"
+        }
+      }
+    ],
+    "scrollChangedCount": 20,
+    "animationsAfterLoad": [
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      }
+    ],
+    "animationsAfterScroll": [
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 2800,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:15 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      },
+      {
+        "target": "circle.[object.SVGAnimatedString]",
+        "duration": 1600,
+        "easing": "linear",
+        "playState": "running",
+        "kf": "frames:9 props:composite,opacity"
+      }
+    ]
+  }
+}

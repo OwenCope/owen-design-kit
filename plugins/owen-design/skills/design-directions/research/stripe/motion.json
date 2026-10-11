@@ -1,0 +1,670 @@
+{
+  "url": "https://stripe.com",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "hoverPrimaryButton": {
+    "found": true,
+    "text": "Contact sales",
+    "before": {
+      "transform": "none",
+      "background-color": "rgb(83, 58, 253)",
+      "color": "rgb(255, 255, 255)",
+      "box-shadow": "none",
+      "opacity": "1",
+      "transition": "color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), background-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), border-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "transition-duration": "0.24s, 0.24s, 0.24s"
+    },
+    "after": {
+      "transform": "none",
+      "background-color": "rgba(255, 255, 255, 0.973)",
+      "color": "rgb(83, 58, 253)",
+      "box-shadow": "none",
+      "opacity": "1",
+      "transition": "color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), background-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), border-color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)"
+    }
+  },
+  "hoverNavLink": {
+    "found": true,
+    "text": "",
+    "before": {
+      "transform": "none",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "color": "rgb(83, 58, 253)",
+      "box-shadow": "none",
+      "opacity": "1",
+      "transition": "opacity 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)"
+    },
+    "after": {
+      "transform": "none",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "color": "rgb(46, 43, 140)",
+      "box-shadow": "none",
+      "opacity": "0.717582",
+      "transition": "opacity 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)"
+    }
+  },
+  "navMenu": {
+    "candidates": [
+      "",
+      "Products",
+      "Products",
+      "Solutions",
+      "Solutions",
+      "Developers",
+      "Developers",
+      "Resources",
+      "Resources",
+      "Pricing",
+      "Pricing",
+      "Sign in\nSign in"
+    ],
+    "hovered": "Products",
+    "menus": [
+      {
+        "cls": "hds-navigation-menu__positioner",
+        "rect": {
+          "x": 89,
+          "y": 70,
+          "w": 1262,
+          "h": 698
+        },
+        "transition": "all",
+        "transition-duration": "0s",
+        "transition-timing-function": "ease",
+        "animation": "none",
+        "animation-duration": "0s",
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 89, 70)"
+      },
+      {
+        "cls": "hds-navigation-menu__viewport",
+        "rect": {
+          "x": 89,
+          "y": 71,
+          "w": 1262,
+          "h": 697
+        },
+        "transition": "all",
+        "transition-duration": "0s",
+        "transition-timing-function": "ease",
+        "animation": "none",
+        "animation-duration": "0s",
+        "opacity": "1",
+        "transform": "none"
+      },
+      {
+        "cls": "hds-navigation-menu__content",
+        "rect": {
+          "x": 89,
+          "y": 71,
+          "w": 1262,
+          "h": 697
+        },
+        "transition": "opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        "transition-duration": "0.25s, 0.5s",
+        "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "animation": "none",
+        "animation-duration": "0s",
+        "opacity": "1",
+        "transform": "none"
+      }
+    ],
+    "screenshot": "home-navmenu.png"
+  },
+  "scrollChanged": [
+    {
+      "tag": "DIV",
+      "cls": "single-wave__static",
+      "top": -107,
+      "scrollY": 600,
+      "before": {
+        "opacity": "0",
+        "transform": "matrix(1, 0, 0, 1, -696, -487.5)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "opacity 0.25s linear"
+    },
+    {
+      "tag": "DIV",
+      "cls": "",
+      "top": 708,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "after": {
+        "opacity": "0",
+        "transform": "matrix(1, 0, 0, 1, -696, -487.5)"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "modular-solutions-bento-card__border-color",
+      "top": 827,
+      "scrollY": 600,
+      "before": {
+        "opacity": "0",
+        "transform": "matrix(1, 0, 0, 1, -537.977, -537.977)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "opacity 0.25s linear"
+    },
+    {
+      "tag": "DIV",
+      "cls": "modular-solutions-bento-card__border-color-gradient",
+      "top": 988,
+      "scrollY": 600,
+      "before": {
+        "opacity": "0.5",
+        "transform": "none"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "transform 1s cubic-bezier(0.16, 1, 0.3, 1)"
+    },
+    {
+      "tag": "DIV",
+      "cls": "dom-graphic dom-graphic--variant-default payments-terminal-dom-graphic",
+      "top": 1023,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "dom-graphic__content dom-graphic__content--horizontal-scale-left",
+      "top": 1023,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__terminal-pay-label-values",
+      "top": 1280,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__terminal-payment-amount-values",
+      "top": 1301,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__terminal-message-values",
+      "top": 1343,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__terminal-transaction-details-content",
+      "top": 1389,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__terminal-transaction-button-text-values",
+      "top": 1514,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "dom-graphic dom-graphic--variant-default payments-checkout-dom-graphic",
+      "top": 1023,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "dom-graphic__content dom-graphic__content--horizontal-scale-left",
+      "top": 1023,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__checkout-browser-url-block",
+      "top": 1194,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "after": {
+        "opacity": "0",
+        "transform": "matrix(1, 0, 0, 1, -537.977, -537.977)"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__checkout-browser-url-values",
+      "top": 1194,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "0.5",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__checkout-browser-url payments-graphic__checkout-browser-url--c",
+      "top": 1206,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 5, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__checkout-browser-url payments-graphic__checkout-browser-url--s",
+      "top": 1218,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, -8, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "",
+      "top": 1229,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__checkout-input-label",
+      "top": 1294,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "transition": "all"
+    },
+    {
+      "tag": "DIV",
+      "cls": "payments-graphic__checkout-input-label-values",
+      "top": 1294,
+      "scrollY": 600,
+      "before": {
+        "opacity": "1",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none"
+      },
+      "transition": "all"
+    }
+  ],
+  "scrollChangedCount": 20,
+  "animationsAfterLoad": [
+    {
+      "target": "NAV.hds-navigation-menu navigation-menu navigation-menu--homepage",
+      "duration": "auto",
+      "easing": "linear",
+      "playState": "running"
+    }
+  ],
+  "animationsAfterScroll": [
+    {
+      "target": "NAV.hds-navigation-menu navigation-menu navigation-menu--homepage hds-navigation-men",
+      "duration": "auto",
+      "easing": "linear",
+      "playState": "running"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "SPAN.",
+      "duration": 325,
+      "easing": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "playState": "running"
+    },
+    {
+      "target": "SPAN.",
+      "duration": 325,
+      "easing": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "playState": "running"
+    }
+  ],
+  "canvasElements": [
+    {
+      "width": 1392,
+      "height": 761,
+      "rect": {
+        "x": 337,
+        "y": 0,
+        "w": 1393,
+        "h": 761
+      },
+      "cls": "single-wave__canvas"
+    },
+    {
+      "width": 300,
+      "height": 150,
+      "rect": {
+        "x": 104,
+        "y": 11676,
+        "w": 1232,
+        "h": 460
+      },
+      "cls": "squeezy-carousel__canvas"
+    }
+  ],
+  "webgl": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"
+}

@@ -9,7 +9,12 @@
 //
 // Writes full-page screenshots to out-dir (default ./review) and prints problems it can measure:
 // console errors, sideways scrolling on phones, buttons that move on hover, and links that go nowhere.
-import { chromium } from 'playwright';
+import { createRequire as __cr } from 'node:module';
+import { join as __join } from 'node:path';
+// Load Playwright from the project you run this in, so the script works from the kit's own folder.
+let chromium;
+try { ({ chromium } = __cr(__join(process.cwd(), 'package.json'))('playwright')); }
+catch { console.error('Playwright not found here. Run: npm i -D playwright && npx playwright install chromium'); process.exit(1); }
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 

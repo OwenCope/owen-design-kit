@@ -46,7 +46,7 @@ Owen builds products solo with testers and agents: Gaze (a Mac face-unlock app),
 
 ## Starting in a project
 1. Load `apple-craft:apple-design` and the matching `project-*` skill.
-2. Read the project's AGENTS.md / handoff file if it has one.
+2. Read the project's AGENTS.md / handoff file and `DESIGN-NOTES.md` if it has them.
 3. Check git status and recent commits before changing anything.
 
 ## Apple Figma kits (Owen's copies)
@@ -54,3 +54,7 @@ Owen builds products solo with testers and agents: Gaze (a Mac face-unlock app),
 Use these with `figma-mockups`; they are Owen's duplicated copies, so the Figma tools can read them:
 - macOS 27: https://www.figma.com/design/psmd2v7ftwhNCn0yh6JUk0/macOS-27--Community-
 - iOS and iPadOS 27: https://www.figma.com/design/j2esmSA6gZA9scyN82vp5j/iOS-and-iPadOS-27--Community-
+
+## Recording his picks
+
+When Owen chooses between two versions, or approves or rejects something with a reason, add one line to `picks.md` next to this file: the date, what he was shown, what he picked, and his words. Keep his exact words. Over time this is the evidence of his taste; read it before guessing what he'd like, and update the picks above only when several entries agree.

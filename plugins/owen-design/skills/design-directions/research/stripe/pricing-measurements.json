@@ -1,0 +1,1214 @@
+{
+  "body": {
+    "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+    "font-size": "16px",
+    "line-height": "normal",
+    "color": "rgb(66, 84, 102)",
+    "background-color": "rgb(246, 249, 252)"
+  },
+  "elements": {
+    "h1": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "32px",
+      "font-weight": "700",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(66, 84, 102)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(66, 84, 102)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "26px",
+      "transition": "color 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95), opacity 0.24s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "transition-duration": "0.24s",
+      "transition-timing-function": "cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "h2": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "26px",
+      "font-weight": "500",
+      "line-height": "36px",
+      "letter-spacing": "normal",
+      "color": "rgb(10, 37, 64)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(10, 37, 64)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "35.9844px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "h3": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "13px",
+      "font-weight": "425",
+      "line-height": "13px",
+      "letter-spacing": "normal",
+      "color": "rgb(114, 127, 150)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(114, 127, 150)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "auto",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "p": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "14px",
+      "font-weight": "300",
+      "line-height": "19.6px",
+      "letter-spacing": "normal",
+      "color": "rgb(60, 79, 105)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(60, 79, 105)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "auto",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "a": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "32px",
+      "font-weight": "700",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(0, 0, 238)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(0, 0, 238)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "4px 4px 5px",
+      "height": "34px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "button": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "14px",
+      "font-weight": "400",
+      "line-height": "14px",
+      "letter-spacing": "normal",
+      "color": "rgb(10, 37, 64)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(10, 37, 64)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "12px 12px 14px",
+      "height": "40px",
+      "transition": "opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), border 0.3s cubic-bezier(0.25, 1, 0.5, 1), fill 0.3s cubic-bezier(0.25, 1, 0.5, 1), stroke 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+      "transition-duration": "0.3s",
+      "transition-timing-function": "cubic-bezier(0.25, 1, 0.5, 1)",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "nav": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "16px",
+      "font-weight": "300",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(66, 84, 102)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(66, 84, 102)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px",
+      "height": "40px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "header": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "16px",
+      "font-weight": "300",
+      "line-height": "normal",
+      "letter-spacing": "normal",
+      "color": "rgb(66, 84, 102)",
+      "background-color": "rgb(246, 249, 252)",
+      "background-image": "none",
+      "border": "0px none rgb(66, 84, 102)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "6px 0px",
+      "height": "76px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "footer": {
+      "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+      "font-size": "16px",
+      "font-weight": "300",
+      "line-height": "normal",
+      "letter-spacing": "0.2px",
+      "color": "rgb(66, 84, 102)",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "background-image": "none",
+      "border": "0px none rgb(66, 84, 102)",
+      "border-radius": "0px",
+      "box-shadow": "none",
+      "padding": "0px 16px",
+      "height": "116px",
+      "transition": "all",
+      "transition-duration": "0s",
+      "transition-timing-function": "ease",
+      "animation-name": "none",
+      "animation-duration": "0s"
+    },
+    "table": null,
+    "th": null,
+    "td": null,
+    "code": null,
+    "pre": null
+  },
+  "primaryButtons": [
+    {
+      "tag": "A",
+      "text": "Contact sales\n ",
+      "rect": {
+        "x": 1107.5625,
+        "y": 21.5,
+        "width": 136.4375,
+        "height": 33,
+        "top": 21.5,
+        "right": 1244,
+        "bottom": 54.5,
+        "left": 1107.5625
+      },
+      "styles": {
+        "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+        "font-size": "15px",
+        "font-weight": "425",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(99, 91, 255)",
+        "background-image": "none",
+        "border": "0px none rgb(255, 255, 255)",
+        "border-radius": "16.5px",
+        "box-shadow": "none",
+        "padding": "3px 12px 6px 16px",
+        "height": "33px",
+        "transition": "opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), border 0.3s cubic-bezier(0.25, 1, 0.5, 1), fill 0.3s cubic-bezier(0.25, 1, 0.5, 1), stroke 0.3s cubic-bezier(0.25, 1, 0.5, 1)",
+        "transition-duration": "0.3s",
+        "transition-timing-function": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Get started ",
+      "rect": {
+        "x": 212,
+        "y": 581.984375,
+        "width": 121.515625,
+        "height": 33,
+        "top": 581.984375,
+        "right": 333.515625,
+        "bottom": 614.984375,
+        "left": 212
+      },
+      "styles": {
+        "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+        "font-size": "15px",
+        "font-weight": "425",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(99, 91, 255)",
+        "background-image": "none",
+        "border": "0px none rgb(255, 255, 255)",
+        "border-radius": "16.5px",
+        "box-shadow": "none",
+        "padding": "3px 12px 6px 16px",
+        "height": "33px",
+        "transition": "background-color 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.15s cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "transition-duration": "0.15s",
+        "transition-timing-function": "cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Contact sales ",
+      "rect": {
+        "x": 760,
+        "y": 581.984375,
+        "width": 136.4375,
+        "height": 33,
+        "top": 581.984375,
+        "right": 896.4375,
+        "bottom": 614.984375,
+        "left": 760
+      },
+      "styles": {
+        "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+        "font-size": "15px",
+        "font-weight": "425",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(10, 37, 64)",
+        "background-color": "rgb(0, 212, 255)",
+        "background-image": "none",
+        "border": "0px none rgb(10, 37, 64)",
+        "border-radius": "16.5px",
+        "box-shadow": "none",
+        "padding": "3px 12px 6px 16px",
+        "height": "33px",
+        "transition": "background-color 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.15s cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "transition-duration": "0.15s",
+        "transition-timing-function": "cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Contact sales ",
+      "rect": {
+        "x": 1107.5625,
+        "y": -48.5,
+        "width": 136.4375,
+        "height": 33,
+        "top": -48.5,
+        "right": 1244,
+        "bottom": -15.5,
+        "left": 1107.5625
+      },
+      "styles": {
+        "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+        "font-size": "15px",
+        "font-weight": "425",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(99, 91, 255)",
+        "background-image": "none",
+        "border": "0px none rgb(255, 255, 255)",
+        "border-radius": "16.5px",
+        "box-shadow": "none",
+        "padding": "3px 12px 6px 16px",
+        "height": "33px",
+        "transition": "background-color 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.15s cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "transition-duration": "0.15s",
+        "transition-timing-function": "cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Start now ",
+      "rect": {
+        "x": 1126.328125,
+        "y": 2035.78125,
+        "width": 109.671875,
+        "height": 33,
+        "top": 2035.78125,
+        "right": 1236,
+        "bottom": 2068.78125,
+        "left": 1126.328125
+      },
+      "styles": {
+        "font-family": "sohne-var, \"Helvetica Neue\", Arial, sans-serif",
+        "font-size": "15px",
+        "font-weight": "425",
+        "line-height": "24px",
+        "letter-spacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background-color": "rgb(99, 91, 255)",
+        "background-image": "none",
+        "border": "0px none rgb(255, 255, 255)",
+        "border-radius": "16.5px",
+        "box-shadow": "none",
+        "padding": "3px 12px 6px 16px",
+        "height": "33px",
+        "transition": "background-color 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.15s cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "transition-duration": "0.15s",
+        "transition-timing-function": "cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "animation-name": "none",
+        "animation-duration": "0s"
+      }
+    }
+  ],
+  "contentMaxWidth": {
+    "tag": "DIV",
+    "cls": "PricingBottomSheetNav__container",
+    "width": 0,
+    "maxWidth": "1112px"
+  },
+  "sectionGaps": [
+    {
+      "index": 0,
+      "tag": "DIV",
+      "cls": "",
+      "top": 0,
+      "height": 22313,
+      "paddingTop": "0px",
+      "paddingBottom": "0px",
+      "marginTop": "0px",
+      "marginBottom": "0px"
+    }
+  ],
+  "topColors": [
+    {
+      "value": "rgb(66, 84, 102)",
+      "count": 2693
+    },
+    {
+      "value": "rgb(83, 58, 253)",
+      "count": 883
+    },
+    {
+      "value": "rgb(10, 37, 64)",
+      "count": 821
+    },
+    {
+      "value": "rgb(255, 255, 255)",
+      "count": 410
+    },
+    {
+      "value": "rgb(99, 91, 255)",
+      "count": 370
+    },
+    {
+      "value": "rgb(63, 75, 102)",
+      "count": 301
+    },
+    {
+      "value": "rgb(0, 0, 0)",
+      "count": 292
+    },
+    {
+      "value": "rgb(112, 127, 152)",
+      "count": 200
+    },
+    {
+      "value": "rgb(114, 127, 150)",
+      "count": 87
+    },
+    {
+      "value": "rgb(250, 251, 253)",
+      "count": 65
+    },
+    {
+      "value": "rgb(60, 79, 105)",
+      "count": 64
+    },
+    {
+      "value": "rgb(6, 27, 49)",
+      "count": 16
+    },
+    {
+      "value": "rgba(66, 71, 112, 0.06)",
+      "count": 14
+    },
+    {
+      "value": "rgb(0, 0, 238)",
+      "count": 12
+    },
+    {
+      "value": "rgb(246, 249, 252)",
+      "count": 8
+    },
+    {
+      "value": "rgb(3, 19, 35)",
+      "count": 7
+    },
+    {
+      "value": "rgb(248, 250, 253)",
+      "count": 6
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.8)",
+      "count": 5
+    },
+    {
+      "value": "rgb(246, 249, 251)",
+      "count": 5
+    },
+    {
+      "value": "rgb(31, 68, 104)",
+      "count": 4
+    },
+    {
+      "value": "rgb(239, 168, 46)",
+      "count": 4
+    },
+    {
+      "value": "rgb(66, 176, 213)",
+      "count": 4
+    },
+    {
+      "value": "rgb(197, 70, 71)",
+      "count": 4
+    },
+    {
+      "value": "rgb(0, 102, 177)",
+      "count": 3
+    },
+    {
+      "value": "rgba(1, 1, 1, 0.3)",
+      "count": 3
+    }
+  ],
+  "fontSizes": [
+    {
+      "value": "15px",
+      "count": 2437
+    },
+    {
+      "value": "16px",
+      "count": 1798
+    },
+    {
+      "value": "14px",
+      "count": 1196
+    },
+    {
+      "value": "13px",
+      "count": 219
+    },
+    {
+      "value": "12px",
+      "count": 218
+    },
+    {
+      "value": "18px",
+      "count": 57
+    },
+    {
+      "value": "13.3333px",
+      "count": 35
+    },
+    {
+      "value": "26px",
+      "count": 16
+    },
+    {
+      "value": "24px",
+      "count": 8
+    },
+    {
+      "value": "32px",
+      "count": 5
+    },
+    {
+      "value": "18.72px",
+      "count": 5
+    },
+    {
+      "value": "38px",
+      "count": 3
+    },
+    {
+      "value": "56px",
+      "count": 1
+    },
+    {
+      "value": "12.5px",
+      "count": 1
+    },
+    {
+      "value": "23px",
+      "count": 1
+    }
+  ],
+  "borderRadii": [
+    {
+      "value": "8px",
+      "count": 83
+    },
+    {
+      "value": "16.5px",
+      "count": 79
+    },
+    {
+      "value": "1px",
+      "count": 12
+    },
+    {
+      "value": "4px 4px 0px 0px",
+      "count": 6
+    },
+    {
+      "value": "4px",
+      "count": 5
+    },
+    {
+      "value": "8px 8px 0px 0px",
+      "count": 3
+    },
+    {
+      "value": "6px",
+      "count": 3
+    },
+    {
+      "value": "0px 0px 8px 8px",
+      "count": 2
+    },
+    {
+      "value": "12px",
+      "count": 2
+    },
+    {
+      "value": "0px 0px 4px 4px",
+      "count": 1
+    },
+    {
+      "value": "0px 4px 0px 0px",
+      "count": 1
+    },
+    {
+      "value": "0px 0px 4px",
+      "count": 1
+    },
+    {
+      "value": "99px",
+      "count": 1
+    },
+    {
+      "value": "2px",
+      "count": 1
+    }
+  ],
+  "boxShadows": [
+    {
+      "value": "rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px",
+      "count": 52
+    },
+    {
+      "value": "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+      "count": 23
+    },
+    {
+      "value": "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
+      "count": 5
+    },
+    {
+      "value": "rgba(50, 50, 93, 0.25) 0px 13.5px 27px -12.4px",
+      "count": 2
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.1) 0px 18px 36px -18px, rgba(50, 50, 93, 0.25) 0px 30px 45px -30px",
+      "count": 1
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.06) 0px -16px 32px -12px, rgba(0, 0, 0, 0.04) 0px -8px 16px 0px",
+      "count": 1
+    },
+    {
+      "value": "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
+      "count": 1
+    }
+  ],
+  "gradients": [
+    "linear-gradient(rgba(0, 0, 0, 0), rgba(236, 239, 241, 0.8))",
+    "linear-gradient(rgba(66, 71, 112, 0.09), rgba(66, 71, 112, 0.09) 50%, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0))",
+    "radial-gradient(66.35% 66.35%, rgba(255, 255, 255, 0.9) 0px, rgba(255, 255, 255, 0) 100%), none",
+    "radial-gradient(66.35% 66.35%, rgb(255, 255, 255) 0px, rgba(255, 255, 255, 0) 100%), none",
+    "linear-gradient(270deg, rgb(0, 115, 230) 4.91%, rgb(22, 203, 225) 21.6%, rgb(72, 164, 237) 40.82%, rgb(99, 91, 255) 60.04%, rgb(153, 102, 255) 80.27%, rgb(209, 135, 255) 96.97%)"
+  ],
+  "rootVars": {
+    "__crossOriginBlocked": true
+  },
+  "canvasElements": [
+    {
+      "width": 300,
+      "height": 150,
+      "rect": {
+        "x": 0,
+        "y": 281,
+        "w": 1440,
+        "h": 556
+      },
+      "cls": "Gradient__canvas"
+    }
+  ],
+  "webglInfo": "WebKit WebGL | WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+  "docAnimations": [
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "svg.[object SVGAnimatedString]",
+      "duration": 150,
+      "easing": "linear",
+      "playState": "finished"
+    },
+    {
+      "target": "DIV.CustomersCaseStudyCarouselNavItem__countdownContainer",
+      "duration": 500,
+      "easing": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      "playState": "finished"
+    },
+    {
+      "target": "DIV.CustomersCaseStudyCarouselNavItem__countdownBar",
+      "duration": 7000,
+      "easing": "linear",
+      "playState": "running"
+    }
+  ],
+  "url": "https://stripe.com/pricing",
+  "title": "Pricing & Fees",
+  "scrollHeight": 22313
+}
