@@ -304,5 +304,37 @@
     el.addEventListener('pointerleave', () => go(0, 0));
   }
 
-  global.Motion = { SPRINGS, spring, morph, flyTo, catchBump, pressable, draggable, stagger, reveal, scene, segment, expand, collapse, slideTo, countTo, popIn, toast, tilt, reduced, clamp, lerp };
+
+  // Blur crossfade: swap an element's content in place. Old content blurs out (~100 ms), new blurs in (~200 ms).
+  // The element never moves; only what's inside changes. Pass a function that writes the new content.
+  async function blurSwap(el, write, { out = 100, inn = 200 } = {}) {
+    if (reduced()) { write(); return; }
+    el.style.transition = `opacity ${out}ms ease, filter ${out}ms ease`;
+    el.style.opacity = 0; el.style.filter = 'blur(8px)';
+    await new Promise((r) => setTimeout(r, out));
+    write();
+    el.style.transition = `opacity ${inn}ms cubic-bezier(.22,1,.36,1), filter ${inn}ms cubic-bezier(.22,1,.36,1)`;
+    requestAnimationFrame(() => { el.style.opacity = 1; el.style.filter = 'blur(0)'; });
+    await new Promise((r) => setTimeout(r, inn));
+    el.style.transition = '';
+  }
+
+  // Camera zoom: scale and move a stage so that `focus` (an element inside it) fills `frame`.
+  // Used for "start on the whole device, then zoom into the real feature".
+  function zoomTo(stage, focus, frame, { preset = 'smooth', pad = 0 } = {}) {
+    const f = frame.getBoundingClientRect(), t = focus.getBoundingClientRect(), s0 = stage.getBoundingClientRect();
+    const cur = { k: parseFloat(stage.dataset.k || 1), x: parseFloat(stage.dataset.x || 0), y: parseFloat(stage.dataset.y || 0) };
+    const k = cur.k * Math.max((f.width + pad) / t.width, (f.height + pad) / t.height);
+    // Position relative to the stage's untransformed origin.
+    const ox = (t.left - s0.left) / cur.k, oy = (t.top - s0.top) / cur.k;
+    const x = f.left - (s0.left - cur.x) - ox * k + (f.width - (t.width / cur.k) * k) / 2;
+    const y = f.top - (s0.top - cur.y) - oy * k + (f.height - (t.height / cur.k) * k) / 2;
+    stage.style.transformOrigin = '0 0';
+    return claim(stage, 'zoom', spring(cur, { k, x, y }, (v) => {
+      stage.dataset.k = v.k; stage.dataset.x = v.x; stage.dataset.y = v.y;
+      stage.style.transform = `translate(${v.x}px, ${v.y}px) scale(${v.k})`;
+    }, preset));
+  }
+
+  global.Motion = { SPRINGS, spring, morph, flyTo, catchBump, pressable, draggable, stagger, reveal, scene, segment, expand, collapse, slideTo, countTo, popIn, toast, tilt, blurSwap, zoomTo, reduced, clamp, lerp };
 })(window);

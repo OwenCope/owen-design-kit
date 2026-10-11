@@ -11,6 +11,7 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 
 - Copy `motion.js` next to your page and load it: `<script src="motion.js"></script>`. Everything is on the global `Motion`.
 - `gallery.html` shows every part working, one card each, with the line of code under it. Open it first and pick what fits.
+- `tour.html` is the welcome tour from `onboarding-design`, built for the web: the scene in a Mac, a camera zoom until the screen is the window, the notch growing into the live panel, and every page morphing that same panel with blur crossfades while the art, text and button never move.
 - `notch-shelf.html` is a complete reference built with it: a notch you drag files into, which grows into a shelf. Open it next to `mac-assets` (from `mac-props`) and try it before building. Copy its patterns, never its page.
 
 ## The parts
@@ -29,6 +30,8 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 - **Popover:** `Motion.popIn(panel, button, { show })` grows a menu out of the button that opened it.
 - **Toast:** `Motion.toast(el)` drops a banner from the top edge, waits, leaves upward.
 - **Tilt:** `Motion.tilt(el)` follows the pointer in 3D on cards and product pictures; springs back flat.
+- **Blur crossfade:** `Motion.blurSwap(el, () => write())` swaps content in place: old blurs out, new blurs in. Use for titles, button labels and panel content between pages.
+- **Camera zoom:** `Motion.zoomTo(stage, focus, frame)` scales a whole scene so one part of it fills the frame (the Mac's screen becoming the window).
 - **Scene:** `Motion.scene(section, p => …)` gives 0 to 1 progress through a pinned scroll section; `Motion.segment(p, a, b)` turns part of it into its own eased 0 to 1 for choreography.
 
 ## Choreography rules

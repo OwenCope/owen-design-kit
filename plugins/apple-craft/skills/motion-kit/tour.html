@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>motion-kit: welcome tour</title>
+<!-- The onboarding-design tour, built for the web with motion-kit:
+     1. Welcome: the scene inside a Mac. 2. Continue zooms in until the Mac's screen is the window.
+     3. The notch grows into the product's live panel; items arrive one by one.
+     4. Each page morphs the same panel into the next feature, content blur-crossfading in place.
+     The art, text position, button and close never move; only the panel and the words change.
+     Needs ./mac-assets (mac-props/scripts/make-assets.swift ./mac-assets) and ../mac-props/assets/macbook-air-shell.webp or a copy beside it. -->
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: #0b0b10; }
+  body { display: grid; place-items: center; font: 15px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+         -webkit-font-smoothing: antialiased; user-select: none; -webkit-user-select: none; }
+
+  /* The tour window. */
+  .win { position: relative; width: min(860px, 94vw); aspect-ratio: 860 / 620; border-radius: 26px; overflow: hidden; background: #000;
+         box-shadow: 0 0 0 .5px rgba(255,255,255,.14), 0 40px 120px rgba(0,0,0,.6); color: #fff; }
+
+  /* The camera stage: the art and the Mac live here and are zoomed together. */
+  .stage { position: absolute; inset: 0; }
+  .art { position: absolute; inset: 0; background: url(mac-assets/wallpaper.jpg) center / cover; }
+  .art { filter: saturate(.75) brightness(.8); }
+  .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.05) 35%, rgba(0,0,0,.78) 80%); }
+  .mac { position: absolute; left: 10%; top: 4%; width: 80%; }
+  .mac img { width: 100%; display: block; }
+  .screen { position: absolute; left: 19.444%; top: 19.067%; width: 61.111%; height: 58.933%; }
+
+  /* The panel: lives on the window, not the stage, so it's crisp at any zoom. Starts as the notch. */
+  .panel { position: absolute; top: 0; left: 50%; translate: -50% 0; width: 92px; height: 22px; border-radius: 0 0 10px 10px; opacity: 0;
+           background: linear-gradient(#000 0, #000 30px, rgba(18,18,22,.8) 90px, rgba(40,40,46,.66) 100%);
+           -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6); overflow: hidden; z-index: 3; }
+  .panel::before, .panel::after { content: ""; position: absolute; top: 0; width: 10px; height: 10px;
+           background: radial-gradient(circle at 0 100%, transparent 9.5px, #000 10px); }
+  .panel::before { left: -10px; } .panel::after { right: -10px; transform: scaleX(-1); }
+  .pc { position: absolute; inset: 40px 20px 16px; }
+
+  /* Shelf page. */
+  .files { display: flex; gap: 14px; justify-content: flex-start; padding: 8px 0 0 4px; }
+  .f { width: 74px; text-align: center; opacity: 0; }
+  .f img { width: 50px; height: 50px; display: block; margin: 0 auto 6px; }
+  .f span { font-size: 11px; color: rgba(255,255,255,.88); }
+  .acts { position: absolute; right: 0; top: 50%; translate: 0 -50%; display: flex; flex-direction: column; gap: 8px; }
+  .acts i { width: 30px; height: 30px; border-radius: 15px; background: rgba(255,255,255,.14); display: grid; place-items: center; }
+  .acts img { width: 13px; height: 13px; filter: invert(1); }
+
+  /* Player page. */
+  .player { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .np { display: flex; gap: 12px; align-items: center; }
+  .np .art2 { width: 58px; height: 58px; border-radius: 12px; background: linear-gradient(135deg, #2a3f9e, #8b5cf6); }
+  .np b { display: block; font-size: 14px; } .np small { color: rgba(255,255,255,.6); }
+  .scrub { margin-top: 14px; display: flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(255,255,255,.6); font-variant-numeric: tabular-nums; }
+  .scrub div { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,.2); overflow: hidden; } .scrub i { display: block; height: 100%; width: 40%; background: #fff; }
+  .ctl { display: flex; justify-content: center; gap: 26px; margin-top: 12px; font-size: 20px; }
+  .next small { color: rgba(255,255,255,.55); font-size: 11px; font-weight: 600; }
+  .next div { display: flex; gap: 10px; align-items: center; margin-top: 8px; font-size: 12px; }
+  .next div i { width: 30px; height: 30px; border-radius: 7px; background: linear-gradient(135deg, #1e3a8a, #60a5fa); }
+
+  /* Clipboard page. */
+  .clips { display: grid; gap: 8px; }
+  .clip { display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 12px; background: rgba(255,255,255,.08); font-size: 12px; opacity: 0; }
+  .clip img { width: 16px; height: 16px; filter: invert(1); opacity: .8; } .clip small { margin-left: auto; color: rgba(255,255,255,.5); }
+
+  /* Copy and controls: fixed in place, only the words change. */
+  .copy { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 60px 34px; text-align: center; z-index: 4; }
+  .dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 18px; }
+  .dots i { width: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.35); transition: width .35s cubic-bezier(.22,1,.36,1), background .35s; }
+  .dots i.on { width: 18px; background: #fff; }
+  .text h2 { margin: 0; font-size: 26px; letter-spacing: -.02em; line-height: 1.15; }
+  .text p { margin: 8px auto 0; max-width: 520px; color: rgba(255,255,255,.72); font-size: 14px; min-height: 42px; }
+  .go { margin-top: 18px; height: 40px; min-width: 200px; padding: 0 22px; border: 0; border-radius: 20px; background: #0a84ff; color: #fff;
+        font: 600 15px -apple-system, sans-serif; cursor: pointer; }
+  .skip { display: block; margin: 10px auto 0; border: 0; background: none; color: rgba(255,255,255,.55); font: 13px -apple-system, sans-serif; cursor: pointer; transition: opacity .2s; }
+  .corner { position: absolute; top: 14px; width: 28px; height: 28px; border-radius: 14px; border: 0; background: rgba(255,255,255,.14); z-index: 5;
+            display: grid; place-items: center; cursor: pointer; transition: opacity .25s; }
+  .corner img { width: 12px; height: 12px; filter: invert(1); }
+  .back { left: 14px; opacity: 0; pointer-events: none; } .close { right: 14px; }
+</style>
+</head>
+<body>
+  <div class="win" id="win">
+    <div class="stage" id="stage">
+      <div class="art"></div>
+      <div class="mac" id="mac"><img src="macbook-air-shell.webp" alt=""><div class="screen" id="screen"></div></div>
+    </div>
+    <div class="panel" id="panel"><div class="pc" id="pc"></div></div>
+
+    <button class="corner back" id="back" aria-label="Back"><img src="mac-assets/menubar/chevron-right.png" alt="" style="transform:scaleX(-1)"></button>
+    <button class="corner close" id="close" aria-label="Close"><img src="mac-assets/menubar/xmark.png" alt=""></button>
+
+    <div class="copy">
+      <div class="dots" id="dots"></div>
+      <div class="text" id="text"></div>
+      <button class="go" id="go"><span id="golabel">Take the tour</span></button>
+      <button class="skip" id="skip">Skip tour</button>
+    </div>
+  </div>
+
+<script src="motion.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const files = [['png', 'Tahoe.png'], ['pdf', 'Brief.pdf'], ['text', 'Notes.txt'], ['folder', 'Invoices']];
+  const PAGES = [
+    { title: 'Welcome to Ledge.', body: 'Ledge turns the notch into a place for your things. Here’s a one-minute tour.' },
+    { title: 'Keep files within reach.', body: 'Drag files to the top of your screen and they wait there until you need them.',
+      size: { width: 520, height: 150, radius: 26 },
+      render: () => `<div class="files">${files.map(([i, n]) => `<div class="f"><img src="mac-assets/files/${i}.png" alt=""><span>${n}</span></div>`).join('')}</div>
+        <div class="acts"><i><img src="mac-assets/menubar/checkmark.png" alt=""></i><i><img src="mac-assets/menubar/trash.png" alt=""></i></div>`,
+      enter: (pc) => Motion.stagger(pc.querySelectorAll('.f'), { show: true, gap: 110 }) },
+    { title: 'Your music, one glance up.', body: 'See what’s playing, scrub through the song and choose what plays next.',
+      size: { width: 560, height: 176, radius: 30 },
+      render: () => `<div class="player"><div><div class="np"><div class="art2"></div><div><b>Blue Hour</b><small>Nova Coast</small></div></div>
+        <div class="scrub">1:12<div><i></i></div>-2:04</div><div class="ctl">⏮︎ ⏸︎ ⏭︎</div></div>
+        <div class="next"><small>Playing Next</small><div><i></i>Low Tide</div><div><i></i>Paper Planes</div></div></div>` },
+    { title: 'Everything you copied.', body: 'Your clipboard history, one hover away. Pick anything to paste it again.',
+      size: { width: 380, height: 190, radius: 28 },
+      render: () => `<div class="clips">${[['doc', 'Meeting notes for Thursday', '2 min'], ['share', 'ledge.app/download', '5 min'], ['doc', '“The notch is a shelf.”', '12 min']]
+        .map(([i, t, a]) => `<div class="clip"><img src="mac-assets/menubar/${i}.png" alt="">${t}<small>${a}</small></div>`).join('')}</div>`,
+      enter: (pc) => Motion.stagger(pc.querySelectorAll('.clip'), { show: true, gap: 90 }) },
+    { title: 'That’s Ledge.', body: 'It lives in your notch from now on. Hover the top of your screen any time.', size: { width: 92, height: 22, radius: 10 }, last: true },
+  ];
+
+  let page = 0, busy = false;
+  $('dots').innerHTML = PAGES.map(() => '<i></i>').join('');
+  const setDots = () => [...$('dots').children].forEach((d, i) => d.classList.toggle('on', i === page));
+  const writeText = () => { $('text').innerHTML = `<h2>${PAGES[page].title}</h2><p>${PAGES[page].body}</p>`; };
+  writeText(); setDots();
+
+  // Place the panel's starting notch exactly over the Mac's notch in the picture.
+  function seatPanelOnMacNotch() {
+    const s = $('screen').getBoundingClientRect(), w = $('win').getBoundingClientRect();
+    const notchW = s.width * 0.115, notchH = s.height * 0.045;
+    Object.assign($('panel').style, { width: notchW + 'px', height: notchH + 'px', top: (s.top - w.top) + 'px' });
+  }
+
+  async function show(next) {
+    if (busy || next < 0 || next >= PAGES.length) return; busy = true;
+    const from = page; page = next; setDots();
+    const P = PAGES[page];
+
+    if (from === 0 && page === 1) {
+      // The camera: zoom until the Mac's screen is the window. The notch becomes the real panel.
+      seatPanelOnMacNotch(); $('panel').style.opacity = 1;
+      const zoom = Motion.zoomTo($('stage'), $('screen'), $('win'), { preset: 'smooth', pad: 40 });
+      Motion.spring({ t: parseFloat($('panel').style.top) }, { t: 0 }, ({ t }) => { $('panel').style.top = t + 'px'; }, 'smooth');
+      $('back').style.opacity = 1; $('back').style.pointerEvents = 'auto'; $('skip').style.opacity = 0;
+      Motion.blurSwap($('text'), writeText); Motion.blurSwap($('golabel'), () => { $('golabel').textContent = 'Continue'; });
+      await Promise.race([zoom, new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 520))]);
+    } else if (page === 0) {
+      // Back to the start: everything reverses.
+      Motion.stagger($('pc').children, { show: false, gap: 0 });
+      await Motion.morph($('panel'), { width: 92, height: 22, radius: 10 }, 'snappy');
+      $('panel').style.opacity = 0; $('pc').innerHTML = '';
+      Motion.spring({ k: +$('stage').dataset.k, x: +$('stage').dataset.x, y: +$('stage').dataset.y }, { k: 1, x: 0, y: 0 }, (v) => {
+        $('stage').dataset.k = v.k; $('stage').dataset.x = v.x; $('stage').dataset.y = v.y;
+        $('stage').style.transform = `translate(${v.x}px, ${v.y}px) scale(${v.k})`; }, 'smooth');
+      $('back').style.opacity = 0; $('back').style.pointerEvents = 'none'; $('skip').style.opacity = 1;
+      Motion.blurSwap($('text'), writeText); Motion.blurSwap($('golabel'), () => { $('golabel').textContent = 'Take the tour'; });
+      busy = false; return;
+    } else {
+      Motion.blurSwap($('text'), writeText);
+      if (P.last) Motion.blurSwap($('golabel'), () => { $('golabel').textContent = 'Done'; });
+      else if (from === PAGES.length - 1) Motion.blurSwap($('golabel'), () => { $('golabel').textContent = 'Continue'; });
+    }
+
+    // The panel: old content blurs out, the shape morphs, new content blurs in. Total about 0.4 s.
+    await Motion.blurSwap($('pc'), () => { $('pc').innerHTML = ''; }, { out: 100, inn: 0 });
+    await Motion.morph($('panel'), P.size, 'smooth');
+    if (P.render) {
+      await Motion.blurSwap($('pc'), () => { $('pc').innerHTML = P.render(); }, { out: 0, inn: 200 });
+      if (P.enter) P.enter($('pc'));
+    }
+    busy = false;
+  }
+
+  $('go').onclick = () => (PAGES[page].last ? show(0) : show(page + 1));
+  $('back').onclick = () => show(page - 1);
+  $('skip').onclick = $('close').onclick = () => show(0);
+  addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') $('go').click(); if (e.key === 'ArrowLeft') show(page - 1); });
+  [$('go'), $('back'), $('close')].forEach(Motion.pressable);
+</script>
+</body>
+</html>
