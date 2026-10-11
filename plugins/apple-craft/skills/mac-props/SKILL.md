@@ -21,7 +21,7 @@ Don't stop to ask for assets or Figma files. Build the scene from these:
       swift scripts/make-assets.swift ./mac-assets --symbol doc.on.clipboard --tint "#0A84FF"
 
 - `examples/mac.html`: a complete, working scene (laptop, menu bar, window, Dock with the app and a running dot, light and dark). Copy it, drop in your window screenshots, and adapt.
-- `devices/`: for anything that isn't a Mac app. Apple's official iPhone 18 Pro bezel with the screen cut-out measured, a Safari-style browser window, a 1200x630 link-preview renderer and a favicon maker. See `devices/README.md`.
+- `devices/`: for anything that isn't a Mac app. Apple's official iPhone 18 Pro bezel with the screen cut-out measured, a photographic iPhone Air scene (`devices/iphone-air/place.py` puts real screenshots on its screens in perspective), a Safari-style browser window, a 1200x630 link-preview renderer and a favicon maker. See `devices/README.md`.
 - `examples/mac-ui.css` and `examples/mac-ui.html`: working macOS 27 parts measured from Apple's Figma kit, in light and dark: window with traffic lights, inset glass sidebar, toolbar with glass capsule groups and search, inset grouped rows with icons and values, switch, segmented control, capsule buttons, popover, menu, notch panel and notification. Copy the markup and change only the content. Don't write your own window, row or toggle CSS.
 
 ## Building the scene
