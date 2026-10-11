@@ -228,5 +228,81 @@
   // Map part of a 0..1 progress to its own eased 0..1, for choreographing scenes.
   const segment = (p, from, to) => { const t = clamp((p - from) / (to - from)); return 1 - Math.pow(1 - t, 3); };
 
-  global.Motion = { SPRINGS, spring, morph, flyTo, catchBump, pressable, draggable, stagger, reveal, scene, segment, reduced, clamp, lerp };
+
+  // Shared-element expand (FLIP): `el` grows from where `from` is into its own final place, e.g. a card into a detail view.
+  // Call after making `el` visible in its final layout. Corner radius and content fade are animated too.
+  function expand(el, from, { radiusFrom = 16, radiusTo = 28, preset = 'smooth' } = {}) {
+    const a = from.getBoundingClientRect(), b = el.getBoundingClientRect();
+    const sx = a.width / b.width, sy = a.height / b.height, dx = a.left - b.left, dy = a.top - b.top;
+    el.style.transformOrigin = '0 0';
+    return claim(el, 'expand', spring({ t: 0 }, { t: 1 }, ({ t }) => {
+      const k = clamp(t, 0, 1.08);
+      el.style.transform = `translate(${dx * (1 - k)}px, ${dy * (1 - k)}px) scale(${lerp(sx, 1, k)}, ${lerp(sy, 1, k)})`;
+      el.style.borderRadius = lerp(radiusFrom, radiusTo, clamp(t)) + 'px';
+    }, preset).then(() => { el.style.transform = ''; }));
+  }
+  // The reverse: shrink `el` back into `to`'s place. Resolves when it has landed, then hide `el` yourself.
+  function collapse(el, to, { radiusFrom = 28, radiusTo = 16, preset = 'snappy' } = {}) {
+    const a = to.getBoundingClientRect(), b = el.getBoundingClientRect();
+    const sx = a.width / b.width, sy = a.height / b.height, dx = a.left - b.left, dy = a.top - b.top;
+    el.style.transformOrigin = '0 0';
+    return claim(el, 'expand', spring({ t: 0 }, { t: 1 }, ({ t }) => {
+      const k = clamp(t);
+      el.style.transform = `translate(${dx * k}px, ${dy * k}px) scale(${lerp(1, sx, k)}, ${lerp(1, sy, k)})`;
+      el.style.borderRadius = lerp(radiusFrom, radiusTo, k) + 'px';
+    }, preset).then(() => { el.style.transform = ''; }));
+  }
+
+  // A sliding selection pill (segmented controls, tabs): moves and resizes to sit behind `target`.
+  function slideTo(indicator, target, preset = 'smooth') {
+    const p = indicator.offsetParent.getBoundingClientRect(), r = target.getBoundingClientRect();
+    const from = { x: indicator.offsetLeft, w: indicator.offsetWidth };
+    return claim(indicator, 'slide', spring(from, { x: r.left - p.left, w: r.width }, ({ x, w }) => {
+      indicator.style.left = x + 'px'; indicator.style.width = Math.max(0, w) + 'px';
+    }, preset));
+  }
+
+  // Roll a number to a new value (counts, prices, stats). Uses tabular figures so it never jitters.
+  function countTo(el, to, { decimals = 0, preset = 'gentle' } = {}) {
+    el.style.fontVariantNumeric = 'tabular-nums';
+    const from = parseFloat(el.dataset.value ?? el.textContent.replace(/[^\d.-]/g, '')) || 0;
+    el.dataset.value = to;
+    return claim(el, 'count', spring({ v: from }, { v: to }, ({ v }) => {
+      el.textContent = v.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    }, preset));
+  }
+
+  // Open a popover or menu out of the control that opened it: scales from the control's edge, content follows.
+  function popIn(panel, anchor, { show = true, preset } = {}) {
+    const a = anchor.getBoundingClientRect(), b = panel.getBoundingClientRect();
+    panel.style.transformOrigin = `${a.left + a.width / 2 - b.left}px ${a.top + a.height / 2 - b.top}px`;
+    return claim(panel, 'pop', spring(show ? { s: 0.6, o: 0 } : { s: 1, o: 1 }, show ? { s: 1, o: 1 } : { s: 0.7, o: 0 }, ({ s, o }) => {
+      panel.style.transform = `scale(${s})`; panel.style.opacity = clamp(o);
+    }, preset || (show ? 'bouncy' : 'snappy')));
+  }
+
+  // Toast or banner: drops in from the top edge with a little overshoot, leaves upward.
+  function toast(el, { ms = 2200 } = {}) {
+    el.style.display = '';
+    return spring({ y: -80, o: 0 }, { y: 0, o: 1 }, ({ y, o }) => {
+      el.style.transform = `translateY(${y}px)`; el.style.opacity = clamp(o);
+    }, 'bouncy').then(() => new Promise((r) => setTimeout(r, ms))).then(() =>
+      spring({ y: 0, o: 1 }, { y: -60, o: 0 }, ({ y, o }) => { el.style.transform = `translateY(${y}px)`; el.style.opacity = clamp(o); }, 'snappy'));
+  }
+
+  // Hover tilt for cards and product pictures: follows the pointer in 3D, springs back flat on leave.
+  function tilt(el, { max = 6 } = {}) {
+    let cur = { x: 0, y: 0 };
+    const go = (x, y) => claim(el, 'tilt', spring(cur, { x, y }, (v) => {
+      cur = v; el.style.transform = `perspective(900px) rotateX(${v.y}deg) rotateY(${v.x}deg)`;
+    }, 'smooth'));
+    el.addEventListener('pointermove', (e) => {
+      if (reduced()) return;
+      const r = el.getBoundingClientRect();
+      go(((e.clientX - r.left) / r.width - 0.5) * 2 * max, -((e.clientY - r.top) / r.height - 0.5) * 2 * max);
+    });
+    el.addEventListener('pointerleave', () => go(0, 0));
+  }
+
+  global.Motion = { SPRINGS, spring, morph, flyTo, catchBump, pressable, draggable, stagger, reveal, scene, segment, expand, collapse, slideTo, countTo, popIn, toast, tilt, reduced, clamp, lerp };
 })(window);

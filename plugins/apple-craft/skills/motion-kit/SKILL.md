@@ -10,6 +10,7 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 ## Use it
 
 - Copy `motion.js` next to your page and load it: `<script src="motion.js"></script>`. Everything is on the global `Motion`.
+- `gallery.html` shows every part working, one card each, with the line of code under it. Open it first and pick what fits.
 - `notch-shelf.html` is a complete reference built with it: a notch you drag files into, which grows into a shelf. Open it next to `mac-assets` (from `mac-props`) and try it before building. Copy its patterns, never its page.
 
 ## The parts
@@ -22,6 +23,12 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 - **Drag:** `Motion.draggable(el, { targets: [{ el, radius, magnet, onEnter, onLeave, onDrop }] })` lifts the element and tilts it with its speed, pulls it towards a target when close (`magnet`, 0 to 0.5), lets the visitor flick it at a target, tells the target when it's near (grow it a little in `onEnter`), and springs home with the throw's momentum if it misses. Works with mouse, pen and touch.
 - **Stagger:** `Motion.stagger(children, { show })` brings items in one after another, and out in reverse.
 - **Reveal:** `Motion.reveal('[data-reveal]')` gives each section one entrance the first time it is seen. Put `data-reveal` on the headline group and the visual, not on every paragraph.
+- **Expand and collapse:** `Motion.expand(detail, thumb)` grows a view out of the thing that opened it (card into detail); `Motion.collapse(detail, thumb)` shrinks it back.
+- **Sliding selection:** `Motion.slideTo(indicator, button)` for segmented controls and tabs.
+- **Count:** `Motion.countTo(el, value)` rolls numbers with tabular figures.
+- **Popover:** `Motion.popIn(panel, button, { show })` grows a menu out of the button that opened it.
+- **Toast:** `Motion.toast(el)` drops a banner from the top edge, waits, leaves upward.
+- **Tilt:** `Motion.tilt(el)` follows the pointer in 3D on cards and product pictures; springs back flat.
 - **Scene:** `Motion.scene(section, p => …)` gives 0 to 1 progress through a pinned scroll section; `Motion.segment(p, a, b)` turns part of it into its own eased 0 to 1 for choreography.
 
 ## Choreography rules
