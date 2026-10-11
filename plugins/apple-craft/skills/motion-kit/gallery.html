@@ -63,7 +63,32 @@
   .big { height: 52px; padding: 0 28px; border-radius: 26px; font-size: 17px; }
   .ml { display: inline-grid; place-items: center; } .ml span { grid-area: 1/1; transition: opacity 340ms linear, filter 340ms cubic-bezier(.22,1,.36,1); }
   .ml .h { opacity: 0; filter: blur(16px); font-size: 20px; } .ml:hover .r { opacity: 0; filter: blur(16px); } .ml:hover .h { opacity: 1; filter: blur(0); }
+  /* 11 download */
+  .dl { position: relative; height: 52px; width: 230px; border: 0; border-radius: 26px; background: var(--accent); color: #fff; cursor: pointer;
+        font: 600 17px -apple-system, sans-serif; display: grid; place-items: center; overflow: hidden; }
+  .dl > * { grid-area: 1 / 1; transition: opacity 340ms linear, filter 340ms cubic-bezier(.22,1,.36,1); }
+  .dl .sym { width: 24px; height: 24px; background: #fff; -webkit-mask: url(mac-assets/menubar/download.png) center / contain no-repeat;
+             mask: url(mac-assets/menubar/download.png) center / contain no-repeat; opacity: 0; filter: blur(14px); }
+  .dl .prog, .dl .done { opacity: 0; filter: blur(14px); pointer-events: none; display: flex; align-items: center; gap: 10px; }
+  .dl .prog b { width: 120px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.3); overflow: hidden; }
+  .dl .prog b i { display: block; height: 100%; width: 0; background: #fff; border-radius: 3px; }
+  .dl .prog em { font: 600 13px -apple-system, sans-serif; font-style: normal; font-variant-numeric: tabular-nums; width: 36px; text-align: right; }
+  .dl .ok { width: 16px; height: 16px; background: #fff; -webkit-mask: url(mac-assets/menubar/checkmark.png) center / contain no-repeat; mask: url(mac-assets/menubar/checkmark.png) center / contain no-repeat; }
+  @media (hover: hover) and (pointer: fine) { .dl[data-s="rest"]:hover .rest { opacity: 0; filter: blur(14px); } .dl[data-s="rest"]:hover .sym { opacity: 1; filter: blur(0); } }
+  .dl[data-s="prog"] .rest, .dl[data-s="done"] .rest, .dl[data-s="prog"] .sym, .dl[data-s="done"] .sym { opacity: 0; filter: blur(14px); }
+  .dl[data-s="prog"] .prog, .dl[data-s="done"] .done { opacity: 1; filter: blur(0); }
+  .dl:focus:not(:focus-visible) { outline: none; }
   /* 12 scene */
+  .mini { position: relative; width: 260px; height: 162px; border-radius: 14px; overflow: hidden; background: url(mac-assets/wallpaper-dark.jpg) center / cover;
+          box-shadow: 0 0 0 6px #111, 0 0 0 7px #333, 0 18px 40px rgba(0,0,0,.3); }
+  .mnotch2 { position: absolute; top: 0; left: 50%; translate: -50% 0; width: 46px; height: 11px; border-radius: 0 0 6px 6px; background: #000; overflow: hidden; }
+  .mface { position: absolute; left: 50%; top: 14px; translate: -50% 0; display: flex; gap: 8px; opacity: 0; }
+  .mface i { width: 7px; height: 16px; border-radius: 4px; background: #fff; transition: height .3s, border-radius .3s, margin .3s; }
+  .mface.happy i { width: 10px; height: 5px; border-radius: 6px 6px 0 0; margin-top: 7px; }
+  .mlock { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; color: #fff; }
+  .mlock b { display: block; font: 700 34px/1 -apple-system, sans-serif; letter-spacing: -.02em; }
+  .mlock span { font-size: 11px; opacity: .75; }
+  .hint2 { color: var(--muted); font-size: 13px; margin: 14px 0 0; text-align: center; }
   .scene-wrap { height: 260px; overflow-y: auto; width: 100%; }
   .scene { height: 900px; position: relative; }
   .scene .pin { position: sticky; top: 0; height: 260px; display: grid; place-items: center; }
@@ -107,11 +132,17 @@
   <section class="demo"><div class="stage"><div class="card3d" id="card3d"><b>Ledge</b><span style="opacity:.7;font-size:12px">Hover me</span></div></div>
     <div class="meta"><b>Tilt</b><span>Follows the pointer in 3D, springs back flat.</span><code>Motion.tilt(el, { max: 6 })</code></div></section>
 
-  <section class="demo"><div class="stage"><button class="pill big ml" id="b11"><span class="r">Download for Mac</span><span class="h" aria-hidden="true">↓</span></button></div>
-    <div class="meta"><b>Buttons don’t move</b><span>Hover changes the label into a symbol (design-patterns MorphLabel); the button itself never shrinks, lifts or bounces.</span><code>see design-patterns › MorphLabel</code></div></section>
+  <section class="demo"><div class="stage"><button class="dl" id="b11" aria-live="polite">
+      <span class="rest">Download for Mac</span><i class="sym" aria-hidden="true"></i>
+      <span class="prog" aria-hidden="true"><b><i id="dlbar"></i></b><em id="dlpct">0%</em></span>
+      <span class="done" aria-hidden="true"><i class="ok"></i>Open Gaze</span></button></div>
+    <div class="meta"><b>Download button</b><span>Hover: the label blurs into a symbol. Click: the same capsule turns into progress, then into the next action. The button never moves.</span><code>design-patterns › MorphLabel + progress swap</code></div></section>
 
-  <section class="demo"><div class="stage" style="display:block"><div class="scene-wrap" id="sw"><div class="scene" id="scene"><div class="pin"><div style="text-align:center"><div class="bar"><i id="bari"></i></div><p id="scenetxt" style="color:var(--muted);font-size:13px">Scroll inside this card</p></div></div></div></div></div>
-    <div class="meta"><b>Pinned scene</b><span>Scroll progress 0 to 1 drives a choreographed scene.</span><code>Motion.scene(section, p => …) · Motion.segment(p, a, b)</code></div></section>
+  <section class="demo"><div class="stage" style="display:block"><div class="scene-wrap" id="sw"><div class="scene" id="scene"><div class="pin">
+      <div class="mini" id="mini"><div class="mnotch2" id="mn"><div class="mface" id="mface"><i></i><i></i></div></div>
+        <div class="mlock" id="mlock"><b id="mtime">9:41</b><span id="mstate">Locked</span></div></div>
+      <p class="hint2" id="scenetxt">Scroll inside this card</p></div></div></div></div>
+    <div class="meta"><b>Pinned scene</b><span>Scroll drives the story: the notch opens, Gaze looks, and the Mac unlocks. Scroll back and it all reverses.</span><code>Motion.scene(section, p => …) · Motion.segment(p, a, b)</code></div></section>
 </main>
 
 <script src="motion.js"></script>
@@ -164,11 +195,29 @@
   // 10 tilt, 11 press
   Motion.tilt($('card3d'));
 
-  // 12 scene (inside a scrolling card, so progress comes from the card's own scroll)
+  // 11 download: rest → progress → done, in the same capsule.
+  const dl = $('b11'); dl.dataset.s = 'rest';
+  dl.onclick = async () => {
+    if (dl.dataset.s === 'rest') {
+      dl.dataset.s = 'prog';
+      await Motion.spring({ p: 0 }, { p: 100 }, ({ p }) => { $('dlbar').style.width = p + '%'; $('dlpct').textContent = Math.round(p) + '%'; }, { k: 14, c: 7.5, m: 1 });
+      dl.dataset.s = 'done';
+    } else if (dl.dataset.s === 'done') { dl.dataset.s = 'rest'; $('dlbar').style.width = 0; }
+  };
+
+  // 12 scene: notch opens, Gaze looks down at you, the Mac unlocks. Every step reverses on the way back.
   $('sw').addEventListener('scroll', () => {
     const p = $('sw').scrollTop / ($('scene').offsetHeight - $('sw').clientHeight);
-    $('bari').style.width = Motion.segment(p, 0, 0.8) * 100 + '%';
-    $('scenetxt').textContent = p < 0.3 ? 'Scroll inside this card' : p < 0.8 ? 'Building…' : 'Done';
+    const open = Motion.segment(p, 0.05, 0.35), look = Motion.segment(p, 0.35, 0.6), unlock = Motion.segment(p, 0.6, 0.85), close = Motion.segment(p, 0.85, 1);
+    const g = open * (1 - close);
+    Object.assign($('mn').style, { width: (46 + 104 * g) + 'px', height: (11 + 39 * g) + 'px', borderRadius: `0 0 ${6 + 12 * g}px ${6 + 12 * g}px` });
+    $('mface').style.opacity = Math.min(1, g * 1.4);
+    $('mface').style.translate = `-50% ${look * 3 - unlock * 3}px`;
+    $('mface').classList.toggle('happy', unlock > 0.5);
+    $('mlock').style.transform = `translateY(${-unlock * 6}px)`;
+    $('mstate').textContent = unlock > 0.5 ? 'Unlocked' : look > 0.3 ? 'Looking…' : 'Locked';
+    $('mini').style.filter = `brightness(${0.75 + unlock * 0.25})`;
+    $('scenetxt').textContent = p < 0.05 ? 'Scroll inside this card' : unlock > 0.5 ? 'Welcome back.' : 'Gaze is looking…';
   });
 </script>
 </body>
