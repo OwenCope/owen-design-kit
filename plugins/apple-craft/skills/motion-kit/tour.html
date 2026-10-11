@@ -38,6 +38,7 @@
            background: radial-gradient(circle at 0 100%, transparent 9.5px, #000 10px); }
   .panel::before { left: -10px; } .panel::after { right: -10px; transform: scaleX(-1); }
   .pc { position: absolute; inset: 40px 20px 16px; }
+  .layer { position: absolute; inset: 0; transform-origin: 50% 0; }
 
   /* Shelf page. */
   .files { display: flex; gap: 14px; justify-content: flex-start; padding: 8px 0 0 4px; }
@@ -137,43 +138,72 @@
     Object.assign($('panel').style, { width: notchW + 'px', height: notchH + 'px', top: (s.top - w.top) + 'px' });
   }
 
+  // Content lives in layers: the new layer fades in on top while the old one leaves, so the panel is never empty.
+  function swapContent(html, enter) {
+    const pc = $('pc'), old = [...pc.children];
+    old.forEach((l) => {
+      l.style.transition = 'opacity 140ms ease, filter 140ms ease, transform 200ms cubic-bezier(.22,1,.36,1)';
+      l.style.opacity = 0; l.style.filter = 'blur(6px)'; l.style.transform = 'scale(.97)';
+      setTimeout(() => l.remove(), 220);
+    });
+    if (!html) return;
+    const layer = document.createElement('div');
+    layer.className = 'layer'; layer.innerHTML = html;
+    Object.assign(layer.style, { opacity: 0, filter: 'blur(6px)', transform: 'scale(1.03)' });
+    pc.appendChild(layer);
+    // Start the new content while the shape is still finishing its morph (~45% in), never after it stops.
+    setTimeout(() => {
+      layer.style.transition = 'opacity 260ms cubic-bezier(.22,1,.36,1), filter 260ms cubic-bezier(.22,1,.36,1), transform 360ms cubic-bezier(.22,1,.36,1)';
+      layer.style.opacity = 1; layer.style.filter = 'blur(0)'; layer.style.transform = 'none';
+      enter?.(layer);
+    }, Motion.reduced() ? 0 : 150);
+  }
+
+  function setChrome(onFirst) {
+    $('back').style.opacity = onFirst ? 0 : 1; $('back').style.pointerEvents = onFirst ? 'none' : 'auto';
+    $('skip').style.opacity = onFirst ? 1 : 0; $('skip').style.pointerEvents = onFirst ? 'auto' : 'none';
+  }
+  const label = (t) => { if ($('golabel').textContent !== t) Motion.blurSwap($('golabel'), () => { $('golabel').textContent = t; }); };
+
   async function show(next) {
-    if (busy || next < 0 || next >= PAGES.length) return; busy = true;
+    if (busy || next < 0 || next >= PAGES.length || next === page) return; busy = true;
     const from = page; page = next; setDots();
     const P = PAGES[page];
+    Motion.blurSwap($('text'), writeText);
+    label(page === 0 ? 'Take the tour' : P.last ? 'Done' : 'Continue');
+    setChrome(page === 0);
 
-    if (from === 0 && page === 1) {
-      // The camera: zoom until the Mac's screen is the window. The notch becomes the real panel.
+    if (from === 0) {
+      // Into the device: the camera pushes in until the Mac's screen is the window, and the Mac's notch
+      // rises to the top edge and opens into the real panel, all as one move.
       seatPanelOnMacNotch(); $('panel').style.opacity = 1;
-      const zoom = Motion.zoomTo($('stage'), $('screen'), $('win'), { preset: 'smooth', pad: 40 });
+      Motion.zoomTo($('stage'), $('screen'), $('win'), { preset: 'smooth', pad: 40 });
       Motion.spring({ t: parseFloat($('panel').style.top) }, { t: 0 }, ({ t }) => { $('panel').style.top = t + 'px'; }, 'smooth');
-      $('back').style.opacity = 1; $('back').style.pointerEvents = 'auto'; $('skip').style.opacity = 0;
-      Motion.blurSwap($('text'), writeText); Motion.blurSwap($('golabel'), () => { $('golabel').textContent = 'Continue'; });
-      await Promise.race([zoom, new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 520))]);
-    } else if (page === 0) {
-      // Back to the start: everything reverses.
-      Motion.stagger($('pc').children, { show: false, gap: 0 });
-      await Motion.morph($('panel'), { width: 92, height: 22, radius: 10 }, 'snappy');
-      $('panel').style.opacity = 0; $('pc').innerHTML = '';
-      Motion.spring({ k: +$('stage').dataset.k, x: +$('stage').dataset.x, y: +$('stage').dataset.y }, { k: 1, x: 0, y: 0 }, (v) => {
-        $('stage').dataset.k = v.k; $('stage').dataset.x = v.x; $('stage').dataset.y = v.y;
-        $('stage').style.transform = `translate(${v.x}px, ${v.y}px) scale(${v.k})`; }, 'smooth');
-      $('back').style.opacity = 0; $('back').style.pointerEvents = 'none'; $('skip').style.opacity = 1;
-      Motion.blurSwap($('text'), writeText); Motion.blurSwap($('golabel'), () => { $('golabel').textContent = 'Take the tour'; });
-      busy = false; return;
-    } else {
-      Motion.blurSwap($('text'), writeText);
-      if (P.last) Motion.blurSwap($('golabel'), () => { $('golabel').textContent = 'Done'; });
-      else if (from === PAGES.length - 1) Motion.blurSwap($('golabel'), () => { $('golabel').textContent = 'Continue'; });
+      await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 260));
     }
 
-    // The panel: old content blurs out, the shape morphs, new content blurs in. Total about 0.4 s.
-    await Motion.blurSwap($('pc'), () => { $('pc').innerHTML = ''; }, { out: 100, inn: 0 });
-    await Motion.morph($('panel'), P.size, 'smooth');
-    if (P.render) {
-      await Motion.blurSwap($('pc'), () => { $('pc').innerHTML = P.render(); }, { out: 0, inn: 200 });
-      if (P.enter) P.enter($('pc'));
+    if (page === 0) {
+      // Out of the device: the exact reverse. Content leaves, the panel folds back into the notch,
+      // the notch drops back onto the Mac while the camera pulls out.
+      swapContent('');
+      const sc = $('screen').getBoundingClientRect();
+      await Motion.morph($('panel'), { width: sc.width * 0.115, height: sc.height * 0.045, radius: 10 }, 'snappy');
+      const k0 = +$('stage').dataset.k || 1, x0 = +$('stage').dataset.x || 0, y0 = +$('stage').dataset.y || 0;
+      const zoomOut = Motion.spring({ k: k0, x: x0, y: y0 }, { k: 1, x: 0, y: 0 }, (v) => {
+        $('stage').dataset.k = v.k; $('stage').dataset.x = v.x; $('stage').dataset.y = v.y;
+        $('stage').style.transform = `translate(${v.x}px, ${v.y}px) scale(${v.k})`;
+        seatPanelOnMacNotch();
+      }, 'smooth');
+      await zoomOut;
+      $('panel').style.transition = 'opacity 200ms ease'; $('panel').style.opacity = 0;
+      setTimeout(() => { $('panel').style.transition = ''; }, 220);
+      busy = false; return;
     }
+
+    // Page to page: the same panel reshapes while old content leaves and new content arrives over it.
+    Motion.morph($('panel'), P.size, 'smooth');
+    swapContent(P.render ? P.render() : '', P.enter);
+    await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 380));
     busy = false;
   }
 

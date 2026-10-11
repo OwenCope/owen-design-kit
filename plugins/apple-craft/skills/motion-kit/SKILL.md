@@ -36,6 +36,9 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 
 ## Choreography rules
 
+- **Never an empty panel.** When content changes, the new content fades in over the old while the shape reshapes; nothing waits for anything to finish.
+- **Endings reverse the opening.** A tour that zoomed into the device zooms back out to it; a panel that grew out of the notch folds back into it. Never a hard cut back to the start.
+
 - **Open:** the shape grows first (morph), then its content staggers in, starting about 140 ms in, not after the spring has fully settled (that feels laggy). **Close:** content out first, then the shape shrinks. Always both ways.
 - **Arrive:** things fly in on an arc, not a straight line, and the receiver reacts (catch bump, count changes).
 - **Near:** a target answers when something approaches it (grows slightly), so the visitor knows a drop will work.
