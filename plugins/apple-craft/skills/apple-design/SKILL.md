@@ -108,7 +108,7 @@ The full field guide, covering websites, pictures, icons, video, copy and proces
 - `self-improve`: the self-reflection loop to run after every first build.
 - `design-patterns`: copy-ready code and tokens for proven components. Use it instead of inventing.
 - `design-review`: the strict review to run before showing anything, with real approved and rejected pictures.
-- `macos-app-design` and `web-design`: platform detail.
+- `macos-app-design`, `ios-app-design` and `web-design`: platform detail.
 - `liquid-glass`: Apple's glass material and components, with exact values.
 - `onboarding-design`: welcome tours and first-run flows.
 - `mac-props`: showing an app on a believable Mac.

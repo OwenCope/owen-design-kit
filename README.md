@@ -24,6 +24,7 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 | `match-the-project` | Working on someone else's app or site: read its design system first, write it down, and match it instead of restyling |
 | `improve-existing` | Making an existing site or app better: what works, the one thing hurting it most, structure before polish, before and after |
 | `product-ui` | The inside of a product: tables, dashboards, settings, search, editors, and full flows with every state, error and way back |
+| `ios-app-design` | iPhone and iPad apps that feel native: tab bars, navigation, sheets, Liquid Glass bars, lists, text styles, touch, haptics, and showing the app on a site |
 | `onboarding-design` | A welcome tour that feels smooth, measured frame by frame from a real app |
 | `product-writing` | Every word in the product and in the agent's replies |
 | `release-notes` | A clean release format with a header, one real picture, short bullets, credits and install steps |
