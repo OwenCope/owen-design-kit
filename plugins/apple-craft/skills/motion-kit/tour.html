@@ -9,6 +9,7 @@
      3. The notch grows into the product's live panel; items arrive one by one.
      4. Each page morphs the same panel into the next feature, content blur-crossfading in place.
      The art, text position, button and close never move; only the panel and the words change.
+     Put the product's own artwork beside this file as tour-art.jpg (calm and dark, like Droppy's temple; never a loud wallpaper).
      Needs ./mac-assets (mac-props/scripts/make-assets.swift ./mac-assets) and ../mac-props/assets/macbook-air-shell.webp or a copy beside it. -->
 <style>
   * { box-sizing: border-box; }
@@ -22,12 +23,12 @@
 
   /* The camera stage: the art and the Mac live here and are zoomed together. */
   .stage { position: absolute; inset: 0; }
-  .art { position: absolute; inset: 0; background: url(mac-assets/wallpaper.jpg) center / cover; }
-  .art { filter: saturate(.75) brightness(.8); }
-  .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.05) 35%, rgba(0,0,0,.78) 80%); }
-  .mac { position: absolute; left: 10%; top: 4%; width: 80%; }
+  .art { position: absolute; inset: 0; background: url(tour-art.jpg) center / cover; }
+    .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,.7) 78%); }
+  .mac { position: absolute; left: 21%; top: 5%; width: 58%; }
   .mac img { width: 100%; display: block; }
-  .screen { position: absolute; left: 19.444%; top: 19.067%; width: 61.111%; height: 58.933%; }
+  .screen { position: absolute; left: 19.444%; top: 19.067%; width: 61.111%; height: 58.933%; background: url(tour-art.jpg) center / cover; z-index: -1; }
+  .mac { isolation: isolate; }
 
   /* The panel: lives on the window, not the stage, so it's crisp at any zoom. Starts as the notch. */
   .panel { position: absolute; top: 0; left: 50%; translate: -50% 0; width: 92px; height: 22px; border-radius: 0 0 10px 10px; opacity: 0;
@@ -65,7 +66,7 @@
   .clip img { width: 16px; height: 16px; filter: invert(1); opacity: .8; } .clip small { margin-left: auto; color: rgba(255,255,255,.5); }
 
   /* Copy and controls: fixed in place, only the words change. */
-  .copy { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 60px 34px; text-align: center; z-index: 4; }
+  .copy { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 60px 30px; text-align: center; z-index: 4; }
   .dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 18px; }
   .dots i { width: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.35); transition: width .35s cubic-bezier(.22,1,.36,1), background .35s; }
   .dots i.on { width: 18px; background: #fff; }
