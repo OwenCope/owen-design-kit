@@ -16,6 +16,9 @@ Must be true (behaviour):
 - Controls stay reachable by keyboard.
 - Listeners and observers are cleaned up.
 - Reduce Motion goes straight to the end state.
+- No empty panel: content and shape change together, nothing waits for anything to finish.
+- Things close the way they opened: a panel that grew from the notch folds back into it, a zoom in zooms back out. Never a hard cut.
+- Buttons never move or shrink when pressed; feedback lives in their content.
 
 Your choice (feel):
 
@@ -27,6 +30,16 @@ Your choice (feel):
 Optional techniques:
 
 - Fly-to-target, catch bump, stagger, blur crossfade, tilt, camera zoom, dock, stack.
+
+## How to work on motion
+
+**New motion.** Start from what changes for the person: the real state before, the real state after, and what they should understand when it lands ("it went there", "it's saved", "it's listening"). If the direction is open, sketch two or three ideas that differ in what they say, not in easing: the item travels to its home, the container reshapes into the result, or things regroup where they are. Pick by what matters most here, and say why. Adding one file at a time, travel wins because you see where each one went. Adding twenty at once while you keep working, regrouping in place wins because twenty crossing flights hide the next button. If the person already chose a direction, build that one.
+
+**Fixing motion.** Watch it at normal speed first and name what already works, so the fix doesn't lose it. Then find the cause of what's wrong. "Items show up late" was content waiting for a spring's long tail, not a slow spring; making it faster would have hidden the bug. Fix the cause, then replay the exact same steps and compare.
+
+**References.** Take the reason a motion works, not its choreography. Petals gathering into an icon was SakuraCord's idea; on another product it's a copy, however it's reskinned. If the person asks you to match a reference exactly, do that and say so.
+
+**When to stop.** When the must-be-true list holds, it looks right at normal speed, and nothing you'd change is more than taste. Offer the taste options; don't keep tuning.
 
 ## Use it
 
@@ -62,9 +75,6 @@ Optional techniques:
 
 The rules below are defaults that worked for Gaze, not requirements for every product.
 
-- **Never an empty panel.** When content changes, the new content fades in over the old while the shape reshapes; nothing waits for anything to finish.
-- **Endings reverse the opening.** A tour that zoomed into the device zooms back out to it; a panel that grew out of the notch folds back into it. Never a hard cut back to the start.
-
 - **Open:** the shape grows first (morph), then its content staggers in, starting about 140 ms in, not after the spring has fully settled (that feels laggy). **Close:** content out first, then the shape shrinks. Always both ways.
 - **Arrive:** things fly in on an arc, not a straight line, and the receiver reacts (catch bump, count changes).
 - **Near:** a target answers when something approaches it (grows slightly), so the visitor knows a drop will work.
@@ -94,4 +104,6 @@ The rules below are defaults that worked for Gaze, not requirements for every pr
 
 ## Check
 
-Run `self-improve` and capture at least: the moment of approach (target reacting), mid-flight, landed, panel open, and closing. Each frame should be a good still, with nothing duplicated, seamed or left behind.
+Run `self-improve` and capture at least: the moment of approach (target reacting), mid-flight, landed, panel open, and closing. Each frame should be a good still, with nothing duplicated, seamed or left behind. Then interrupt it: press again mid-animation, reverse halfway, repeat fast. The latest input should win and the end state should be right.
+
+For web pages, `capture/capture-motion.mjs` replays a scripted interaction, records normal-speed video, saves named frames and checks states like `aria-expanded` as it goes. `capture/notch-shelf-scenario.json` is a working example; its first run caught the shelf ignoring a press while a file was still in flight. `capture/viewer/index.html` opens a capture so the person can pin notes to exact frames. See `capture/README.md` and `capture/viewer.md`. It records; it doesn't judge. You still watch the video.

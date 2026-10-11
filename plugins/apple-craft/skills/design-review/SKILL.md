@@ -9,9 +9,11 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 ## Size the review to the change
 
+Review what changed, not the whole product: a checklist is not a reason to redesign. When you're unsure what you're seeing, or need to list a feature's states, read [Seeing clearly](../self-improve/references/evidence-judgment.md); it has worked examples.
+
 - **Contribution to someone else's project:** follow `match-the-project`. Capture before and after screenshots in light and dark, put them next to the 3 nearby screens you compared, and check states and accessibility. Skip signature moments, Mac scenes and reference-copy checks; the project's own design is the standard.
-- **Small change** (one row, one string, one colour): capture that screen in light and dark and score only items 2, 5, 6, 7, 8, 10, 11 and 12. Mark the rest N/A.
-- **Fixing reported problems on a page:** fix them, then still score items 13 and 14. Doing only what was listed is how a page stays forgettable.
+- **Small change** (one row, one string, one colour): look at that area in light and dark and in any state it affects. Use the items that apply and mark the rest N/A.
+- **Fixing reported problems on a page:** reproduce each one, fix it, and look at the states around it. Items 13 and 14 apply only if the page's direction or product scene is part of the job.
 - **New screen or flow:** the full review below.
 - **Release pictures and posts:** items 4, 6, 7 and 11, plus `release-notes`.
 
@@ -30,7 +32,7 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 Fix every FAIL and run it again until it is clean, before any visual review. It checks letter-tile icons, tiny text, dead buttons, decorative chips, text-only theme toggles, fake Mac scenes, emoji or symbol icons, duplicate strings and phone-width overflow.
 
-For a new screen or direction, run `self-improve` before scoring; for small changes a focused look is enough. The review scores the result.
+For a new screen or direction, run `self-improve` first; for small changes a focused look is enough. Reuse its notes here rather than writing them twice.
 
 ## If you can't see images
 
@@ -38,54 +40,59 @@ Agents without image input, or running in CI, must say so plainly in the report.
 
 ## Step 2: Look at the pixels
 
-A full-page screenshot hides most problems. Before scoring, zoom to 200 to 300 % on every edge, corner and cut-out: jagged edges, dark fringes, halos, blur, a dark band where a shape stops short of its rim light. Read real numbers instead of guessing: window-to-Dock gap, button position before and after hover, whether two items line up. A 4 px difference is a real bug. Put the work next to its reference at the same size and list every difference before calling it done. Find the largest source asset: upscaled small files stay blurry, and catalogues often hold 1024 or 2048 px when the `.icns` stops at 256. Check light and dark separately and ship a version for each. Scroll to animated sections for real and capture mid-animation.
+Before judging, say in two or three plain sentences what you actually see: what catches the eye first, what sits on top of what, what state it's in. Keep three things apart: what you saw, what you measured, and what you think the cause is. "The heading covers the button" is seen; "a z-index bug" is a guess until you check.
+
+A full-page screenshot hides most problems. Zoom to 200 to 300 % on every edge, corner and cut-out: jagged edges, dark fringes, halos, blur, a dark band where a shape stops short of its rim light. Read real numbers instead of guessing: window-to-Dock gap, button position before and after hover, whether two items line up. A 4 px difference is a real bug. Put the work next to its reference at the same size and list the differences that matter. Find the largest source asset: upscaled small files stay blurry, and catalogues often hold 1024 or 2048 px when the `.icns` stops at 256. Check light and dark separately. Scroll to animated sections for real and capture mid-animation.
 
 ### Director critique
 
-The checklist catches broken things; this catches things merely not good yet. Scrub every animation or scroll scene with at least five frames start to end (start, building, peak, resolving, end) side by side, and judge each frame as a still: composed, nothing covering text, no large empty area for no reason, no frame that looks like a bug. Moving or decorative things must never cover headlines, body text, buttons or the product. Physical things behave physically and UI behaves like the real OS. The first frame invites and the last pays off with the product big and centred enough to read. Write the friend test in one sentence: what would someone tell a friend about this page. Without that sentence the page has no moment yet. Say plainly what is weak, why, and what would fix it. Reload from scratch and judge the real page, never a report, including your own.
+The checklist catches broken things; this catches things merely not good yet. Watch every animation at normal speed first, since stills can't show feel. Then scrub it: start, building, peak, resolving, end, side by side, and judge each frame as a still. Moving or decorative things never cover headlines, body text, buttons or the product. No large empty area without a reason, no frame that looks like a bug. Physical things behave physically and UI behaves like the real OS. Things that open close the way they came. The first frame invites and the last pays off with the product big enough to read.
+
+For a new page, write the friend test in one sentence: what would someone tell a friend about it? No sentence means no moment yet. Say plainly what is weak, why, and what would fix it. Sort each finding: it's broken, it contradicts the brief, or it's taste. Fix the first two; offer the third to the person as a choice. Reload and judge the real page, never a report, including your own.
 
 ## Check against the brief
 
-If a design brief exists (design-brief skill), answer each 'Done means' check with pass or fail using the screenshots, and check that the first screen shows the brief's one thing and that the product is the largest readable element. Every fail is fixed before scoring.
+If a design brief exists (design-brief skill), answer each 'Done means' check from the screenshots: pass, fail, or not checked yet. Go and check anything unchecked. Check that the first screen shows the brief's one thing and the product is the largest readable element.
 
-## Step 3: Score each item (pass or fix)
+## Step 3: Check each item (pass, fix or N/A)
 
 This is the full version of the short checklist in `apple-design`; when both are loaded, score this one and don't repeat the other.
 
-1. **Apple test.** Put it next to the Apple screen it is modelled on and name the reference; list at least three differences found, even if fixed.
+1. **Apple test.** Put it next to the Apple screen it is modelled on, name it, and list the differences that matter.
 2. **Native.** Every control is the platform's own, in the product's one button style and size.
 3. **One primary action**, labelled with a verb, and nothing duplicated.
 4. **Real pictures.** Real, new, relevant, crisp, no black frame, no nested buttons, no test data; every product picture is a real screenshot or recording, never drawn, rebuilt from shapes or magnified into a second copy; attach a 200 % crop of every edge, corner and cut-out.
 5. **Hierarchy.** At a glance: what is this, and what do I do? One headline, one line of support, then the action.
 6. **Space.** Nothing long, stretched, tall or crammed, with consistent spacing steps and aligned edges; write the real numbers for window-to-Dock gap, main-container side padding and button position before and after hover.
 7. **Words.** Every string passes `product-writing`. Read them aloud.
-8. **Motion.** Hover and press feedback on everything interactive, a whole-control hit area, a smooth curve, off under Reduce Motion.
-9. **States.** Loading, empty, error, disabled and success are all designed, not just the happy path.
+8. **Motion.** Hover and press feedback on everything interactive, carried by the content, never by the button moving or shrinking; a whole-control hit area, a smooth curve, things close the way they opened, calm under Reduce Motion.
+9. **States.** List the states this feature really has (default, loading, empty, error, success, interrupted, disabled) and check each one. Mark the ones it can't reach as N/A; don't invent UI to fill the list.
 10. **Accessibility.** Labels, focus, contrast, text read once, touch targets at least 44 px on the web.
 11. **Leftovers.** No ghost windows, stray shadows, debug text, placeholder copy or console errors.
 12. **Consistency.** Matches the rest of the product; the product's existing design wins over apple-craft picks when they differ (see `match-the-project`). Anything new looks like it always existed.
 13. **Signature moment.** Product, launch and first-run pages (N/A for everything else) have one memorable, on-brand, moving, responsive centrepiece (`signature-moments`); a static picture with a caption fails. Name the moment in one sentence; if it was still an open question, name the concepts that were considered (`signature-moments`).
 14. **Product in place.** In heroes and product pictures (N/A for release pictures and docs, which use a tight crop), a Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon; a floating panel or a lone menu bar strip fails.
 
-## Step 4: Hard gates (pass or fail, no judgement)
+## Step 4: Gates (pass or fail)
 
-- **Not a reference copy.** Put the page next to `web-design/examples/product-page.html` and every example it used and list five real differences (layout order, hero picture, wallpaper and colours, feature visuals, signature moment). Fewer than five, or the same wallpaper or section order, fails.
+- **Not a reference copy.** For a new direction, put it next to every example and reference it used. Same wallpaper, same section order or the same signature moment with a new logo fails. Shared craft (spacing, type, native controls) is fine.
 - **Moving work.** Show five frames from start to end, plus a frame just after every clip ends. A frame that freezes, goes black or holds a finished clip's last frame fails.
 - **Mock-ups.** An unbuilt app is shown only from `mac-props/examples/mac-ui.css`, each part compared against `liquid-glass/reference/` with differences listed.
 - **Show before done.** Never call work finished until the person has seen it. Their judgement replaces yours.
-- Any gate without written evidence fails.
+- A gate you couldn't check isn't a pass: say it's unchecked. A gate that doesn't apply is N/A.
 
 ## Step 5: Fix and capture again
 
-Fix every "fix", re-screenshot and re-score. Then show the person, even if something still fails: list what fails and what could not be checked instead of hiding it. Their look is the final pass.
+Fix what's broken or off-brief, then capture again with the same steps. Finding nothing to fix is a fine result. If a problem keeps coming back, find its cause before throwing the idea away. Show the person even if something still fails, and name what fails and what you couldn't check. Their look is the final pass.
 
 ## Step 6: Report
 
 Show the screenshots, one line per notable change, and say what could not be checked ("not tried on a real lock screen").
+End with one of: **ready for Owen to look at**, **visual review pending** (you couldn't see the images or playback), or **unresolved failure** (something is still broken). Ready isn't approved; only the person approves.
 
 ## Last step: record what was rejected
 
-When the person rejects or corrects something, add one row to apple-craft's apple-design/lessons.md in the right table (what was rejected | what worked). Write it in general words with no private names. Keep it to one line. If the same lesson is already there, do not add it twice.
+When the person rejects or corrects something, keep their exact words next to the screenshot or moment they were about. Work out what they meant before fixing (see `how-claude-designs`). Once you know what worked, add one row to apple-craft's apple-design/lessons.md (what was rejected | what worked), in general words with no private names. Keep the scope honest: "too slow when used often" is not "never animate". Don't add the same lesson twice.
 
 ## Hunt for these first
 

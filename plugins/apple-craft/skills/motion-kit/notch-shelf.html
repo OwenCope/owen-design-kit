@@ -108,7 +108,7 @@
   const $ = (id) => document.getElementById(id);
   const notch = $('notch'), shelf = $('shelf'), peek = $('peek'), head = $('head'), title = $('title'), hint = $('hint');
   const parked = [];
-  let open = false, closeTimer = 0, busy = Promise.resolve();
+  let open = false, closeTimer = 0, busy = Promise.resolve(), landing = Promise.resolve();
   const queue = (fn) => (busy = busy.then(fn, fn));   // one notch animation at a time, in order
 
   const CLOSED = { width: 200, height: 32, radius: 12 };
@@ -149,6 +149,7 @@
   }
 
   const openShelf = () => queue(async () => {
+    await landing;                                // a file still in flight counts: open once it lands
     if (open || !parked.length) return; open = true;
     notch.setAttribute('aria-expanded', 'true');
     Motion.stagger(peek.children, { show: false, gap: 0 });
@@ -174,8 +175,10 @@
     file.dataset.parked = '1';
     file.style.visibility = 'hidden';            // it leaves the desk the moment it is let go
     hint.style.opacity = 0;
-    await Motion.flyTo(file.querySelector('img'), notch.classList.contains('dragging') ? keep : notch, { scale: 0.22, lift: 110,
+    const flight = Motion.flyTo(file.querySelector('img'), notch.classList.contains('dragging') ? keep : notch, { scale: 0.22, lift: 110,
       from: from && from.width ? { left: from.left + (from.width - 84) / 2, top: from.top + 8, width: 84, height: 84 } : undefined });
+    landing = Promise.all([landing, flight]);
+    await flight;
     parked.push(file);
     const item = makeItem(file); shelf.appendChild(item);
     renderPeek(); hint.style.opacity = '';

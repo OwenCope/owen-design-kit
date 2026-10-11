@@ -12,7 +12,8 @@ Owen builds products solo with testers and agents: Gaze (a Mac face-unlock app),
 - Short, fast messages with typos ("wrok", "picutes"). Read for intent, don't ask him to rephrase.
 - Screenshots are the main way he reports things. Look at every one carefully, including small text.
 - "eww", "worse", "wtf", "looks AI", "not tourkit" → that part is wrong at the root; redo it properly (see `apple-design`), don't nudge it.
-- "ship it", "push it", "release it" → do the full release and verify it, but follow the release rhythm in `ship-and-verify`. If a release already went out today, suggest bundling first.
+- "ship it", "release it" → do the full release and verify it, following the release rhythm in `ship-and-verify`. If a release already went out today, suggest bundling first.
+- "push it" → push the commits. If it's unclear whether he means a release, ask.
 - "keep going" → continue the current plan without asking.
 - He values being told the truth: what's untested, what he must do (e.g. delete an old post).
 - He reacts to screenshots, not descriptions. **Show him any visual change before you ship or deploy it**, and wait for his reaction.

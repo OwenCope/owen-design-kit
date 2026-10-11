@@ -1,0 +1,100 @@
+{
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "colorScheme": "light",
+  "reducedMotion": "no-preference",
+  "paintMasking": "unmasked",
+  "readiness": {
+    "target": "notch",
+    "state": "visible",
+    "equals": true
+  },
+  "targets": [
+    {
+      "id": "notch",
+      "selector": "#notch"
+    },
+    {
+      "id": "shelf",
+      "selector": "#shelf"
+    },
+    {
+      "id": "file",
+      "selector": ".file[data-name='Proposal.pdf']"
+    }
+  ],
+  "actions": [
+    {
+      "type": "checkpoint",
+      "name": "closed"
+    },
+    {
+      "type": "press",
+      "target": "file",
+      "key": "Enter"
+    },
+    {
+      "type": "wait",
+      "ms": 900
+    },
+    {
+      "type": "checkpoint",
+      "name": "parked"
+    },
+    {
+      "type": "press",
+      "target": "notch",
+      "key": "Enter"
+    },
+    {
+      "type": "wait",
+      "ms": 120
+    },
+    {
+      "type": "checkpoint",
+      "name": "opening"
+    },
+    {
+      "type": "wait",
+      "ms": 500
+    },
+    {
+      "type": "assert",
+      "target": "notch",
+      "state": "aria-expanded",
+      "equals": "true"
+    },
+    {
+      "type": "checkpoint",
+      "name": "open"
+    },
+    {
+      "type": "keyboard",
+      "key": "Escape"
+    },
+    {
+      "type": "wait",
+      "ms": 120
+    },
+    {
+      "type": "checkpoint",
+      "name": "closing"
+    },
+    {
+      "type": "wait",
+      "ms": 600
+    },
+    {
+      "type": "assert",
+      "target": "notch",
+      "state": "aria-expanded",
+      "equals": "false"
+    },
+    {
+      "type": "checkpoint",
+      "name": "closed-again"
+    }
+  ]
+}
