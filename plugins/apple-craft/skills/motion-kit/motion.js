@@ -116,7 +116,7 @@
   // when close (magnet), can be thrown at a target with a flick, and springs home if it misses.
   // targets: [{ el, radius, magnet, onEnter, onLeave, onDrop }]. Returns a function that removes the behaviour.
   function draggable(el, { targets = [], onStart, onEnd, throwable = true } = {}) {
-    let start = null, over = null, pos = { x: 0, y: 0 }, vel = { x: 0, y: 0 }, lastT = 0, lastP = null;
+    let start = null, began = false, over = null, pos = { x: 0, y: 0 }, vel = { x: 0, y: 0 }, lastT = 0, lastP = null;
     const centre = (r) => ({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
     const find = (x, y) => {
       let best = null, bestD = Infinity;
@@ -132,6 +132,13 @@
     };
     const move = (e) => {
       if (!start) return;
+      // Only a real drag starts the gesture: a click or a tiny wobble never opens drop targets.
+      if (!began) {
+        if (Math.hypot(e.clientX - start.x, e.clientY - start.y) < 6) return;
+        began = true; el.style.zIndex = 50; el.style.filter = 'drop-shadow(0 18px 24px rgba(0,0,0,.22))';
+        spring({ s: 1 }, { s: 1.08 }, ({ s }) => { if (start) paint(s); }, 'snappy');
+        onStart?.();
+      }
       const now = performance.now(), dt = Math.max(1, now - lastT);
       if (lastP) { vel.x = lerp(vel.x, (e.clientX - lastP.x) / dt * 1000, 0.35); vel.y = lerp(vel.y, (e.clientY - lastP.y) / dt * 1000, 0.35); }
       lastP = { x: e.clientX, y: e.clientY }; lastT = now;
@@ -148,6 +155,8 @@
     };
     const end = (e) => {
       if (!start) return;
+      if (!began) { start = null; removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end); return; }
+      began = false;
       removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end);
       el.style.filter = '';
       // A flick: project where the throw would land and treat that as the drop point.
@@ -168,9 +177,6 @@
       if (e.button > 0) return;
       e.preventDefault(); start = { x: e.clientX, y: e.clientY }; pos = { x: 0, y: 0 }; vel = { x: 0, y: 0 };
       lastP = { x: e.clientX, y: e.clientY }; lastT = performance.now();
-      el.style.zIndex = 50; el.style.filter = 'drop-shadow(0 18px 24px rgba(0,0,0,.22))';
-      spring({ s: 1 }, { s: 1.08 }, ({ s }) => { if (start) paint(s); }, 'snappy');
-      onStart?.();
       addEventListener('pointermove', move); addEventListener('pointerup', end); addEventListener('pointercancel', end);
     };
     el.style.touchAction = 'none'; el.style.cursor = 'grab';

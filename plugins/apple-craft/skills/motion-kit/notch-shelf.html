@@ -206,7 +206,8 @@
   const hideDrops = async (dropped) => {
     notch.classList.remove('dragging'); keep.classList.remove('hot');
     await Motion.stagger([drops], { show: false, distance: 6 });
-    if (!dropped) Motion.morph(notch, open ? openSize() : closedSize(), 'smooth');
+    // Shrink straight away, also on a drop: the file is already flying, an empty panel must not wait for it.
+    Motion.morph(notch, open ? openSize() : closedSize(), 'snappy');
   };
   document.querySelectorAll('.file').forEach((file) => {
     Motion.draggable(file, {
