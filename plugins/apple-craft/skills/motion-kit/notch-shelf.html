@@ -142,9 +142,11 @@
     if (open || !parked.length) return; open = true;
     notch.setAttribute('aria-expanded', 'true');
     Motion.stagger(peek.children, { show: false, gap: 0 });
-    await Motion.morph(notch, openSize(), 'smooth');
+    // Don't wait for the spring to fully settle: content starts once the shape is mostly open.
+    Motion.morph(notch, openSize(), 'smooth');
+    await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 140));
     Motion.stagger([head], { show: true });
-    await Motion.stagger(shelf.children, { show: true });
+    await Motion.stagger(shelf.children, { show: true, gap: 30 });
   });
   const closeShelf = (fast = false) => queue(async () => {
     if (!open) return; open = false;

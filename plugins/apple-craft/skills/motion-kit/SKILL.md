@@ -26,7 +26,7 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 
 ## Choreography rules
 
-- **Open:** the shape grows first (morph), then its content staggers in. **Close:** content out first, then the shape shrinks. Always both ways.
+- **Open:** the shape grows first (morph), then its content staggers in, starting about 140 ms in, not after the spring has fully settled (that feels laggy). **Close:** content out first, then the shape shrinks. Always both ways.
 - **Arrive:** things fly in on an arc, not a straight line, and the receiver reacts (catch bump, count changes).
 - **Near:** a target answers when something approaches it (grows slightly), so the visitor knows a drop will work.
 - **Leave:** what left comes back the same way it went, reversed.
