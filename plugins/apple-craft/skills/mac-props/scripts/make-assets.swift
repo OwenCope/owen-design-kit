@@ -115,22 +115,26 @@ for (name, type) in docTypes {
   save(render(256) { icon.draw(in: $0) }, "files/\(name).png")
 }
 
-// Wallpaper: a still from /System/Library/Desktop Pictures, saved as a 2560 px JPEG.
+// Wallpapers: calm stills, never the loud colourful defaults (Mac Blue, iMac Purple...), which drown the product.
+// wallpaper.jpg is light, wallpaper-dark.jpg is dark. Pass --wallpaper / --wallpaper-dark to choose your own.
 let pictures = "/System/Library/Desktop Pictures"
-let preferred = arg("--wallpaper")
-let still = (try? fm.contentsOfDirectory(atPath: pictures))?.filter { $0.hasSuffix(".heic") || $0.hasSuffix(".jpg") }.sorted() ?? []
-if let name = preferred.map({ $0 }) ?? still.first(where: { $0.hasPrefix("Mac ") }) ?? still.first,
-   let image = NSImage(contentsOfFile: preferred.map { $0.hasPrefix("/") ? $0 : "\(pictures)/\($0)" } ?? "\(pictures)/\(name)"),
-   let tiff = image.tiffRepresentation, let rep = NSBitmapImageRep(data: tiff) {
+let assets = NSHomeDirectory() + "/Library/Application Support/com.apple.mobileAssetDesktop"
+func firstExisting(_ paths: [String]) -> String? { paths.first { fm.fileExists(atPath: $0) } }
+func saveWallpaper(_ path: String, as file: String) {
+  guard let image = NSImage(contentsOfFile: path), let tiff = image.tiffRepresentation, let rep = NSBitmapImageRep(data: tiff) else { return }
   let w = 2560, h = Int(Double(w) * Double(rep.pixelsHigh) / Double(rep.pixelsWide))
   let scaled = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: w, pixelsHigh: h, bitsPerSample: 8, samplesPerPixel: 4,
                                 hasAlpha: true, isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
   NSGraphicsContext.saveGraphicsState(); NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: scaled)
   image.draw(in: NSRect(x: 0, y: 0, width: w, height: h)); NSGraphicsContext.restoreGraphicsState()
-  try! scaled.representation(using: .jpeg, properties: [.compressionFactor: 0.88])!.write(to: out.appendingPathComponent("wallpaper.jpg"))
-  written.append("wallpaper.jpg")
-  print("wrote wallpaper.jpg (\(name))")
-} else { print("no still wallpaper found; pass --wallpaper /path/to/image") }
+  try! scaled.representation(using: .jpeg, properties: [.compressionFactor: 0.88])!.write(to: out.appendingPathComponent(file))
+  written.append(file)
+  print("wrote \(file) (\((path as NSString).lastPathComponent))")
+}
+let light = arg("--wallpaper") ?? firstExisting(["\(pictures)/iMac Silver.heic", "\(pictures)/Sonoma.heic"])
+let dark = arg("--wallpaper-dark") ?? firstExisting(["\(assets)/Pro Black.heic", "\(pictures)/Radial Sky Blue.heic"])
+if let light { saveWallpaper(light, as: "wallpaper.jpg") } else { print("no calm light wallpaper found; pass --wallpaper /path/to/image") }
+if let dark { saveWallpaper(dark, as: "wallpaper-dark.jpg") } else { print("no calm dark wallpaper found; pass --wallpaper-dark /path/to/image") }
 
 // Manifest: every file written, grouped by folder.
 var manifest: [String: [String]] = ["dock": [], "files": [], "symbols": [], "menubar": [], "wallpaper": [], "app": []]
@@ -139,7 +143,7 @@ for path in written {
   else if path.hasPrefix("dock/") { manifest["dock"]!.append(path) }
   else if path.hasPrefix("files/") { manifest["files"]!.append(path) }
   else if path.hasPrefix("menubar/") { manifest["menubar"]!.append(path); manifest["symbols"]!.append(path) }
-  else if path == "wallpaper.jpg" { manifest["wallpaper"]!.append(path) }
+  else if path.hasPrefix("wallpaper") { manifest["wallpaper"]!.append(path) }
 }
 for key in manifest.keys { manifest[key]!.sort() }
 try! JSONSerialization.data(withJSONObject: manifest, options: [.prettyPrinted, .sortedKeys])
