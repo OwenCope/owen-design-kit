@@ -11,7 +11,7 @@ Start from the system. Change something only when the app has a real reason.
 
 ## Structure first
 
-- **Tab bar** for the three to five places people switch between all day. It floats as a Liquid Glass capsule at the bottom; content scrolls under it. Never more than five tabs; a sixth thing goes inside one of them.
+- **Tab bar** for the three to five places people switch between all day. It floats as a Liquid Glass capsule at the bottom; content scrolls under it, but the last row must be able to scroll fully clear of it (pad the bottom of the scroll view by the bar's height plus the home indicator). A section cut off behind the tab bar at the end of the list looks broken. Never more than five tabs; a sixth thing goes inside one of them.
 - **Navigation stack** inside each tab: lists push into details, and swipe from the left edge goes back. Never break that gesture.
 - **Sheets** for a short task that comes back to where you were: compose, filter, edit one thing. Medium-height sheets can sit over the content so people keep context. A sheet with its own tab bar or deep navigation should have been a screen.
 - **Full-screen covers** only for immersive things: camera, a player, onboarding.
@@ -66,6 +66,17 @@ With the Figma connector set up (`figma-mockups`), these components in the "iOS 
 - Examples/List, Examples/Tab Bars, Examples/Sheets (Modals) show whole screens
 
 Copy their numbers; don't draw your own.
+
+## Web mock-ups of an iPhone app
+
+When the brief is a browser mock-up rather than SwiftUI:
+
+- The phone is the page: centre one device at real size (393x852 pt for iPhone 18 Pro), on a calm background. No marketing headline unless asked.
+- Use the real frame from `mac-props/devices/iphone.html`, not a drawn rounded rectangle.
+- Status bar 9:41, the Dynamic Island clear of content, the home indicator at the bottom.
+- Text in SF Pro at the iOS sizes above, colours from the system palette (label #000/#FFF, secondary label 60 % opacity, grouped background #F2F2F7 / #000).
+- Scroll inside the screen, not the page, with the tab bar fixed over it and the last row clearing it.
+- Check it at 390 px wide too: the mock-up itself must fit a phone.
 
 ## Showing the app
 

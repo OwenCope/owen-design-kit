@@ -7,10 +7,10 @@ Name the kind of task in one line before doing anything, then read only the skil
 | You are making | Read, in order |
 | --- | --- |
 | An interactive prototype or mock-up of an app (the app is the page; no marketing headline unless asked) | `how-claude-designs`, `mac-props` (run its asset script first; use the real file icons, Dock and wallpaper), `product-ui`, `motion-kit` if it moves, `self-improve` |
-| A product or landing page | `how-claude-designs`, `design-brief`, `web-design`, `signature-moments`, `mac-props`, `design-review` |
-| A site that shouldn't look like Apple | `how-claude-designs`, `design-directions`, `site-gallery`, `web-design`, `design-review` |
+| A product or landing page for an Apple-platform app | `how-claude-designs`, `design-brief`, `web-design`, `signature-moments`, `mac-props`, `design-review` |
+| A site for anything else (developer tools, web apps, services, brands) | `how-claude-designs`, `design-directions`, `site-gallery`, `web-design`, `design-review` |
 | A Mac app screen | `how-claude-designs`, `macos-app-design`, `liquid-glass`, `design-patterns`, `design-review` |
-| An iPhone or iPad app screen | `how-claude-designs`, `ios-app-design`, `product-ui`, `design-review` |
+| An iPhone or iPad app screen | `how-claude-designs`, `ios-app-design` (its web mock-up section if it's a browser mock-up), `product-ui`, `mac-props` (devices/ for the real iPhone frame), `design-review` |
 | Improving something that exists | `improve-existing`, `match-the-project`, `design-review` |
 | Someone else's project | `match-the-project`, `design-review` |
 | Words only | `product-writing` |
