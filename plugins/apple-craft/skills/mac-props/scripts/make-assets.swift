@@ -81,7 +81,7 @@ let symbols: [(String, String)] = [
   ("clock", "clock"), ("mappin", "mappin"), ("tray-full", "tray.full"), ("tray", "tray"),
   ("doc", "doc"), ("folder", "folder"), ("trash", "trash"), ("plus", "plus"),
   ("xmark", "xmark"), ("checkmark", "checkmark"), ("chevron-down", "chevron.down"),
-  ("chevron-right", "chevron.right"), ("gearshape", "gearshape"),
+  ("chevron-right", "chevron.right"), ("chevron-left", "chevron.left"), ("gearshape", "gearshape"),
   ("share", "square.and.arrow.up"), ("download", "arrow.down.circle"),
   ("sun", "sun.max"), ("moon", "moon"), ("person", "person.crop.circle"),
 ]

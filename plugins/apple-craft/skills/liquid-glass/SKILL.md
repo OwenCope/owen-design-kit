@@ -18,7 +18,7 @@ Open these in Figma whenever you need an exact value, a state or a component thi
 - **Apple's macOS 27 UI kit** (the source for this skill): https://www.figma.com/community/file/1651309434229735362/macos-27. Sidebars, toolbars, buttons, menus, popovers, alerts, sheets, windows, the menu bar, the Dock and notifications, in light and dark.
 - **Apple's iOS and iPadOS 27 UI kit:** https://www.figma.com/community/file/1651309003795292092/ios-and-ipados-27
 - **All of Apple's design resources** (Sketch kits, SF Symbols, fonts, product bezels): https://developer.apple.com/design/resources/
-- **iOS 26 Toggle (Liquid Glass)**, a clear study of how the pressed knob turns into a glass lens: https://www.figma.com/community/file/1519712588579681470/ios-26-toggle-liquid-glass
+- **iOS 26 Toggle (Liquid Glass) (historical)** — superseded by the macOS/iOS 27 kits above; use only for the pressed-knob lens illustration: https://www.figma.com/community/file/1519712588579681470/ios-26-toggle-liquid-glass
 
 When the kit and this skill disagree, the newer kit wins: check its change log, then update this file.
 
@@ -26,7 +26,7 @@ The values in this skill are already read from these kits, so work from them fir
 
 ## Recommended picks
 
-The kit offers five control sizes: mini (16), small (20), medium (24), large (28) and extra large (36). Mini, small and medium controls are rounded rectangles at radius about 6; large and extra large are capsules. This kit recommends the capsules and the larger, rounder containers: they read as current Apple and age better. Use these picks unless you are matching a dense native AppKit layout (house pick).
+The kit offers five control sizes: mini (16), small (20), medium (24), large (28) and extra large (36). Mini, small and medium controls are rounded rectangles at radius about 6 (*estimated*); large and extra large are capsules. This kit recommends the capsules and the larger, rounder containers: they read as current Apple and age better. Use these picks unless you are matching a dense native AppKit layout (house pick).
 
 - **Capsules for controls.** Every standalone button or field in an app, and every web control 44 px high or less, is fully rounded (radius = height / 2) (house pick).
 - **Large sizes by default.** Large (28) for controls in content, extra large (36) for toolbars and the main action. On the web, controls are 44 px high, 52 px for the primary download button (house pick).
@@ -35,7 +35,7 @@ The kit offers five control sizes: mini (16), small (20), medium (24), large (28
 | Component | Pick | Size | Radius | Reference |
 |---|---|---|---|---|
 | Buttons and pills | Capsule, large or extra large; glass prominent for the one primary action | App 28 (large) or 36 (XL); web 44, primary 52 | capsule | `glass-material-light.png` (small glass), `alert-light.png` (button shapes) |
-| Pop-up and pull-down buttons | Large or extra large capsule with the chevron inside the pill | 28 or 36; web 44 | capsule | Figma kit, Buttons page (no picture in `reference/`) |
+| Pop-up and pull-down buttons | Large or extra large capsule with the chevron inside the pill | 28 or 36; web 44 | capsule | Figma kit, Buttons page (no picture yet — verify in Figma kit before building) |
 | Segmented controls | The two largest sizes: capsule track, capsule selected segment | 28 or 36; web 44 | capsule, segment concentric (capsule) | `segmented-light.png`, bottom two rows |
 | Toggles | Native switch at the large size | large (fourth column) | capsule | `toggles-light.png` |
 | Sliders | Large track and knob; knob turns to glass while dragging | large (bottom rows of each block) | capsule track, round knob | `sliders-light.png` |
@@ -43,11 +43,11 @@ The kit offers five control sizes: mini (16), small (20), medium (24), large (28
 | Menus | The largest menu: roomy rows, generous padding | rows about 24 to 28 high (*estimated*) | panel 16; highlighted item 10 (16 minus a 6 inset) | `menus-light.png`, right menu |
 | Popovers | Glass panel with merged arrow | content-sized | 20; inner items concentric | `popover-light.png` |
 | Alerts | Glass panel, stacked full-width capsule buttons | 260 wide, buttons 28 | panel 34, buttons capsule | `alert-light.png` |
-| Sheets and windows | System sheet in apps; on the web a 28 radius dialog | content-sized | 16 native (system), 28 web | window pictures |
+| Sheets and windows | System sheet in apps; on the web a 28 radius dialog | content-sized | 16 native (system), 28 web | `window-toolbar-sidebar-light.png` (window) |
 | Cards and panels | Large glass panel; content cards solid | any | glass 34, content cards 28 | `glass-material-light.png` (medium, large) |
 | Sidebars and selection | Blur sidebar at the largest size, rounded selection row | rows about 32 high (*estimated*) | selection 10, concentric with the sidebar | `sidebar-light.png`, right column |
 | Toolbars | Floating capsule groups, extra large | groups 36, inner buttons 28, icon buttons 36 circles | capsule | `window-toolbar-sidebar-light.png` |
-| Dock-like bars | One floating glass shelf, icons flat on it | about 55 high | capsule (radius = height / 2) | `desktop-notifications-dock-light.png` |
+| Dock-like bars | One floating glass shelf, icons flat on it | about 55 high (*estimated*) | capsule (radius = height / 2) | `desktop-notifications-dock-light.png` |
 
 Not preferred: radius 6 push buttons, pop-up buttons and segmented controls at mini, small and medium sizes; menus at radius 12 with radius 8 highlights; sidebar selection at radius 8; the Dock fill's radius 15. Use them only when matching dense native AppKit layouts (house pick).
 

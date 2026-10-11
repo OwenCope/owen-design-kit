@@ -5,7 +5,7 @@
 //
 // What each check catches:
 //   a. letter-tile icons - square coloured tiles with 1-2 letters standing in for a real icon or logo.
-//   b. tiny text - visible text under 11 px, usually unreadable fine print or leftover debug copy.
+//   b. tiny text - visible text under 12 px, usually unreadable fine print or leftover debug copy.
 //   c. dead buttons - buttons or links styled as actions that go nowhere ('#', empty, javascript:void(0), .txt downloads).
 //   d. decorative chips - rows of small non-interactive pills with 1-3 words that decorate instead of informing.
 //   e. text-only theme toggle - a Theme/Light/Dark button with words instead of the platform switch or icon.
@@ -35,7 +35,7 @@ let target = args.find((a) => !a.startsWith('--'));
 let width = 1440;
 const widthIdx = args.indexOf('--width');
 if (widthIdx !== -1 && args[widthIdx + 1]) width = Number(args[widthIdx + 1]) || 1440;
-if (!target) { console.error('usage: node lint-slop.mjs <url-or-file> [--width 1440]'); process.exit(1); }
+if (!target || process.argv.includes('--help')) { console.error('usage: node lint-slop.mjs <url-or-file> [--width 1440]'); process.exit(1); }
 if (existsSync(resolve(target))) target = pathToFileURL(resolve(target)).href;
 
 const results = [];
@@ -88,7 +88,7 @@ report('tiny text', await page.evaluate(() => {
     if (r.width === 0 && r.height === 0) continue;
     const st = getComputedStyle(el);
     if (st.display === 'none' || st.visibility === 'hidden' || Number(st.opacity) < 0.05) continue;
-    if (parseFloat(st.fontSize) < 11) out.push(`"${text.slice(0, 60)}" ${st.fontSize}`);
+    if (parseFloat(st.fontSize) < 12) out.push(`"${text.slice(0, 60)}" ${st.fontSize}`);
     if (out.length >= 40) break;
   }
   return out;

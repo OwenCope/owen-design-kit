@@ -12,7 +12,7 @@ Clean and correct isn't enough: a page can pass every rule and still be forgetta
 Don't take the first idea, and don't pick from the examples below; they show the bar, not a menu.
 
 1. **List what the product is made of**: its name, icon and colour; the physical thing it's named after; what it does as a verb (copies, unlocks, catches, stacks, forms); the feeling after using it.
-2. **If the moment is already clear** (Owen named it, or the brief settled it), skip to building it. Otherwise **write at least three different concepts**, one sentence each, built from that list. Make at least one of them uncomfortably ambitious.
+2. **If the moment is already clear** (Owen named it, or the brief settled it), skip to building it. Otherwise **write two or three different concepts when the direction is genuinely open; skip it when the brief already settled the moment**, one sentence each, built from that list. Make the concepts differ in interaction, not just subject, and make one use the page itself as the material (per "From verb to moment").
 3. **Score each 1 to 5 on four things:** only this product could have it; it says the headline without words; someone would describe it to a friend; it can be built well in a day. Pick the highest total, preferring the bolder one on a tie.
 4. **When you wrote concepts, show the person them and your pick** in a few lines, then build it.
 
@@ -41,6 +41,8 @@ These are here to show the thinking. Do not reuse them.
 - **Focus timer.** Verb: quiets. The section starts noisy: badges, tickers, banners at the margins. As the visitor scrolls, each metre of scroll clears one layer until only one line of work stays centred. Then the timer UI takes over. Only a focus timer trades passing time for quiet.
 - **Menu bar weather app.** Verb: tells the sky. A thin hour strip sits under the headline. As the visitor drags across it, the section's light, shadows and a small street scene shift to that hour's weather. It ends on the menu bar forecast. Only a weather app owns the light.
 
+Build from your own product's verb; do not reuse any of these.
+
 ### Red flags in your own concept
 
 - It would still work if you swapped the product name.
@@ -53,7 +55,7 @@ These are here to show the thinking. Do not reuse them.
 
 ## What counts
 
-A signature moment **moves and responds**: to scroll, to the pointer, to what the person does on the page. It is the **centrepiece of its section**, full width or full screen, not a caption under a picture.
+A signature moment **moves and responds**: to scroll, to the pointer, to what the person does on the page. It is the **centrepiece of its section**, full width or full screen, not a caption under a picture. Signature moments belong on product, landing and first-run pages only; elsewhere the "moment" is the fastest path to the action.
 
 These do **not** count, and fail review:
 - A static picture with "try it" under it.
@@ -67,9 +69,11 @@ They show the ambition to aim for; don't copy them.
 
 - **Clipboard history:** the words you select on the page peel off and fly up into the menu bar icon, which bounces; scrolling then fans the whole history out of the icon like a deck of cards, newest on top.
 - **Face unlock:** the lock screen's notch reads the visitor's cursor as a face. A scan line sweeps, the padlock opens and the page itself "unlocks" into the next section.
-- **Notes app:** the headline is typed live; scrolling turns the paragraphs into a tidy outline, then folds them into the app icon.
+- **Notes app:** the headline is typed live; scrolling turns the paragraphs into a tidy outline, then the outline settles into the app's real editor window.
 - **Weather:** the page's own background is today's sky, and scrolling moves through the day, sunrise to night.
 - **Music player:** the section's colours and motion follow a song's beat as it plays when the person presses play.
+
+Build from your own product's verb; do not reuse any of these.
 
 ## Patterns that have worked
 
@@ -93,10 +97,10 @@ Build the moment with `motion-kit` (morph, flyTo, draggable, scene); `motion-kit
 - **The objects look like the thing they're named after.** Pebbles are smooth, shaded stones with a contact shadow, not grey capsules; petals are petals. Flat UI chips make a physical idea read as tags.
 - **Fill the stage.** The moment is the composition: the action happens across the middle of the screen, not along one edge with empty wallpaper above it.
 - **Never cover the words.** Moving objects pass behind the headline or steer around it. A pebble sitting on top of the headline makes the page look broken.
-- **Physically believable.** If it's a physical thing, it behaves like one: long objects topple and lie flat instead of standing on their ends against a wall; things settle, they don't hover. Keep labels short enough to fit the object without turning it into a pill.
+- **Physically believable.** If it's a physical thing, it behaves like one: long objects topple and lie flat instead of standing on their ends against a wall; things settle, they don't hover. If a label doesn't fit its object at 12–13 px, shorten the words; never stretch the object into a pill to fit them.
 - **Every frame is a good still.** Scrub through the moment and judge each frame as if it were a poster. The first frame shouldn't be an empty stage, the middle shouldn't be clutter, and no frame should look like something went wrong.
 - **Land the ending.** The last frame is the payoff: the product, centred and big enough to read, filling the space the moment emptied. A small window in a corner of a bare wallpaper is an anticlimax.
-- **The real end state must be pixel-perfect:** the formed icon has to line up exactly with the real icon it dissolves into, or the handover jumps. Zoom in to check.
+- **The real end state must hand over without a visible jump:** align the formed icon with the real icon and zoom in to check.
 
 ## How SakuraCord built "gather into the icon" (reference for the technique, not the idea)
 
@@ -112,5 +116,5 @@ Build the moment with `motion-kit` (morph, flyTo, draggable, scene); `motion-kit
 - Capture frames at the start, the middle and the end, and zoom into the end state.
 - Ask: would someone describe this to a friend? Does it belong only to this product?
 - Write the friend sentence ("the page where scrolling ..."). If it does not start with the product's verb, start over.
-- Capture five frames of the moment and check each is a good still.
+- Scrub through the whole moment and capture the start, middle and end plus any frame that looks wrong.
 - Run `design-review`.

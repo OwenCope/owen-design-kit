@@ -76,16 +76,18 @@ async function compareMode(dirA, dirB) {
       return `<h2>${n}</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div><h3>A</h3>${cell(dirA)}</div><div><h3>B</h3>${cell(dirB)}</div></div>`;
     }).join('\n');
   const html = `<!doctype html><html><body style="font-family:system-ui;margin:24px"><h1>A: ${dirA} vs B: ${dirB}</h1>${rows}</body></html>`;
-  writeFileSync('compare.html', html);
+  writeFileSync(join(dirB, 'compare.html'), html);
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
-    await page.goto('file://' + resolve('compare.html'), { waitUntil: 'networkidle' });
-    await page.screenshot({ path: 'compare.png', fullPage: true });
+    await page.goto('file://' + resolve(dirB, 'compare.html'), { waitUntil: 'networkidle' });
+    await page.screenshot({ path: join(dirB, 'compare.png'), fullPage: true });
     await page.close();
   } finally { await browser.close(); }
-  console.log('Wrote compare.html and compare.png');
+  console.log(`Wrote ${join(dirB, 'compare.html')} and ${join(dirB, 'compare.png')}`);
 }
+
+if (args.includes('--help')) { console.error('usage: node scripts/eval-run.mjs --brief <file> --model <model-id> --out <dir> [--port 8600] [--timeout 1800]\n   or: node scripts/eval-run.mjs --compare <dirA> <dirB>'); process.exit(0); }
 
 if (args[0] === '--compare') {
   const [dirA, dirB] = [args[1], args[2]];
@@ -109,7 +111,7 @@ writeFileSync(join(out, 'brief.txt'), brief);
 let kitVersion = 'unknown', opencodeVersion = 'unknown';
 try { kitVersion = JSON.parse(readFileSync(join(kitRoot, '.claude-plugin', 'marketplace.json'), 'utf8')).metadata.version; } catch {}
 try { opencodeVersion = execSync('opencode --version', { encoding: 'utf8' }).trim(); } catch {}
-const command = `opencode run --model ${model} --auto <brief text>`;
+const command = `opencode run --model ${model} --auto '<brief as final argv; full text in brief.txt>'`;
 writeFileSync(join(out, 'run.json'), JSON.stringify({ model, date: new Date().toISOString(), kitVersion, opencodeVersion, command }, null, 2));
 
 const started = Date.now();

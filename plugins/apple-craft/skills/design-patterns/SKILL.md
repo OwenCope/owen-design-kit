@@ -8,7 +8,8 @@ description: Copy-ready code and exact tokens for proven Apple-style components 
 Every snippet here ships in real products (the Gaze Mac app and gazeunlock.com) and was approved after earlier versions were rejected. Copy the code and the values; the source paths are only for reference.
 
 ## Shared motion token
-- Curve: `cubic-bezier(0.22, 1, 0.36, 1)` (fast out, gentle settle). Duration: **340 ms** for morphs, 350 ms for layout swaps, 150 ms for colour hovers.
+- Curve: `cubic-bezier(0.22, 1, 0.36, 1)` (fast out, gentle settle). Duration: **340 ms** for morphs and layout swaps, 150 ms for colour hovers.
+- **Press feedback:** a brief tint or opacity change of the fill, never movement or scale. Buttons never move or shrink when pressed; feedback lives in content/tint only.
 - Always disable under Reduce Motion (`accessibilityReduceMotion` / `prefers-reduced-motion`).
 
 ---
@@ -40,11 +41,10 @@ From Gaze (github.com/OwenCope/Gaze, `Sources/App/SettingsView.swift`).
                         .blur(radius: morphed ? 0 : 8)
                         .accessibilityHidden(true)
                 }
-                .frame(minWidth: 160, minHeight: 22)
+                .frame(width: 160, height: 28)
                 .animation(.timingCurve(0.22, 1, 0.36, 1, duration: 0.34), value: morphed)
             }
-            .buttonStyle(.glassProminent)
-            .buttonBorderShape(.capsule)
+            .buttonStyle(.glassProminent) // already capsule-shaped; buttonBorderShape has no effect on glass styles
             .tint(.blue)
             .controlSize(.large)
             .disabled(!isEnabled)
@@ -54,10 +54,10 @@ From Gaze (github.com/OwenCope/Gaze, `Sources/App/SettingsView.swift`).
         }
     }
 
-Rules: one per screen; never restyle it. The 160 pt label area fits short English labels like "Install"; for longer labels or other languages size it to the widest label (`.fixedSize()` on a hidden copy, or measure) instead of truncating.
+Rules: one per screen; never restyle it. The 160 pt label area fits short English labels like "Install"; for longer labels or other languages measure the widest localized title up front (NSString boundingRect / NSTextField.sizeToFit) or fix the width to fit it, instead of truncating.
 
 ### Button → progress swap
-Replace the button *in place* with a 260 pt linear `ProgressView` + monospaced "42%", then an indeterminate bar + "Installing…". Wrap both in a `ZStack` with fixed height 36, transition `.opacity.combined(with: .scale(scale: 0.96))`, animate with `.smooth(duration: 0.35)` (nil under Reduce Motion).
+Replace the button *in place* with a 260 pt linear `ProgressView` + monospaced "42%", then an indeterminate bar + "Installing…". Wrap both in a `ZStack` with fixed height 28, transition `.opacity` only, animate with `.smooth(duration: 0.34)` (nil under Reduce Motion). The button itself never moves or scales; press feedback is a brief tint or opacity change of the fill, never movement or scale.
 
 ### Toolbar indicator (navigates, never acts)
 
@@ -77,7 +77,7 @@ Rejected before this: tall capsule, grey bubble, big blue circle.
 - Row: SF Symbol (secondary colour), title, one-line detail, one trailing control.
 - Dividers inset to the text between rows that have icons; full-width only above a card or block. Match the dividers already in that section.
 - Reuse the project's existing toggle row instead of building a new one.
-- Every new row gets a Settings search entry with 3 to 6 keywords. A row that search can't find is unfinished.
+- Every new row gets a Settings search entry with 3 to 6 keywords, stored in the row's search metadata. A row that search can't find is unfinished.
 - Most-needed section first. A new row goes in the section whose title matches what it does, next to its closest relative.
 
 ### Release / update card
@@ -115,7 +115,7 @@ Use the system views for every state, so empty, error, loading, disabled and suc
 Rules: ContentUnavailableView for empty and error, ProgressView for loading, .disabled for disabled, a short confirmation for success. Never build custom versions of these.
 
 ### Form (grouped)
-A grouped form with labelled rows, inline validation below the field, and a submit that stays disabled until valid.
+A grouped form with labelled rows, inline validation below the field, and a submit that stays enabled so it can explain what's wrong.
 
     Form {
         Section("Account") {
@@ -135,12 +135,12 @@ A grouped form with labelled rows, inline validation below the field, and a subm
             } else {
                 Text("We only use this to sign you in.").font(.caption).foregroundStyle(.secondary)
             }
-            Button("Continue") { submit() }.disabled(!isValid)     // disabled until valid
+            Button("Continue") { submit() }     // stays enabled; on submit validate, focus first invalid field, show inline reason
         }
     }
     .formStyle(.grouped)
 
-Rules: Form with .formStyle(.grouped), LabeledContent rows, TextField with a prompt, helper in .secondary or the error in red below, submit disabled until valid.
+Rules: Form with .formStyle(.grouped), LabeledContent rows, TextField with a prompt, helper in .secondary or the error in red below. Keep submit enabled; on submit validate, focus the first invalid field, show an inline reason. Never leave a disabled button as the only signal.
 
 ---
 
@@ -158,7 +158,7 @@ Rules: Form with .formStyle(.grouped), LabeledContent rows, TextField with a pro
 | `.type-caption` | 14px | 400 | 1.45 | 0 |
 | `.type-micro` | 12px | 500 | 1.35 | 0.01em |
 
-Font stack: `-apple-system, BlinkMacSystemFont, var(--font-inter), "Segoe UI", sans-serif`. Don't add sizes; map to the nearest step.
+Font stack: `-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif`. Do not add Inter or any webfont for Apple-style surfaces. Don't add sizes; map to the nearest step.
 
 ### Colour
 - Action blue on websites: `#0071e3` (`--action-fill`), apple.com's link and button blue. The only accent on a web page. Inside apps and app mock-ups use the system accent `#0088FF` (light) / `#0091FF` (dark) from `liquid-glass`, so an app screenshot and its mock-up match.
@@ -220,8 +220,8 @@ A row per question: the question on the left, a chevron on the right, a hairline
 
     <div class="faq">
       <details>
-        <summary>What happens at two minutes?<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="answer"><div><p>One soft chime, then the countdown turns blue.</p></div></div>
+        <summary>What does this cost?<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="answer"><div><p>One plan, priced per seat. Replace with the real product's words.</p></div></div>
       </details>
     </div>
 
@@ -258,10 +258,10 @@ A row per question: the question on the left, a chevron on the right, a hairline
           const answer = d.querySelector('.answer');
           answer.addEventListener('transitionend', function done(ev) {
             if (ev.propertyName !== 'grid-template-rows') return;
-            answer.removeEventListener('transitionend', done);
             if (!d.classList.contains('shown')) d.open = false;
-          });
+          }, { once: true });
           d.classList.remove('shown');
+          setTimeout(() => { if (!d.classList.contains('shown')) d.open = false; }, 450);
         }
       });
     });
@@ -293,7 +293,7 @@ One card with class modifiers for loading, empty, error, disabled and success, s
     .skeleton-title { height: 20px; max-width: 180px; }
     .skeleton.short { max-width: 140px; }
     .skeleton::after { content: ""; position: absolute; inset: 0;
-      background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.5) 50%, transparent 80%);
+      background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--foreground) 12%, transparent) 50%, transparent 80%);
       animation: shimmer 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
     @keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
     .state-icon { width: 28px; height: 28px; color: var(--secondary-label); }
@@ -307,7 +307,7 @@ One card with class modifiers for loading, empty, error, disabled and success, s
 Rules: loading is a skeleton with a soft shimmer, never a spinner for content. Empty is one line icon, one title, one supporting line, one button. Error says what happened in plain words with one Try Again button, no error codes up front. Disabled is 50 percent opacity plus cursor not-allowed plus aria-disabled, never hidden. Success draws the checkmark in, then shows the result.
 
 ### Form (labels above, capsule fields)
-A short form with the label above each field, helper text below, validation on submit as well as on blur, and a submit that turns into progress.
+A short form with the label above each field, helper text below, validation on submit then live on failed fields, and a submit that shows progress via `aria-busy`.
 
     <form class="form" novalidate>
       <div class="field">
@@ -340,25 +340,24 @@ A short form with the label above each field, helper text below, validation on s
       err.hidden = !bad;
       return !bad;
     }
-    input.addEventListener('blur', validate);
+    function save(){ return Promise.resolve(); } // replace with the real submitter
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = form.querySelector('button[type="submit"]');
       if (btn.getAttribute('aria-busy') === 'true') return;
       if (!validate()) { input.focus(); return; }
       btn.setAttribute('aria-busy', 'true');
-      const label = btn.textContent; btn.textContent = 'Saving…';
       save().then(() => {
-        btn.removeAttribute('aria-busy'); btn.textContent = label;
+        btn.removeAttribute('aria-busy');
       }, () => {
-        btn.removeAttribute('aria-busy'); btn.textContent = label;
+        btn.removeAttribute('aria-busy');
         err.textContent = 'Could not save. Try again.';
         err.hidden = false;
         btn.focus();
       });
     });
 
-Rules: label above each field, 44 px capsule inputs at 16 px so iOS never zooms, helper below, inline error under the field on blur and on submit with aria-describedby. Validate on submit, focus the first invalid field, prevent duplicate submits, and show a failure message.
+Rules: label above each field, 44 px capsule inputs at 16 px so iOS never zooms, helper below, inline error under the field on submit (then live on fields that already failed, not on first blur) with aria-describedby. Validate on submit, focus the first invalid field, prevent duplicate submits, and show a failure message.
 
 ### Table (dashboards)
 A dense table with a sticky header, right-aligned numbers, hairline dividers and a scroll wrapper on phones.
@@ -376,6 +375,7 @@ A dense table with a sticky header, right-aligned numbers, hairline dividers and
     .table-wrap { overflow-x: auto; border: 1px solid var(--hairline); border-radius: 16px; }
     .tbl { width: 100%; border-collapse: collapse; font-size: 15px; }
     .tbl th, .tbl td { padding: 0 16px; height: 40px; text-align: left; white-space: nowrap; }
+    .tbl td { max-width: 320px; overflow: hidden; text-overflow: ellipsis; }
     .tbl thead th { position: sticky; top: 0; background: var(--bg); font-size: 13px; color: var(--secondary-label);
                      font-weight: 600; border-bottom: 1px solid var(--hairline); }
     .tbl tbody tr + tr td { border-top: 1px solid var(--hairline); }
@@ -389,7 +389,7 @@ Rules: sticky header, tabular-nums for numbers, numeric columns right-aligned, h
 Sticky bar that starts transparent and turns to glass after scrolling, with 3 to 5 links and one action.
 
     <header class="nav" id="nav">
-      <a class="brand" href="/">Gaze</a>
+      <a class="brand" href="/">[Product]</a> <!-- replace with the real product name -->
       <nav aria-label="Primary"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
       <a class="pill pill-small" href="#download">Download</a>
       <button class="menu-btn" aria-expanded="false" aria-controls="nav-menu">Menu</button>
@@ -406,6 +406,7 @@ Sticky bar that starts transparent and turns to glass after scrolling, with 3 to
     .nav nav { display: flex; gap: 20px; }
     .pill-small { border-radius: 999px; padding: 8px 18px; min-height: 44px; display: inline-flex; align-items: center; }
     .nav .menu { overflow: hidden; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s cubic-bezier(0.22, 1, 0.36, 1); }
+    .nav .menu[hidden] { display: none; }
     .nav .menu.open { grid-template-rows: 1fr; }
     @media (prefers-reduced-motion: reduce) { .nav, .nav .menu { transition: none; } }
 
@@ -422,14 +423,13 @@ Sticky bar that starts transparent and turns to glass after scrolling, with 3 to
         if (!menu.classList.contains('open')) menu.hidden = true;
       }, { once: true });
     });
-
 Rules: sticky, transparent at the top and glass (backdrop-filter blur with a solid fallback) after scrolling, product name left, 3 to 5 links, one action right. The phone menu opens and closes with the same animation.
 
 ### Footer (one row)
 One row of small links with the product name and year, in light and dark.
 
     <footer class="footer">
-      <p class="fine">© 2026 Gaze</p>
+      <p class="fine">© 2026 [Product] — replace with the real product name</p>
       <nav aria-label="Footer"><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#contact">Contact</a></nav>
     </footer>
 

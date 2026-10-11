@@ -20,12 +20,12 @@ When you're unsure what you're seeing, or need to list a feature's states, read 
 
 - The screens that changed, in light and dark. For a new web page: 1440x900 and 390x844.
 - A 2x zoomed crop of the product and of every edge where two shapes meet.
-- Every state the feature really has, produced by script: default, loading, empty, error, success, interrupted, after a drag, panel open, hover. Skip states it can't reach.
-- For motion: watch it at normal speed, then capture five frames from start to end.
+- Every state the feature really has, produced by script — list the states per [Seeing clearly](references/evidence-judgment.md) § "List the states…"; mark unreachable ones N/A.
+- For motion: watch it at normal speed, then capture frames from start to end (enough that each phase — start, building, peak, resolving, end — has a still).
 - Run the design-review scripts, then look:
 
-    node scripts/capture.mjs http://localhost:3000 review
-    node scripts/lint-slop.mjs http://localhost:3000
+    node ../design-review/scripts/capture.mjs http://localhost:3000 review
+    node ../design-review/scripts/lint-slop.mjs http://localhost:3000
 
 - Look at every image at full size. If you can't see images, say so and measure instead: sizes, positions, contrast, empty space in px. Numbers can't tell you how something looks or feels, so the visual review stays pending.
 
@@ -54,7 +54,7 @@ For each problem, write:
 
 - What it should do or say.
 - What you see, with a measurement or timestamp.
-- Whether it's broken, against the brief, or just taste.
+- Whether it's broken, against the brief, or just taste, sorted per [Seeing clearly](references/evidence-judgment.md) § "Sort what you found".
 - Why it matters.
 - The fix, and the before and after once fixed.
 - What you're still unsure of.
@@ -79,7 +79,7 @@ Keep what you saw separate from what you think caused it. "Escape leaves the pan
 
 - Every claim names what you did and what you saw: "opened at 375 px, the third row and the Add and Clear buttons are cut off" is a finding; "phone layout passes" next to a screenshot you didn't look at is not. Saving a screenshot is not checking it. Sort each check into checked and fine, checked and failed, or not tested.
 - Per round: the problems, what changed, what was tested, lint and accessibility results, whether images were viewed.
-- End with one of **ready for Owen to look at**, **visual review pending** (you couldn't see the images or playback) or **unresolved failure** (something is still broken). Ready isn't approved; only the person approves.
+- End with one of the three verdicts in [Seeing clearly](references/evidence-judgment.md) § "How to end" (ready, visual review pending, unresolved failure).
 
 ## Example: a prototype that looked finished and wasn't
 

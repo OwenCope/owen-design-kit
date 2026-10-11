@@ -5,7 +5,7 @@ For a Mac app, use the full Mac scene in `../examples/mac.html`. These are for e
 ## Which frame
 
 - **iPhone app or a phone view of a site:** `iphone.html`. Apple's real iPhone 18 Pro bezel with the screenshot under it, cut to the exact screen shape. Size it with `--device-width`.
-- **An iPhone app's hero or launch picture:** `iphone-air/`. A photographic scene of three floating iPhone Airs; `python3 iphone-air/place.py shot.png out.jpg` puts real screenshots on both screens in perspective.
+- **An iPhone app's hero or launch picture:** `iphone-air/`. A photographic scene of three floating iPhone Airs. Run from this `devices/` directory: `python3 iphone-air/place.py shot.png out.jpg` puts real screenshots on both screens in perspective.
 - **A website:** `browser.html`. A Safari-style window, light and dark (add class `dark` or `light` to `<html>` to force one).
 - **The link preview when someone shares the site:** `og-image.html`, rendered by `make-og.mjs`.
 - **Favicons and home-screen icons:** `make-icons.sh`.

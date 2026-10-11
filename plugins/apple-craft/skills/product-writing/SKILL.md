@@ -10,7 +10,7 @@ The short, plain style below applies to product-facing words (UI, site, posts, r
 ## Rules
 
 - **Say what the person gets, not how the code works.** "Your face shows in the panel as soon as you open the lid", not "Fixed Metal drawable after display wake."
-- **Short.** One idea per sentence or bullet, under about 15 words. If a sentence could lose half its words, cut them.
+- **Short.** One idea per sentence or bullet, about 15 words or fewer. If a sentence could lose half its words, cut them.
 - **Name hardware the way people think of it** ("so the camera can see you"). Don't name internals ("Metal renderer", "embedding").
 - **Plain words.** No jargon, internal names, thresholds or HTTP codes. Those go in logs.
 - **Buttons are verbs**, one or two words: Install, Next, Check Again, Quit and Reopen, Download for Mac.
@@ -38,3 +38,5 @@ The short, plain style below applies to product-facing words (UI, site, posts, r
 | "Improved robustness of camera session initialization post-wake" | "If the camera is slow to start after sleep, the app tries again." |
 | "Click here to proceed to the next step" | "Next" |
 | "Oops! Something went wrong 😕" | "Couldn't save your changes. Try again." |
+| "No items found" | "No clips yet. Record one to start your library." |
+| "Are you sure you want to delete this?" | "Delete this conversation? You can't undo it." |

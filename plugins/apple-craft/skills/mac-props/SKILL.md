@@ -16,13 +16,13 @@ Don't stop to ask for assets or Figma files. Build the scene from these:
 
       swift scripts/make-assets.swift ./mac-assets --app /Applications/YourApp.app
 
-  No app or icon yet? Make a temporary icon from an SF Symbol on a tinted rounded square, and say it's temporary:
+  No app or icon yet? Make a temporary icon from an SF Symbol on a tinted rounded square, and note it as temporary in your report (never as a caption on the page):
 
       swift scripts/make-assets.swift ./mac-assets --symbol doc.on.clipboard --tint "#0A84FF"
 
 - `examples/mac.html`: a complete, working scene (laptop, menu bar, window, Dock with the app and a running dot, light and dark). Copy it, drop in your window screenshots, and adapt.
 - `devices/`: for anything that isn't a Mac app. Apple's official iPhone 18 Pro bezel with the screen cut-out measured, a photographic iPhone Air scene (`devices/iphone-air/place.py` puts real screenshots on its screens in perspective), a Safari-style browser window, a 1200x630 link-preview renderer and a favicon maker. See `devices/README.md`.
-- `examples/mac-ui.css` and `examples/mac-ui.html`: working macOS 27 parts measured from Apple's Figma kit, in light and dark: window with traffic lights, inset glass sidebar, toolbar with glass capsule groups and search, inset grouped rows with icons and values, switch, segmented control, capsule buttons, popover, menu, notch panel and notification. Copy the markup and change only the content. Don't write your own window, row or toggle CSS.
+- `examples/mac-ui.css` and `examples/mac-ui.html`: working macOS 27 parts measured from Apple's Figma kit, in light and dark: window with traffic lights, inset glass sidebar, toolbar with glass capsule groups and search, inset grouped rows with icons and values, switch, segmented control, capsule buttons, popover, menu, notch panel and notification. Copy the markup and change only the content. Don't write your own window, row or toggle CSS. Keep press states Apple-like: buttons never move or shrink when pressed; feedback lives in content/tint only.
 
 ## Building the scene
 
@@ -34,7 +34,7 @@ Run this before building anything:
 
 Or, when the app has no icon yet:
 
-    swift scripts/make-assets.swift ./mac-assets --symbol <name> --tint #hex
+    swift scripts/make-assets.swift ./mac-assets --symbol <name> --tint "#hex"
 
 It exports the real Dock icons, document icons (`mac-assets/files/`), SF Symbols, a wallpaper and `manifest.json`. Every icon in a Mac scene — Dock, menu bar, notch panel, file rows, window sidebar — must be one of these files, used as an `img` or as a CSS mask image. Never draw an icon with SVG paths, CSS shapes, emoji, Unicode symbols or letters; lint-slop fails any scene that does.
 
@@ -42,19 +42,19 @@ It exports the real Dock icons, document icons (`mac-assets/files/`), SF Symbols
 |---|---|
 | App in Dock | `mac-assets/dock/<name>.png` |
 | File in a list | `mac-assets/files/<type>.png` |
-| Menu bar or row symbol | `mac-assets/symbols/<name>.png` as a mask in the label colour |
+| Menu bar or row symbol | `mac-assets/menubar/<name>.png` as a mask in the label colour |
 | Product's own icon | `mac-assets/app.png` (or the `--symbol` icon) |
 
 The layers, back to front:
 
-1. **The laptop shell**: `assets/macbook-air-shell.webp`, or another MacBook image with a transparent screen. Other sources: Apple device frames in Figma at https://www.figma.com/design/cYBOvNXVRbS1THF1nMkd2l/Apple-Mockups--Community-?node-id=182-4621, the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. The menu bar and Dock sizes below are already measured; Apple's macOS 27 Figma kit (linked in `liquid-glass`) is only needed for something not covered here.
+1. **The laptop shell**: `assets/macbook-air-shell.webp`, or another MacBook image with a transparent screen. Other sources: Apple device frames in Figma at https://www.figma.com/design/cYBOvNXVRbS1THF1nMkd2l/Apple-Mockups--Community-?node-id=182-4621, the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. The menu bar and Dock sizes below are already measured; Apple's macOS 27 Figma kit (links in `figma-mockups` §2; values cached in `../liquid-glass/`) is only needed for something not covered here.
 2. **A black plate** behind the screen, so the bezel never shows the page through.
 3. **The wallpaper** (`make-assets.swift` exports a calm light `wallpaper.jpg`, iMac Silver, and a calm dark `wallpaper-dark.jpg`, Pro Black; swap them with the page's appearance): a real macOS or brand wallpaper, filling the screen. Pick one that lets the product read: calm, low contrast behind the window. A loud, saturated wallpaper (the bright blue macOS default) drowns the UI. Don't reuse the same wallpaper as the last site you made.
 4. **The menu bar**: the Apple logo on the left; battery, Wi-Fi, Control Center and the time on the right, starting *after* the notch. The right side must be the real SF Symbols from `make-assets.swift` (battery, Wi-Fi, Control Center, Spotlight), exported as images at 2x and drawn at the real size: about 15 pt tall glyphs, 18 to 22 pt apart, the clock in SF Pro Medium 13 pt. Hand-drawn or emoji-like icons, wrong weights, or symbols floating at different heights fail review. Compare with a real screenshot of your own menu bar at the same scale. Menu bar text follows the wallpaper: dark on a light wallpaper, white on a dark one, as macOS does. Size it from the screen *width* (`cqw`) so it clears the notch at every size.
 5. **The app's window**: a real screenshot, sitting between the menu bar and the Dock, just above the Dock with the same small gap on every screen. If several screenshots rotate through the same Mac, give them all the same height so none jumps. Measure the gap in pixels; don't eyeball it.
 6. **The Dock**: a glass capsule of real app icons, with the product's icon in it and a running dot under it. Keep real proportions: small icons (about 3.6 % of the screen width), tight padding. A chunky Dock reads as a toy.
 
-**Build the screen at real size, then scale it.** Lay out the desktop at a real 1470 x 956 pt and scale the whole thing to the laptop's screen with one `transform: scale()` (see `web-design/examples/product-page.html`). Sizing UI parts in `cqw` or percentages squashes them: fonts, toolbars and rows stop matching macOS.
+**Build the screen at real size, then scale it.** Lay out the desktop at a real 1470 x 956 pt and scale the whole thing to the laptop's screen with one `transform: scale()` (see `../web-design/examples/product-page.html`). Sizing UI parts in `cqw` or percentages squashes them: fonts, toolbars and rows stop matching macOS.
 
 **Narrow windows** (settings, a welcome screen) keep their own shape: size them by height to fill the space from the menu bar to just above the Dock, and centre them.
 
@@ -66,17 +66,17 @@ HTML and CSS:
       <div class="plate" aria-hidden="true"></div>
       <div class="screen">
         <div class="mbar" aria-hidden="true">
-          <svg class="apple">…</svg>
+          <img class="apple" src="mac-assets/menubar/apple.png" alt="">
           <span class="gap"></span>
-          <span class="right">…battery, wifi, control center… <b>Thu 9:41 AM</b></span>
+          <span class="right"><img src="mac-assets/menubar/battery.png" alt=""><img src="mac-assets/menubar/wifi.png" alt=""><img src="mac-assets/menubar/control.png" alt=""> <b>Thu 9:41 AM</b></span>
         </div>
         <img class="window light" src="shot-light.webp" alt="What the window shows">
         <img class="window dark" src="shot-dark.webp" alt="" aria-hidden="true">
         <div class="dock" aria-hidden="true">
-          <img src="dock/finder.png" alt=""> … <span class="run"><img src="dock/app.png" alt=""></span>
+          <img src="mac-assets/dock/finder.png" alt=""> … <span class="run"><img src="mac-assets/dock/app.png" alt=""></span>
         </div>
       </div>
-      <img class="shell" src="macbook-shell.webp" alt="" aria-hidden="true">
+      <img class="shell" src="assets/macbook-air-shell.webp" alt="" aria-hidden="true">
     </div>
 
     /* Percentages are measured for one 1920×1280 MacBook Air shell. Measure yours:
@@ -119,7 +119,7 @@ If the app isn't built yet, build its main window as real HTML or SwiftUI and sc
 
 **If Figma is connected, start there** (`figma-mockups`): pull each part's screenshot and values from Apple's kit. Otherwise start from the parts kit, every time.
 
-**Build the mock-up from Apple's parts, not boxes.** When the app isn't built, its window and panels are assembled from real macOS 27 components, taken from Apple's macOS 27 Figma kit (linked in `liquid-glass`) or rebuilt to its exact measurements:
+**Build the mock-up from Apple's parts, not boxes.** When the app isn't built, its window and panels are assembled from real macOS 27 components, taken from Apple's macOS 27 Figma kit (links in `figma-mockups` §2; values cached in `../liquid-glass/`) or rebuilt to its exact measurements:
 - a real window: traffic lights, a toolbar with Liquid Glass buttons and SF Symbols, the title in the toolbar, the system corner radius and shadow;
 - real content structure: a sidebar with SF Symbol rows, grouped list rows or an inset form, segmented controls, switches, the system fonts and secondary label colours;
 - for notch or menu bar apps, the real shapes: the notch's black, its exact corner curve, a menu bar extra, a popover with an arrow, glass material;
@@ -157,7 +157,7 @@ When a section *becomes* the Mac's desktop (a signature moment that fills the sc
 
 **Then compare, part by part.** Before showing a mock-up, open the matching picture and put your render next to it at the same size:
 
-| You built | Compare with (in `liquid-glass/reference/`) |
+| You built | Compare with (in `../liquid-glass/reference/`) |
 |---|---|
 | Any window, sidebar, toolbar | `window-toolbar-sidebar-light.png` / `-dark.png`, `sidebar-*.png` |
 | Switches, segmented controls, sliders | `toggles-*.png`, `segmented-*.png`, `sliders-*.png` |

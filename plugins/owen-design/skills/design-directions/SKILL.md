@@ -36,7 +36,7 @@ What makes it:
 - **Small controls.** Buttons are 32 px (nav) and 44 px (hero), pill-shaped, light grey `#E5E5E6` with near-black text. Raycast's are 36 px with an 8 px radius and a keycap-like layered shadow.
 - **The product is the hero.** Linear puts a full, real screenshot of the app straight under the headline, edge to edge. Raycast shows the real launcher window.
 
-Motion: quick and quiet. Transitions around 160 ms on buttons; Raycast's hover just lifts the button from `#E6E6E6` to white. Entrances are subtle fades on scroll. Ambient motion stays tiny (a slow glow, twinkling stars) and never covers text.
+Motion: quick and quiet. Transitions about 160 ms on Linear's pills and 200 ms on Raycast's buttons (plus a 100 ms transform); Raycast's hover just lifts the button from `#E6E6E6` to white. Entrances are subtle fades on scroll. Ambient motion stays tiny (a slow glow, twinkling stars) and never covers text.
 
 Voice: short, confident, a little dry. "Your shortcut to everything." "The product development system for teams and agents." No exclamation marks, no "unlock your potential".
 
@@ -129,5 +129,5 @@ Write these seven lines into the project's `DESIGN-NOTES.md` (see `new-project-s
 | Precise tool | "Your shortcut to everything." | Hype, emoji, exclamation marks |
 | Structured trust | "Accept payments online, in person, and around the world." | Vague promises, hidden prices |
 | Warm workspace | "It's time." | Cold technical language |
-| Playful consumer | "The most fun way to learn!" | Corporate tone, long sentences |
+| Playful consumer | "The most fun way to learn languages, chess, and more!" | Corporate tone, long sentences |
 | Personal | Whatever the person actually sounds like | Generic bio lines ("passionate about design") |

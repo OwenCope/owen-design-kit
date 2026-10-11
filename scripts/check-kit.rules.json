@@ -1,7 +1,7 @@
 [
   { "id": "five-problems", "pattern": "fix (at least )?five problems", "level": "FAIL", "message": "Quota language: fixes are not counted" },
   { "id": "three-concepts-always", "pattern": "(write|show) (at least )?three (different )?concepts", "level": "WARN", "message": "Concepts are only required when the idea is open; check this line says so" },
-  { "id": "press-shrink", "pattern": "(press|active)[^.\\n]{0,40}(scale\\(0\\.9|shrink)", "level": "WARN", "message": "Buttons never move or shrink when pressed" },
+  { "id": "press-shrink", "pattern": "(press|active)[^.\\n]{0,40}(scale\\(0\\.9|\\.style\\.scale|amount = 0\\.9|scaleEffect|shrink)", "level": "WARN", "message": "Buttons never move or shrink when pressed" },
   { "id": "push-is-release", "pattern": "push it[^.\\n]{0,60}(release|full release)", "level": "FAIL", "message": "push means push, not release" },
   { "id": "min-rounds", "pattern": "(at least|minimum of) (two|three|2|3) rounds", "level": "FAIL", "message": "No fixed number of review rounds" },
   { "id": "score-cap", "pattern": "score (of )?(at least )?[0-9]+ ?/ ?10 before", "level": "WARN", "message": "Self-scores are not a gate" }

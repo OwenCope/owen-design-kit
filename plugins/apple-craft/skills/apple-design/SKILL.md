@@ -18,7 +18,7 @@ When general design skills are also loaded (antislop, ui-ux-pro-max, frontend or
 - Your own product or a new one: apple-craft's picks apply.
 - Someone else's project or an existing design system: theirs wins; run `match-the-project` first and change only what you were asked to.
 - A brand with its own identity: keep its colours, fonts and imagery, apply apple-craft's craft (space, type hierarchy, real pictures, states, motion discipline), not its look.
-- A product the Apple look doesn't suit (a developer tool, a payments API, a kids' app): pick a direction first with `design-directions` and keep apple-craft's craft, not its look.
+- A product the Apple look doesn't suit (a developer tool, a payments API, a kids' app): pick a direction first (in Owen's kit, `design-directions`; otherwise pick a direction yourself from the project's audience) and keep apple-craft's craft, not its look.
 
 ## Size the work to the task
 
@@ -36,17 +36,17 @@ When general design skills are also loaded (antislop, ui-ux-pro-max, frontend or
 ## The method, in order, every time
 
 1. **Write the design brief (`design-brief`) before new screens and directions; see Size the work to the task. No brief, no build for those.**
-2. **Find Apple's version first.** Before designing, name where Apple already solved this: System Settings, the App Store update card, Face ID setup, the lock screen, Photo Booth, apple.com product pages, Apple's release notes and "What's New" sheets. Copy that pattern's structure, spacing, hierarchy and wording. Only invent when Apple has nothing.
+2. **Find Apple's version first.** Before designing, name where Apple already solved this: System Settings, the App Store update card, Face ID setup, the lock screen, Photo Booth, apple.com product pages, Apple's release notes and "What's New" sheets. Reuse that pattern's structure, spacing, hierarchy and wording; never copy its signature moment, imagery or demo content. Only invent when Apple has nothing.
 3. **Use the platform's own controls before drawing anything.** Native toggles, buttons, toolbars, progress bars, sheets, SF Symbols and system fonts are right in light, dark, accessibility sizes and future OS styles for free. Hand-drawn controls are the most common reason work gets called "AI".
 4. **Use real content.** Real screenshots and recordings, the real app icon, real names, real version numbers, real text. Never placeholders, stock photos, generated illustrations, fake people, or drawn imitations of another app or the OS. If a real picture can't be captured, ask for one.
 5. **One job per screen, one primary action.** Exactly one prominent button per view, labelled with a verb (Install, Next, Download for Mac). Everything else is plain. If two controls do the same thing, delete one.
 6. **Remove before you add.** Cut the extra label, the explanation, the border, the second heading, the badge, the divider. Apple UI is mostly calm space and a few confident things.
 7. **Keep one visual language.** The same button shape and size everywhere, one corner-radius family, one spacing scale, one animation curve. Capsule controls and large concentric containers read as current Apple (see `liquid-glass`). Glass is for app controls and for anything floating over moving content; on a plain web page, buttons are solid pills (`web-design`). A new screen should look like it was always there.
-8. **Make motion alive but quiet.** Hover and press feedback on everything interactive, covering the whole control, not just its centre. Transitions morph instead of popping. Always honour Reduce Motion.
+8. **Make motion alive but quiet.** Hover and press feedback on everything interactive, covering the whole control, not just its centre — carried by colour, glow or content, never by the button moving, lifting or shrinking. Transitions morph instead of popping. Always honour Reduce Motion. Shape and content move together; a panel never sits empty or blank while it changes.
 9. **Put important things where people look.** What a person came for goes first (Updates at the top of Settings). A badge or indicator takes you to the thing; it never does the action behind your back.
 10. **Give it one signature moment.** Correct isn't enough; a page that only follows the rules is forgettable. A product page, launch page or first-run screen gets one memorable moment that could only belong to this product. Load `signature-moments` and build it; don't skip it because nobody asked. Settings screens, docs, release notes and small changes don't need one.
 11. **Show the product where it lives.** In a hero, product picture or launch visual, a Mac app is shown on a Mac: the laptop, a real menu bar, the app's window, and the Dock with the app's icon in it. Load `mac-props` and build the whole scene, not a floating panel or a strip of menu bar. Release pictures and docs use a tight crop of the real UI instead (`release-notes`).
-12. **Look at it before calling it done.** Build it, run it, screenshot it and look at the image at full size. Check light and dark, Reduce Motion, small windows and, on the web, a phone width. Most rejections would have been caught by looking.
+12. **Look at it before calling it done.** Build it, run it, screenshot it and look at the image at full size. Check light and dark, Reduce Motion, small windows and, on the web, a phone width. For web, also run `design-review/scripts/stress.mjs` before calling it done. Most rejections would have been caught by looking.
 13. **Show the real result**, a screenshot, not a description of it.
 
 ## Before showing anything
@@ -59,7 +59,7 @@ When general design skills are also loaded (antislop, ui-ux-pro-max, frontend or
 - Is every picture real, new for this context, uncluttered, with no black frame, and no test data such as "Version 0.1.0"?
 - Could any sentence lose half its words? (See `product-writing`.)
 - Does anything look long, stretched, tall, crowded or empty? Tighten it.
-- Do hover, press and transitions exist, cover the whole control, and switch off under Reduce Motion?
+- Do hover, press and transitions exist, cover the whole control, and go calm and static under Reduce Motion?
 - Is anything duplicated: two buttons, two headings, a picture of the thing inside the thing?
 - Are there leftover windows, stray shadows, transparent layers or ghost frames?
 

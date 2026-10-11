@@ -44,7 +44,7 @@ Optional techniques:
 ## Use it
 
 - Copy `motion.js` next to your page and load it: `<script src="motion.js"></script>`. Everything is on the global `Motion`.
-- `gallery.html` shows every part playing on its own in a loop, one card each, with the line of code under it; hover a card to take over. Open it first and pick what fits.
+- `gallery.html` shows every part playing on its own in a loop, one card each, with the line of code under it; hover a card to take over. Open it first and pick what fits. If none says what this interaction means, use an instant state change instead of the nearest card.
 - `tour.html` is a welcome tour for Gaze (the face blinks, follows a light, nods, opens App Lock), built on the `onboarding-design` structure: the scene in a Mac, a camera zoom until the screen is the window, the notch growing into the live panel, and every page morphing that same panel with blur crossfades while the art, text and button never move.
 - `notch-shelf.html` is a complete reference built with it: a notch you drag files into, which grows into a shelf. Open it next to `mac-assets` (from `mac-props`) and try it before building. Copy its patterns, never its page.
 
@@ -79,7 +79,7 @@ The rules below are defaults that worked for Gaze, not requirements for every pr
 - **Arrive:** things fly in on an arc, not a straight line, and the receiver reacts (catch bump, count changes).
 - **Near:** a target answers when something approaches it (grows slightly), so the visitor knows a drop will work.
 - **Leave:** what left comes back the same way it went, reversed.
-- **One motion at a time** per area; don't start a second animation on an element that is still moving.
+- **One intent at a time** per area; a new input takes over the running animation smoothly instead of waiting for it or stacking a second one.
 - **Reduce Motion:** every function jumps to the end state. Don't add your own motion around it.
 
 ## Why the notch-shelf reference works (take the reasons, not the look)
@@ -115,7 +115,7 @@ These transfer to any product: continuity, visible state, hierarchy, grouping, r
 
 ## Check
 
-Run `self-improve` and capture at least: the moment of approach (target reacting), mid-flight, landed, panel open, and closing. Each frame should be a good still, with nothing duplicated, seamed or left behind. Then interrupt it: press again mid-animation, reverse halfway, repeat fast. The latest input should win and the end state should be right.
+Run `self-improve` and capture the states that matter for this interaction (approach, mid-flight, landed, open, closing). Each frame should be a good still, with nothing duplicated, seamed or left behind. Then interrupt it: press again mid-animation, reverse halfway, repeat fast. The latest input should win and the end state should be right.
 
 To see what really happened, film it. `filmstrip.mjs` slows the page down (CSS and JS springs alike), does the interaction and saves the frames side by side with timestamps, plus every running animation at each frame:
 

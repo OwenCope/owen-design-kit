@@ -16,15 +16,16 @@ let chromium;
 try { ({ chromium } = __cr(__join(process.cwd(), 'package.json'))('playwright')); }
 catch { console.error('Playwright not found here. Run: npm i -D playwright && npx playwright install chromium'); process.exit(1); }
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 
 const url = process.argv[2];
 const out = process.argv[3] ?? 'review';
-if (!url) { console.error('usage: node capture.mjs <url> [out-dir]'); process.exit(1); }
+if (!url || process.argv.includes('--help')) { console.error('usage: node capture.mjs <url> [out-dir]'); process.exit(1); }
 mkdirSync(out, { recursive: true });
 
 const sizes = { desktop: { width: 1440, height: 900 }, phone: { width: 390, height: 844 } };
-const require = createRequire(import.meta.url);
+// axe-core is a project dependency: resolve it from the project you run this in,
+// so a project with axe-core installed gets the a11y check instead of a skip.
+const require = __cr(__join(process.cwd(), 'package.json'));
 let axePath = null;
 try {
   axePath = require.resolve('axe-core/axe.min.js');

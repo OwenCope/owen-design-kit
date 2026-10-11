@@ -86,4 +86,4 @@ Add to the project's `CLAUDE.md` or `AGENTS.md`:
     Before any work, load the apple-craft skills apple-design and design-review,
     plus working-with-<name> and project-<name>.
 
-Agents that don't load plugins can read the files directly from the kit's `skills/*/SKILL.md`.
+Agents that don't load plugins can read the files directly from the kit's `plugins/apple-craft/skills/*/SKILL.md`.

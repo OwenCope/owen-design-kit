@@ -6,6 +6,7 @@ import { join, dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+if (process.argv.includes('--help')) { console.log('Usage: node scripts/check-kit.mjs [--json]'); process.exit(0); }
 const pluginDirs = ['plugins/apple-craft/skills', 'plugins/owen-design/skills'].map((p) => join(root, p));
 const out = [];
 const add = (level, file, line, msg) => out.push({ level, file: relative(root, file), line, msg });

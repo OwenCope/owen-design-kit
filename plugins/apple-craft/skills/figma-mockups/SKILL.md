@@ -31,7 +31,7 @@ Shared copies of both kits that the Figma tools can read directly (use these fir
 - macOS 27: https://www.figma.com/design/psmd2v7ftwhNCn0yh6JUk0/macOS-27--Community-?node-id=131-8996
 - iOS and iPadOS 27: https://www.figma.com/design/j2esmSA6gZA9scyN82vp5j/iOS-and-iPadOS-27--Community-?node-id=221-56229
 - Apple device mockups (iPhone, iPad, Mac and Watch frames for placing real screenshots): https://www.figma.com/design/cYBOvNXVRbS1THF1nMkd2l/Apple-Mockups--Community-?node-id=182-4621
-- Notion UI kit (a recreation, for the warm-workspace direction in `design-directions`; study its structure, don't ship Notion's look): https://www.figma.com/design/YvEDWpVXFX07ajCvh2ypJo/Notion-UI---Free-UI-Kit--Recreated---Community-
+- Notion UI kit (a recreation, for the warm-workspace direction in `owen-design/design-directions`; study its structure, don't ship Notion's look): https://www.figma.com/design/YvEDWpVXFX07ajCvh2ypJo/Notion-UI---Free-UI-Kit--Recreated---Community-
 
 ## 3. Read before you build
 

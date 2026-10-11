@@ -5,7 +5,7 @@ description: A gold-standard onboarding and welcome tour that feels smooth - one
 
 # Onboarding that feels smooth
 
-Reference: the Droppy welcome tour, frames in `examples/` (start with `0-whole-sequence.png`). People who see it call it "so smooth". Build every onboarding to this bar. It uses the common tour layout (media on top, dots, title, one line, one blue button) and pushes it further.
+Reference: the Droppy welcome tour, frames in `examples/` (start with `0-whole-sequence.png`). People who see it call it "so smooth". Build every onboarding to this bar. It uses the common tour layout (media on top, dots, title, one line, one blue button) and pushes it further. Do not reuse Droppy's art, face, pages, words or page order; derive the layout from the product (a window app may need no device frame at all — see :70-72).
 
 ## What makes it work
 
@@ -44,12 +44,12 @@ Open `examples/timeline-1.png` … `timeline-4.png`: every tenth of a second, ti
 - 4.3 → 4.6 s: the text blurs out and in, as on the first transition. The art doesn't move at all.
 - After that, small things keep living: the equaliser bars animate while the rest holds still.
 
-**What never moves:** the artwork (after the first zoom), the text position, the button position, the back and close buttons. Only the panel and the words change, and that's why it reads as smooth.
+**In this tour, what never moves:** the artwork (after the first zoom), the text position, the button position, the back and close buttons. Only the panel and the words change, and that's why it reads as smooth.
 
 ## How to build it (SwiftUI)
 - A `ZStack`: full-bleed art (`.ignoresSafeArea`, `scaledToFill`), then the live feature layer, then a bottom `LinearGradient(.clear → .black.opacity(0.85))`, then the text + controls.
-- Device-frame zoom: the frame leaves in about 0.1 s while the art scales up to fill the window. Then the notch grows into the panel over about 0.6 s (`matchedGeometryEffect` from notch to panel, `.smooth(duration: 0.6)`).
-- Panel morph: one panel view whose size and content are driven by the page index; content swapped with `.transition(.opacity.combined(with: .blur))` (a custom blur modifier), size animated `.smooth(duration: 0.25)`. The whole page change is about 0.4 s: content out (0.1 s), resize (0.2 s), content in (0.1 s).
+- Device-frame zoom: the frame leaves in about 0.1 s while the art scales up to fill the window. Then the notch grows into the panel over about 0.6 s (`matchedGeometryEffect` from notch to panel, `.animation(.smooth(duration: 0.6), value: page)` — `.smooth` is a real SwiftUI animation on macOS 14+/iOS 17+).
+- Panel morph: one panel view whose size and content are driven by the page index; content swapped with `.transition(.opacity.combined(with: .blur))` (a custom blur modifier), size animated `.animation(.smooth(duration: 0.25), value: page)`. The whole page change is about 0.4 s: content out (0.1 s), resize (0.2 s), content in (0.1 s).
 - Stagger live content about 250 ms apart. Each item grows from a small grey placeholder into its real icon, then its label fades in.
 - Text: blur out about 0.1 s, blur in about 0.2 s, in a fixed frame so the layout never jumps. Crossfade the button label, never the button itself.
 - Reduce Motion: no zoom or morph — crossfade only.
@@ -66,6 +66,7 @@ Same structure: fixed full-bleed art, one persistent panel element animated with
 - Title ends with a full stop and names the benefit; body ≤ 2 lines?
 - "Skip tour" on page 1; Continue / back / close after?
 - Works with Reduce Motion?
+- Keyboard: back, continue and close reachable in order and announced; Escape closes or goes back; Reduce Motion already covered above.
 
 ## Apps without a notch panel
 

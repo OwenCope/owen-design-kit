@@ -1,36 +1,36 @@
 ---
 name: macos-app-design
-description: How Mac apps (and Apple-platform apps generally) should look and behave on macOS 26 and later (current target macOS 27) - SwiftUI and AppKit controls, Liquid Glass buttons, settings windows, update UI, onboarding, toolbars, windows, motion, and taking screenshots of the app. Use with apple-design whenever building or reviewing any macOS, iOS or SwiftUI interface.
+description: How Mac apps should look and behave on macOS 27 — SwiftUI and AppKit controls, Liquid Glass buttons, settings windows, update UI, onboarding, toolbars, windows, motion, and taking screenshots of the app. Use with apple-design whenever building or reviewing any macOS or SwiftUI interface. For iPhone/iPad use `ios-app-design`, not this skill.
 ---
 
-# Mac app design (SwiftUI and AppKit, macOS 26 and later (current target macOS 27))
+# Mac app design (SwiftUI and AppKit on macOS 27)
 
 Load `apple-design` first; this adds the platform detail. For glass, load `liquid-glass`. For copy-ready SwiftUI, load `design-patterns`.
 
 ## Controls
 
 - **Primary button:** `.buttonStyle(.glassProminent).tint(.blue)`, a capsule, one size across the app. Don't restyle it.
-- **Secondary buttons:** the standard bordered or glass style with `.buttonBorderShape(.capsule)`, never custom-drawn.
-- **Shape and size:** capsule controls at `.controlSize(.large)` (28 pt) or `.extraLarge` (36 pt) for buttons, pop-up buttons, segmented pickers and fields. The radius-6 rounded rectangles at smaller sizes are only for matching a dense native AppKit layout. Menus and popovers 16 to 20, panels about 34, inner items concentric.
+- **Secondary buttons:** use `.buttonStyle(.bordered).buttonBorderShape(.capsule)` for capsule secondary buttons; the glass styles are already capsule-shaped. Never custom-drawn.
+- **Shape and size:** per Recommended picks in `liquid-glass` SKILL.md (capsule, 28/36; radius-6 dense-AppKit only). Rounded rectangles (6 pt radius, `.controlSize(.small)` or `.mini`) only to match a dense native AppKit layout. Glass menus/popovers 16–20 pt radius, floating panels ~34 pt; nested items use concentric (outer minus inset) radii.
 - **Switches:** a real `Toggle(...).toggleStyle(.switch)`. When a switch must appear inside a screenshot (a picture of System Settings), place the *real* Toggle on the real screenshot; never draw one.
 - **Progress:** a real `ProgressView` (linear with a percentage while downloading, indeterminate while installing), shown *in place of* the button that started it, with a smooth transition.
 - **Icons:** SF Symbols only, weight matched to the text beside them. Use the symbol Apple uses for the same idea in System Settings (brightness `sun.max`, camera `camera`, lock `lock`, face `faceid`).
-- **Toolbar indicators:** a normal toolbar `Label(..., systemImage:)` with `.labelStyle(.iconOnly)` and a tint. Clicking it navigates; it never performs the action.
+- **Toolbar indicators:** a normal toolbar `Label(..., systemImage:)` with `.labelStyle(.iconOnly)` and a tint. Clicking it navigates to the Updates page; it never starts the download/install directly.
 
 ## Hover and motion
 
 - Every custom button has hover feedback. Native toggles, pickers and menus keep their system behaviour.
 - A signature hover: the label blurs into a symbol ("Install" becomes an arrow). Code in `design-patterns`.
 - The hover area is the whole control: `.contentShape(Capsule())` with `.onHover`.
-- Transitions: `.smooth(duration: 0.35)`, opacity plus a slight scale (0.96). Read `@Environment(\.accessibilityReduceMotion)` and drop the animation when it's on.
+- Transitions (appearing/disappearing panels only, never button presses): `.smooth(duration: 0.34)` to match the 340 ms morph token in `design-patterns`. The button itself never moves, shrinks, or scales; only its label content morphs. Read `@Environment(\.accessibilityReduceMotion)` and drop the animation when it's on.
 
 ## Settings windows
 
 - Structure like System Settings: a sidebar, then titled sections of grouped rows (icon, title, short detail, one trailing control) and a short footer only where needed.
 - Clean apps in this style use a sidebar with a capsule search field on top, coloured rounded-square icon tiles (about 32 pt), quiet grey group headers, and one subject per page. Cut clutter rather than add.
 - The section people need most goes first (Updates at the top of General).
-- Every new row is findable from Settings search.
-- An update card reads like the App Store: app icon (about 72 pt), "App X.Y.Z" in bold, one Install button, then the release picture and notes. "Check Again" lives in the row above. One Install button anywhere.
+- Every new row is findable from Settings search (3 to 6 keywords in the row's search metadata); see `design-patterns` for the row pattern.
+- An update card follows `design-patterns` release/update card exactly (single Install button; "Check Again" in the row above).
 
 ## Onboarding and setup
 

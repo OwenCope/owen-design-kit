@@ -9,7 +9,7 @@ Most real design work is this, not a blank page. Every bad redesign we've seen s
 
 ## 1. Use it before you touch it
 
-Open it like a first-time visitor and like a daily user. Do the main task once. Capture what you see now (`design-review/scripts/capture.mjs` for web, `capture-app.sh` for apps): these are the "before" pictures you'll show at the end.
+Open it like a first-time visitor and like a daily user. Do the main task once. Capture what you see now (`design-review/scripts/capture.mjs` for web, `design-review/scripts/capture-app.sh` for apps): these are the "before" pictures you'll show at the end.
 
 Write down, in plain sentences:
 

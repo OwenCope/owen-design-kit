@@ -106,11 +106,8 @@ Each brief ends with the generic version a model would make by default, so you c
 2. The proof: The visitor drags a rectangle over the page itself, edge rulers read 840 x 520, and on release the real editor opens with that exact shot inside.
 3. The hero frame at 1440 x 900: A full-bleed page section dimmed to 40 percent with a clear 840 x 520 px capture rectangle centred. Rulers on two edges read the pixel size in 12 pt. Inside the rectangle the page stays sharp. A small toolbar, 320 px wide, floats on the rectangle edge with arrow, text and share symbols.
 4. What moves: The pointer drag is the motion. Press dims the page, drag resizes the frame with live ruler numbers, release opens the real editor with the shot placed. It ends on the real product.
-5. Three concepts, one sentence each:
-   - The visitor frames part of the page itself and the editor opens with that exact capture.
-   - Scroll zooms from the whole desk into one pixel to show sharp capture at full size.
-   - A headline with three screenshots side by side for capture, annotate and share (the safe default).
-6. The pick and why: Pick the first. It rejects the safe default because three static shots describe steps while one real drag performs the whole promise.
+5. Concepts: none — the drag-to-frame gesture is the brief; the open question is only its trigger tolerance, settled in the prototype.
+6. The pick and why: No concepts — the drag itself is the idea; the only open question is trigger tolerance, settled in the prototype.
 7. What is cut:
    - A formats row listing PNG, JPG and GIF badges, because formats are settings, not reasons to try.
    - A keyboard shortcut table, because shortcuts matter on day ten, not on first sight.

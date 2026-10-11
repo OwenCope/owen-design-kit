@@ -29,7 +29,7 @@ When something feels off, I don't check a list. I put it next to how macOS or th
 
 - A notch has curved shoulders and is one shape. Two notches on screen means I made a second one.
 - A panel never sits empty while it changes. If it does, something is waiting for something else to finish.
-- Apple buttons don't shrink when pressed on the web. If mine does, I added a habit, not a design.
+- Apple buttons don't shrink, scale, or shift when pressed, on any platform. If mine does, I added a habit, not a design.
 - A wallpaper sits behind the product. If you notice the wallpaper first, it's wrong.
 
 ## 4. Find the cause, not the symptom

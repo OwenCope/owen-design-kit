@@ -11,7 +11,7 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 Review what changed, not the whole product: a checklist is not a reason to redesign. When you're unsure what you're seeing, or need to list a feature's states, read [Seeing clearly](../self-improve/references/evidence-judgment.md); it has worked examples.
 
-- **Contribution to someone else's project:** follow `match-the-project`. Capture before and after screenshots in light and dark, put them next to the 3 nearby screens you compared, and check states and accessibility. Skip signature moments, Mac scenes and reference-copy checks; the project's own design is the standard.
+- **Contribution to someone else's project:** follow `match-the-project`. Capture before and after screenshots in light and dark, put them next to the nearby screens you compared (usually two or three), and check states and accessibility. Skip signature moments, Mac scenes and reference-copy checks; the project's own design is the standard.
 - **Small change** (one row, one string, one colour): look at that area in light and dark and in any state it affects. Use the items that apply and mark the rest N/A.
 - **Fixing reported problems on a page:** reproduce each one, fix it, and look at the states around it. Items 13 and 14 apply only if the page's direction or product scene is part of the job.
 - **New screen or flow:** the full review below.
@@ -49,7 +49,7 @@ A full-page screenshot hides most problems. Zoom to 200 to 300 % on every edge, 
 
 The checklist catches broken things; this catches things merely not good yet. Watch every animation at normal speed first, since stills can't show feel. Then scrub it: start, building, peak, resolving, end, side by side, and judge each frame as a still. Moving or decorative things never cover headlines, body text, buttons or the product. No large empty area without a reason, no frame that looks like a bug. Physical things behave physically and UI behaves like the real OS. Things that open close the way they came. The first frame invites and the last pays off with the product big enough to read.
 
-For a new page, write the friend test in one sentence: what would someone tell a friend about it? No sentence means no moment yet. Say plainly what is weak, why, and what would fix it. Sort each finding: it's broken, it contradicts the brief, or it's taste. Fix the first two; offer the third to the person as a choice. Reload and judge the real page, never a report, including your own.
+For a new page, write the friend test in one sentence: what would someone tell a friend about it? No sentence means no moment yet. Say plainly what is weak, why, and what would fix it. Sort each finding per [Seeing clearly](../self-improve/references/evidence-judgment.md) § "Sort what you found" (broken, against the brief, taste); fix the first two and offer taste to the person as a choice. Reload and judge the real page, never a report, including your own.
 
 ## Check against the brief
 
@@ -67,7 +67,7 @@ This is the full version of the short checklist in `apple-design`; when both are
 6. **Space.** Nothing long, stretched, tall or crammed, with consistent spacing steps and aligned edges; write the real numbers for window-to-Dock gap, main-container side padding and button position before and after hover.
 7. **Words.** Every string passes `product-writing`. Read them aloud.
 8. **Motion.** Hover and press feedback on everything interactive, carried by the content, never by the button moving or shrinking; a whole-control hit area, a smooth curve, things close the way they opened, calm under Reduce Motion.
-9. **States.** List the states this feature really has (default, loading, empty, error, success, interrupted, disabled) and check each one. Mark the ones it can't reach as N/A; don't invent UI to fill the list.
+9. **States.** List the states per [Seeing clearly](../self-improve/references/evidence-judgment.md) § "List the states…"; mark unreachable ones N/A.
 10. **Accessibility.** Labels, focus, contrast, text read once, touch targets at least 44 px on the web.
 11. **Leftovers.** No ghost windows, stray shadows, debug text, placeholder copy or console errors.
 12. **Consistency.** Matches the rest of the product; the product's existing design wins over apple-craft picks when they differ (see `match-the-project`). Anything new looks like it always existed.
@@ -77,7 +77,7 @@ This is the full version of the short checklist in `apple-design`; when both are
 ## Step 4: Gates (pass or fail)
 
 - **Not a reference copy.** For a new direction, put it next to every example and reference it used. Same wallpaper, same section order or the same signature moment with a new logo fails. Shared craft (spacing, type, native controls) is fine.
-- **Moving work.** Show five frames from start to end, plus a frame just after every clip ends. A frame that freezes, goes black or holds a finished clip's last frame fails.
+- **Moving work.** Show frames from start to end (enough that each phase — start, building, peak, resolving, end — has a still), plus a frame just after every clip ends. A frame that freezes, goes black or holds a finished clip's last frame fails.
 - **Mock-ups.** An unbuilt app is shown only from `mac-props/examples/mac-ui.css`, each part compared against `liquid-glass/reference/` with differences listed.
 - **Show before done.** Never call work finished until the person has seen it. Their judgement replaces yours.
 - A gate you couldn't check isn't a pass: say it's unchecked. A gate that doesn't apply is N/A.
@@ -89,7 +89,7 @@ Fix what's broken or off-brief, then capture again with the same steps. Finding 
 ## Step 6: Report
 
 Show the screenshots, one line per notable change, and say what could not be checked ("not tried on a real lock screen").
-End with one of: **ready for Owen to look at**, **visual review pending** (you couldn't see the images or playback), or **unresolved failure** (something is still broken). Ready isn't approved; only the person approves.
+End with one of the three verdicts in [Seeing clearly](../self-improve/references/evidence-judgment.md) § "How to end" (ready, visual review pending, unresolved failure).
 
 ## Last step: record what was rejected
 

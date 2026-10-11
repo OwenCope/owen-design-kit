@@ -11,7 +11,7 @@ Name the kind of task in one line before doing anything, then read only the skil
 | A site for anything else (developer tools, web apps, services, brands) | `how-claude-designs`, `design-directions`, `site-gallery`, `web-design`, `design-review` |
 | A Mac app screen | `how-claude-designs`, `macos-app-design`, `liquid-glass`, `design-patterns`, `design-review` |
 | An iPhone or iPad app screen | `how-claude-designs`, `ios-app-design` (its web mock-up section if it's a browser mock-up), `product-ui`, `mac-props` (devices/ for the real iPhone frame), `design-review` |
-| Improving something that exists | `improve-existing`, `match-the-project`, `design-review` |
+| Improving something that exists | `how-claude-designs`, `improve-existing`, `match-the-project`, `design-review` |
 | Someone else's project | `match-the-project`, `design-review` |
 | Words only | `product-writing` |
 | A release | `release-notes`, `ship-and-verify` |

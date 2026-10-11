@@ -15,7 +15,7 @@ try { ({ chromium } = createRequire(join(process.cwd(), 'package.json'))('playwr
 catch { console.error('Playwright not found here. Run: npm i -D playwright && npx playwright install chromium'); process.exit(1); }
 
 const [url, stepsArg] = process.argv.slice(2);
-if (!url || !stepsArg) { console.error('usage: node filmstrip.mjs <url> <steps> [options]  (see the top of this file)'); process.exit(1); }
+if (!url || !stepsArg || process.argv.includes('--help')) { console.error('usage: node filmstrip.mjs <url> <steps> [options]  (see the top of this file)'); process.exit(1); }
 const opt = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > -1 ? process.argv[i + 1] : d; };
 const speed = Number(opt('speed', '0.25'));
 const count = Number(opt('frames', '8'));
@@ -23,6 +23,7 @@ const every = Number(opt('every', '60'));
 const out = resolve(opt('out', 'film'));
 const [vw, vh] = opt('size', '1280x800').split('x').map(Number);
 const clip = opt('clip') ? (([x, y, width, height]) => ({ x, y, width, height }))(opt('clip').split(',').map(Number)) : null;
+if (!Number.isFinite(speed) || speed <= 0 || !Number.isFinite(count) || count < 1 || !Number.isFinite(vw) || !Number.isFinite(vh)) { console.error('usage: node filmstrip.mjs <url> <steps> [--speed >0] [--frames >=1] [--size WxH]'); process.exit(1); }
 mkdirSync(out, { recursive: true });
 
 // Slow every clock the page can read, before any script caches it. CSS and Web Animations are

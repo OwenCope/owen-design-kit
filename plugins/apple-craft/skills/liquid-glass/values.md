@@ -76,7 +76,8 @@ Radii are concentric: inner radius = outer radius minus the inset between them. 
 |---|---|---|
 | Window, sheet | any | 16 |
 | Large and medium glass panel, alert | any | 34 |
-| Popover, notification | 200 wide, 344 x 56 | 20 |
+| Popover | content-sized | 20 |
+| Notification | 344 x 56 | 20 |
 | Menu | any | Recommended: 16, highlighted item 10. Kit: 12, highlighted item 8 (not preferred) |
 | Dock | 1152 x 55 | Recommended: capsule (the outer frame). Kit fill layer: 15 (*estimated*, not preferred) |
 | Toolbar button, group, segmented control, search field | 36 (XL) high; 24 (medium) not preferred | capsule |
@@ -113,7 +114,7 @@ Sidebar background: background blur 80, then a Luminosity layer (#DAE6F2 at 92% 
 
 **Text and search fields.** Recommended: capsule fields with a leading symbol, 36 pt in a toolbar (glass) and 28 pt in content (not glass, bordered fill); 44 px on the web. Rectangular fields at radius 6 are not preferred. See the Search field in the toolbar pictures.
 
-**Pop-up and pull-down buttons.** Not in `reference/`; see the Buttons page of the Figma kit. Recommended: the large (28) or extra large (36) capsule with the chevron inside the pill, styled like a bordered push button. The mini, small and medium sizes at radius about 6 are not preferred.
+**Pop-up and pull-down buttons.** No picture yet — verify in Figma kit before building; see the Buttons page of the Figma kit. Recommended: the large (28) or extra large (36) capsule with the chevron inside the pill, styled like a bordered push button. The mini, small and medium sizes at radius about 6 are not preferred.
 
 **Prominent glass button.** In the small glass set: a 48 pt capsule with white backing at 94% and the accent laid over it, then the glass effect on top. It keeps the rim and refraction, so it reads as tinted glass rather than a flat blue pill. Use exactly one per view.
 

@@ -15,7 +15,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 
 const url = process.argv[2];
 const out = process.argv[3] ?? 'stress';
-if (!url) { console.error('usage: node stress.mjs <url> [out-dir]'); process.exit(1); }
+if (!url || process.argv.includes('--help')) { console.error('usage: node stress.mjs <url> [out-dir]'); process.exit(1); }
 mkdirSync(out, { recursive: true });
 
 const DESKTOP = { width: 1440, height: 900 };

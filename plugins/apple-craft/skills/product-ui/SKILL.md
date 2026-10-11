@@ -12,7 +12,7 @@ Landing pages are seen once. Product screens are used a thousand times. Taste he
 For each screen, answer these from the screenshot, not from memory:
 
 - What is the main action right now, and what leads the eye to it?
-- Which visible controls repeat another one? Keep one obvious way, and move the rest to secondary or contextual places (a menu, a shortcut, drag), never removing the accessible route.
+- Which visible controls repeat another one? Keep one obvious way, and move the rest to secondary or contextual places (a menu, a shortcut, drag) — but always keep a keyboard- and VoiceOver-reachable path to every demoted action.
 - After the action, what stays visible to show it worked and where the thing went?
 - Does every container group something real, or is it a box around one item?
 
@@ -25,9 +25,9 @@ A notch file shelf that showed a search field, an outlined drop zone, a "browse"
 - Density matches use: daily tools 32 to 40 px rows, occasional use 48 to 56 px. Offer a compact option only if both groups exist.
 - Row actions appear on hover and are also in a context menu and the keyboard; never hover only.
 - Sorting and filtering live above the list and show what's active. A filter that hides everything says so and offers "Clear filters".
-- 10, 1,000 and 0 rows are three designs. Test all three (`design-review/scripts/stress.mjs` does 0 and 200).
+- 10, 1,000 and 0 rows are three designs. Test all three.
 
-**Dashboards.** One question per dashboard. The answer to that question is the biggest thing; everything else supports it. No chart without a sentence saying what it shows. `dataviz` for the charts themselves.
+**Dashboards.** One question per dashboard. The answer to that question is the biggest thing; everything else supports it. No chart without a sentence saying what it shows.
 
 **Settings.** Group by what people are trying to do, not by how the code is organised. Most-changed first. Every setting says what it does in plain words, changes apply at once with no Save button unless the change is risky, and risky changes say what will happen before they happen. On Apple platforms, follow `macos-app-design`.
 
@@ -52,6 +52,8 @@ A flow is only as good as its worst state. For each one, write the states before
 **Empty first use.** The first time, the product is empty. That screen is the onboarding: one sentence on what goes here and one button to add the first thing, or a real example they can delete. Never a blank table with column headers.
 
 **Errors and recovery.** Say what happened, whether their work is safe, and what to do next, in that order. Offer retry. Don't blame the person. Loading longer than about a second shows progress; longer than ten seconds says what it's waiting for.
+
+**Offline.** Say what's cached and readable now, keep cached content fully readable, and offer one retry ("You're offline. Showing saved items. Try Again").
 
 **Destructive actions.** Prefer undo over "Are you sure?". When confirmation is needed, the button names the action ("Delete 3 files"), not "OK".
 

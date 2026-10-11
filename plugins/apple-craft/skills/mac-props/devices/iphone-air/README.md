@@ -1,6 +1,6 @@
 # iPhone Air mockup
 
-A photographic iPhone Air scene: two phones facing the camera at an angle and one showing the back, on a light grey background (6000x4500). Use it for hero pictures and launch posts of an iPhone app, where a flat frame (`../iphone.html`) feels too plain.
+A photographic iPhone Air scene: two phones facing the camera at an angle and one showing the back, on a light grey background (6000x4500). Use it for hero pictures and launch posts of an iPhone app, where a flat frame (`../iphone.html`) feels too plain. Run from this directory (`devices/iphone-air/`).
 
     python3 place.py screenshot.png out.jpg
     python3 place.py home.png detail.png out.jpg      # different screens on each phone

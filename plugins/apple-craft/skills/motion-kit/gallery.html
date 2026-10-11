@@ -75,7 +75,7 @@
   .card3d img { width: 34px; height: 34px; }
   .dl { position: relative; height: 52px; width: 236px; border: 0; border-radius: 26px; background: var(--accent); color: #fff; cursor: pointer;
         font: 600 17px -apple-system, sans-serif; display: grid; place-items: center; overflow: hidden; }
-  .dl > * { grid-area: 1 / 1; transition: opacity 340ms linear, filter 340ms var(--ease); }
+  .dl > * { grid-area: 1 / 1; transition: opacity 340ms var(--ease), filter 340ms var(--ease); }
   .dl .sym, .dl .ok { background: #fff; -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
   .dl .sym { width: 24px; height: 24px; --m: url(mac-assets/menubar/download.png); opacity: 0; filter: blur(14px); }
   .dl .prog, .dl .done { opacity: 0; filter: blur(14px); display: flex; align-items: center; gap: 10px; }

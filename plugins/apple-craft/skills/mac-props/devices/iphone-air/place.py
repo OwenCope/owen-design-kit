@@ -11,6 +11,9 @@ from PIL import Image, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 args = sys.argv[1:]
+if len(args) == 1 and args[0] in ("-h", "--help"):
+    print("usage: python3 place.py screenshot.png [second.png] out.jpg")
+    sys.exit(0)
 if len(args) not in (2, 3):
     sys.exit("usage: python3 place.py screenshot.png [second.png] out.jpg")
 shots = {"left": args[0], "right": args[1] if len(args) == 3 else args[0]}

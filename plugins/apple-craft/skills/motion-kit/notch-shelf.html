@@ -48,10 +48,8 @@
   .notch.dragging .peek, .notch.dragging .head, .notch.dragging .shelf { opacity: 0 !important; }
 
   /* Closed: up to three parked files peek inside the notch, beside the camera area. */
-  .peek { position: absolute; top: 7px; right: 12px; height: 18px; display: flex; flex-direction: row-reverse; }
+  .peek { position: absolute; top: 8px; right: 14px; height: 16px; display: flex; flex-direction: row-reverse; gap: 5px; align-items: center; transition: opacity .15s; }
   .notch[aria-expanded="true"] .peek { opacity: 0; }
-  .peek { transition: opacity .15s; }
-  .peek { gap: 5px; top: 8px; right: 14px; height: 16px; align-items: center; }
   .peek img { width: 16px; height: 16px; opacity: .9; }
   .notch.morphing .clip { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .peek b { font: 600 11px/18px -apple-system, sans-serif; color: rgba(255,255,255,.6); margin-left: 4px; order: -1; }

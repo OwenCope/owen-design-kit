@@ -22,8 +22,8 @@ Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` a
 
 ## Commands
 - Fast build: `GAZE_ARCHS=arm64 GAZE_BUILD_OUTPUT="$PWD/build/dmg-launch/Gaze.app" ./build.sh`. Universal for releases: drop `GAZE_ARCHS`. Needs ≥ 5 GB free.
-- Tests: `bash Tests/<Suite>/run.sh` (25 suites). Settings → SettingsInteraction, SettingsUX, SettingsSearch. Lock screen → ProductBoundary, LockScreenSecurity, UnlockFlow. Drawing/setup → Onboarding, Notch. Clean up `build/*-regression build/onboarding-checks.*`.
-- Review copy (never touch Owen's installed Gaze): `ditto` to `/tmp/gut/Gaze.app`, set version 0.1.0 with PlistBuddy, re-sign with `codesign --force --preserve-metadata=entitlements,requirements,flags,runtime -s "Apple Development: owen.o.cope@gmail.com (Y6LG3Q6HV4)"`, run with `--ui-review --settings --settings-pane=face|security|apps|notch|general|about|credits` or `--ui-review --setup --setup-step=how|capture|password|permission|done`.
+- Tests: `bash Tests/<Suite>/run.sh` (29 suites). Settings → SettingsInteraction, SettingsUX, SettingsSearch. Lock screen → ProductBoundary, LockScreenSecurity, UnlockFlow. Drawing/setup → Onboarding, Notch. Clean up `build/*-regression build/onboarding-checks.*`.
+- Review copy (never touch Owen's installed Gaze): `ditto` to `/tmp/gut/Gaze.app`, set version 0.1.0 with PlistBuddy, re-sign with `codesign --force --preserve-metadata=entitlements,requirements,flags,runtime -s "Apple Development: owen.o.cope@gmail.com (Y6LG3Q6HV4)"`, run with `--ui-review --settings --settings-pane=face|movements|security|attempts|apps|notch|general|about|credits` or `--ui-review --setup --setup-step=how|capture|password|permission|done`.
 - Lock-screen pictures: run the copy with `--shoot-lockscreen --shoot-movements`, full-screen screenshot, crop, kill it.
 
 ## Letting Owen try a build (read this, agents get it wrong)

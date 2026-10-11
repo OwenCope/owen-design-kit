@@ -10,7 +10,7 @@ Figma blur radii are about twice CSS `blur()` values (estimated), so frost 6 map
 
 ```css
 :root {
-  --accent: #0088ff;
+  --accent: #0071e3; /* web uses apple.com blue; #0088FF is native-kit only */
   --glass-fill: rgb(255 255 255 / 0.55);
   --glass-text: rgb(0 0 0 / 0.85);
   --glass-rim-strong: rgb(255 255 255 / 0.95);
@@ -18,7 +18,7 @@ Figma blur radii are about twice CSS `blur()` values (estimated), so frost 6 map
   --glass-hairline: rgb(0 0 0 / 0.10);
   --glass-highlight: rgb(255 255 255 / 0.60);
   --glass-shadow: 0 18px 48px rgb(0 0 0 / 0.25);
-  --glass-shadow-small: 0 8px 15px rgb(0 0 0 / 0.04);
+  --glass-shadow-small: 0 8px 15px rgb(0 0 0 / 0.02);
   --glass-solid: #f2f2f2;
   color-scheme: light dark;
 }
@@ -32,7 +32,7 @@ Figma blur radii are about twice CSS `blur()` values (estimated), so frost 6 map
     --glass-hairline: rgb(0 0 0 / 0.50);
     --glass-highlight: rgb(255 255 255 / 0.18);
     --glass-shadow: 0 18px 48px rgb(0 0 0 / 0.45);
-    --glass-shadow-small: 0 8px 15px rgb(0 0 0 / 0.08);
+    --glass-shadow-small: 0 8px 15px rgb(0 0 0 / 0.04);
     --glass-solid: #262626;
   }
 }
@@ -101,15 +101,15 @@ Figma blur radii are about twice CSS `blur()` values (estimated), so frost 6 map
     inset 0 1px 0 var(--glass-highlight),
     0 0 0 0.5px var(--glass-hairline),
     var(--glass-shadow-small);
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 .glass-button:hover  { background: color-mix(in srgb, var(--glass-fill), white 12%); }
-.glass-button:active { transform: scale(0.97); }
+.glass-button:active { background: color-mix(in srgb, var(--glass-fill), black 10%); }
 .glass-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Prominent: tinted glass, one per view. */
 .glass-button--prominent {
-  --glass-fill: color-mix(in srgb, var(--accent) 90%, transparent);
+  --glass-fill: color-mix(in srgb, var(--accent) 90%, white); /* approximates white-94% backing + accent Linear Burn; verify 4.5:1 */
   --glass-highlight: rgb(255 255 255 / 0.45);
   color: #fff;
 }
@@ -154,7 +154,6 @@ Figma blur radii are about twice CSS `blur()` values (estimated), so frost 6 map
 
 @media (prefers-reduced-motion: reduce) {
   .glass-button { transition: none; }
-  .glass-button:active { transform: none; }
 }
 ```
 

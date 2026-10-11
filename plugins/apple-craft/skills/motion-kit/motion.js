@@ -119,8 +119,9 @@
     }, 'bouncy'), () => { el.style.scale = ''; });
   }
 
-  // Press feedback for any control: shrinks while held, springs back on release.
+  // Press feedback for draggable objects and app-like tiles only — never page buttons (they must not move or shrink).
   function pressable(el, amount = 0.96) {
+    if (el.closest('button, a, [role="button"]')) return;
     const go = (to) => claim(el, 'press', spring({ s: parseFloat(el.style.scale) || 1 }, { s: to }, ({ s }) => {
       el.style.scale = String(s);
     }, 'snappy'));

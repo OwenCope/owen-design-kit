@@ -9,4 +9,4 @@ product with `signature-moments`, never copy this page's look as one.
 
 ## Copy the craft, not the page
 
-Copy how the parts are built: the button, the FAQ, the real-size Mac screen, the spacing, the motion. Never copy the page itself. A page that comes out as Harbor with new words fails review. Before showing, list five things your page does differently from this one: its layout order, the hero picture, the wallpaper and colours, the feature visuals, and its own signature moment.
+Copy how the parts are built: the button, the FAQ, the real-size Mac screen, the spacing, the motion. Never copy the page itself. A page that comes out as Harbor with new words fails review. Before showing, name what your page does differently from this one (layout order, hero picture, colours, feature visuals, signature moment); if you can't, it fails review.

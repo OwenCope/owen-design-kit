@@ -26,22 +26,23 @@ Writing the decisions first is the step that separates designed work from placed
 
 1. **The one thing:** what a visitor must remember, as one sentence starting with the product's verb.
 2. **The proof:** the single real moment of the product that shows it, not a feature list.
-3. **The hero frame:** describe exactly what is on screen in the first second at 1440 x 900 - what, where, how big; the product must be the largest readable thing.
+3. **The hero frame:** describe exactly what is on screen in the first second at 1440 x 900 - what, where, how big; the product visual must be the largest readable element on screen (larger than any headline type).
 4. **What moves:** the one motion that shows the one thing, what the visitor does to cause it, and how it ends on the real product.
 5. **Concepts:** write concepts only when a real design question is open; when you do, they must differ in structure or interaction, not colour or decoration. One sentence each, at least one ambitious; for each say what makes it only this product's.
 6. **The pick and why:** the choice in one sentence, and which concept is the default you are rejecting.
-7. **What is cut:** list at least three things a generic page would include that this page will not.
-8. **Voice:** three example lines of copy in the product's own voice.
-9. **Done means:** three checks the finished page must pass, written so a screenshot can prove them (e.g. 'the notch and the dragged file are visible above the fold at 1440 x 900').
+7. **What is cut:** list what a generic page would include that this page will not (at least one; stop when the list is honest).
+8. **Voice:** one to three example lines of copy in the product's own voice.
+9. **Done means:** two to four checks the finished page must pass, written so a screenshot can prove them (e.g. 'the notch and the dragged file are visible above the fold at 1440 x 900').
 
 ## Rules for the brief
 
 Write it in the reply or in BRIEF.md before code.
-No item may be blank or 'n/a' on a product page.
+Read DESIGN-NOTES.md and the project's `project-<name>` skill first; record the decision they point to.
+On a product page, every item needs an answer except Concepts (item 5), which is N/A when no real design question is open. Nothing else may be blank or 'n/a'.
 If an item can't be answered, ask the person or stop.
 The brief is shown to the person with the first screenshot.
 After building, check the work against item 9 and say pass or fail for each.
-After the first build, run self-improve; if a structural problem survives two rounds, come back here and pick a different concept.
+After the first build, run self-improve; if fixes keep failing on a structural problem, find its cause first; change the concept only if the idea itself can't work.
 
 ## Examples
 

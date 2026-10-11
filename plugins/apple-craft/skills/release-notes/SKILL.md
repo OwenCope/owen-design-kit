@@ -60,7 +60,7 @@ Write the notes once and reuse them: the release page, the website's release lis
 - Header, picture, What's new, Thanks, Install: all present, in that order?
 - Is the picture new, real, clean and about the main change? Does it show in full in the in-app card?
 - Is every bullet short and about what the person gets?
-- Are version numbers right everywhere: title, links, file names?
+- Are version numbers right everywhere: title, links, file names? The git tag is truth; title, links and filenames match it.
 
 ## A release with no visual change
 

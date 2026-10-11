@@ -13,7 +13,7 @@ Start from the system. Change something only when the app has a real reason.
 
 - **Tab bar** for the three to five places people switch between all day. It floats as a Liquid Glass capsule at the bottom; content scrolls under it, but the last row must be able to scroll fully clear of it (pad the bottom of the scroll view by the bar's height plus the home indicator). A section cut off behind the tab bar at the end of the list looks broken. Never more than five tabs; a sixth thing goes inside one of them.
 - **Navigation stack** inside each tab: lists push into details, and swipe from the left edge goes back. Never break that gesture.
-- **Sheets** for a short task that comes back to where you were: compose, filter, edit one thing. Medium-height sheets can sit over the content so people keep context. A sheet with its own tab bar or deep navigation should have been a screen.
+- **Sheets** for a short task that comes back to where you were: compose, filter, edit one thing. Sheets default to the .medium detent when people need surrounding context, .large for real work. A sheet with its own tab bar or deep navigation should have been a screen.
 - **Full-screen covers** only for immersive things: camera, a player, onboarding.
 - **iPad:** a sidebar instead of the tab bar when there's room, and real use of the width (two or three columns). An iPad app that is a stretched iPhone app fails review with people, if not with Apple.
 
@@ -22,7 +22,15 @@ Start from the system. Change something only when the app has a real reason.
 - Bars and controls float as glass over the content; the content is the background. Don't put glass on content (cards, rows).
 - Large title at the top of the first screen in each tab, collapsing to a small centred title as you scroll.
 - Toolbar actions are SF Symbols in glass capsules, grouped when they belong together. Text buttons only for words a symbol can't say ("Done", "Edit").
-- One primary action per screen. On iOS that's often the trailing toolbar button or a single prominent button at the bottom, never both.
+- One primary action per screen. On iOS that's often the trailing toolbar button or a single prominent button at the bottom — pick one per screen; if both appear, one is the real action and the other should move.
+- **Prominent button:** one per screen, bottom within thumb reach:
+
+    Button("Continue") {}
+        .buttonStyle(.glassProminent) // already capsule-shaped; no buttonBorderShape needed
+        .tint(.blue)
+        .controlSize(.large)
+
+  Press feedback per `design-patterns`: a brief tint or opacity change of the fill, never movement or scale.
 
 ## Lists and content
 
@@ -33,7 +41,7 @@ Start from the system. Change something only when the app has a real reason.
 
 ## Text
 
-Use the system text styles, which scale with Dynamic Type. Default sizes: Large Title 34, Title 1 28, Title 2 22, Title 3 20, Headline 17 semibold, Body 17, Callout 16, Subheadline 15, Footnote 13, Caption 1 12, Caption 2 11. Never fix a font size in points; test the largest accessibility size and make sure nothing truncates that matters.
+Use the system text styles, which scale with Dynamic Type. Default sizes: Large Title 34, Title 1 28, Title 2 22, Title 3 20, Headline 17 semibold, Body 17, Callout 16, Subheadline 15, Footnote 13, Caption 1 12, Caption 2 11. Never fix a font size in points; test the largest accessibility size and make sure nothing truncates that matters. (Canonical Dynamic Type rule lives in `macos-app-design` Accessibility: text styles, rows grow, never clip.)
 
 Colours are the semantic system colours (label, secondary label, system background, grouped background, separator, the accent), so light, dark and increased contrast all work for free.
 
@@ -60,7 +68,7 @@ With the Figma connector set up (`figma-mockups`), these components in the "iOS 
 - Tab Bar - iPhone, Tab Bar - iPad, Toolbar - Top - iPad
 - Row, Row - Button, Row with Swipe Actions, Header, Section Title, Grouped Table Footer, Sidebar Row
 - Sheet - iPhone, Sheet - iPad, Action Sheet, Grabber
-- Status bar - iPhone 17 Pro, Status bar and Menu bar - iPad
+- Status bar - iPhone 18 Pro, Status bar and Menu bar - iPad
 - Progress Bar - Determinate Linear, the circular spinner
 - Text styles "Large Title/Regular", "Title1/Regular" and so on, and colour variables under Labels/ (Primary, Secondary, Tertiary, Quaternary)
 - Examples/List, Examples/Tab Bars, Examples/Sheets (Modals) show whole screens
@@ -74,7 +82,7 @@ When the brief is a browser mock-up rather than SwiftUI:
 - The phone is the page: centre one device at real size (393x852 pt for iPhone 18 Pro), on a calm background. No marketing headline unless asked.
 - Use the real frame from `mac-props/devices/iphone.html`, not a drawn rounded rectangle.
 - Status bar 9:41, the Dynamic Island clear of content, the home indicator at the bottom.
-- Text in SF Pro at the iOS sizes above, colours from the system palette (label #000/#FFF, secondary label 60 % opacity, grouped background #F2F2F7 / #000).
+- Text in SF Pro at the iOS sizes above, colours from the system palette (label #000/#FFF, secondary label light rgba(60,60,67,0.6) / dark rgba(235,235,245,0.6), grouped background #F2F2F7 / #000000).
 - Scroll inside the screen, not the page, with the tab bar fixed over it and the last row clearing it.
 - Check it at 390 px wide too: the mock-up itself must fit a phone.
 

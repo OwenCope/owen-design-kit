@@ -12,6 +12,7 @@
 # the user's installed app settings.
 set -euo pipefail
 
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then echo "usage: capture-app.sh <AppName> [out-dir]"; exit 0; fi
 APP="${1:?usage: capture-app.sh <AppName> [out-dir]}"
 OUT="${2:-./review-app}"
 mkdir -p "$OUT"
@@ -59,6 +60,7 @@ end run' -- "$APP" >/dev/null
   sleep 0.5
   local wid
   wid="$(win_id)"
+  [[ "$wid" =~ ^[0-9]+$ ]] || { echo "no on-screen window for $APP"; exit 1; }
   screencapture -l "$wid" "$dest"
   echo "wrote $dest"
 }

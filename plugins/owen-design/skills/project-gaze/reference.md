@@ -31,7 +31,7 @@ Discord posts itself (`.github/workflows/discord-release.yml`):
 ## 7. Building and testing
 
 - Fast build for the Apple silicon (arm64) side only: `GAZE_ARCHS=arm64 GAZE_BUILD_OUTPUT="$PWD/build/dmg-launch/Gaze.app" ./build.sh`.
-- Tests: `bash Tests/<Name>/run.sh`, with 24 suites in `Tests/`. Clean up with `rm -rf build/*-regression build/onboarding-checks.*`. Which suites to run:
+- Tests: `bash Tests/<Name>/run.sh`, with 29 suites in `Tests/`. Clean up with `rm -rf build/*-regression build/onboarding-checks.*`. Which suites to run:
   - Settings changes: SettingsInteraction, SettingsUX, SettingsSearch. SettingsInteraction regenerates a fixture from `SettingsView.swift`; new members may need stubs in `Tests/SettingsInteraction/ServiceStubs.swift` or `generate.py`.
   - Lock-screen changes: ProductBoundary, LockScreenSecurity, UnlockFlow.
   - The face drawing and setup: Onboarding, Notch.
@@ -39,7 +39,7 @@ Discord posts itself (`.github/workflows/discord-release.yml`):
   - `ditto build/dmg-launch/Gaze.app /tmp/gut/Gaze.app`.
   - Set its version to 0.1.0 with PlistBuddy, so an update shows.
   - Re-sign: `codesign --force --preserve-metadata=entitlements,requirements,flags,runtime -s "Apple Development: owen.o.cope@gmail.com (Y6LG3Q6HV4)" /tmp/gut/Gaze.app`.
-  - Run `/tmp/gut/Gaze.app/Contents/MacOS/Gaze --ui-review --settings --settings-pane=general|face|notch|about|credits`, or `--ui-review --setup --setup-step=how|capture|password|permission|done`.
+  - Run `/tmp/gut/Gaze.app/Contents/MacOS/Gaze --ui-review --settings --settings-pane=face|movements|security|attempts|apps|notch|general|about|credits`, or `--ui-review --setup --setup-step=how|capture|password|permission|done`.
 - **Lock-screen pictures:** macOS blocks screenshots of the real lock screen. Run the review copy with `--shoot-lockscreen --shoot-movements` for a few seconds, take a full-screen screenshot, crop it, then kill the process. It covers the screen while running.
 - Screenshots come from the `maccontrol` MCP `screenshot` tool (pass `app` = pid, `window_title`, `raise: true`). Crop with a short Swift/AppKit script; `sips --cropOffset` is unreliable.
 
@@ -56,9 +56,9 @@ Discord posts itself (`.github/workflows/discord-release.yml`):
 
 ---
 
-## 9. What's next (Owen approved these four for 0.1.8)
+## 9. Shipped in 0.1.8 (kept for design rationale)
 
-Nothing of this has been written yet. The design below has been decided; build it this way.
+Shipped in 0.1.8. The design below is kept for rationale; don't rebuild it.
 
 1. **Faster unlocks.** In `LockWatcher.swift`, when the movement challenge is on (`unlockMovementCount` > 0), lower `requiredMatchDuration` from 2.0 s to about 1.2 s; keep 2.0 s when it's off. Optionally lower `wakeSettle` to about 450 ms now that the camera restarts itself.
 2. **Learns your face over time.**
@@ -200,8 +200,6 @@ Ahmed tested Gaze and Glance side by side. Credit "Ahmed" in the release notes f
   - Footer: "Photos stay on this Mac and delete themselves after 30 days."
 
 **Decided against:** a separate "Minimal" or calmer animation style (Owen, 2026-09-28, confirmed twice). Keep Gaze's face and its animations.
-
-When 0.1.8 is done, ship it with notes and a new real picture (sections 5 and 6).
 
 ---
 
