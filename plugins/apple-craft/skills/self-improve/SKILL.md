@@ -1,19 +1,19 @@
 ---
 name: self-improve
-description: a self-reflection loop that lets any agent, including smaller models, raise the quality of its own design work: capture specific screenshots and interaction states, measure, critique like a demanding Apple designer with evidence, rank the five most damaging problems with concrete fixes, apply them, and repeat; use after every first build of a page, screen, picture or video and before showing it, and whenever work feels generic or unfinished.
+description: a self-reflection loop that lets any agent, including smaller models, raise the quality of its own design work: capture specific screenshots and interaction states, measure, critique like a demanding Apple designer with evidence, rank the most damaging problems with concrete fixes, apply them, and repeat; use after every first build of a page, screen, picture or video and before showing it, and whenever work feels generic or unfinished.
 ---
 
 # Self-improve
 
 Run this after every first build, before showing anything.
-Two rounds minimum. No first build is shown without them.
+No first build is shown without it.
 
 ## Why this works
 
-- In a real experiment on one product page with a smaller model, a strong design brief lifted the result most: about +2.5 out of 10.
-- This loop added +1 to +2 for every starting point, and caught real bugs: a drag that silently failed at the edge, the product clipped by its frame, a seam between two shapes, 600 px of dead space, text unreadable on a loud wallpaper.
+- In a real experiment on one product page with a smaller model, a strong design brief lifted the result most.
+- This loop improved every starting point, and caught real bugs: a drag that silently failed at the edge, the product clipped by its frame, a seam between two shapes, 600 px of dead space, text unreadable on a loud wallpaper.
 - A loop on a page with no idea only polishes it. The fix has to be structural: what the first screen is, what is cut, what is biggest.
-- Agents still over-score themselves by about one point. The score is never the goal. The five fixes are.
+- Ratings of your own work run high and prove nothing. The fixes are the goal.
 
 ## Step 1: Capture what a person would see
 
@@ -36,7 +36,7 @@ Two rounds minimum. No first build is shown without them.
 
 ## Step 3: Reflect with evidence
 
-- Write REFLECT-N.md. Answer each question with evidence from the captures, never from memory of the code.
+- Write REFLECT-N.md. Check each question with evidence from the captures, never from memory of the code.
 - Is the one thing obvious within two seconds?
 - Is the product the largest readable thing?
 - Is any text hard to read because of what sits behind it?
@@ -47,26 +47,40 @@ Two rounds minimum. No first build is shown without them.
 - Does it hold on a phone?
 - Could this page be for another app? Cover the product name and check.
 - Compare with the generic-version lists in design-brief/examples.md and list every match.
+- Then write one record per finding:
+  - Intended behaviour or message.
+  - Evidence inspected.
+  - Observation, with a measurement or timestamp.
+  - Why the observation matters.
+  - One proposed correction.
+  - Matched before and after result.
+  - Remaining uncertainty.
+- Separate observations from hypotheses. Escape leaving a panel focusable is an observation; a stale callback causing it is a hypothesis.
+- Functional failures come first.
+- Subjective changes need normal-speed playback and a specific reason.
+- Zero corrections is a valid result.
+- Keep a correction only if it improves the targeted issue without breaking something else.
 
-## Step 4: Rank five problems and fix them
+## Step 4: Rank the problems and fix them
 
-- Rank the five most damaging problems, each with a concrete fix: exact px, colours, positions, timing, copy.
-- When the page matches the generic version, at least two of the five must be structural: what the first screen is, what is cut, what is bigger.
+- Rank the most damaging problems, each with a concrete fix: exact px, colours, positions, timing, copy.
+- When the page matches the generic version, the fixes must be structural: what the first screen is, what is cut, what is bigger.
 - No nitpicks while big problems remain.
 - Never fix by adding filler: no cards, chips, hint pills, step lists, extra sections.
-- Apply all five before the next round.
+- Apply them all before the next round.
 
 ## Step 5: Repeat
 
-- Do at least two rounds: r1 and r2 folders, REFLECT-1 and REFLECT-2.
-- Each round must find five new problems. The same five twice means you did not look.
+- Work in rounds with r1 and r2 folders and REFLECT-1 and REFLECT-2 files.
+- Each round must find new problems. The same findings twice means you did not look.
 - Stop after round 3, or when only nitpicks remain.
 - If the same structural problem survives two rounds, the idea is the problem. Go back to design-brief and choose a different concept.
 
 ## Report
 
-- Per round: the five problems, what changed, what was tested, lint and accessibility results, whether images were viewed.
-- End with a score out of 10, with the reminder that it is probably one point too high.
+- Per round: the problems, what changed, what was tested, lint and accessibility results, whether images were viewed.
+- End with one of 'ready for Owen to look at', 'visual review pending', or 'unresolved failure'.
+- Measurements alone cannot approve motion feel.
 
 ## Example
 

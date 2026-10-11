@@ -8,6 +8,7 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 
 | Skill | Use it for |
 |---|---|
+| `how-claude-designs` | How the best design sessions think: the moment first, real before invented, compare against the real thing, find the cause, read feedback precisely. Load first. |
 | `apple-design` | The core method, the pre-show checklist, what always gets rejected, and real rejected-to-fixed examples |
 | `design-review` | A strict review before showing anything, with real approved and rejected pictures |
 | `design-patterns` | Copy-ready SwiftUI and CSS for proven components: the glass button with a hover morph, progress swap, settings rows, update card, download button, type scale |
@@ -60,6 +61,8 @@ Copy, because symlinks may not be followed. Quit OpenCode fully (Cmd+Q) and reop
 Copy the same folders into that tool's skills folder if it supports SKILL.md skills, or point the agent at plugins/apple-craft/skills/*/SKILL.md and ask it to read apple-design first.
 
 Check it works: ask the agent "load the apple-design skill and tell me its first rule"; if it says the skill is not found, it was not installed or the app was not restarted.
+
+The design-review capture scripts need Playwright and axe-core in the project: `npm i -D playwright axe-core` (then `npx playwright install chromium`).
 
 ## Make it yours
 

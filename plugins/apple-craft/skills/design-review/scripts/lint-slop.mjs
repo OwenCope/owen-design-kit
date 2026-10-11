@@ -36,6 +36,8 @@ const report = (name, offenders) => {
 };
 
 const browser = await chromium.launch();
+let failed = 0;
+try {
 const page = await browser.newPage({ viewport: { width, height: 900 } });
 await page.goto(target, { waitUntil: 'networkidle' });
 const pageHeight = await page.evaluate(() => document.body.scrollHeight);
@@ -270,23 +272,26 @@ report('real Mac assets', await page.evaluate(() => {
   return out;
 }));
 
-await browser.close();
-
-// i. horizontal overflow at 390 px wide
+// i. horizontal overflow at 390 px wide (reuses the same browser)
 {
-  const phoneBrowser = await chromium.launch();
-  const phone = await phoneBrowser.newPage({ viewport: { width: 390, height: 844 } });
-  await phone.goto(target, { waitUntil: 'networkidle' });
-  const scrollWidth = await phone.evaluate(() => document.documentElement.scrollWidth);
-  report('horizontal overflow at 390px', scrollWidth > 390 ? [`scrollWidth ${scrollWidth}px exceeds 390`] : []);
-  await phoneBrowser.close();
+  const phone = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  try {
+    await phone.goto(target, { waitUntil: 'networkidle' });
+    const scrollWidth = await phone.evaluate(() => document.documentElement.scrollWidth);
+    report('horizontal overflow at 390px', scrollWidth > 390 ? [`scrollWidth ${scrollWidth}px exceeds 390`] : []);
+  } finally {
+    await phone.close().catch(() => {});
+  }
 }
 
-let failed = 0;
+failed = 0;
 for (const r of results) {
   console.log(`${r.pass ? 'PASS' : 'FAIL'} ${r.name}`);
   for (const item of r.list) console.log(`  - ${item}`);
   if (!r.pass) failed++;
 }
 console.log(failed ? `\n${failed} check(s) failed.` : '\nAll checks passed.');
+} finally {
+  await browser.close().catch(() => {});
+}
 process.exit(failed ? 1 : 0);

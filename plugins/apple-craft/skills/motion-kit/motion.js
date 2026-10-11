@@ -54,9 +54,23 @@
   }
 
   // Keep one running animation per element and key, so a new move takes over smoothly from the current one.
+  // Stores the original spring handle (with stop) and returns a promise to callers; a superseded
+  // animation's cleanup only runs if it is still the current owner for that key.
   const running = new WeakMap();
-  function claim(el, key, anim) {
-    const map = running.get(el) || {}; map[key]?.stop?.(); map[key] = anim; running.set(el, map); return anim;
+  function claim(el, key, handle, done) {
+    // Always keep the underlying spring (never a wrapper), so stop() can't call itself in a loop.
+    const root = handle && handle.__root ? handle.__root : handle;
+    const rootStop = root && (root.__stop || root.stop);
+    if (root && !root.__stop) root.__stop = rootStop;
+    const map = running.get(el) || {};
+    const prev = map[key]; if (prev && prev !== root) (prev.__stop || prev.stop)?.();
+    map[key] = root; running.set(el, map);
+    // A new promise (Promise.resolve would return the same object and overwrite its stop).
+    let p = Promise.resolve(handle).then((v) => v);
+    if (done) p = p.then(() => { if ((running.get(el) || {})[key] === root) done(); });
+    p.__root = root;
+    p.stop = () => rootStop?.call(root);
+    return p;
   }
 
   // Morph one element's box (width, height, corner radius) with a spring.
@@ -71,7 +85,7 @@
     return claim(el, 'morph', spring(from, target, ({ w, h, r }) => {
       el.style.width = w.toFixed(2) + 'px'; el.style.height = h.toFixed(2) + 'px';
       el.style.borderBottomLeftRadius = el.style.borderBottomRightRadius = Math.max(0, r).toFixed(2) + 'px';
-    }, preset).then(() => { el.classList.remove('morphing'); el.style.willChange = ''; }));
+    }, preset), () => { el.classList.remove('morphing'); el.style.willChange = ''; });
   }
 
   // Fly a copy of `source` into `target` along a curved path. It tilts into the turn, shrinks,
@@ -102,7 +116,7 @@
   function catchBump(el, amount = 0.06) {
     return claim(el, 'bump', spring({ s: 1 + amount }, { s: 1 }, ({ s }) => {
       el.style.scale = `${2 - s} ${s}`;
-    }, 'bouncy').then(() => { el.style.scale = ''; }));
+    }, 'bouncy'), () => { el.style.scale = ''; });
   }
 
   // Press feedback for any control: shrinks while held, springs back on release.
@@ -155,11 +169,14 @@
       pos = { x: px, y: py }; paint(1.08);
       if (t !== over) { over?.onLeave?.(); over = t; over?.onEnter?.(); }
     };
+    const off = () => {
+      removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end);
+    };
     const end = (e) => {
       if (!start) return;
-      if (!began) { start = null; removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end); return; }
+      if (!began) { start = null; off(); return; }
       began = false;
-      removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end);
+      off();
       el.style.filter = '';
       // A flick: project where the throw would land and treat that as the drop point.
       const fling = throwable && Math.hypot(vel.x, vel.y) > 900;
@@ -183,7 +200,7 @@
     };
     el.style.touchAction = 'none'; el.style.cursor = 'grab';
     el.addEventListener('pointerdown', down);
-    return () => el.removeEventListener('pointerdown', down);
+    return () => { off(); el.removeEventListener('pointerdown', down); start = null; began = false; };
   }
 
   // Bring a list of children in one after another (rise, fade, un-blur), or out in reverse.
@@ -202,15 +219,18 @@
   // One-time entrance for sections: headline and visual rise together when first seen.
   function reveal(selector = '[data-reveal]') {
     const els = document.querySelectorAll(selector);
-    if (reduced()) return;
+    if (reduced()) return () => {};
     els.forEach((el) => { el.style.opacity = 0; el.style.transform = 'translateY(28px)'; });
+    let left = els.length;
     const io = new IntersectionObserver((entries) => entries.forEach((e) => {
       if (!e.isIntersecting) return; io.unobserve(e.target);
+      if (--left <= 0) io.disconnect();
       spring({ o: 0, y: 28 }, { o: 1, y: 0 }, ({ o, y }) => {
         e.target.style.opacity = clamp(o); e.target.style.transform = `translateY(${y}px)`;
       }, 'gentle');
     }), { threshold: 0.2 });
     els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
   }
 
   // A pinned scroll scene: calls onProgress(p) with 0..1 while the section scrolls past a sticky stage.
@@ -241,7 +261,7 @@
       const k = clamp(t, 0, 1.08);
       el.style.transform = `translate(${dx * (1 - k)}px, ${dy * (1 - k)}px) scale(${lerp(sx, 1, k)}, ${lerp(sy, 1, k)})`;
       el.style.borderRadius = lerp(radiusFrom, radiusTo, clamp(t)) + 'px';
-    }, preset).then(() => { el.style.transform = ''; }));
+    }, preset), () => { el.style.transform = ''; });
   }
   // The reverse: shrink `el` back into `to`'s place. Resolves when it has landed, then hide `el` yourself.
   function collapse(el, to, { radiusFrom = 28, radiusTo = 16, preset = 'snappy' } = {}) {
@@ -252,7 +272,7 @@
       const k = clamp(t);
       el.style.transform = `translate(${dx * k}px, ${dy * k}px) scale(${lerp(1, sx, k)}, ${lerp(1, sy, k)})`;
       el.style.borderRadius = lerp(radiusFrom, radiusTo, k) + 'px';
-    }, preset).then(() => { el.style.transform = ''; }));
+    }, preset), () => { el.style.transform = ''; });
   }
 
   // A sliding selection pill (segmented controls, tabs): moves and resizes to sit behind `target`.
@@ -285,6 +305,11 @@
 
   // Toast or banner: drops in from the top edge with a little overshoot, leaves upward.
   function toast(el, { ms = 2200 } = {}) {
+    if (reduced()) {
+      // No movement, but the message must still be readable: show it in place, wait, then hide it.
+      el.style.display = ''; el.style.transition = ''; el.style.transform = 'none'; el.style.opacity = 1;
+      return new Promise((r) => setTimeout(() => { el.style.opacity = 0; r(); }, ms));
+    }
     el.style.display = '';
     return spring({ y: -80, o: 0 }, { y: 0, o: 1 }, ({ y, o }) => {
       el.style.transform = `translateY(${y}px)`; el.style.opacity = clamp(o);
@@ -310,7 +335,7 @@
   // Blur crossfade: swap an element's content in place. Old content blurs out (~100 ms), new blurs in (~200 ms).
   // The element never moves; only what's inside changes. Pass a function that writes the new content.
   async function blurSwap(el, write, { out = 100, inn = 200 } = {}) {
-    if (reduced()) { write(); return; }
+    if (reduced()) { write(); el.style.transition = ''; el.style.opacity = 1; el.style.filter = ''; return; }
     el.style.transition = `opacity ${out}ms ease, filter ${out}ms ease`;
     el.style.opacity = 0; el.style.filter = 'blur(8px)';
     await new Promise((r) => setTimeout(r, out));
@@ -352,6 +377,7 @@
     }, 'gentle'), reduced() ? 0 : i * gap));
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.disconnect(); run(); } }), { threshold: 0.4 });
     io.observe(el);
+    return () => io.disconnect();
   }
 
   // Notification stack: cards pile up with depth (each one lower, smaller, dimmer, a touch blurred);

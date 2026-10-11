@@ -17,7 +17,16 @@ OUT="${2:-./review-app}"
 mkdir -p "$OUT"
 
 ORIG="$(defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light)"
+ORIG_SIZE="$(osascript -e 'on run argv
+tell application "System Events" to tell process (item 1 of argv) to get size of front window
+end run' -- "$APP" 2>/dev/null || echo "")"
 restore() {
+  if [[ -n "${ORIG_SIZE:-}" ]]; then
+    set -- ${ORIG_SIZE//,/}
+    osascript -e 'on run argv
+tell application "System Events" to tell process (item 1 of argv) to set size of front window to {(item 2 of argv) as integer, (item 3 of argv) as integer}
+end run' -- "$APP" "$1" "$2" >/dev/null 2>&1 || true
+  fi
   if [[ "$ORIG" == "Dark" ]]; then
     osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' >/dev/null
   else
@@ -36,12 +45,17 @@ set_mode() { # light|dark
 }
 
 win_id() {
-  swift -e "import CoreGraphics; let infos = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String:Any]] ?? []; for i in infos { if (i[kCGWindowOwnerName as String] as? String) == \"$APP\" { print(i[kCGWindowNumber as String]!); break } }"
+  swift -e 'import CoreGraphics
+let name = CommandLine.arguments.last
+let infos = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String:Any]] ?? []
+for i in infos { if (i[kCGWindowOwnerName as String] as? String) == name { print(i[kCGWindowNumber as String]!); break } }' -- "$APP"
 }
 
 grab() { # <dest> : bring app front, capture frontmost window only
   local dest="$1"
-  osascript -e "tell application \"$APP\" to activate" >/dev/null
+  osascript -e 'on run argv
+tell application (item 1 of argv) to activate
+end run' -- "$APP" >/dev/null
   sleep 0.5
   local wid
   wid="$(win_id)"
@@ -56,7 +70,11 @@ set_mode dark
 grab "$OUT/dark.png"
 
 set_mode light
-osascript -e "tell application \"System Events\" to tell process \"$APP\" to set size of front window to {640, (item 2 of (size of front window))}" >/dev/null
+osascript -e 'on run argv
+tell application "System Events" to tell process (item 1 of argv) to set size of front window to {(item 2 of argv) as integer, (item 3 of argv) as integer}
+end run' -- "$APP" 640 "$(osascript -e 'on run argv
+tell application "System Events" to tell process (item 1 of argv) to get item 2 of (size of front window)
+end run' -- "$APP")" >/dev/null
 grab "$OUT/narrow-light.png"
 
 echo "Reduce Motion cannot be toggled reliably from a script on recent macOS."

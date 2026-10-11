@@ -307,7 +307,7 @@ One card with class modifiers for loading, empty, error, disabled and success, s
 Rules: loading is a skeleton with a soft shimmer, never a spinner for content. Empty is one line icon, one title, one supporting line, one button. Error says what happened in plain words with one Try Again button, no error codes up front. Disabled is 50 percent opacity plus cursor not-allowed plus aria-disabled, never hidden. Success draws the checkmark in, then shows the result.
 
 ### Form (labels above, capsule fields)
-A short form with the label above each field, helper text below, inline errors on blur, and a submit that turns into progress.
+A short form with the label above each field, helper text below, validation on submit as well as on blur, and a submit that turns into progress.
 
     <form class="form" novalidate>
       <div class="field">
@@ -333,21 +333,32 @@ A short form with the label above each field, helper text below, inline errors o
 
     const form = document.querySelector('.form');
     const input = form.querySelector('input');
-    input.addEventListener('blur', () => {
+    const err = form.querySelector('.err');
+    function validate() {
       const bad = !input.checkValidity() || !input.value;
       input.setAttribute('aria-invalid', bad);
-      form.querySelector('.err').hidden = !bad;
-    });
+      err.hidden = !bad;
+      return !bad;
+    }
+    input.addEventListener('blur', validate);
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = form.querySelector('button[type="submit"]');
       if (btn.getAttribute('aria-busy') === 'true') return;
+      if (!validate()) { input.focus(); return; }
       btn.setAttribute('aria-busy', 'true');
       const label = btn.textContent; btn.textContent = 'Saving…';
-      save().finally(() => { btn.removeAttribute('aria-busy'); btn.textContent = label; });
+      save().then(() => {
+        btn.removeAttribute('aria-busy'); btn.textContent = label;
+      }, () => {
+        btn.removeAttribute('aria-busy'); btn.textContent = label;
+        err.textContent = 'Could not save. Try again.';
+        err.hidden = false;
+        btn.focus();
+      });
     });
 
-Rules: label above each field, 44 px capsule inputs at 16 px so iOS never zooms, helper below, inline error under the field on blur not on every keystroke with aria-describedby. Submit turns into a progress state and ignores a second press.
+Rules: label above each field, 44 px capsule inputs at 16 px so iOS never zooms, helper below, inline error under the field on blur and on submit with aria-describedby. Validate on submit, focus the first invalid field, prevent duplicate submits, and show a failure message.
 
 ### Table (dashboards)
 A dense table with a sticky header, right-aligned numbers, hairline dividers and a scroll wrapper on phones.
@@ -401,11 +412,15 @@ Sticky bar that starts transparent and turns to glass after scrolling, with 3 to
     const nav = document.getElementById('nav');
     addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
     const btn = nav.querySelector('.menu-btn'), menu = nav.querySelector('.menu');
+    const navReduce = matchMedia('(prefers-reduced-motion: reduce)');
     btn.addEventListener('click', () => {
       const open = menu.classList.toggle('open');
       menu.hidden = false;
       btn.setAttribute('aria-expanded', open);
-      if (!open) menu.addEventListener('transitionend', () => menu.hidden = true, { once: true });
+      if (navReduce.matches) { menu.hidden = !open; return; }
+      if (!open) menu.addEventListener('transitionend', () => {
+        if (!menu.classList.contains('open')) menu.hidden = true;
+      }, { once: true });
     });
 
 Rules: sticky, transparent at the top and glass (backdrop-filter blur with a solid fallback) after scrolling, product name left, 3 to 5 links, one action right. The phone menu opens and closes with the same animation.

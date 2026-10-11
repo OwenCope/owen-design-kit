@@ -13,13 +13,22 @@ Pages fail from missing decisions, not missing rules.
 A model that skips deciding fills a template.
 Writing the decisions first is the step that separates designed work from placed work.
 
+## Decision record (write this before the brief form)
+
+- Who is using this and what are they trying to do.
+- What they must understand or do first.
+- What real content and assets exist.
+- Which constraints come from the project.
+- Which design decision is uncertain.
+- Why the chosen approach fits.
+
 ## The brief (fill in every line before writing code)
 
 1. **The one thing:** what a visitor must remember, as one sentence starting with the product's verb.
 2. **The proof:** the single real moment of the product that shows it, not a feature list.
 3. **The hero frame:** describe exactly what is on screen in the first second at 1440 x 900 - what, where, how big; the product must be the largest readable thing.
 4. **What moves:** the one motion that shows the one thing, what the visitor does to cause it, and how it ends on the real product.
-5. **Three concepts:** one sentence each, at least one ambitious; for each say what makes it only this product's.
+5. **Concepts:** write concepts only when a real design question is open; when you do, they must differ in structure or interaction, not colour or decoration. One sentence each, at least one ambitious; for each say what makes it only this product's.
 6. **The pick and why:** the choice in one sentence, and which concept is the default you are rejecting.
 7. **What is cut:** list at least three things a generic page would include that this page will not.
 8. **Voice:** three example lines of copy in the product's own voice.

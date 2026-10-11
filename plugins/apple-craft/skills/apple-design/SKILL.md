@@ -5,6 +5,8 @@ description: The core standard for making any app, website or visual look like A
 
 # Apple-quality design
 
+Start with `how-claude-designs`: it is how the work is thought about; this skill and the others are the tools.
+
 The bar is simple: it should look like Apple shipped it. People notice at once when something looks generated, templated or "AI". Everything here comes from real work that was rejected and then fixed.
 
 ## Alongside other design skills
@@ -17,9 +19,19 @@ When general design skills are also loaded (antislop, emil-*, ui-ux-pro-max, fro
 - Someone else's project or an existing design system: theirs wins; run `match-the-project` first and change only what you were asked to.
 - A brand with its own identity: keep its colours, fonts and imagery, apply apple-craft's craft (space, type hierarchy, real pictures, states, motion discipline), not its look.
 
+## Size the work to the task
+
+| Task | Required work |
+|---|---|
+| Text or isolated styling fix | The relevant guidance and a focused look at the result |
+| Change to an existing component | Existing patterns, affected states, a before and after comparison |
+| New screen or page | A short brief (the moment, real content, what is cut), then a visual and interaction check |
+| New product direction | Concepts that differ in structure or interaction, the reasoning for the pick, a prototype and refinement |
+| Release | Release checks, only when asked |
+
 ## The method, in order, every time
 
-1. **Write the design brief (`design-brief`) before any code. No brief, no build.**
+1. **Write the design brief (`design-brief`) before new screens and directions; see Size the work to the task. No brief, no build for those.**
 2. **Find Apple's version first.** Before designing, name where Apple already solved this: System Settings, the App Store update card, Face ID setup, the lock screen, Photo Booth, apple.com product pages, Apple's release notes and "What's New" sheets. Copy that pattern's structure, spacing, hierarchy and wording. Only invent when Apple has nothing.
 3. **Use the platform's own controls before drawing anything.** Native toggles, buttons, toolbars, progress bars, sheets, SF Symbols and system fonts are right in light, dark, accessibility sizes and future OS styles for free. Hand-drawn controls are the most common reason work gets called "AI".
 4. **Use real content.** Real screenshots and recordings, the real app icon, real names, real version numbers, real text. Never placeholders, stock photos, generated illustrations, fake people, or drawn imitations of another app or the OS. If a real picture can't be captured, ask for one.
@@ -87,6 +99,7 @@ The full field guide, covering websites, pictures, icons, video, copy and proces
 
 ## Related skills
 
+- `how-claude-designs`: how the work is thought about; read it first.
 - `design-brief`: the decisions to write down before building.
 - `motion-kit`: finished, tuned motion to wire up instead of hand-writing.
 - `self-improve`: the self-reflection loop to run after every first build.

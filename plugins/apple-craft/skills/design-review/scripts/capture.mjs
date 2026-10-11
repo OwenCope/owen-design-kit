@@ -2,7 +2,7 @@
 //
 // Install Playwright in the project first, then run with node:
 //
-//   npm i -D playwright && npx playwright install chromium
+//   npm i -D playwright axe-core && npx playwright install chromium
 //   node capture.mjs http://localhost:3000 [out-dir]
 //
 // Note: 'npx -p playwright node ...' does not work with ESM imports; install first and run with node.
@@ -11,6 +11,7 @@
 // console errors, sideways scrolling on phones, buttons that move on hover, and links that go nowhere.
 import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 
 const url = process.argv[2];
 const out = process.argv[3] ?? 'review';
@@ -18,7 +19,17 @@ if (!url) { console.error('usage: node capture.mjs <url> [out-dir]'); process.ex
 mkdirSync(out, { recursive: true });
 
 const sizes = { desktop: { width: 1440, height: 900 }, phone: { width: 390, height: 844 } };
-const browser = await chromium.launch();
+const require = createRequire(import.meta.url);
+let axePath = null;
+try {
+  axePath = require.resolve('axe-core/axe.min.js');
+} catch {
+  axePath = null;
+}
+let axeSkipped = false;
+let browser;
+try {
+browser = await chromium.launch();
 const problems = [];
 
 for (const [size, viewport] of Object.entries(sizes)) {
@@ -35,16 +46,22 @@ for (const [size, viewport] of Object.entries(sizes)) {
     await page.screenshot({ path: `${out}/${size}-${scheme}.png`, fullPage: true });
 
     try {
-      await page.addScriptTag({ url: 'https://cdn.jsdelivr.net/npm/axe-core@4/axe.min.js' });
-      const violations = (await page.evaluate(() => axe.run())).violations;
-      console.log(`${size}/${scheme}: axe: ${violations.length} violations`);
-      for (const v of violations) {
-        const targets = v.nodes.flatMap((n) => n.target).slice(0, 3).join(', ');
-        console.log(`- ${v.id} (${v.impact}): ${targets}`);
+      if (!axePath) {
+        axeSkipped = true;
+        console.log(`${size}/${scheme}: SKIPPED axe check skipped: install axe-core (npm i -D axe-core)`);
+      } else {
+        await page.addScriptTag({ path: axePath });
+        const violations = (await page.evaluate(() => axe.run())).violations;
+        console.log(`${size}/${scheme}: axe: ${violations.length} violations`);
+        for (const v of violations) {
+          const targets = v.nodes.flatMap((n) => n.target).slice(0, 3).join(', ');
+          console.log(`- ${v.id} (${v.impact}): ${targets}`);
+        }
+        writeFileSync(`${out}/axe-${size}-${scheme}.json`, JSON.stringify(violations, null, 2));
       }
-      writeFileSync(`${out}/axe-${size}-${scheme}.json`, JSON.stringify(violations, null, 2));
     } catch (e) {
-      console.warn(`${size}/${scheme}: axe check skipped (CDN failed): ${e.message}`);
+      axeSkipped = true;
+      console.warn(`${size}/${scheme}: SKIPPED axe check skipped: install axe-core (npm i -D axe-core) (${e.message})`);
     }
 
     const sideways = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
@@ -82,6 +99,10 @@ for (const [size, viewport] of Object.entries(sizes)) {
     await page.close();
   }
 }
-await browser.close();
+} finally {
+  await browser?.close();
+}
 console.log(`Screenshots in ${out}/. Open each at full size and zoom into edges before scoring.`);
+if (axeSkipped) console.log('SKIPPED axe accessibility check: install axe-core (npm i -D axe-core)');
 console.log(problems.length ? `\nProblems:\n- ${problems.join('\n- ')}` : '\nNo measurable problems. Still look at every screenshot.');
+if (problems.length) process.exitCode = 1;

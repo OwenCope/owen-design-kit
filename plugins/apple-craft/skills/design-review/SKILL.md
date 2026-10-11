@@ -9,7 +9,7 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 ## Size the review to the change
 
-- **Contribution to someone else's project:** follow `match-the-project`. Capture before and after screenshots in light and dark, put them next to the 3 nearby screens you compared, and check states and accessibility. Skip signature moments, Mac scenes, reference-copy checks and the self-score; the project's own design is the standard.
+- **Contribution to someone else's project:** follow `match-the-project`. Capture before and after screenshots in light and dark, put them next to the 3 nearby screens you compared, and check states and accessibility. Skip signature moments, Mac scenes and reference-copy checks; the project's own design is the standard.
 - **Small change** (one row, one string, one colour): capture that screen in light and dark and score only items 2, 5, 6, 7, 8, 10, 11 and 12. Mark the rest N/A.
 - **Fixing reported problems on a page:** fix them, then still score items 13 and 14. Doing only what was listed is how a page stays forgettable.
 - **New screen or flow:** the full review below.
@@ -30,7 +30,7 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 Fix every FAIL and run it again until it is clean, before any visual review. It checks letter-tile icons, tiny text, dead buttons, decorative chips, text-only theme toggles, fake Mac scenes, emoji or symbol icons, duplicate strings and phone-width overflow.
 
-Then run the self-improve loop (at least two rounds) before scoring; the review scores the result of that loop.
+Then run the self-improve loop before scoring; when the work is a new screen or direction, run self-improve; for small changes a focused look is enough. The review scores the result of that look.
 
 ## If you can't see images
 
@@ -42,7 +42,7 @@ A full-page screenshot hides most problems. Before scoring, zoom to 200 to 300 %
 
 ### Director critique
 
-The checklist catches broken things; this catches things merely not good yet. Scrub every animation or scroll scene with at least five frames start to end (start, building, peak, resolving, end) side by side, and judge each frame as a still: composed, nothing covering text, no large empty area for no reason, no frame that looks like a bug. Moving or decorative things must never cover headlines, body text, buttons or the product. Physical things behave physically and UI behaves like the real OS. The first frame invites and the last pays off with the product big and centred enough to read. Write the friend test in one sentence: what would someone tell a friend about this page. Without that sentence the page has no moment yet. Rate the work honestly out of 10 and list exactly what would make it a 10. Reload from scratch and judge the real page, never a report, including your own.
+The checklist catches broken things; this catches things merely not good yet. Scrub every animation or scroll scene with at least five frames start to end (start, building, peak, resolving, end) side by side, and judge each frame as a still: composed, nothing covering text, no large empty area for no reason, no frame that looks like a bug. Moving or decorative things must never cover headlines, body text, buttons or the product. Physical things behave physically and UI behaves like the real OS. The first frame invites and the last pays off with the product big and centred enough to read. Write the friend test in one sentence: what would someone tell a friend about this page. Without that sentence the page has no moment yet. Say plainly what is weak, why, and what would fix it. Reload from scratch and judge the real page, never a report, including your own.
 
 ## Check against the brief
 
@@ -72,7 +72,6 @@ This is the full version of the short checklist in `apple-design`; when both are
 - **Not a reference copy.** Put the page next to `web-design/examples/product-page.html` and every example it used and list five real differences (layout order, hero picture, wallpaper and colours, feature visuals, signature moment). Fewer than five, or the same wallpaper or section order, fails.
 - **Moving work.** Show five frames from start to end, plus a frame just after every clip ends. A frame that freezes, goes black or holds a finished clip's last frame fails.
 - **Mock-ups.** An unbuilt app is shown only from `mac-props/examples/mac-ui.css`, each part compared against `liquid-glass/reference/` with differences listed.
-- **Self-score cap.** Your own rating cannot go above 7/10 until the person has seen it. Say what would make it a 10.
 - **Show before done.** Never call work finished until the person has seen it. Their judgement replaces yours.
 - Any gate without written evidence fails.
 

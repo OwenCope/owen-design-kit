@@ -60,7 +60,8 @@
   .actions { display: flex; gap: 8px; }
   .shelf { position: absolute; left: 0; right: 0; top: 74px; padding: 0 22px; display: flex; justify-content: center; gap: 14px; }
   .item { width: 78px; text-align: center; opacity: 0; cursor: grab; touch-action: none; border-radius: 12px; padding: 6px 0 4px;
-          user-select: none; -webkit-user-select: none; }
+          user-select: none; -webkit-user-select: none; background: none; border: 0; color: inherit; font: inherit; }
+  .item:focus-visible { box-shadow: 0 0 0 3px #0071e3; }
   .item img, .file img { -webkit-user-drag: none; user-select: none; }
   .notch, .stage { user-select: none; -webkit-user-select: none; }
   .item:hover { background: rgba(255,255,255,.08); }
@@ -125,10 +126,11 @@
     hint.textContent = parked.length === 4 ? 'Hover the notch to see what’s waiting.' : 'Drag a file to the notch, or flick it up.';
   }
   function makeItem(f) {
-    const item = document.createElement('div');
-    item.className = 'item'; item.file = f;
+    const item = document.createElement('button');
+    item.className = 'item'; item.type = 'button'; item.file = f;
+    item.setAttribute('aria-label', `Take ${f.dataset.name} back out`);
     item.innerHTML = `<img src="mac-assets/files/${f.dataset.icon}.png" alt=""><span>${f.dataset.name}</span>`;
-    // Take it out: click, or pull it down out of the shelf.
+    // Take it out: click (pointer tap or keyboard Enter/Space), or pull it down out of the shelf.
     let y0 = null;
     item.addEventListener('pointerdown', (e) => { e.preventDefault(); y0 = e.clientY; item.setPointerCapture(e.pointerId); });
     item.addEventListener('pointermove', (e) => {
@@ -138,6 +140,9 @@
       if (dy > 46) { y0 = null; unpark(item); }
     });
     item.addEventListener('pointerup', () => { if (y0 !== null) { y0 = null; unpark(item); } });
+    // Keyboard clicks have detail 0; pointer taps already unparked on pointerup, and the notch
+    // click handler ignores .item targets, so this never double-fires.
+    item.addEventListener('click', (e) => { if (e.detail === 0) unpark(item); });
     item.addEventListener('pointerenter', () => Motion.spring({ s: 1 }, { s: 1.07 }, ({ s }) => { item.style.scale = s; }, 'snappy'));
     item.addEventListener('pointerleave', () => Motion.spring({ s: parseFloat(item.style.scale) || 1 }, { s: 1 }, ({ s }) => { item.style.scale = s; }, 'snappy'));
     return item;
@@ -201,7 +206,7 @@
   const keep = $('keep'), drops = $('drops');
   const showDrops = async () => {
     clearTimeout(closeTimer); notch.classList.add('dragging');
-    Motion.morph(notch, DROP(), 'island'); setTimeout(() => Motion.stagger([drops], { show: true, distance: 6 }), 120);
+    Motion.morph(notch, DROP(), 'island'); setTimeout(() => Motion.stagger([drops], { show: true, distance: 6 }), Motion.reduced() ? 0 : 120);
   };
   const hideDrops = async (dropped) => {
     notch.classList.remove('dragging'); keep.classList.remove('hot');
@@ -230,9 +235,9 @@
   notch.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open ? closeShelf() : openShelf(); } if (e.key === 'Escape') closeShelf(); });
 
   // Clear: every file goes home on its own arc, a beat apart, then the notch closes.
-  $('done').addEventListener('click', (e) => { e.stopPropagation(); closeShelf(); });
-  $('clear').addEventListener('click', async (e) => {
-    e.stopPropagation();
+  // No stopPropagation: the notch click handler above already ignores .item/.clear/.done targets.
+  $('done').addEventListener('click', () => closeShelf());
+  $('clear').addEventListener('click', async () => {
     const items = [...shelf.children];
     head.style.opacity = 0;
     // Launch every file home a beat apart, and shrink the notch back while they are still in the air.

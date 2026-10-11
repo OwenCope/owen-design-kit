@@ -53,9 +53,9 @@ Use `motion-kit` for every interaction and animation: tuned springs, morphs, fly
 
 - **Every interactive part animates its change, both ways.** Whatever animates in also animates out: closing, collapsing, dismissing and switching back get the same motion as opening, reversed. An opening animation with an instant close fails review.
 - Hover and press states on everything clickable: subtle, fast (about 200 to 350 ms), eased (house pick).
-- **More than hover.** A static page with only a colour change on hover fails review. The minimum set on any product page:
+- Use motion where it says something. A static page is fine when nothing needs saying. When motion carries meaning, follow the minimum set below:
   - **Disclosures (FAQ, "show more"):** the answer opens with a height animation (`grid-template-rows: 0fr → 1fr`, about 350 ms, ease-out), its text fades and rises a few pixels, and a chevron on the right rotates 180°. Never an instant jump. Code in `design-patterns` → FAQ disclosure (house pick).
-  - **Buttons:** the label-to-symbol morph from `design-patterns`, and a pressed state (`scale(0.97)` while held, never on hover) (house pick).
+  - **Buttons:** the label-to-symbol morph from `design-patterns`. Buttons never move; feedback lives in their content (MorphLabel) (house pick).
   - **Theme switch:** a smooth cross-fade of colours (about 300 ms), not a flash (house pick).
   - **Product pictures:** swap with a cross-fade and slight scale, never a hard cut.
   - **Sections:** headline and product enter once, together, with a short rise and fade the first time they're seen. One entrance per section, not every paragraph.

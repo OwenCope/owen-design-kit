@@ -32,6 +32,7 @@ A real lesson: one app shipped five updates in one day. A developer in its commu
 
 ## Releasing
 
+- Commit, push, deploy and release are separate actions. Do only the one asked for.
 - Only when asked; "ship it", "release it" and "push it" count as asking.
 - Follow the project's exact release steps (its `project-<name>` skill): bump the version, build for every architecture, package, checksum, update the package manager, write notes per `release-notes` with a new picture, publish.
 - Then **verify every surface**: the download matches its checksum, the website and update feed show the new version, the package manager points at it, and the announcement posted and renders well.

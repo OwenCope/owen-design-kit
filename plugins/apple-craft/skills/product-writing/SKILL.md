@@ -5,6 +5,8 @@ description: How every word in an app, website, post or reply should read - shor
 
 # Writing like Apple
 
+The short, plain style below applies to product-facing words (UI, site, posts, release notes). Technical reports to Owen still include the identifiers, errors and uncertainty needed.
+
 ## Rules
 
 - **Say what the person gets, not how the code works.** "Your face shows in the panel as soon as you open the lid", not "Fixed Metal drawable after display wake."

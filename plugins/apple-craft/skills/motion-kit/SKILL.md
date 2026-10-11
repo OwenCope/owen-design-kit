@@ -7,6 +7,27 @@ description: Finished, tuned motion for Apple-style web pages - springs, a shape
 
 Motion feel (timing, springs, how two shapes become one) is the hardest thing to get right and the easiest to get wrong. This kit ships it finished. Wire it up; don't re-invent it.
 
+Decide what the motion should say before picking a technique. An instant state change is a valid answer.
+
+Must be true (behaviour):
+
+- Latest input wins and takes over smoothly.
+- The final state is always correct.
+- Controls stay reachable by keyboard.
+- Listeners and observers are cleaned up.
+- Reduce Motion goes straight to the end state.
+
+Your choice (feel):
+
+- Timing character.
+- Spatial metaphor.
+- How shapes transform.
+- Choreography and emphasis.
+
+Optional techniques:
+
+- Fly-to-target, catch bump, stagger, blur crossfade, tilt, camera zoom, dock, stack.
+
 ## Use it
 
 - Copy `motion.js` next to your page and load it: `<script src="motion.js"></script>`. Everything is on the global `Motion`.
@@ -37,7 +58,9 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 - **Dock magnification:** `Motion.dock(el)` swells icons with pointer distance, like the macOS Dock.
 - **Scene:** `Motion.scene(section, p => …)` gives 0 to 1 progress through a pinned scroll section; `Motion.segment(p, a, b)` turns part of it into its own eased 0 to 1 for choreography.
 
-## Choreography rules
+## Defaults that worked (adapt them)
+
+The rules below are defaults that worked for Gaze, not requirements for every product.
 
 - **Never an empty panel.** When content changes, the new content fades in over the old while the shape reshapes; nothing waits for anything to finish.
 - **Endings reverse the opening.** A tour that zoomed into the device zooms back out to it; a panel that grew out of the notch folds back into it. Never a hard cut back to the start.

@@ -1,5 +1,7 @@
 # Lessons from real work
 
+How to add a lesson: record candidate lessons with context, what was rejected, evidence, the correction and its limits. Promote to this file only during kit maintenance when reusable. Merge duplicates rather than appending. Avoid never unless it truly has no exceptions.
+
 What got approved and what got rejected across many rounds of building apps, websites, icons and a launch video for a demanding designer. Each line is a real reaction, not a theory. Read it before starting, and again before showing anything.
 
 ## The big ones
