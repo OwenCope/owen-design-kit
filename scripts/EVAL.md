@@ -42,3 +42,13 @@ Notch brief:
 Habit brief:
 
     Build an interactive browser mock-up of an iPhone habit tracker: see today's habits, check them off, and see a streak. Use my design kit at /Users/owencope/Developer/owen-design-kit, starting with its AGENTS.md. Make the design and interaction decisions yourself. Create it as index.html in the current folder without modifying the kit. Run it, inspect the result, and finish with a short explanation of your design choices.
+
+## Results so far (Muse Spark 1.3, free)
+
+| Run | Kit | Result |
+|---|---|---|
+| notch-1 | 3.0 | Marketing headline over the app, pale card under the notch, four add-file controls, placeholder icons, phone clipped but reported as passing |
+| notch-2 | 3.3.1 | Product first, real assets, notch grows into the shelf; reused the demo's sample files and words |
+| habit-1 | 3.3.1 | Native-looking iPhone screen; last section hidden under the tab bar |
+| notch-3 | 3.4.0 | Own name ("Tuck") and own files, one shape grows from the notch, file visible when closed, all lint checks pass; layout still close to the reference (same desk row, same done and clear buttons) |
+| devtool-1 | 3.4.0 | Real terminal output as the product, one install command, no template sections; still Apple-styled (it chose the Apple landing-page route, since fixed in 3.4.1), letter-tile logo, phone terminal line clips |

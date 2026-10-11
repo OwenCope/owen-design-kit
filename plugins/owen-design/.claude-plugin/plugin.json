@@ -1,7 +1,7 @@
 {
   "name": "owen-design",
   "description": "Owen's private layer on top of apple-craft: how to work with Owen, his design picks, and the rules for each of his projects (Gaze, gazeunlock.com, owencope.pages.dev, SakuraCord).",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "author": { "name": "Owen Cope" },
   "keywords": ["owen", "gaze", "projects"]
 }
