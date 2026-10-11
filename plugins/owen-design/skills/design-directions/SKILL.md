@@ -77,6 +77,8 @@ Motion: almost none. No scroll reveals were found; a rotating word in the headli
 
 Voice: friendly, short, human. "It's time." "Where teams and agents ship together." Buttons say what you get: "Get Notion free".
 
+Figma: a recreated Notion UI kit is at https://www.figma.com/design/YvEDWpVXFX07ajCvh2ypJo/Notion-UI---Free-UI-Kit--Recreated---Community- for reading exact spacing and components through the Figma MCP.
+
 How it fails: doodles with no point (stickers on a layout); cartoon style on a serious product; warm greys that drop text contrast; copying the illustration style itself, which is Notion's identity.
 
 ## Playful consumer (Duolingo)
