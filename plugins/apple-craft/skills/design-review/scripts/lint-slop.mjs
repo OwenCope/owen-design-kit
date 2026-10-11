@@ -14,6 +14,10 @@
 //   h. duplicate visible strings - the same sentence appearing twice inside one section, usually copy-paste filler.
 //   i. horizontal overflow at 390 px - the page scrolls sideways on a phone.
 //   j. real Mac assets - in a Mac scene, Dock and file-row icons that are not mac-assets exports.
+//   k. headline bigger than the product - the h1 takes more of the first screen than the largest visual.
+//   l. duplicate actions - three or more visible controls in one container doing the same job.
+//   m. placeholder icons - flat coloured squares where real app or file icons belong.
+//   n. detached notch panel - a shelf/panel under the notch instead of growing out of it.
 //
 // Run this until it is clean before any visual review: fix every FAIL, then run it again.
 import { createRequire as __cr } from 'node:module';
@@ -35,9 +39,9 @@ if (!target) { console.error('usage: node lint-slop.mjs <url-or-file> [--width 1
 if (existsSync(resolve(target))) target = pathToFileURL(resolve(target)).href;
 
 const results = [];
-const report = (name, offenders) => {
+const report = (name, offenders, level = 'FAIL') => {
   const list = (offenders ?? []).slice(0, 5);
-  results.push({ name, pass: list.length === 0, list });
+  results.push({ name, pass: list.length === 0, list, level });
 };
 
 const browser = await chromium.launch();
@@ -141,7 +145,12 @@ report('fake Mac', await page.evaluate(() => {
   const clockRe = /\b([01]?\d|2[0-3]):[0-5]\d\b/;
   let hasChrome = false;
   for (const el of document.querySelectorAll('body *')) {
-    if (el.children.length === 0 && clockRe.test(el.textContent ?? '')) { hasChrome = true; break; }
+    if (el.children.length === 0 && clockRe.test(el.textContent ?? '')) {
+      // A full-screen prototype draws the Mac itself edge to edge: the clock sits at the top-right of the viewport.
+      const r = el.getBoundingClientRect();
+      if (r.top < 40 && innerWidth - r.right < 60) return [];
+      hasChrome = true; break;
+    }
   }
   if (!hasChrome) return [];
   const hasShell = [...document.querySelectorAll('img')].some((img) =>
@@ -236,7 +245,9 @@ report('real Mac assets', await page.evaluate(() => {
       const st = getComputedStyle(el);
       const bg = st.backgroundColor;
       const hasBg = bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent';
-      if (hasBg && !/mac-assets/.test(maskUrl(el)) && !el.querySelector('img')) {
+      const er = el.getBoundingClientRect();
+      const iconSized = er.width >= 16 && Math.abs(er.width - er.height) / er.width < 0.3;   // skips dividers and running dots
+      if (hasBg && iconSized && !/mac-assets/.test(maskUrl(el)) && !el.querySelector('img')) {
         out.push(`css-shape icon <${el.tagName.toLowerCase()}> in Dock container`);
         if (out.length >= 40) break;
       }
@@ -289,13 +300,165 @@ report('real Mac assets', await page.evaluate(() => {
   }
 }
 
+// k. headline bigger than the product
+try {
+  report('headline bigger than the product', await page.evaluate(() => {
+    const clipArea = (r) => {
+      const w = Math.min(r.right, innerWidth) - Math.max(r.left, 0);
+      const h = Math.min(r.bottom, 900) - Math.max(r.top, 0);
+      return w > 0 && h > 0 ? w * h : 0;
+    };
+    const heads = [...document.querySelectorAll('h1')].filter((el) => {
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0 && r.top < 900 && r.bottom > 0;
+    });
+    let headArea = 0;
+    if (heads.length) {
+      for (const el of heads) {
+        const a = clipArea(el.getBoundingClientRect());
+        if (a > headArea) headArea = a;
+      }
+    } else {
+      let found = false;
+      for (const el of document.querySelectorAll('body *')) {
+        if (el.children.length > 3) continue;
+        const text = (el.textContent ?? '').trim();
+        if (!text || text.length > 200) continue;
+        if (parseFloat(getComputedStyle(el).fontSize) <= 48) continue;
+        const r = el.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0 || r.top >= 900 || r.bottom <= 0) continue;
+        const a = clipArea(r);
+        if (a > headArea) { headArea = a; found = true; }
+      }
+      if (!found) return [];
+    }
+    let visualArea = 0;
+    for (const el of document.querySelectorAll('img, picture, video, canvas, [role="img"]')) {
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0 || r.top >= 900 || r.bottom <= 0) continue;
+      const a = clipArea(r);
+      if (a > visualArea) visualArea = a;
+    }
+    if (!visualArea) return ['no visual in the first screen: the headline takes more of the first screen than the product'];
+    if (headArea > visualArea) return [`the headline takes more of the first screen than the product (headline ${Math.round(headArea)}px², visual ${Math.round(visualArea)}px²)`];
+    return [];
+  }), 'WARN');
+} catch { report('headline bigger than the product', ['check could not run'], 'WARN'); }
+
+// l. duplicate actions
+try {
+  report('duplicate actions', await page.evaluate(() => {
+    const out = [];
+    const verbRe = /add|upload|browse|import|new|create/i;
+    const els = [...document.querySelectorAll('button, [role="button"], input[type="file"], body *')].filter((el) => {
+      const label = `${el.textContent ?? ''} ${el.getAttribute?.('aria-label') ?? ''} ${el.getAttribute?.('value') ?? ''}`;
+      if (!verbRe.test(label)) return false;
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 && r.height === 0) return false;
+      const st = getComputedStyle(el);
+      if (st.display === 'none' || st.visibility === 'hidden' || Number(st.opacity) < 0.05) return false;
+      if (el.closest('button, [role="button"]') !== null && !/^(BUTTON|INPUT)$/.test(el.tagName) && el.getAttribute?.('role') !== 'button') return false;
+      return true;
+    });
+    const groups = new Map();
+    for (const el of els) {
+      const label = `${el.textContent ?? ''} ${el.getAttribute?.('aria-label') ?? ''}`.toLowerCase();
+      const m = label.match(verbRe)?.[0].toLowerCase() ?? '';
+      const key = /add|upload|browse|import/.test(m) ? 'add' : m;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(el);
+    }
+    for (const [verb, members] of groups) {
+      if (members.length < 3) continue;
+      const chains = members.map((el) => {
+        const chain = [];
+        for (let n = el; n && n !== document.body; n = n.parentElement) chain.unshift(n);
+        return chain;
+      });
+      let common = null;
+      for (const cand of chains[0]) {
+        if (chains.every((c) => c.includes(cand))) common = cand;
+      }
+      if (!common || common === document.body || common === document.documentElement) continue;
+      const r = common.getBoundingClientRect();
+      if (r.width >= innerWidth && r.height >= innerHeight) continue;
+      const texts = members.slice(0, 4).map((el) => `"${((el.textContent ?? '').trim() || el.getAttribute?.('aria-label') || el.tagName).slice(0, 30)}"`);
+      out.push(`several visible controls do the same job ("${verb}": ${texts.join(', ')})`);
+    }
+    return out;
+  }), 'WARN');
+} catch { report('duplicate actions', ['check could not run'], 'WARN'); }
+
+// m. placeholder icons
+try {
+  report('placeholder icons', await page.evaluate(() => {
+    const found = [];
+    const holderSel = '[class*="dock" i], [id*="dock" i], [class*="icon" i], [id*="icon" i], [class*="file" i], [id*="file" i], [class*="tile" i], [id*="tile" i]';
+    for (const el of document.querySelectorAll('body *')) {
+      const r = el.getBoundingClientRect();
+      if (r.width < 24 || r.width > 96 || r.height < 24 || r.height > 96) continue;
+      if (Math.abs(r.width - r.height) / Math.max(r.width, r.height) > 0.2) continue;
+      if (!el.closest(holderSel)) continue;
+      const st = getComputedStyle(el);
+      if (st.backgroundImage && st.backgroundImage !== 'none') continue;
+      const bg = st.backgroundColor;
+      if (!bg || bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') continue;
+      if (el.querySelector('img, svg')) continue;
+      found.push(`<${el.tagName.toLowerCase()}> ${Math.round(r.width)}x${Math.round(r.height)}`);
+    }
+    for (const img of document.querySelectorAll('img')) {
+      if (/placeholder|dummy|via\.placeholder/i.test(img.getAttribute('src') ?? '')) {
+        found.push(`img "${(img.getAttribute('src') ?? '').slice(0, 60)}"`);
+      }
+    }
+    if (found.length <= 2) return [];
+    return [`placeholder squares where real icons belong (use mac-props assets): ${found.length} found`, ...found];
+  }));
+} catch { report('placeholder icons', ['check could not run'], 'WARN'); }
+
+// n. detached notch panel
+try {
+  report('detached notch panel', await page.evaluate(() => {
+    const notch = document.querySelector('[class*="notch" i], [id*="notch" i]');
+    if (!notch) return [];
+    const nr = notch.getBoundingClientRect();
+    if (nr.width === 0 && nr.height === 0) return [];
+    const lum = (c) => {
+      const m = (c ?? '').match(/[\d.]+/g)?.map(Number) ?? [];
+      if (m.length < 3) return -1;
+      return (m[0] + m[1] + m[2]) / 3;
+    };
+    const notchLum = lum(getComputedStyle(notch).backgroundColor);
+    const panels = [...document.querySelectorAll('[class*="shelf" i], [id*="shelf" i], [class*="panel" i], [id*="panel" i], [class*="drawer" i], [id*="drawer" i], [class*="tray" i], [id*="tray" i]')];
+    for (const p of panels) {
+      if (p === notch || notch.contains(p)) continue;
+      const r = p.getBoundingClientRect();
+      if (r.width === 0 && r.height === 0) continue;
+      const st = getComputedStyle(p);
+      if (st.display === 'none' || st.visibility === 'hidden') continue;
+      if (!(r.left < nr.right && r.right > nr.left && r.top >= nr.top)) continue;
+      const gap = r.top - nr.bottom;
+      const panelLum = lum(st.backgroundColor);
+      const contrast = notchLum >= 0 && panelLum >= 0 && Math.abs(notchLum - panelLum) > 150;
+      const notchDarkPanelLight = notchLum >= 0 && notchLum < 60 && panelLum > 200;
+      if (gap > 2 || contrast || notchDarkPanelLight) {
+        return ['the panel appears under the notch instead of growing out of it'];
+      }
+    }
+    return [];
+  }), 'WARN');
+} catch { report('detached notch panel', ['check could not run'], 'WARN'); }
+
 failed = 0;
+let warns = 0;
 for (const r of results) {
-  console.log(`${r.pass ? 'PASS' : 'FAIL'} ${r.name}`);
+  console.log(`${r.pass ? 'PASS' : (r.level ?? 'FAIL')} ${r.name}`);
   for (const item of r.list) console.log(`  - ${item}`);
-  if (!r.pass) failed++;
+  if (!r.pass) { if ((r.level ?? 'FAIL') === 'FAIL') failed++; else warns++; }
 }
-console.log(failed ? `\n${failed} check(s) failed.` : '\nAll checks passed.');
+if (failed) console.log(`\n${failed} check(s) failed.`);
+else if (warns) console.log(`\n${warns} warning(s).`);
+else console.log('\nAll checks passed.');
 } finally {
   await browser.close().catch(() => {});
 }

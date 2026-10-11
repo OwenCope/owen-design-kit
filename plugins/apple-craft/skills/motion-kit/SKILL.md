@@ -83,6 +83,7 @@ The rules below are defaults that worked for Gaze, not requirements for every pr
 - **Reduce Motion:** every function jumps to the end state. Don't add your own motion around it.
 
 ## Why the notch-shelf reference works (take the reasons, not the look)
+Detached (an agent's mock-up) vs connected (this reference), and the closed notch still showing what it holds: ![Detached](why/detached.png) ![Connected](why/connected.png) ![Closed](why/closed-state.png)
 
 - **Continuity:** the notch itself grows into the shelf, one shape with the notch's own shoulders. A separate card appearing under a black notch breaks the idea that files go *into* the notch; it reads as a dropdown.
 - **State you can see when closed:** tiny real file icons peek inside the closed notch with a count, so people know their files are still there without opening it.
@@ -104,7 +105,8 @@ These transfer to any product: continuity, visible state, hierarchy, grouping, r
 
 ## Never
 
-- Copying another product's tour content or features. Build each tour from your own product's real UI and behaviour.
+- Copying another product's tour content or features.
+- Reusing this kit's demo content (Proposal.pdf, Launch.key, Moodboard.png, Clip.mov, "Put it in the notch.") in your own work. Use files and words from your product's real use. Build each tour from your own product's real UI and behaviour.
 
 - `transition: all`, linear easing, or durations picked by hand for these interactions.
 - A panel that fades in under a shape instead of growing out of it.
