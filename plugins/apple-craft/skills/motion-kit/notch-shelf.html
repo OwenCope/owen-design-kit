@@ -45,7 +45,9 @@
   .peek { position: absolute; top: 7px; right: 12px; height: 18px; display: flex; flex-direction: row-reverse; }
   .notch[aria-expanded="true"] .peek { opacity: 0; }
   .peek { transition: opacity .15s; }
-  .peek img { width: 20px; height: 20px; margin-left: -7px; filter: drop-shadow(0 0 1px #000); }
+  .peek { gap: 5px; top: 8px; right: 14px; height: 16px; align-items: center; }
+  .peek img { width: 16px; height: 16px; opacity: .9; }
+  .notch.morphing .clip { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .peek b { font: 600 11px/18px -apple-system, sans-serif; color: rgba(255,255,255,.6); margin-left: 4px; order: -1; }
 
   /* Open: the shelf. */
@@ -106,7 +108,7 @@
   const queue = (fn) => (busy = busy.then(fn, fn));   // one notch animation at a time, in order
 
   const CLOSED = { width: 200, height: 32, radius: 12 };
-  const peekWidth = () => (parked.length ? 236 + Math.min(parked.length, 3) * 11 : 200);
+  const peekWidth = () => (parked.length ? 224 + Math.min(parked.length, 3) * 21 + (parked.length > 3 ? 22 : 0) : 200);
   const closedSize = () => ({ ...CLOSED, width: peekWidth() });
   const NEAR = () => ({ width: peekWidth() + 40, height: 42, radius: 16 });
   const openSize = () => ({ width: Math.max(340, 44 + parked.length * 92), height: 196, radius: 30 });

@@ -9,8 +9,8 @@
 
   // Spring presets (stiffness, damping, mass). Tuned by eye against macOS and iOS animations.
   const SPRINGS = {
-    snappy: { k: 520, c: 38, m: 1 },   // controls and small UI: quick, no visible overshoot
-    smooth: { k: 260, c: 26, m: 1 },   // panels opening, morphs: a soft landing with a hint of overshoot
+    snappy: { k: 420, c: 36, m: 1 },   // controls and small UI: quick, no visible overshoot
+    smooth: { k: 190, c: 24, m: 1 },   // panels opening, morphs: a soft landing with a hint of overshoot
     bouncy: { k: 340, c: 17, m: 1 },   // things landing in place: one small, visible bounce
     gentle: { k: 140, c: 22, m: 1 },   // large moves across the screen
     flight: { k: 90,  c: 19, m: 1 },   // objects flying along a path: accelerate, then glide in
@@ -64,10 +64,12 @@
     const cs = getComputedStyle(el);
     const from = { w: el.offsetWidth, h: el.offsetHeight, r: parseFloat(cs.borderBottomLeftRadius) || 0 };
     const target = { w: to.width ?? from.w, h: to.height ?? from.h, r: to.radius ?? from.r };
+    // Expensive effects (backdrop blur) are paused while the box changes size, so every frame stays at 60 fps.
+    el.classList.add('morphing'); el.style.willChange = 'width, height';
     return claim(el, 'morph', spring(from, target, ({ w, h, r }) => {
-      el.style.width = w + 'px'; el.style.height = h + 'px';
-      el.style.borderBottomLeftRadius = el.style.borderBottomRightRadius = Math.max(0, r) + 'px';
-    }, preset));
+      el.style.width = w.toFixed(2) + 'px'; el.style.height = h.toFixed(2) + 'px';
+      el.style.borderBottomLeftRadius = el.style.borderBottomRightRadius = Math.max(0, r).toFixed(2) + 'px';
+    }, preset).then(() => { el.classList.remove('morphing'); el.style.willChange = ''; }));
   }
 
   // Fly a copy of `source` into `target` along a curved path. It tilts into the turn, shrinks,
