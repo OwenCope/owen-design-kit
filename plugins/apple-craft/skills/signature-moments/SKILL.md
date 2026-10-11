@@ -12,9 +12,9 @@ Clean and correct isn't enough: a page can pass every rule and still be forgetta
 Don't take the first idea, and don't pick from the examples below; they show the bar, not a menu.
 
 1. **List what the product is made of**: its name, icon and colour; the physical thing it's named after; what it does as a verb (copies, unlocks, catches, stacks, forms); the feeling after using it.
-2. **Write at least three different concepts**, one sentence each, built from that list. Make at least one of them uncomfortably ambitious.
+2. **If the moment is already clear** (Owen named it, or the brief settled it), skip to building it. Otherwise **write at least three different concepts**, one sentence each, built from that list. Make at least one of them uncomfortably ambitious.
 3. **Score each 1 to 5 on four things:** only this product could have it; it says the headline without words; someone would describe it to a friend; it can be built well in a day. Pick the highest total, preferring the bolder one on a tie.
-4. **Show the person the three concepts and your pick** in a few lines, then build it.
+4. **When you wrote concepts, show the person them and your pick** in a few lines, then build it.
 
 ### From verb to moment
 

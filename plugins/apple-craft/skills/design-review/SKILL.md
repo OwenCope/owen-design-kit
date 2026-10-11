@@ -30,7 +30,7 @@ Build, open, screenshot, and look at the pixels at full size. Reviewing code alo
 
 Fix every FAIL and run it again until it is clean, before any visual review. It checks letter-tile icons, tiny text, dead buttons, decorative chips, text-only theme toggles, fake Mac scenes, emoji or symbol icons, duplicate strings and phone-width overflow.
 
-Then run the self-improve loop before scoring; when the work is a new screen or direction, run self-improve; for small changes a focused look is enough. The review scores the result of that look.
+For a new screen or direction, run `self-improve` before scoring; for small changes a focused look is enough. The review scores the result.
 
 ## If you can't see images
 
@@ -64,7 +64,7 @@ This is the full version of the short checklist in `apple-design`; when both are
 10. **Accessibility.** Labels, focus, contrast, text read once, touch targets at least 44 px on the web.
 11. **Leftovers.** No ghost windows, stray shadows, debug text, placeholder copy or console errors.
 12. **Consistency.** Matches the rest of the product; the product's existing design wins over apple-craft picks when they differ (see `match-the-project`). Anything new looks like it always existed.
-13. **Signature moment.** Product, launch and first-run pages (N/A for everything else) have one memorable, on-brand, moving, responsive centrepiece (`signature-moments`); a static picture with a caption fails, so write three concepts, pick the boldest buildable one, build it and name the three considered.
+13. **Signature moment.** Product, launch and first-run pages (N/A for everything else) have one memorable, on-brand, moving, responsive centrepiece (`signature-moments`); a static picture with a caption fails. Name the moment in one sentence; if it was still an open question, name the concepts that were considered (`signature-moments`).
 14. **Product in place.** In heroes and product pictures (N/A for release pictures and docs, which use a tight crop), a Mac app is shown on a full Mac scene from `mac-props`: laptop, menu bar, the window just above a Dock with the app's icon; a floating panel or a lone menu bar strip fails.
 
 ## Step 4: Hard gates (pass or fail, no judgement)
@@ -77,7 +77,7 @@ This is the full version of the short checklist in `apple-design`; when both are
 
 ## Step 5: Fix and capture again
 
-Fix every "fix", re-screenshot and re-score. Only a full pass gets shown.
+Fix every "fix", re-screenshot and re-score. Then show the person, even if something still fails: list what fails and what could not be checked instead of hiding it. Their look is the final pass.
 
 ## Step 6: Report
 

@@ -1,6 +1,6 @@
 ---
 name: design-brief
-description: the decisions to write down before any page, screen or picture is built - the one thing, the hero frame, the product's size, what moves and why, what is cut, and three concepts - so the work has an idea before it has code; use before building any product page, landing page, first-run screen, release picture or video, and whenever a design comes out generic, empty or 'like every other site'.
+description: the decisions to write down before any page, screen or picture is built - the one thing, the hero frame, the product's size, what moves and why, what is cut, and concepts when the idea is still open - so the work has an idea before it has code; use before building any product page, landing page, first-run screen, release picture or video, and whenever a design comes out generic, empty or 'like every other site'.
 ---
 
 # Design brief
