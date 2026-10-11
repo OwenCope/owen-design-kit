@@ -11,7 +11,7 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 
 - Copy `motion.js` next to your page and load it: `<script src="motion.js"></script>`. Everything is on the global `Motion`.
 - `gallery.html` shows every part working, one card each, with the line of code under it. Open it first and pick what fits.
-- `tour.html` is the welcome tour from `onboarding-design`, built for the web: the scene in a Mac, a camera zoom until the screen is the window, the notch growing into the live panel, and every page morphing that same panel with blur crossfades while the art, text and button never move.
+- `tour.html` is a welcome tour for Gaze (the face blinks, follows a light, nods, opens App Lock), built on the `onboarding-design` structure: the scene in a Mac, a camera zoom until the screen is the window, the notch growing into the live panel, and every page morphing that same panel with blur crossfades while the art, text and button never move.
 - `notch-shelf.html` is a complete reference built with it: a notch you drag files into, which grows into a shelf. Open it next to `mac-assets` (from `mac-props`) and try it before building. Copy its patterns, never its page.
 
 ## The parts
@@ -58,6 +58,8 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 - Keyboard (Enter or Space on files and the notch, Escape to close) and Reduce Motion (everything jumps to its end state).
 
 ## Never
+
+- Copying another product's tour content or features. Build each tour from your own product's real UI and behaviour.
 
 - `transition: all`, linear easing, or durations picked by hand for these interactions.
 - A panel that fades in under a shape instead of growing out of it.
