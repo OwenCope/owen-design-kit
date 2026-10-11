@@ -4,253 +4,281 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>motion-kit gallery</title>
-<!-- Every part of motion-kit, working, one card each. Open it, try each, then copy the few lines under each demo.
-     Needs ./mac-assets for icons (mac-props/scripts/make-assets.swift ./mac-assets). -->
+<!-- Every part of motion-kit, playing on its own in a loop. Hover or touch a card to take over; it resumes when you leave.
+     Needs ./mac-assets (mac-props/scripts/make-assets.swift ./mac-assets). -->
 <style>
-  :root { --bg: #f2f2f5; --card: #fff; --ink: #1d1d1f; --muted: rgba(0,0,0,.5); --line: rgba(0,0,0,.08); --accent: #0071e3; color-scheme: light dark; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #000; --card: #161618; --ink: #f5f5f7; --muted: rgba(255,255,255,.55); --line: rgba(255,255,255,.1); --accent: #0a84ff; } }
+  :root { --bg: #f2f2f5; --card: #fff; --ink: #1d1d1f; --muted: rgba(0,0,0,.5); --line: rgba(0,0,0,.08); --fill: rgba(0,0,0,.05);
+          --accent: #0071e3; --ease: cubic-bezier(.22,1,.36,1); color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #000; --card: #161618; --ink: #f5f5f7; --muted: rgba(255,255,255,.55);
+          --line: rgba(255,255,255,.1); --fill: rgba(255,255,255,.07); --accent: #0a84ff; } }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
          -webkit-font-smoothing: antialiased; user-select: none; -webkit-user-select: none; }
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   header { max-width: 1120px; margin: 0 auto; padding: 72px 24px 32px; }
   h1 { margin: 0; font-size: 48px; letter-spacing: -.03em; line-height: 1.05; }
-  header p { margin: 10px 0 0; color: var(--muted); font-size: 19px; }
-  .grid { max-width: 1120px; margin: 0 auto; padding: 0 24px 96px; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
-  .demo { background: var(--card); border-radius: 28px; border: 1px solid var(--line); overflow: hidden; display: flex; flex-direction: column; }
-  .stage { position: relative; height: 260px; display: grid; place-items: center; overflow: hidden; }
-  .meta { padding: 16px 20px 20px; border-top: 1px solid var(--line); }
-  .meta b { display: block; font-size: 15px; } .meta span { color: var(--muted); font-size: 13px; }
-  code { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); display: block; margin-top: 8px; }
-  button.pill { border: 0; background: var(--accent); color: #fff; height: 36px; padding: 0 16px; border-radius: 18px; font: 600 14px -apple-system, sans-serif; cursor: pointer; }
-  button.ghost { border: 0; background: var(--line); color: var(--ink); height: 32px; padding: 0 14px; border-radius: 16px; font: 500 13px -apple-system, sans-serif; cursor: pointer; }
-  .icon { width: 56px; height: 56px; }
+  header p { margin: 10px 0 0; color: var(--muted); font-size: 19px; max-width: 640px; }
+  header a { color: var(--accent); text-decoration: none; }
+  .grid { max-width: 1120px; margin: 0 auto; padding: 0 24px 96px; display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 20px; }
+  .demo { background: var(--card); border-radius: 28px; box-shadow: 0 0 0 .5px var(--line); overflow: hidden; display: flex; flex-direction: column; }
+  .stage { position: relative; height: 270px; overflow: hidden; display: grid; place-items: center; }
+  .meta { padding: 16px 22px 22px; border-top: 1px solid var(--line); }
+  .meta b { display: block; font-size: 15px; } .meta span { color: var(--muted); font-size: 13px; display: block; margin-top: 2px; }
+  code { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); display: block; margin-top: 10px; }
 
-  /* 1 morph */
-  .mnotch { position: absolute; top: 0; left: 50%; translate: -50% 0; width: 140px; height: 26px; background: #000; border-radius: 0 0 12px 12px; }
-  /* 2 fly */
-  .fly-src { position: absolute; left: 40px; bottom: 40px; } .fly-dst { position: absolute; right: 40px; top: 40px; width: 64px; height: 64px; border-radius: 18px; background: var(--line); display: grid; place-items: center; }
-  .fly-dst img { width: 28px; height: 28px; opacity: .6; }
-  /* 3 drag */
-  .drop { position: absolute; top: 24px; left: 50%; translate: -50% 0; width: 180px; height: 70px; border-radius: 22px; border: 2px dashed var(--line); display: grid; place-items: center; color: var(--muted); font-size: 13px; transition: background .2s, border-color .2s; }
-  .drop.hot { background: rgba(0,113,227,.1); border-color: var(--accent); color: var(--accent); }
-  .dragme { position: absolute; bottom: 36px; left: 50%; translate: -50% 0; cursor: grab; }
-  /* 4 stagger */
-  .list { width: 240px; display: grid; gap: 8px; }
-  .row { height: 40px; border-radius: 12px; background: var(--line); display: flex; align-items: center; gap: 10px; padding: 0 12px; font-size: 13px; }
+  .screen { position: relative; width: 268px; height: 168px; border-radius: 14px; overflow: hidden; background: url(mac-assets/wallpaper-dark.jpg) center / cover #111;
+            box-shadow: 0 0 0 6px #0c0c0e, 0 0 0 7px #3a3a3e, 0 22px 44px rgba(0,0,0,.22); }
+  .notch { position: absolute; top: 0; left: 50%; translate: -50% 0; width: 52px; height: 12px; border-radius: 0 0 7px 7px; background: #000; overflow: hidden; }
+  .clock { position: absolute; left: 0; right: 0; bottom: 30px; text-align: center; color: #fff; }
+  .clock b { display: block; font: 700 36px/1 -apple-system, sans-serif; letter-spacing: -.02em; } .clock span { font-size: 11px; opacity: .75; }
+  .face { position: absolute; left: 50%; top: 16px; translate: -50% 0; display: flex; gap: 8px; opacity: 0; }
+  .face i { width: 7px; height: 16px; border-radius: 4px; background: #fff; transition: height .3s var(--ease), border-radius .3s var(--ease), margin .3s var(--ease); }
+  .face.happy i { height: 6px; border-radius: 6px 6px 1px 1px; margin-top: 6px; }
+  .pfiles { position: absolute; left: 14px; right: 14px; top: 22px; display: flex; justify-content: center; gap: 10px; }
+  .pfiles img { width: 26px; height: 26px; opacity: 0; }
+
+  .tray { position: absolute; right: 44px; top: 50px; width: 72px; height: 72px; border-radius: 20px; background: var(--fill); display: grid; place-items: center; }
+  .tray img { width: 28px; height: 28px; opacity: .55; } @media (prefers-color-scheme: dark) { .tray img { filter: invert(1); } }
+  .doc { position: absolute; width: 60px; height: 60px; }
+  #flysrc { left: 58px; bottom: 50px; }
+  .drop { position: absolute; top: 34px; left: 50%; translate: -50% 0; width: 190px; height: 72px; border-radius: 22px; background: var(--fill);
+          display: grid; place-items: center; color: var(--muted); font-size: 13px; transition: background .25s var(--ease), color .25s var(--ease); }
+  .drop.hot { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+  #dragme { left: 50%; margin-left: -30px; bottom: 40px; cursor: grab; }
+  .list { width: 250px; display: grid; gap: 8px; }
+  .row { height: 42px; border-radius: 14px; background: var(--fill); display: flex; align-items: center; gap: 10px; padding: 0 12px; font-size: 13px; opacity: 0; }
   .row img { width: 22px; height: 22px; }
-  /* 5 expand */
-  .thumb { width: 90px; height: 90px; border-radius: 16px; background: linear-gradient(135deg, #6e8efb, #a777e3); cursor: pointer; }
-  .detail { position: absolute; inset: 16px; border-radius: 28px; background: linear-gradient(135deg, #6e8efb, #a777e3); display: none; color: #fff; padding: 22px; cursor: pointer; }
+  .thumb, .detail { background: linear-gradient(135deg, #3b6cf6, #9b5cf6); }
+  .thumb { width: 92px; height: 92px; border-radius: 18px; cursor: pointer; }
+  .detail { position: absolute; inset: 18px; border-radius: 28px; display: none; color: #fff; padding: 22px; cursor: pointer; }
   .detail b { font-size: 22px; display: block; } .detail span { opacity: .85; font-size: 13px; }
-  /* 6 segmented */
-  .seg { position: relative; display: flex; background: var(--line); padding: 3px; border-radius: 18px; }
+  .seg { position: relative; display: flex; background: var(--fill); padding: 3px; border-radius: 18px; }
   .seg button { position: relative; z-index: 1; border: 0; background: none; color: var(--ink); height: 30px; padding: 0 18px; border-radius: 15px; font: 500 13px -apple-system, sans-serif; cursor: pointer; }
-  .seg .ind { position: absolute; top: 3px; height: 30px; border-radius: 15px; background: var(--card); box-shadow: 0 1px 4px rgba(0,0,0,.18); }
-  /* 7 count */
-  .count { font: 700 64px/1 -apple-system, sans-serif; letter-spacing: -.03em; }
-  /* 8 popover */
-  .pop { position: absolute; top: 140px; left: 50%; translate: -50% 0; width: 220px; border-radius: 18px; padding: 6px; background: var(--card);
-         box-shadow: 0 0 0 .5px var(--line), 0 12px 40px rgba(0,0,0,.2); opacity: 0; transform: scale(.6); }
-  .pop div { padding: 8px 12px; border-radius: 10px; font-size: 13px; } .pop div:hover { background: var(--accent); color: #fff; }
-  .popbtn { position: absolute; top: 88px; left: 50%; translate: -50% 0; }
-  /* 9 toast */
-  .toast { position: absolute; top: 14px; left: 50%; margin-left: -130px; width: 260px; border-radius: 20px; padding: 10px 14px; display: none; gap: 10px; align-items: center;
-           background: rgba(30,30,32,.86); color: #fff; font-size: 13px; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
-  .toast img { width: 28px; height: 28px; }
-  /* 10 tilt */
-  .card3d { width: 200px; height: 130px; border-radius: 20px; background: linear-gradient(135deg, #1d1d1f, #48484a); color: #fff; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 18px 40px rgba(0,0,0,.25); }
-  /* 11 press */
-  .big { height: 52px; padding: 0 28px; border-radius: 26px; font-size: 17px; }
-  .ml { display: inline-grid; place-items: center; } .ml span { grid-area: 1/1; transition: opacity 340ms linear, filter 340ms cubic-bezier(.22,1,.36,1); }
-  .ml .h { opacity: 0; filter: blur(16px); font-size: 20px; } .ml:hover .r { opacity: 0; filter: blur(16px); } .ml:hover .h { opacity: 1; filter: blur(0); }
-  /* 13-15 */
-  .reveal { margin: 0; font-size: 34px; letter-spacing: -.03em; text-align: center; }
-  .nstack { position: absolute; top: 56px; left: 50%; margin-left: -140px; width: 280px; }
-  .ncard { position: absolute; left: 0; right: 0; top: 0; display: flex; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 16px;
-           background: rgba(246,246,248,.92); box-shadow: 0 0 0 .5px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.12); transform-origin: 50% 0; color: #1d1d1f; }
-  @media (prefers-color-scheme: dark) { .ncard { background: rgba(44,44,46,.92); color: #f5f5f7; } }
+  .seg .ind { position: absolute; top: 3px; height: 30px; border-radius: 15px; background: var(--card); box-shadow: 0 1px 4px rgba(0,0,0,.18), 0 0 0 .5px var(--line); }
+  .count { font: 700 72px/1 -apple-system, sans-serif; letter-spacing: -.035em; text-align: center; }
+  .count small { display: block; font: 500 13px -apple-system, sans-serif; letter-spacing: 0; color: var(--muted); margin-top: 10px; }
+  .opt { position: absolute; top: 70px; left: 50%; translate: -50% 0; border: 0; height: 34px; padding: 0 16px; border-radius: 17px; background: var(--fill); color: var(--ink); font: 500 14px -apple-system, sans-serif; cursor: pointer; }
+  .menu { position: absolute; top: 114px; left: 50%; margin-left: -110px; width: 220px; border-radius: 16px; padding: 5px; background: var(--card);
+          box-shadow: 0 0 0 .5px var(--line), 0 14px 40px rgba(0,0,0,.18); opacity: 0; transform: scale(.6); }
+  .menu div { padding: 7px 12px; border-radius: 10px; font-size: 13px; } .menu div.hl { background: var(--accent); color: #fff; }
+  .toast { position: absolute; top: 18px; left: 50%; margin-left: -140px; width: 280px; border-radius: 20px; padding: 10px 14px; display: flex; gap: 10px; align-items: center;
+           background: rgba(246,246,248,.92); color: #1d1d1f; box-shadow: 0 0 0 .5px rgba(0,0,0,.08), 0 12px 30px rgba(0,0,0,.14); opacity: 0; font-size: 13px; }
+  @media (prefers-color-scheme: dark) { .toast { background: rgba(44,44,46,.94); color: #f5f5f7; } }
+  .toast img { width: 32px; height: 32px; } .toast b { display: block; } .toast time { margin-left: auto; align-self: flex-start; font-size: 11px; opacity: .5; }
+  .card3d { width: 220px; height: 140px; border-radius: 22px; background: linear-gradient(135deg, #1d1d1f, #4a4a50); color: #fff; padding: 18px;
+            display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 20px 44px rgba(0,0,0,.28); }
+  .card3d img { width: 34px; height: 34px; }
+  .dl { position: relative; height: 52px; width: 236px; border: 0; border-radius: 26px; background: var(--accent); color: #fff; cursor: pointer;
+        font: 600 17px -apple-system, sans-serif; display: grid; place-items: center; overflow: hidden; }
+  .dl > * { grid-area: 1 / 1; transition: opacity 340ms linear, filter 340ms var(--ease); }
+  .dl .sym, .dl .ok { background: #fff; -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
+  .dl .sym { width: 24px; height: 24px; --m: url(mac-assets/menubar/download.png); opacity: 0; filter: blur(14px); }
+  .dl .prog, .dl .done { opacity: 0; filter: blur(14px); display: flex; align-items: center; gap: 10px; }
+  .dl .prog b { width: 120px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.3); overflow: hidden; } .dl .prog b i { display: block; height: 100%; width: 0; background: #fff; }
+  .dl .prog em { font: 600 13px -apple-system, sans-serif; font-style: normal; font-variant-numeric: tabular-nums; width: 36px; text-align: right; }
+  .dl .ok { width: 16px; height: 16px; --m: url(mac-assets/menubar/checkmark.png); }
+  .dl[data-s="hover"] .rest { opacity: 0; filter: blur(14px); } .dl[data-s="hover"] .sym { opacity: 1; filter: blur(0); }
+  @media (hover: hover) and (pointer: fine) { .dl[data-s="rest"]:hover .rest { opacity: 0; filter: blur(14px); } .dl[data-s="rest"]:hover .sym { opacity: 1; filter: blur(0); } }
+  .dl[data-s="prog"] .rest, .dl[data-s="done"] .rest { opacity: 0; filter: blur(14px); }
+  .dl[data-s="prog"] .prog, .dl[data-s="done"] .done { opacity: 1; filter: blur(0); }
+  .reveal { margin: 0; font-size: 36px; letter-spacing: -.035em; text-align: center; line-height: 1.1; }
+  .nstack { position: absolute; top: 40px; left: 50%; margin-left: -142px; width: 284px; }
+  .ncard { position: absolute; left: 0; right: 0; top: 0; display: flex; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 16px; transform-origin: 50% 0;
+           background: rgba(246,246,248,.96); color: #1d1d1f; box-shadow: 0 0 0 .5px rgba(0,0,0,.08), 0 8px 22px rgba(0,0,0,.1); }
+  @media (prefers-color-scheme: dark) { .ncard { background: rgba(44,44,46,.96); color: #f5f5f7; } }
   .ncard img { width: 32px; height: 32px; } .ncard b { display: block; font-size: 13px; } .ncard span { font-size: 12px; opacity: .65; }
   .ncard time { margin-left: auto; align-self: flex-start; font-size: 11px; opacity: .5; }
-  .mdock { display: flex; align-items: flex-end; gap: 5px; padding: 6px 8px; border-radius: 18px; height: 80px;
-           background: rgba(255,255,255,.35); box-shadow: inset 0 0 0 .5px rgba(0,0,0,.08), 0 10px 30px rgba(0,0,0,.12); align-self: end; margin-bottom: 40px; }
+  .dockwrap { position: absolute; left: 0; right: 0; bottom: 34px; display: flex; justify-content: center; }
+  .mdock { display: flex; align-items: flex-end; gap: 5px; padding: 6px 8px; border-radius: 18px; background: rgba(255,255,255,.55);
+           box-shadow: inset 0 0 0 .5px rgba(0,0,0,.08), 0 10px 30px rgba(0,0,0,.12); }
+  @media (prefers-color-scheme: dark) { .mdock { background: rgba(60,60,64,.55); } }
   .mdock img { width: 36px; height: 36px; display: block; }
-  /* 11 download */
-  .dl { position: relative; height: 52px; width: 230px; border: 0; border-radius: 26px; background: var(--accent); color: #fff; cursor: pointer;
-        font: 600 17px -apple-system, sans-serif; display: grid; place-items: center; overflow: hidden; }
-  .dl > * { grid-area: 1 / 1; transition: opacity 340ms linear, filter 340ms cubic-bezier(.22,1,.36,1); }
-  .dl .sym { width: 24px; height: 24px; background: #fff; -webkit-mask: url(mac-assets/menubar/download.png) center / contain no-repeat;
-             mask: url(mac-assets/menubar/download.png) center / contain no-repeat; opacity: 0; filter: blur(14px); }
-  .dl .prog, .dl .done { opacity: 0; filter: blur(14px); pointer-events: none; display: flex; align-items: center; gap: 10px; }
-  .dl .prog b { width: 120px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.3); overflow: hidden; }
-  .dl .prog b i { display: block; height: 100%; width: 0; background: #fff; border-radius: 3px; }
-  .dl .prog em { font: 600 13px -apple-system, sans-serif; font-style: normal; font-variant-numeric: tabular-nums; width: 36px; text-align: right; }
-  .dl .ok { width: 16px; height: 16px; background: #fff; -webkit-mask: url(mac-assets/menubar/checkmark.png) center / contain no-repeat; mask: url(mac-assets/menubar/checkmark.png) center / contain no-repeat; }
-  @media (hover: hover) and (pointer: fine) { .dl[data-s="rest"]:hover .rest { opacity: 0; filter: blur(14px); } .dl[data-s="rest"]:hover .sym { opacity: 1; filter: blur(0); } }
-  .dl[data-s="prog"] .rest, .dl[data-s="done"] .rest, .dl[data-s="prog"] .sym, .dl[data-s="done"] .sym { opacity: 0; filter: blur(14px); }
-  .dl[data-s="prog"] .prog, .dl[data-s="done"] .done { opacity: 1; filter: blur(0); }
-  .dl:focus:not(:focus-visible) { outline: none; }
-  /* 12 scene */
-  .mini { position: relative; width: 260px; height: 162px; border-radius: 14px; overflow: hidden; background: url(mac-assets/wallpaper-dark.jpg) center / cover;
-          box-shadow: 0 0 0 6px #111, 0 0 0 7px #333, 0 18px 40px rgba(0,0,0,.3); }
-  .mnotch2 { position: absolute; top: 0; left: 50%; translate: -50% 0; width: 46px; height: 11px; border-radius: 0 0 6px 6px; background: #000; overflow: hidden; }
-  .mface { position: absolute; left: 50%; top: 14px; translate: -50% 0; display: flex; gap: 8px; opacity: 0; }
-  .mface i { width: 7px; height: 16px; border-radius: 4px; background: #fff; transition: height .3s, border-radius .3s, margin .3s; }
-  .mface.happy i { width: 10px; height: 5px; border-radius: 6px 6px 0 0; margin-top: 7px; }
-  .mlock { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; color: #fff; }
-  .mlock b { display: block; font: 700 34px/1 -apple-system, sans-serif; letter-spacing: -.02em; }
-  .mlock span { font-size: 11px; opacity: .75; }
-  .hint2 { color: var(--muted); font-size: 13px; margin: 14px 0 0; text-align: center; }
-  .scene-wrap { height: 260px; overflow-y: auto; width: 100%; }
-  .scene { height: 900px; position: relative; }
-  .scene .pin { position: sticky; top: 0; height: 260px; display: grid; place-items: center; }
-  .bar { width: 200px; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; } .bar i { display: block; height: 100%; width: 0; background: var(--accent); }
+  .ptr { position: absolute; width: 14px; height: 20px; pointer-events: none; opacity: 0; transition: opacity .2s;
+         background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 20'%3E%3Cpath d='M1 1v15l4-4 3 7 3-1-3-7h5z' fill='%23000' stroke='%23fff' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat; }
 </style>
 </head>
 <body>
 <header>
   <h1>motion-kit</h1>
-  <p>Every part, working. Try each one, then copy the line under it. Full pieces: <a href="tour.html" style="color:var(--accent)">welcome tour</a> and <a href="notch-shelf.html" style="color:var(--accent)">notch shelf</a>.</p>
+  <p>Every part, playing on its own. Hover or touch a card to take over. Full pieces: <a href="tour.html">welcome tour</a> · <a href="notch-shelf.html">notch shelf</a>.</p>
 </header>
 
 <main class="grid">
-  <section class="demo"><div class="stage" id="s1"><div class="mnotch" id="mnotch"></div><button class="ghost" id="b1" style="margin-top:120px">Open</button></div>
-    <div class="meta"><b>Morph</b><span>One shape grows into a new size and radius. Never a second box underneath.</span><code>Motion.morph(el, { width, height, radius })</code></div></section>
+  <section class="demo" data-demo="morph"><div class="stage"><div class="screen"><div class="notch" id="mnotch"><div class="pfiles" id="mfiles">
+      <img src="mac-assets/files/pdf.png" alt=""><img src="mac-assets/files/keynote.png" alt=""><img src="mac-assets/files/png.png" alt=""></div></div>
+      <div class="clock"><b>9:41</b><span>Thursday</span></div></div></div>
+    <div class="meta"><b>Morph</b><span>One shape grows into a new size and radius, then its content arrives.</span><code>Motion.morph(el, { width, height, radius })</code></div></section>
 
-  <section class="demo"><div class="stage"><img class="icon fly-src" id="fsrc" src="mac-assets/files/pdf.png" alt=""><div class="fly-dst" id="fdst"><img src="mac-assets/menubar/tray.png" alt=""></div><button class="ghost" id="b2">Send</button></div>
-    <div class="meta"><b>Fly to a target</b><span>Arc, tilt into the turn, shrink, land with a squash.</span><code>Motion.flyTo(source, target, { scale, lift })</code></div></section>
+  <section class="demo" data-demo="fly"><div class="stage"><div class="tray" id="tray"><img src="mac-assets/menubar/tray.png" alt=""></div>
+      <img class="doc" id="flysrc" src="mac-assets/files/pdf.png" alt=""></div>
+    <div class="meta"><b>Fly to a target</b><span>Arc, tilt into the turn, shrink, land with a squash. Then home again.</span><code>Motion.flyTo(source, target, { scale, lift })</code></div></section>
 
-  <section class="demo"><div class="stage"><div class="drop" id="drop">Drop here</div><img class="icon dragme" id="dragme" src="mac-assets/files/keynote.png" alt=""></div>
-    <div class="meta"><b>Drag, magnet and flick</b><span>Lift, tilt with speed, pull in near the target, spring home on a miss.</span><code>Motion.draggable(el, { targets: [{ el, magnet, onDrop }] })</code></div></section>
+  <section class="demo" data-demo="drag"><div class="stage"><div class="drop" id="drop">Drop here</div><img class="doc" id="dragme" src="mac-assets/files/keynote.png" alt=""></div>
+    <div class="meta"><b>Drag, magnet and flick</b><span>Lift, pull in near the target, spring home on a miss. Try dragging it.</span><code>Motion.draggable(el, { targets: [{ el, magnet, onDrop }] })</code></div></section>
 
-  <section class="demo"><div class="stage"><div class="list" id="list"></div><button class="ghost" id="b4" style="position:absolute;bottom:16px">Toggle</button></div>
-    <div class="meta"><b>Stagger</b><span>Items rise in one after another, leave in reverse.</span><code>Motion.stagger(children, { show })</code></div></section>
+  <section class="demo" data-demo="stagger"><div class="stage"><div class="list" id="list"></div></div>
+    <div class="meta"><b>Stagger</b><span>Items rise in one after another, and leave in reverse.</span><code>Motion.stagger(children, { show })</code></div></section>
 
-  <section class="demo"><div class="stage" id="s5"><div class="thumb" id="thumb"></div><div class="detail" id="detail"><b>Moodboard</b><span>12 images, edited today. Tap to close.</span></div></div>
-    <div class="meta"><b>Expand and collapse</b><span>A thumbnail grows into its detail view and back.</span><code>Motion.expand(detail, thumb) · Motion.collapse(detail, thumb)</code></div></section>
+  <section class="demo" data-demo="expand"><div class="stage"><div class="thumb" id="thumb"></div><div class="detail" id="detail"><b>Moodboard</b><span>12 images, edited today</span></div></div>
+    <div class="meta"><b>Expand and collapse</b><span>A thumbnail grows into its detail view and back into its place.</span><code>Motion.expand(detail, thumb) · Motion.collapse(detail, thumb)</code></div></section>
 
-  <section class="demo"><div class="stage"><div class="seg" id="seg"><span class="ind" id="ind"></span><button>Day</button><button>Week</button><button>Month</button></div></div>
+  <section class="demo" data-demo="seg"><div class="stage"><div class="seg" id="seg"><span class="ind" id="ind"></span><button>Day</button><button>Week</button><button>Month</button></div></div>
     <div class="meta"><b>Sliding selection</b><span>The pill moves and resizes behind the chosen segment.</span><code>Motion.slideTo(indicator, button)</code></div></section>
 
-  <section class="demo"><div class="stage"><div class="count" id="count">0</div><button class="ghost" id="b7" style="position:absolute;bottom:16px">Roll</button></div>
-    <div class="meta"><b>Count</b><span>Numbers roll with tabular figures, no jitter.</span><code>Motion.countTo(el, 1280)</code></div></section>
+  <section class="demo" data-demo="count"><div class="stage"><div class="count"><span id="count">0</span><small>unlocks this week</small></div></div>
+    <div class="meta"><b>Count</b><span>Numbers roll to their new value, with tabular figures so nothing jitters.</span><code>Motion.countTo(el, 1280)</code></div></section>
 
-  <section class="demo"><div class="stage"><button class="pill popbtn" id="b8">Options</button><div class="pop" id="pop"><div>Open</div><div>Rename</div><div>Move to Trash</div></div></div>
+  <section class="demo" data-demo="pop"><div class="stage"><button class="opt" id="opt">Options</button>
+      <div class="menu" id="menu"><div>Open</div><div>Rename…</div><div>Move to Trash</div></div></div>
     <div class="meta"><b>Popover</b><span>Grows out of the button that opened it, with a small bounce.</span><code>Motion.popIn(panel, button, { show })</code></div></section>
 
-  <section class="demo"><div class="stage"><div class="toast" id="toast"><img src="mac-assets/files/pdf.png" alt=""><span><b>Saved</b><br>Proposal.pdf is on the shelf.</span></div><button class="ghost" id="b9">Notify</button></div>
-    <div class="meta"><b>Toast</b><span>Drops from the top edge, waits, leaves upward.</span><code>Motion.toast(el)</code></div></section>
+  <section class="demo" data-demo="toast"><div class="stage"><div class="toast" id="toast"><img src="mac-assets/dock/messages.png" alt=""><span><b>Messages</b>Priya: on my way</span><time>now</time></div></div>
+    <div class="meta"><b>Toast</b><span>Drops from the top edge with a little overshoot, waits, leaves upward.</span><code>Motion.toast(el)</code></div></section>
 
-  <section class="demo"><div class="stage"><div class="card3d" id="card3d"><b>Ledge</b><span style="opacity:.7;font-size:12px">Hover me</span></div></div>
-    <div class="meta"><b>Tilt</b><span>Follows the pointer in 3D, springs back flat.</span><code>Motion.tilt(el, { max: 6 })</code></div></section>
+  <section class="demo" data-demo="tilt"><div class="stage"><div class="card3d" id="card3d"><img src="mac-assets/dock/finder.png" alt=""><b>Hover me</b></div></div>
+    <div class="meta"><b>Tilt</b><span>Follows the pointer in 3D and springs back flat.</span><code>Motion.tilt(el, { max: 6 })</code></div></section>
 
-  <section class="demo"><div class="stage"><button class="dl" id="b11" aria-live="polite">
-      <span class="rest">Download for Mac</span><i class="sym" aria-hidden="true"></i>
-      <span class="prog" aria-hidden="true"><b><i id="dlbar"></i></b><em id="dlpct">0%</em></span>
-      <span class="done" aria-hidden="true"><i class="ok"></i>Open Gaze</span></button></div>
-    <div class="meta"><b>Download button</b><span>Hover: the label blurs into a symbol. Click: the same capsule turns into progress, then into the next action. The button never moves.</span><code>design-patterns › MorphLabel + progress swap</code></div></section>
+  <section class="demo" data-demo="dl"><div class="stage"><button class="dl" id="dl"><span class="rest">Download for Mac</span><i class="sym"></i>
+      <span class="prog"><b><i id="dlbar"></i></b><em id="dlpct">0%</em></span><span class="done"><i class="ok"></i>Open</span></button></div>
+    <div class="meta"><b>Download button</b><span>The label blurs into a symbol, the capsule becomes progress, then the next action. It never moves.</span><code>design-patterns › MorphLabel + progress swap</code></div></section>
 
-  <section class="demo"><div class="stage"><h2 class="reveal" id="rev">Your Mac. Unlocked.</h2><button class="ghost" id="b13" style="position:absolute;bottom:16px">Replay</button></div>
+  <section class="demo" data-demo="reveal"><div class="stage"><h2 class="reveal" id="rev">Your Mac. Unlocked.</h2></div>
     <div class="meta"><b>Headline reveal</b><span>Words rise out of a blur one after another, the first time they’re seen.</span><code>Motion.textReveal(h1)</code></div></section>
 
-  <section class="demo"><div class="stage"><div class="nstack" id="nstack"></div><button class="ghost" id="b14" style="position:absolute;top:14px;right:14px">Add</button></div>
-    <div class="meta"><b>Notification stack</b><span>Cards pile up with depth: lower, smaller, dimmer, a touch of blur. Hover fans them out.</span><code>const s = Motion.stack(el); s.push(card)</code></div></section>
+  <section class="demo" data-demo="stack"><div class="stage"><div class="nstack" id="nstack"></div></div>
+    <div class="meta"><b>Notification stack</b><span>Cards pile up with depth. Hover fans them out.</span><code>const s = Motion.stack(el); s.push(card)</code></div></section>
 
-  <section class="demo"><div class="stage"><div class="mdock" id="mdock"></div></div>
-    <div class="meta"><b>Dock magnification</b><span>Icons swell with distance to the pointer and push their neighbours apart, like the macOS Dock.</span><code>Motion.dock(el, { base: 48, max: 84 })</code></div></section>
+  <section class="demo" data-demo="dock"><div class="stage" id="s-dock"><div class="dockwrap"><div class="mdock" id="mdock"></div></div><i class="ptr" id="ptr"></i></div>
+    <div class="meta"><b>Dock magnification</b><span>Icons swell with distance to the pointer, like the macOS Dock.</span><code>const d = Motion.dock(el); d.at(x)</code></div></section>
 
-  <section class="demo"><div class="stage" style="display:block"><div class="scene-wrap" id="sw"><div class="scene" id="scene"><div class="pin">
-      <div class="mini" id="mini"><div class="mnotch2" id="mn"><div class="mface" id="mface"><i></i><i></i></div></div>
-        <div class="mlock" id="mlock"><b id="mtime">9:41</b><span id="mstate">Locked</span></div></div>
-      <p class="hint2" id="scenetxt">Scroll inside this card</p></div></div></div></div>
-    <div class="meta"><b>Pinned scene</b><span>Scroll drives the story: the notch opens, Gaze looks, and the Mac unlocks. Scroll back and it all reverses.</span><code>Motion.scene(section, p => …) · Motion.segment(p, a, b)</code></div></section>
+  <section class="demo" data-demo="scene"><div class="stage"><div class="screen"><div class="notch" id="snotch"><div class="face" id="sface"><i></i><i></i></div></div>
+      <div class="clock"><b>9:41</b><span id="sstate">Locked</span></div></div></div>
+    <div class="meta"><b>Pinned scene</b><span>Scroll progress drives a story: the notch opens, Gaze looks, the Mac unlocks. Here progress plays by itself.</span><code>Motion.scene(section, p => …) · Motion.segment(p, a, b)</code></div></section>
 </main>
 
 <script src="motion.js"></script>
 <script>
   const $ = (id) => document.getElementById(id);
+  const wait = (ms) => new Promise((r) => setTimeout(r, Motion.reduced() ? Math.min(ms, 400) : ms));
 
-  // 1 morph
-  let m1 = false;
-  $('b1').onclick = () => { m1 = !m1; $('b1').textContent = m1 ? 'Close' : 'Open';
-    Motion.morph($('mnotch'), m1 ? { width: 300, height: 110, radius: 28 } : { width: 140, height: 26, radius: 12 }, m1 ? 'smooth' : 'snappy'); };
+  // Autoplay: each card loops its demo while visible; hovering a card hands it to the person.
+  function autoplay(card, loop) {
+    let visible = false, held = false, running = false;
+    const go = async () => { if (running) return; running = true;
+      while (visible && !held) { await loop(); await wait(700); } running = false; };
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; go(); }, { threshold: 0.4 }).observe(card);
+    card.addEventListener('pointerenter', () => { held = true; });
+    card.addEventListener('pointerleave', () => { held = false; setTimeout(go, 600); });
+  }
+  const card = (name) => document.querySelector(`[data-demo="${name}"]`);
 
-  // 2 fly
-  $('b2').onclick = async () => { $('fsrc').style.visibility = 'hidden';
-    await Motion.flyTo($('fsrc'), $('fdst'), { scale: 0.4, lift: 90 });
-    setTimeout(() => { $('fsrc').style.visibility = ''; Motion.catchBump($('fsrc')); }, 500); };
+  autoplay(card('morph'), async () => {
+    await Motion.morph($('mnotch'), { width: 190, height: 64, radius: 18 }, 'island');
+    Motion.stagger($('mfiles').children, { show: true, gap: 90 }); await wait(1500);
+    await Motion.stagger($('mfiles').children, { show: false, gap: 0 });
+    await Motion.morph($('mnotch'), { width: 52, height: 12, radius: 7 }, 'island');
+  });
 
-  // 3 drag
-  Motion.draggable($('dragme'), { targets: [{ el: $('drop'), radius: 120, magnet: 0.35,
+  autoplay(card('fly'), async () => {
+    $('flysrc').style.visibility = 'hidden';
+    await Motion.flyTo($('flysrc'), $('tray'), { scale: 0.4, lift: 80 }); await wait(500);
+    const from = $('tray').getBoundingClientRect();
+    await Motion.flyTo($('flysrc'), $('flysrc'), { scale: 1, lift: -40, bump: false,
+      from: { left: from.left + 6, top: from.top + 6, width: 60, height: 60 } });
+    $('flysrc').style.visibility = ''; Motion.catchBump($('flysrc'));
+  });
+
+  Motion.draggable($('dragme'), { targets: [{ el: $('drop'), radius: 130, magnet: 0.35,
     onEnter: () => $('drop').classList.add('hot'), onLeave: () => $('drop').classList.remove('hot'),
-    onDrop: (el) => { $('drop').classList.remove('hot'); Motion.catchBump($('drop'));
-      $('drop').textContent = 'Got it'; el.style.visibility = 'hidden';
-      setTimeout(() => { el.style.visibility = ''; Motion.catchBump(el); $('drop').textContent = 'Drop here'; }, 1200); } }] });
+    onDrop: async (el) => { $('drop').classList.remove('hot'); Motion.catchBump($('drop')); $('drop').textContent = 'Got it';
+      el.style.visibility = 'hidden'; await wait(1100); el.style.visibility = ''; Motion.catchBump(el); $('drop').textContent = 'Drop here'; } }] });
+  autoplay(card('drag'), async () => {
+    const el = $('dragme'), d = $('drop'), a = el.getBoundingClientRect(), t = d.getBoundingClientRect();
+    const dx = t.left + t.width / 2 - (a.left + a.width / 2), dy = t.top + t.height / 2 - (a.top + a.height / 2);
+    el.style.filter = 'drop-shadow(0 16px 22px rgba(0,0,0,.2))';
+    await Motion.spring({ t: 0 }, { t: 1 }, ({ t }) => { el.style.transform = `translate(${dx * t}px, ${dy * t}px) rotate(${Math.sin(t * Math.PI) * -6}deg) scale(${1 + 0.08 * Math.sin(t * Math.PI / 2)})`;
+      d.classList.toggle('hot', t > 0.6); }, 'gentle');
+    el.style.filter = ''; el.style.transform = ''; d.classList.remove('hot'); el.style.visibility = 'hidden';
+    Motion.catchBump(d); d.textContent = 'Got it'; await wait(1000); d.textContent = 'Drop here'; el.style.visibility = ''; Motion.catchBump(el);
+  });
 
-  // 4 stagger
   const files = [['pdf', 'Proposal.pdf'], ['keynote', 'Launch.key'], ['png', 'Moodboard.png'], ['movie', 'Clip.mov']];
   $('list').innerHTML = files.map(([i, n]) => `<div class="row"><img src="mac-assets/files/${i}.png" alt="">${n}</div>`).join('');
-  let shown = true;
-  $('b4').onclick = () => { shown = !shown; Motion.stagger($('list').children, { show: shown }); };
+  autoplay(card('stagger'), async () => { await Motion.stagger($('list').children, { show: true, gap: 90 }); await wait(1400); await Motion.stagger($('list').children, { show: false, gap: 60 }); });
 
-  // 5 expand
-  $('thumb').onclick = () => { $('detail').style.display = 'block'; $('thumb').style.opacity = 0; Motion.expand($('detail'), $('thumb')); };
-  $('detail').onclick = async () => { await Motion.collapse($('detail'), $('thumb')); $('detail').style.display = 'none'; $('thumb').style.opacity = 1; };
+  const openDetail = async () => { $('detail').style.display = 'block'; $('thumb').style.opacity = 0; await Motion.expand($('detail'), $('thumb'), { preset: 'island' }); };
+  const closeDetail = async () => { await Motion.collapse($('detail'), $('thumb'), { preset: 'island' }); $('detail').style.display = 'none'; $('thumb').style.opacity = 1; };
+  $('thumb').onclick = openDetail; $('detail').onclick = closeDetail;
+  autoplay(card('expand'), async () => { await openDetail(); await wait(1300); await closeDetail(); });
 
-  // 6 segmented
   const segBtns = [...$('seg').querySelectorAll('button')];
-  const place = (b) => { $('ind').style.left = b.offsetLeft + 'px'; $('ind').style.width = b.offsetWidth + 'px'; };
-  place(segBtns[0]);
-  segBtns.forEach((b) => b.onclick = () => Motion.slideTo($('ind'), b));
+  const placeInd = (b) => { $('ind').style.left = b.offsetLeft + 'px'; $('ind').style.width = b.offsetWidth + 'px'; };
+  requestAnimationFrame(() => placeInd(segBtns[0]));
+  segBtns.forEach((b) => b.onclick = () => Motion.slideTo($('ind'), b, 'island'));
+  let segI = 0;
+  autoplay(card('seg'), async () => { segI = (segI + 1) % 3; await Motion.slideTo($('ind'), segBtns[segI], 'island'); await wait(700); });
 
-  // 7 count
-  $('b7').onclick = () => Motion.countTo($('count'), Math.round(Math.random() * 9000 + 500));
+  const counts = [128, 1280, 642, 2048];
+  let ci = 0;
+  autoplay(card('count'), async () => { await Motion.countTo($('count'), counts[ci++ % counts.length]); await wait(900); });
 
-  // 8 popover
-  let p8 = false;
-  $('b8').onclick = () => { p8 = !p8; Motion.popIn($('pop'), $('b8'), { show: p8 }); };
+  let menuOpen = false;
+  $('opt').onclick = () => { menuOpen = !menuOpen; Motion.popIn($('menu'), $('opt'), { show: menuOpen }); };
+  autoplay(card('pop'), async () => {
+    menuOpen = true; await Motion.popIn($('menu'), $('opt'), { show: true });
+    for (const r of $('menu').children) { r.classList.add('hl'); await wait(320); r.classList.remove('hl'); }
+    menuOpen = false; await Motion.popIn($('menu'), $('opt'), { show: false });
+  });
 
-  // 9 toast
-  $('b9').onclick = () => { $('toast').style.display = 'flex'; Motion.toast($('toast')); };
+  autoplay(card('toast'), async () => { await Motion.toast($('toast'), { ms: 1600 }); });
 
-  // 10 tilt, 11 press
   Motion.tilt($('card3d'));
+  autoplay(card('tilt'), async () => {
+    const c = $('card3d');
+    await Motion.spring({ t: 0 }, { t: 1 }, ({ t }) => { c.style.transform = `perspective(900px) rotateX(${Math.sin(t * 6.283) * 5}deg) rotateY(${Math.sin(t * 6.283 + 1.57) * 7 * (1 - t)}deg)`; }, { k: 6, c: 4.9, m: 1 });
+    c.style.transform = '';
+  });
 
-  // 13 reveal, 14 stack, 15 dock
-  Motion.textReveal($('rev'));
-  $('b13').onclick = () => { const h = $('rev'); h.dataset.split = ''; h.textContent = 'Your Mac. Unlocked.'; Motion.textReveal(h); };
+  const dl = $('dl'); dl.dataset.s = 'rest';
+  const runDownload = async () => {
+    dl.dataset.s = 'prog';
+    await Motion.spring({ p: 0 }, { p: 100 }, ({ p }) => { $('dlbar').style.width = Math.min(p, 100) + '%'; $('dlpct').textContent = Math.round(Math.min(p, 100)) + '%'; }, { k: 14, c: 7.5, m: 1 });
+    dl.dataset.s = 'done';
+  };
+  dl.onclick = () => { if (dl.dataset.s === 'rest' || dl.dataset.s === 'hover') runDownload(); else if (dl.dataset.s === 'done') { dl.dataset.s = 'rest'; $('dlbar').style.width = 0; } };
+  autoplay(card('dl'), async () => { dl.dataset.s = 'hover'; await wait(900); await runDownload(); await wait(1300); dl.dataset.s = 'rest'; $('dlbar').style.width = 0; await wait(600); });
+
+  autoplay(card('reveal'), async () => { const h = $('rev'); h.dataset.split = ''; h.textContent = 'Your Mac. Unlocked.'; Motion.textReveal(h); await wait(2600); });
+
   const ns = Motion.stack($('nstack'));
   const notes = [['messages', 'Messages', 'Priya: on my way'], ['mail', 'Mail', 'Your invoice is ready'], ['calendar', 'Calendar', 'Design review in 10 min'], ['photos', 'Photos', 'New memory: Lisbon']];
   let ni = 0;
   const addNote = () => { const [i, t, b] = notes[ni++ % notes.length]; const c = document.createElement('div'); c.className = 'ncard';
-    c.innerHTML = `<img src="mac-assets/dock/${i}.png" alt=""><div><b>${t}</b><span>${b}</span></div><time>now</time>`; ns.push(c); };
-  addNote(); addNote(); addNote(); $('b14').onclick = addNote;
-  $('mdock').innerHTML = ['finder', 'safari', 'messages', 'mail', 'photos', 'notes'].map((n) => `<img src="mac-assets/dock/${n}.png" alt="">`).join('');
-  Motion.dock($('mdock'), { base: 36, max: 56, reach: 110 });
+    c.innerHTML = `<img src="mac-assets/dock/${i}.png" alt=""><div><b>${t}</b><span>${b}</span></div><time>now</time>`; ns.push(c);
+    const all = $('nstack').children; if (all.length > 4) all[0].remove(); };
+  addNote(); addNote();
+  autoplay(card('stack'), async () => { addNote(); await wait(1500); });
 
-  // 11 download: rest → progress → done, in the same capsule.
-  const dl = $('b11'); dl.dataset.s = 'rest';
-  dl.onclick = async () => {
-    if (dl.dataset.s === 'rest') {
-      dl.dataset.s = 'prog';
-      await Motion.spring({ p: 0 }, { p: 100 }, ({ p }) => { $('dlbar').style.width = p + '%'; $('dlpct').textContent = Math.round(p) + '%'; }, { k: 14, c: 7.5, m: 1 });
-      dl.dataset.s = 'done';
-    } else if (dl.dataset.s === 'done') { dl.dataset.s = 'rest'; $('dlbar').style.width = 0; }
-  };
-
-  // 12 scene: notch opens, Gaze looks down at you, the Mac unlocks. Every step reverses on the way back.
-  $('sw').addEventListener('scroll', () => {
-    const p = $('sw').scrollTop / ($('scene').offsetHeight - $('sw').clientHeight);
-    const open = Motion.segment(p, 0.05, 0.35), look = Motion.segment(p, 0.35, 0.6), unlock = Motion.segment(p, 0.6, 0.85), close = Motion.segment(p, 0.85, 1);
-    const g = open * (1 - close);
-    Object.assign($('mn').style, { width: (46 + 104 * g) + 'px', height: (11 + 39 * g) + 'px', borderRadius: `0 0 ${6 + 12 * g}px ${6 + 12 * g}px` });
-    $('mface').style.opacity = Math.min(1, g * 1.4);
-    $('mface').style.translate = `-50% ${look * 3 - unlock * 3}px`;
-    $('mface').classList.toggle('happy', unlock > 0.5);
-    $('mlock').style.transform = `translateY(${-unlock * 6}px)`;
-    $('mstate').textContent = unlock > 0.5 ? 'Unlocked' : look > 0.3 ? 'Looking…' : 'Locked';
-    $('mini').style.filter = `brightness(${0.75 + unlock * 0.25})`;
-    $('scenetxt').textContent = p < 0.05 ? 'Scroll inside this card' : unlock > 0.5 ? 'Welcome back.' : 'Gaze is looking…';
+  const icons = ['finder', 'safari', 'messages', 'mail', 'photos', 'notes', 'calendar'];
+  $('mdock').innerHTML = icons.map((n) => `<img src="mac-assets/dock/${n}.png" alt="">`).join('');
+  const d = Motion.dock($('mdock'), { base: 36, max: 58, reach: 110 });
+  autoplay(card('dock'), async () => {
+    const r = $('mdock').getBoundingClientRect(), s = $('s-dock').getBoundingClientRect(), p = $('ptr');
+    p.style.opacity = 1; p.style.top = (r.top - s.top + 20) + 'px';
+    await Motion.spring({ t: 0 }, { t: 1 }, ({ t }) => { const x = r.left + 10 + (r.width - 20) * t; p.style.left = (x - s.left) + 'px'; d.at(x); }, { k: 5, c: 4.5, m: 1 });
+    d.leave(); p.style.opacity = 0;
   });
+
+  const drawScene = (p) => {
+    const open = Motion.segment(p, 0.05, 0.3), look = Motion.segment(p, 0.3, 0.55), unlock = Motion.segment(p, 0.55, 0.8), close = Motion.segment(p, 0.8, 1);
+    const g = open * (1 - close);
+    Object.assign($('snotch').style, { width: (52 + 98 * g) + 'px', height: (12 + 40 * g) + 'px', borderRadius: `0 0 ${7 + 12 * g}px ${7 + 12 * g}px` });
+    $('sface').style.opacity = Math.min(1, g * 1.6);
+    $('sface').classList.toggle('happy', unlock > 0.5);
+    $('sstate').textContent = unlock > 0.5 ? 'Unlocked' : look > 0.3 ? 'Looking…' : 'Locked';
+  };
+  autoplay(card('scene'), async () => { await Motion.spring({ p: 0 }, { p: 1 }, ({ p }) => drawScene(p), { k: 3.2, c: 3.6, m: 1 }); drawScene(0); });
 </script>
 </body>
 </html>

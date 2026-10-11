@@ -399,14 +399,14 @@
         size[i] = s; el.style.width = el.style.height = s + 'px';
       }, preset));
     });
-    container.addEventListener('pointermove', (e) => {
-      if (reduced()) return;
-      set(icons.map((el) => {
-        const r = el.getBoundingClientRect(), d = Math.abs(e.clientX - (r.left + r.width / 2));
-        return d > reach ? base : base + (max - base) * (Math.cos((d / reach) * Math.PI) + 1) / 2;
-      }), 'island');
-    });
-    container.addEventListener('pointerleave', () => set(icons.map(() => base), 'smooth'));
+    const at = (x) => set(icons.map((el) => {
+      const r = el.getBoundingClientRect(), d = Math.abs(x - (r.left + r.width / 2));
+      return d > reach ? base : base + (max - base) * (Math.cos((d / reach) * Math.PI) + 1) / 2;
+    }), 'island');
+    const leave = () => set(icons.map(() => base), 'smooth');
+    container.addEventListener('pointermove', (e) => { if (!reduced()) at(e.clientX); });
+    container.addEventListener('pointerleave', leave);
+    return { at, leave };   // drive it by script too (autoplay, demos)
   }
 
   global.Motion = { SPRINGS, spring, morph, flyTo, catchBump, pressable, draggable, stagger, reveal, scene, segment, expand, collapse, slideTo, countTo, popIn, toast, tilt, blurSwap, zoomTo, textReveal, stack, dock, reduced, clamp, lerp };

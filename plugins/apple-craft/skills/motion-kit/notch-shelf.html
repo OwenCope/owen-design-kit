@@ -221,6 +221,8 @@
     file.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); park(file); } });
   });
 
+  // Mouse clicks don't take focus, so the keyboard focus ring only shows for keyboard users.
+  notch.addEventListener('mousedown', (e) => e.preventDefault());
   // The notch: hover to peek, click or keyboard to toggle.
   notch.addEventListener('pointerenter', () => { clearTimeout(closeTimer); openShelf(); });
   notch.addEventListener('pointerleave', () => { closeTimer = setTimeout(closeShelf, 320); });

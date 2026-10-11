@@ -10,7 +10,7 @@ Motion feel (timing, springs, how two shapes become one) is the hardest thing to
 ## Use it
 
 - Copy `motion.js` next to your page and load it: `<script src="motion.js"></script>`. Everything is on the global `Motion`.
-- `gallery.html` shows every part working, one card each, with the line of code under it. Open it first and pick what fits.
+- `gallery.html` shows every part playing on its own in a loop, one card each, with the line of code under it; hover a card to take over. Open it first and pick what fits.
 - `tour.html` is a welcome tour for Gaze (the face blinks, follows a light, nods, opens App Lock), built on the `onboarding-design` structure: the scene in a Mac, a camera zoom until the screen is the window, the notch growing into the live panel, and every page morphing that same panel with blur crossfades while the art, text and button never move.
 - `notch-shelf.html` is a complete reference built with it: a notch you drag files into, which grows into a shelf. Open it next to `mac-assets` (from `mac-props`) and try it before building. Copy its patterns, never its page.
 
