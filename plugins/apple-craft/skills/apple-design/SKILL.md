@@ -11,7 +11,7 @@ The bar is simple: it should look like Apple shipped it. People notice at once w
 
 ## Alongside other design skills
 
-When general design skills are also loaded (antislop, emil-*, ui-ux-pro-max, frontend or macOS design packs): on Apple-platform products and Apple-style sites, apple-craft wins where they disagree. On other projects, the project's own design wins (`match-the-project`) and the general skills fill in. Use one review, `design-review`, not several.
+When general design skills are also loaded (antislop, ui-ux-pro-max, frontend or macOS design packs): on Apple-platform products and Apple-style sites, apple-craft wins where they disagree. On other projects, the project's own design wins (`match-the-project`) and the general skills fill in. Use one review, `design-review`, not several.
 
 ## Whose design wins
 

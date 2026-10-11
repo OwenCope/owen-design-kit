@@ -109,9 +109,9 @@ How it fails: breaking rules with no idea behind it; experimental navigation tha
 
 When no direction fits, build one from the same parts, in this order:
 
-1. **Background and text:** how light or dark, warm or cool. Check contrast (`emil-color`).
+1. **Background and text:** how light or dark, warm or cool. Body text needs at least 4.5:1 contrast against what's behind it, large headlines 3:1; check with the browser's contrast picker. Build greys in OKLCH (same hue, step the lightness) so they stay even, and make dark mode its own palette, not an inverted one.
 2. **One action colour.** Only one.
-3. **Typeface and headline treatment:** weight, size, tracking (`emil-typography`).
+3. **Typeface and headline treatment:** one family is usually enough; two at most (one for headings). Body 15 to 18 px with line-height about 1.5. Headlines get tighter tracking as they grow (about -0.02em at 48 px, -0.04em at 96 px) and tighter line-height (1.0 to 1.1). Use tabular figures for numbers that change or line up.
 4. **Corners and edges:** sharp, soft or round; hairlines or shadows.
 5. **How the product is shown:** real UI, illustration, photography, or a person.
 6. **Motion character:** quiet, smooth, bouncy, or none.

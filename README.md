@@ -32,7 +32,7 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 
 ## With other design skills
 
-apple-craft is specific: on Apple-platform products and Apple-style sites it overrides general design skills (antislop, emil-*, ui-ux-pro-max and similar). On anything else, the project's own design wins and the general skills fill the gaps.
+apple-craft is specific: on Apple-platform products and Apple-style sites it overrides general design skills (antislop, ui-ux-pro-max and similar). On anything else, the project's own design wins and the general skills fill the gaps.
 
 ## Install
 
