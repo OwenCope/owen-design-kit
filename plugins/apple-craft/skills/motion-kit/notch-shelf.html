@@ -59,7 +59,10 @@
   .clear img, .done img { width: 14px; height: 14px; filter: invert(1); }
   .actions { display: flex; gap: 8px; }
   .shelf { position: absolute; left: 0; right: 0; top: 74px; padding: 0 22px; display: flex; justify-content: center; gap: 14px; }
-  .item { width: 78px; text-align: center; opacity: 0; cursor: grab; touch-action: none; border-radius: 12px; padding: 6px 0 4px; }
+  .item { width: 78px; text-align: center; opacity: 0; cursor: grab; touch-action: none; border-radius: 12px; padding: 6px 0 4px;
+          user-select: none; -webkit-user-select: none; }
+  .item img, .file img { -webkit-user-drag: none; user-select: none; }
+  .notch, .stage { user-select: none; -webkit-user-select: none; }
   .item:hover { background: rgba(255,255,255,.08); }
   .item img { width: 52px; height: 52px; display: block; margin: 0 auto 6px; pointer-events: none; }
   .item span { display: block; padding: 0 4px; font-size: 11px; line-height: 14px; color: rgba(255,255,255,.88);
@@ -127,11 +130,11 @@
     item.innerHTML = `<img src="mac-assets/files/${f.dataset.icon}.png" alt=""><span>${f.dataset.name}</span>`;
     // Take it out: click, or pull it down out of the shelf.
     let y0 = null;
-    item.addEventListener('pointerdown', (e) => { y0 = e.clientY; item.setPointerCapture(e.pointerId); });
+    item.addEventListener('pointerdown', (e) => { e.preventDefault(); y0 = e.clientY; item.setPointerCapture(e.pointerId); });
     item.addEventListener('pointermove', (e) => {
       if (y0 === null) return;
       const dy = Math.max(0, e.clientY - y0);
-      item.style.transform = `translateY(${dy * 0.35}px)`;
+      item.style.transform = `translateY(${Math.min(dy * 0.35, 14)}px)`;
       if (dy > 46) { y0 = null; unpark(item); }
     });
     item.addEventListener('pointerup', () => { if (y0 !== null) { y0 = null; unpark(item); } });
@@ -146,18 +149,19 @@
     Motion.stagger(peek.children, { show: false, gap: 0 });
     // Don't wait for the spring to fully settle: content starts once the shape is mostly open.
     Motion.morph(notch, openSize(), 'smooth');
-    await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 140));
+    await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 90));
     Motion.stagger([head], { show: true });
-    await Motion.stagger(shelf.children, { show: true, gap: 30 });
+    await Motion.stagger(shelf.children, { show: true, gap: 22 });
   });
   const closeShelf = (fast = false) => queue(async () => {
     if (!open) return; open = false;
     peek.innerHTML = '';
     notch.setAttribute('aria-expanded', 'false');
-    Motion.stagger([head], { show: false });
-    if (!fast) await Motion.stagger(shelf.children, { show: false, gap: 22 });
+    // Content and shape leave together: no empty box left hanging while items fade one by one.
+    Motion.stagger([head, ...shelf.children], { show: false, gap: 0, distance: 4 });
+    await new Promise((r) => setTimeout(r, fast || Motion.reduced() ? 0 : 70));
     await Motion.morph(notch, closedSize(), 'snappy');
-    renderPeek(); Motion.stagger(peek.children, { show: true, gap: 30, distance: 4 });
+    renderPeek(); Motion.stagger(peek.children, { show: true, gap: 25, distance: 3 });
   });
 
   async function park(file, from) {
