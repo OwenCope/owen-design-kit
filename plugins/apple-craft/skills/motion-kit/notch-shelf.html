@@ -228,7 +228,6 @@
   notch.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open ? closeShelf() : openShelf(); } if (e.key === 'Escape') closeShelf(); });
 
   // Clear: every file goes home on its own arc, a beat apart, then the notch closes.
-  Motion.pressable($('clear')); Motion.pressable($('done'));
   $('done').addEventListener('click', (e) => { e.stopPropagation(); closeShelf(); });
   $('clear').addEventListener('click', async (e) => {
     e.stopPropagation();

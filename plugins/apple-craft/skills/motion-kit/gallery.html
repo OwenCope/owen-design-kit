@@ -61,6 +61,8 @@
   .card3d { width: 200px; height: 130px; border-radius: 20px; background: linear-gradient(135deg, #1d1d1f, #48484a); color: #fff; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 18px 40px rgba(0,0,0,.25); }
   /* 11 press */
   .big { height: 52px; padding: 0 28px; border-radius: 26px; font-size: 17px; }
+  .ml { display: inline-grid; place-items: center; } .ml span { grid-area: 1/1; transition: opacity 340ms linear, filter 340ms cubic-bezier(.22,1,.36,1); }
+  .ml .h { opacity: 0; filter: blur(16px); font-size: 20px; } .ml:hover .r { opacity: 0; filter: blur(16px); } .ml:hover .h { opacity: 1; filter: blur(0); }
   /* 12 scene */
   .scene-wrap { height: 260px; overflow-y: auto; width: 100%; }
   .scene { height: 900px; position: relative; }
@@ -105,8 +107,8 @@
   <section class="demo"><div class="stage"><div class="card3d" id="card3d"><b>Ledge</b><span style="opacity:.7;font-size:12px">Hover me</span></div></div>
     <div class="meta"><b>Tilt</b><span>Follows the pointer in 3D, springs back flat.</span><code>Motion.tilt(el, { max: 6 })</code></div></section>
 
-  <section class="demo"><div class="stage"><button class="pill big" id="b11">Download for Mac</button></div>
-    <div class="meta"><b>Press</b><span>Shrinks while held, springs back on release.</span><code>Motion.pressable(button)</code></div></section>
+  <section class="demo"><div class="stage"><button class="pill big ml" id="b11"><span class="r">Download for Mac</span><span class="h" aria-hidden="true">↓</span></button></div>
+    <div class="meta"><b>Buttons don’t move</b><span>Hover changes the label into a symbol (design-patterns MorphLabel); the button itself never shrinks, lifts or bounces.</span><code>see design-patterns › MorphLabel</code></div></section>
 
   <section class="demo"><div class="stage" style="display:block"><div class="scene-wrap" id="sw"><div class="scene" id="scene"><div class="pin"><div style="text-align:center"><div class="bar"><i id="bari"></i></div><p id="scenetxt" style="color:var(--muted);font-size:13px">Scroll inside this card</p></div></div></div></div></div>
     <div class="meta"><b>Pinned scene</b><span>Scroll progress 0 to 1 drives a choreographed scene.</span><code>Motion.scene(section, p => …) · Motion.segment(p, a, b)</code></div></section>
@@ -160,7 +162,7 @@
   $('b9').onclick = () => { $('toast').style.display = 'flex'; Motion.toast($('toast')); };
 
   // 10 tilt, 11 press
-  Motion.tilt($('card3d')); Motion.pressable($('b11'));
+  Motion.tilt($('card3d'));
 
   // 12 scene (inside a scrolling card, so progress comes from the card's own scroll)
   $('sw').addEventListener('scroll', () => {

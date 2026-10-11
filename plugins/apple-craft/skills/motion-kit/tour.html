@@ -211,7 +211,6 @@
   $('back').onclick = () => show(page - 1);
   $('skip').onclick = $('close').onclick = () => show(0);
   addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') $('go').click(); if (e.key === 'ArrowLeft') show(page - 1); });
-  [$('go'), $('back'), $('close')].forEach(Motion.pressable);
 </script>
 </body>
 </html>
