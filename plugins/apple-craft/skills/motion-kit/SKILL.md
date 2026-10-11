@@ -106,4 +106,8 @@ The rules below are defaults that worked for Gaze, not requirements for every pr
 
 Run `self-improve` and capture at least: the moment of approach (target reacting), mid-flight, landed, panel open, and closing. Each frame should be a good still, with nothing duplicated, seamed or left behind. Then interrupt it: press again mid-animation, reverse halfway, repeat fast. The latest input should win and the end state should be right.
 
-To see what really happened, use Lapse (`LAPSE.md`): slow the motion to 0.25x, record the interaction, scrub to the frame where it goes wrong, and diff the takes before and after a fix. It records and shows but doesn't judge, so still watch at normal speed.
+To see what really happened, film it. `filmstrip.mjs` slows the page down (CSS and JS springs alike), does the interaction and saves the frames side by side with timestamps, plus every running animation at each frame:
+
+    node filmstrip.mjs http://localhost:3000 "focus:#notch,press:Enter,film:600,key:Escape,film:500" --clip 340,0,600,260
+
+Read the strip like a storyboard: is any frame empty, duplicated or covering text? Does the close start the moment it's asked? Its first run on the notch shelf caught both: an empty panel at 100 ms, and a close that waited 300 ms for the opening to settle. Film again after the fix with the same steps. It doesn't judge feel; still watch at normal speed.

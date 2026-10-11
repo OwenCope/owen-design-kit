@@ -156,9 +156,11 @@
     Motion.stagger(peek.children, { show: false, gap: 0 });
     // Don't wait for the spring to fully settle: content starts once the shape is mostly open.
     Motion.morph(notch, openSize(), 'island');
-    await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 90));
+    // Content follows the shape almost at once, so the panel never shows empty.
+    await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 30));
     Motion.stagger([head], { show: true });
-    await Motion.stagger(shelf.children, { show: true, gap: 22 });
+    // Not awaited: a close pressed now must start now, not after the items' springs settle.
+    Motion.stagger(shelf.children, { show: true, gap: 22 });
   });
   const closeShelf = (fast = false) => queue(async () => {
     if (!open) return; open = false;
