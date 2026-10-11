@@ -200,9 +200,12 @@
     if (from === 0) {
       // Into the device: the camera pushes in until the Mac's screen is the window, and the Mac's notch
       // rises to the top edge and opens into the real panel, all as one move.
-      seatPanelOnMacNotch(); $('panel').style.opacity = 1;
+      // The Mac's own notch carries the zoom; our panel appears exactly where it ends up, at the top edge,
+      // so there is never a second notch shape floating over the picture.
+      Object.assign($('panel').style, { top: '0px', width: '120px', height: '30px', opacity: 0 });
       Motion.zoomTo($('stage'), $('screen'), $('win'), { preset: 'smooth', pad: 40 });
-      Motion.spring({ t: parseFloat($('panel').style.top) }, { t: 0 }, ({ t }) => { $('panel').style.top = t + 'px'; }, 'smooth');
+      setTimeout(() => { $('panel').style.transition = 'opacity 120ms ease'; $('panel').style.opacity = 1;
+        setTimeout(() => { $('panel').style.transition = ''; }, 140); }, Motion.reduced() ? 0 : 200);
       await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 260));
     }
 
@@ -210,17 +213,14 @@
       // Out of the device: the exact reverse. Content leaves, the panel folds back into the notch,
       // the notch drops back onto the Mac while the camera pulls out.
       swapContent('');
-      const sc = $('screen').getBoundingClientRect();
-      await Motion.morph($('panel'), { width: sc.width * 0.115, height: sc.height * 0.045, radius: 10 }, 'snappy');
+      await Motion.morph($('panel'), { width: 120, height: 30, radius: 10 }, 'snappy');
+      $('panel').style.transition = 'opacity 120ms ease'; $('panel').style.opacity = 0;
+      setTimeout(() => { $('panel').style.transition = ''; }, 140);
       const k0 = +$('stage').dataset.k || 1, x0 = +$('stage').dataset.x || 0, y0 = +$('stage').dataset.y || 0;
-      const zoomOut = Motion.spring({ k: k0, x: x0, y: y0 }, { k: 1, x: 0, y: 0 }, (v) => {
+      await Motion.spring({ k: k0, x: x0, y: y0 }, { k: 1, x: 0, y: 0 }, (v) => {
         $('stage').dataset.k = v.k; $('stage').dataset.x = v.x; $('stage').dataset.y = v.y;
         $('stage').style.transform = `translate(${v.x}px, ${v.y}px) scale(${v.k})`;
-        seatPanelOnMacNotch();
       }, 'smooth');
-      await zoomOut;
-      $('panel').style.transition = 'opacity 200ms ease'; $('panel').style.opacity = 0;
-      setTimeout(() => { $('panel').style.transition = ''; }, 220);
       busy = false; return;
     }
 
