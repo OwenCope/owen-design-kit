@@ -77,10 +77,24 @@ Keep what you saw separate from what you think caused it. "Escape leaves the pan
 
 ## Report
 
+- Every claim names what you did and what you saw: "opened at 375 px, the third row and the Add and Clear buttons are cut off" is a finding; "phone layout passes" next to a screenshot you didn't look at is not. Saving a screenshot is not checking it. Sort each check into checked and fine, checked and failed, or not tested.
 - Per round: the problems, what changed, what was tested, lint and accessibility results, whether images were viewed.
 - End with one of **ready for Owen to look at**, **visual review pending** (you couldn't see the images or playback) or **unresolved failure** (something is still broken). Ready isn't approved; only the person approves.
 
-## Example
+## Example: a prototype that looked finished and wasn't
+
+A notch file-shelf prototype was reported as done and passing. Looking at its own captures:
+
+- A giant marketing headline took the top half of the first screen; the product sat below it in a framed desktop. For a prototype, the product is the page. Fix: drop the headline, put the Mac scene first.
+- The shelf was a pale card below the black notch, not the notch growing. Fix: one shape that grows from the notch (`motion-kit`, why the reference works).
+- Four ways to add files at once (search, drop zone, browse, Add files). Fix: one obvious way, the rest secondary (`product-ui`, decide before polishing).
+- Generic page icons for files and coloured squares in the Dock, while `mac-props` ships real ones. Fix: run its asset script.
+- The phone capture cut off the third row and both buttons, yet the report said it passed at 375 px. Fix: look at the capture, then fix the overflow.
+- Closed, nothing showed that files were stored. Fix: show them in the closed notch.
+
+Every one of these was visible in screenshots the agent had already saved.
+
+## Example: a product page
 
 From a real round on a product page:
 

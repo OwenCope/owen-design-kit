@@ -82,6 +82,15 @@ The rules below are defaults that worked for Gaze, not requirements for every pr
 - **One motion at a time** per area; don't start a second animation on an element that is still moving.
 - **Reduce Motion:** every function jumps to the end state. Don't add your own motion around it.
 
+## Why the notch-shelf reference works (take the reasons, not the look)
+
+- **Continuity:** the notch itself grows into the shelf, one shape with the notch's own shoulders. A separate card appearing under a black notch breaks the idea that files go *into* the notch; it reads as a dropdown.
+- **State you can see when closed:** tiny real file icons peek inside the closed notch with a count, so people know their files are still there without opening it.
+- **One way in, obvious:** drag to the notch. Keyboard and click are there for access, not as extra visible buttons.
+- **Restraint:** no search, list metadata or upload zone until the job needs them.
+
+These transfer to any product: continuity, visible state, hierarchy, grouping, restraint. Exact sizes, timings, icon layout and whether there's search are this example's choices; derive yours from your product.
+
 ## What the notch-shelf reference adds
 
 - A drop panel that opens the moment a drag starts, with a target tile that lights up under the file.

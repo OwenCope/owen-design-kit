@@ -7,6 +7,17 @@ description: Designing the inside of a product rather than its landing page - da
 
 Landing pages are seen once. Product screens are used a thousand times. Taste here is different: calm, dense where it helps, fast, and honest about what's happening. The question is always "what is the person trying to get done, and what's in the way?"
 
+## Decide before polishing
+
+For each screen, answer these from the screenshot, not from memory:
+
+- What is the main action right now, and what leads the eye to it?
+- Which visible controls repeat another one? Keep one obvious way, and move the rest to secondary or contextual places (a menu, a shortcut, drag), never removing the accessible route.
+- After the action, what stays visible to show it worked and where the thing went?
+- Does every container group something real, or is it a box around one item?
+
+A notch file shelf that showed a search field, an outlined drop zone, a "browse" link and an "Add files" button all at once had four ways to add files and no clear first action. Parking files is meant to be fast: one way in that's obvious (drop on the notch), keyboard and a menu as the alternatives, search only once there are enough files to need it.
+
 ## Screens
 
 **Lists and tables.** The most-used screen in most products.

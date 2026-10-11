@@ -11,6 +11,8 @@ This is the way I think when the work comes out well. The rules elsewhere in the
 
 I don't start with a layout. I picture the single thing someone should remember after ten seconds, and I make it concrete enough to describe in one sentence: "you drag a file up and it disappears into the notch", "the eyes follow the light". Everything else on the page exists to set that moment up or get out of its way.
 
+The kind of thing I'm making decides the layout before any style does. A product page sells, so it gets a headline. A prototype demonstrates, so the product is the whole first screen and a headline only steals attention from it. I check which one was asked for.
+
 If I can't say the moment, I'm not ready to build. I ask Owen, or I look at the real product until I can.
 
 ## 2. Real before invented

@@ -27,6 +27,7 @@ When general design skills are also loaded (antislop, ui-ux-pro-max, frontend or
 | Text or isolated styling fix | The relevant guidance and a focused look at the result |
 | Change to an existing component | Existing patterns, affected states, a before and after comparison |
 | Improving an existing page or app | `improve-existing`: what works, the one thing hurting it most, structure before polish, before and after |
+| Interactive prototype or mock-up of an app | The app is the page: its main action and state fill the first screen. No marketing headline or promo sections unless the brief asks for a page. Real assets from `mac-props` (file icons, Dock, wallpaper), then `product-ui` and `self-improve` |
 | App screens and flows | `product-ui`: every state, errors and recovery, keyboard, 0 / 1 / many items |
 | New screen or page | A short brief (the moment, real content, what is cut), then a visual and interaction check |
 | New product direction | Concepts that differ in structure or interaction, the reasoning for the pick, a prototype and refinement |

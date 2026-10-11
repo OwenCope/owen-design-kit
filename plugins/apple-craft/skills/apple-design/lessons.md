@@ -11,6 +11,8 @@ What got approved and what got rejected across many rounds of building apps, web
 - **Never copy a signature.** A second site that reused the first site's effect got "it looks like that other site, just redesigned". The shared craft (space, type, real pictures, buttons) can repeat; the signature can't.
 - **Small numbers matter.** A button moving 1 px on hover, a 4 px gap that differs between two screenshots, padding that's 8 px tighter on one side. All of these were noticed and rejected. Measure; don't eyeball.
 - **When asked to fix one thing, fix only that thing.** "Just do this one thing" means one change. Unrequested changes to size, speed or spacing got "revert it, ours was better".
+- **A prototype isn't a product page.** A notch-app mock-up opened with a huge headline and the app below it, and was called slop. When the brief is a prototype, the product is the first screen.
+- **Saved isn't seen.** A report said the phone layout passed while its own screenshot showed the buttons cut off. Look at every capture you cite.
 - **Keep a backup before a big restyle.** Big changes sometimes lose what made the old version good ("we just lost so much of our Apple style"). Be able to go back in one step.
 
 ## Websites
