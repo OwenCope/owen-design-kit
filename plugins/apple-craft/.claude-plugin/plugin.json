@@ -1,7 +1,7 @@
 {
   "name": "apple-craft",
   "description": "Make apps and websites look like Apple made them: a design method and strict review, Liquid Glass with exact values, copy-ready SwiftUI and CSS components, Mac and web rules, a smooth onboarding standard, Apple-style writing and release notes, and a calm ship-and-verify routine.",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "author": { "name": "Owen Cope", "url": "https://github.com/OwenCope" },
   "keywords": ["design", "apple", "liquid-glass", "macos", "swiftui", "web", "css", "onboarding", "copywriting", "release-notes", "design-review"]
 }
