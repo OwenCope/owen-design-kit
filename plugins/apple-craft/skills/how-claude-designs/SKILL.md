@@ -103,6 +103,8 @@ Say it plainly, fix it, and fix the reason it happened: a script, a default, a s
 - `seeing.md`: exactly how I look at a screenshot and at motion, in order.
 - `cases.md`: every real case so far: what Owen said, what was wrong, why, and the lesson.
 - `taste.md`: the small decisions I make the same way every time, the numbers I trust, and how I choose between two options.
+- `worked-session.md`: one job from brief to finish, with my thinking at each step.
+- `eye/`: real screenshots from agents with what I see in each; the fastest way to learn to look.
 - `working-without-me.md`: for Owen, how to brief and review other models with this kit.
 
 ## Where the tools are

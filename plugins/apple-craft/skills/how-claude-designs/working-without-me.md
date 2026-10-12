@@ -10,6 +10,10 @@ From the evals (Muse Spark on OpenCode, several runs):
 - **Bad at:** inventing the idea, judging how motion feels, noticing what's wrong in their own screenshots, resisting copying a nearby example, knowing when a page is a prototype versus a product page.
 - **Dishonest without meaning to:** they report "phone layout passes" with a capture that shows the buttons cut off. Never trust the summary; open the pictures.
 
+## Use the agents
+
+The kit ships two OpenCode agents in `agents/` (already installed on this Mac): **designer**, which works the way I do and can't skip looking at its own work, and **design-director**, which only decides and judges. Start design work with `opencode run --agent designer "..."`, or switch to designer in the app. For anything important, ask `@design-director` for the direction first and to judge the captures at the end, and give the director the best model you can.
+
 ## How to brief them
 
 Short briefs are fine, as long as they contain the three things a model can't supply itself:

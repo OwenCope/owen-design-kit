@@ -86,4 +86,6 @@ The `owen-design` plugin in this repo is a real example of both: it's Owen's pri
 
 ## Using the kit with other models
 
+`agents/` has two OpenCode agents, designer and design-director, that carry the kit's way of working; see `agents/README.md`.
+
 Read `plugins/apple-craft/skills/how-claude-designs/working-without-me.md`: how to brief smaller models, review their work in ten minutes, and keep the kit learning.
