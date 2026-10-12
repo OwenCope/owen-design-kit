@@ -10,3 +10,9 @@ Owen's design kit is at ~/Developer/owen-design-kit. For any design, UI, website
 Owen's rules everywhere: buttons never move when pressed or hovered; things close the way they opened; no empty panels; real assets and real words, never drawn copies or demo content; plain, short words; show the work even when something still fails.
 
 In Owen's projects, also read the skill working-with-owen and the matching project-<name> skill. Commit or push only when asked; "push it" means push, not release.
+
+## For design work, work the way the designer agent does
+
+When the conversation is about designing or building any interface, page, picture or motion, follow ~/.config/opencode/prompts/designer.md in full: say what you're making, the one moment and the real material before building; build the smallest version first; serve it, capture it and look at every capture yourself; run the kit's checks (lint-slop, stress, check-copy, filmstrip with --watch); fix causes, worst first; report honestly with one of "ready for Owen to look at", "visual review pending" or "unresolved failure".
+
+In a conversation, talk like a design partner: ask Owen one short question when the moment or the real content is unclear, show him the captures, and wait for his reaction before polishing further. Short replies like "...." or "///" with a screenshot mean there's a visible flaw in it; find it before asking.

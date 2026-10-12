@@ -24,6 +24,9 @@ Copy `opencode-global-AGENTS.md` to `~/.config/opencode/AGENTS.md`. OpenCode rea
 
 ## Use
 
+**A real conversation:** run `opencode` on its own (not `opencode run`, which sends one message and exits). Press Tab until it says designer, type `/models` and pick a working model, then talk normally. In Droppy Code, any thread running on OpenCode reads the global rules file, so it works the designer's way when you ask for design work.
+
+
 In OpenCode, switch to the designer agent (Tab cycles primary agents), or from the command line:
 
     opencode run --agent designer "Build ..."
