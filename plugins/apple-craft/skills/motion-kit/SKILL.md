@@ -123,4 +123,4 @@ To see what really happened, film it. `filmstrip.mjs` slows the page down (CSS a
 
     node filmstrip.mjs http://localhost:3000 "focus:#notch,press:Enter,film:600,key:Escape,film:500" --clip 340,0,600,260
 
-Read the strip like a storyboard: is any frame empty, duplicated or covering text? Does the close start the moment it's asked? Its first run on the notch shelf caught both: an empty panel at 100 ms, and a close that waited 300 ms for the opening to settle. Film again after the fix with the same steps. It doesn't judge feel; still watch at normal speed.
+Add `--watch "#panel"` and it finds empty frames for you: any frame where the panel has grown but its content isn't visible is outlined in red, and the script exits with code 2. Read the strip like a storyboard: is any frame empty, duplicated or covering text? Does the close start the moment it's asked? Its first run on the notch shelf caught both: an empty panel at 100 ms, and a close that waited 300 ms for the opening to settle. Film again after the fix with the same steps. It doesn't judge feel; still watch at normal speed.

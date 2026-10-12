@@ -18,6 +18,10 @@
 //   l. duplicate actions - three or more visible controls in one container doing the same job.
 //   m. placeholder icons - flat coloured squares where real app or file icons belong.
 //   n. detached notch panel - a shelf/panel under the notch instead of growing out of it.
+//   o. bold menu bar clock - a Mac clock in the top bar drawn with semibold or heavier weight.
+//   p. missing Control Center - a Mac menu bar without enough status icons or a Control Center icon.
+//   q. Dock without a divider before the Trash - the Trash sits with the apps instead of past a separator.
+//   r. alias arrows on Dock icons - a Dock icon carrying a white shortcut badge (symlink not resolved).
 //
 // Run this until it is clean before any visual review: fix every FAIL, then run it again.
 import { createRequire as __cr } from 'node:module';
@@ -448,6 +452,197 @@ try {
     return [];
   }), 'WARN');
 } catch { report('detached notch panel', ['check could not run'], 'WARN'); }
+
+// o. bold menu bar clock
+try {
+  report('bold menu bar clock', await page.evaluate(() => {
+    const clockRe = /\b([01]?\d|2[0-3]):[0-5]\d\b/;
+    const cls = (el) => (typeof el.className === 'string' ? el.className : el.className?.baseVal ?? '');
+    let hasScene = [...document.querySelectorAll('img')].some((img) =>
+      /macbook|shell/i.test(img.getAttribute('src') ?? ''));
+    if (!hasScene) hasScene = [...document.querySelectorAll('body *')].some((el) => /dock/i.test(cls(el)));
+    if (!hasScene) {
+      for (const el of document.querySelectorAll('body *')) {
+        if (el.children.length === 0 && clockRe.test(el.textContent ?? '')) { hasScene = true; break; }
+      }
+    }
+    if (!hasScene) return [];
+    const weightNum = (v) => {
+      if (v === 'bold') return 700;
+      if (v === 'normal') return 400;
+      return Number(v) || 400;
+    };
+    for (const el of document.querySelectorAll('body *')) {
+      if (el.children.length !== 0) continue;
+      if (!clockRe.test(el.textContent ?? '')) continue;
+      const r = el.getBoundingClientRect();
+      if (r.top < 0 || r.top >= 40 || r.width === 0) continue;
+      if (weightNum(getComputedStyle(el).fontWeight) >= 600) {
+        return ['menu bar clock is bold; a real Mac uses regular weight'];
+      }
+    }
+    return [];
+  }));
+} catch { report('bold menu bar clock', ['check could not run'], 'WARN'); }
+
+// p. missing Control Center
+try {
+  report('missing Control Center', await page.evaluate(() => {
+    const clockRe = /\b([01]?\d|2[0-3]):[0-5]\d\b/;
+    const cls = (el) => (typeof el.className === 'string' ? el.className : el.className?.baseVal ?? '');
+    let hasScene = [...document.querySelectorAll('img')].some((img) =>
+      /macbook|shell/i.test(img.getAttribute('src') ?? ''));
+    if (!hasScene) hasScene = [...document.querySelectorAll('body *')].some((el) => /dock/i.test(cls(el)));
+    if (!hasScene) {
+      for (const el of document.querySelectorAll('body *')) {
+        if (el.children.length === 0 && clockRe.test(el.textContent ?? '')) { hasScene = true; break; }
+      }
+    }
+    if (!hasScene) return [];
+    let clockR = null;
+    for (const el of document.querySelectorAll('body *')) {
+      if (el.children.length !== 0) continue;
+      if (!clockRe.test(el.textContent ?? '')) continue;
+      const r = el.getBoundingClientRect();
+      if (r.top < 0 || r.top >= 40 || r.width === 0) continue;
+      clockR = r; break;
+    }
+    if (!clockR) return [];
+    const urls = [];
+    let count = 0;
+    for (const el of document.querySelectorAll('img, svg, div, span, i')) {
+      const r = el.getBoundingClientRect();
+      if (r.top < 0 || r.top >= 40) continue;
+      if (r.left < innerWidth / 2) continue;
+      if (r.right > clockR.left + 1) continue;
+      if (r.width < 10 || r.width > 24 || r.height < 10 || r.height > 24) continue;
+      const st = getComputedStyle(el);
+      const mask = `${st.maskImage ?? ''} ${st.webkitMaskImage ?? ''} ${st.backgroundImage ?? ''}`;
+      if (/^(IMG|SVG)$/i.test(el.tagName)) {
+        count++;
+        urls.push(`${el.getAttribute?.('src') ?? ''} ${mask}`);
+      } else if (mask && !/^(none\s*)+$/.test(mask.trim()) && mask.trim() !== '') {
+        count++;
+        urls.push(mask);
+      }
+    }
+    if (count < 4) return ['menu bar is missing Control Center (and maybe battery, Wi-Fi, Spotlight)'];
+    if (!urls.some((u) => /control/i.test(u))) return ['menu bar is missing Control Center (and maybe battery, Wi-Fi, Spotlight)'];
+    return [];
+  }), 'WARN');
+} catch { report('missing Control Center', ['check could not run'], 'WARN'); }
+
+// q. Dock without a divider before the Trash
+try {
+  report('Dock divider before Trash', await page.evaluate(() => {
+    const clockRe = /\b([01]?\d|2[0-3]):[0-5]\d\b/;
+    const cls = (el) => (typeof el.className === 'string' ? el.className : el.className?.baseVal ?? '');
+    let hasScene = [...document.querySelectorAll('img')].some((img) =>
+      /macbook|shell/i.test(img.getAttribute('src') ?? ''));
+    if (!hasScene) hasScene = [...document.querySelectorAll('body *')].some((el) => /dock/i.test(cls(el)));
+    if (!hasScene) {
+      for (const el of document.querySelectorAll('body *')) {
+        if (el.children.length === 0 && clockRe.test(el.textContent ?? '')) { hasScene = true; break; }
+      }
+    }
+    if (!hasScene) return [];
+    const docks = [...document.querySelectorAll('body *')].filter((el) => /dock/i.test(cls(el)));
+    for (const el of document.querySelectorAll('body *')) {
+      if (docks.includes(el)) continue;
+      const kids = [...el.children];
+      if (kids.length < 4) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width === 0) continue;
+      const square = kids.filter((k) => {
+        const kr = k.getBoundingClientRect();
+        return kr.width >= 16 && kr.width <= 96 && Math.abs(kr.width - kr.height) / kr.width < 0.2;
+      });
+      if (square.length < 4) continue;
+      const tops = square.map((k) => k.getBoundingClientRect().top);
+      if (Math.max(...tops) - Math.min(...tops) > 24) continue;
+      if (el.getBoundingClientRect().bottom < innerHeight * 0.5) continue;
+      docks.push(el);
+    }
+    for (const dock of docks) {
+      for (const img of dock.querySelectorAll('img')) {
+        if (!/trash/i.test(img.getAttribute('src') ?? '')) continue;
+        const prev = img.previousElementSibling ?? img.parentElement?.previousElementSibling ?? null;
+        if (!prev) return ['no divider before the Trash in the Dock'];
+        const pr = prev.getBoundingClientRect();
+        const pc = typeof prev.className === 'string' ? prev.className : prev.className?.baseVal ?? '';
+        if (pr.width <= 4 || /sep|divider/i.test(pc)) continue;
+        return ['no divider before the Trash in the Dock'];
+      }
+    }
+    return [];
+  }), 'WARN');
+} catch { report('Dock divider before Trash', ['check could not run'], 'WARN'); }
+
+// r. alias arrows on Dock icons
+try {
+  report('alias arrows on Dock icons', await page.evaluate(() => {
+    const clockRe = /\b([01]?\d|2[0-3]):[0-5]\d\b/;
+    const cls = (el) => (typeof el.className === 'string' ? el.className : el.className?.baseVal ?? '');
+    let hasScene = [...document.querySelectorAll('img')].some((img) =>
+      /macbook|shell/i.test(img.getAttribute('src') ?? ''));
+    if (!hasScene) hasScene = [...document.querySelectorAll('body *')].some((el) => /dock/i.test(cls(el)));
+    if (!hasScene) {
+      for (const el of document.querySelectorAll('body *')) {
+        if (el.children.length === 0 && clockRe.test(el.textContent ?? '')) { hasScene = true; break; }
+      }
+    }
+    if (!hasScene) return [];
+    const docks = [...document.querySelectorAll('body *')].filter((el) => /dock/i.test(cls(el)));
+    for (const el of document.querySelectorAll('body *')) {
+      if (docks.includes(el)) continue;
+      const kids = [...el.children];
+      if (kids.length < 4) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width === 0) continue;
+      const square = kids.filter((k) => {
+        const kr = k.getBoundingClientRect();
+        return kr.width >= 16 && kr.width <= 96 && Math.abs(kr.width - kr.height) / kr.width < 0.2;
+      });
+      if (square.length < 4) continue;
+      const tops = square.map((k) => k.getBoundingClientRect().top);
+      if (Math.max(...tops) - Math.min(...tops) > 24) continue;
+      if (el.getBoundingClientRect().bottom < innerHeight * 0.5) continue;
+      docks.push(el);
+    }
+    const out = [];
+    for (const dock of docks) {
+      for (const img of dock.querySelectorAll('img')) {
+        const src = img.getAttribute('src') ?? '';
+        if (!/mac-assets\/dock\//i.test(src)) continue;
+        try {
+          if (!img.complete || img.naturalWidth === 0) continue;
+          const w = img.naturalWidth;
+          const h = img.naturalHeight;
+          const c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          const ctx = c.getContext('2d', { willReadFrequently: true });
+          if (!ctx) continue;
+          ctx.drawImage(img, 0, 0);
+          const data = ctx.getImageData(0, 0, w, h).data;
+          // The alias badge hangs below the icon's own rounded square at the bottom-left, where a clean
+          // macOS icon is transparent. Measured: 62% of this box is opaque with the badge, 0% without.
+          const x0 = Math.floor(w * 0.05), x1 = Math.floor(w * 0.28);
+          const y0 = Math.floor(h * 0.9), y1 = Math.floor(h * 0.97);
+          let solid = 0, total = 0;
+          for (let y = y0; y < y1; y++) {
+            for (let x = x0; x < x1; x++) { total++; if (data[(y * w + x) * 4 + 3] > 128) solid++; }
+          }
+          if (total > 0 && solid / total > 0.25) {
+            out.push(`Dock icon carries an alias arrow; re-run make-assets.swift (it now resolves symlinks): "${src.slice(0, 60)}"`);
+          }
+        } catch { continue; }
+        if (out.length >= 40) break;
+      }
+      if (out.length >= 40) break;
+    }
+    return out;
+  }), 'WARN');
+} catch { report('alias arrows on Dock icons', ['check could not run'], 'WARN'); }
 
 failed = 0;
 let warns = 0;

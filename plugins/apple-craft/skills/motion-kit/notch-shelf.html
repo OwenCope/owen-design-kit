@@ -160,11 +160,12 @@
     Motion.stagger(peek.children, { show: false, gap: 0 });
     // Don't wait for the spring to fully settle: content starts once the shape is mostly open.
     Motion.morph(notch, openSize(), 'island');
-    // Content follows the shape almost at once, so the panel never shows empty.
-    await new Promise((r) => setTimeout(r, Motion.reduced() ? 0 : 30));
-    Motion.stagger([head], { show: true });
+    // Content starts with the shape on a quick spring, so no frame shows an empty panel
+    // (the filmstrip's empty-frame check caught the softer 'smooth' fade at 68 ms).
+    await new Promise((r) => setTimeout(r, 0));   // let the morph start first; keeps queued actions in order
+    Motion.stagger([head], { show: true, preset: 'snappy' });
     // Not awaited: a close pressed now must start now, not after the items' springs settle.
-    Motion.stagger(shelf.children, { show: true, gap: 22 });
+    Motion.stagger(shelf.children, { show: true, gap: 14, preset: 'snappy' });
   });
   const closeShelf = (fast = false) => queue(async () => {
     if (!open) return; open = false;

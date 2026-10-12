@@ -31,9 +31,15 @@ Run, from a folder with Playwright installed:
     node ~/Developer/owen-design-kit/plugins/apple-craft/skills/design-review/scripts/lint-slop.mjs <url>
     node ~/Developer/owen-design-kit/plugins/apple-craft/skills/design-review/scripts/stress.mjs <url>
 
+    node ~/Developer/owen-design-kit/scripts/check-copy.mjs .
+
+check-copy fails if your page is a reskin of one of the kit's demos (over 30 % the same). Lint fails on a bold menu bar clock, a missing Control Center, no Trash divider and alias arrows on Dock icons.
+
 If anything moves:
 
-    node ~/Developer/owen-design-kit/plugins/apple-craft/skills/motion-kit/filmstrip.mjs <url> "<steps>"
+    node ~/Developer/owen-design-kit/plugins/apple-craft/skills/motion-kit/filmstrip.mjs <url> "<steps>" --watch "<the panel's selector>"
+
+It exits with code 2 and marks the frame EMPTY when a panel has grown but its content isn't visible. Fix every one.
 
 and read the strip for empty frames, doubled frames, and closing that doesn't mirror opening. An empty frame is any frame where the shape has already grown but its content isn't visible yet, even for one frame. Count it as a failure, not a detail.
 

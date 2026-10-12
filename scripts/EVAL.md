@@ -45,7 +45,20 @@ Habit brief:
 
 ## A fair brief
 
+notch.txt is now only for checking copying, since the kit has a notch demo.
 Don't test with a product the kit already contains a finished demo of (the notch shelf): the agent can copy it. Use briefs for products the kit has never shown, like `habit.txt` or the Tally developer tool, and check the result against the kit's demos for copying (`difflib` similarity over 30 % is a reskin).
+
+## Running the suite
+
+    node scripts/eval-suite.mjs --model opencode/muse-spark-1.3-contributor-free --agent designer --out ~/kit-eval/suite-1
+
+This runs every brief in `scripts/briefs/` (`tally`, `settings`, `music`,
+`recipe`, `habit` by default; narrow with `--briefs tally,habit`, run up to
+`--parallel 2` at once) through the OpenCode CLI into one folder per brief,
+captures each result, runs the copy check and the slop lint, and writes
+`<out>/index.html` plus `<out>/summary.md`.
+
+To judge: open index.html, look at every picture yourself, then record picks.
 
 ## Results so far (Muse Spark 1.3, free)
 

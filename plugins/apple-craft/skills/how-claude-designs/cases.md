@@ -52,3 +52,9 @@ Every one of these happened. Each has what Owen said, what was really wrong, why
 - **Capsule controls and big rounded containers** read as current Apple; sharp rectangles read as old.
 - **Release notes:** the version as a short header, one real picture of the change, a few short bullets. Never test data like "Version 0.1.0" in a public picture.
 - **No blockquotes in replies.** They render badly where he reads them.
+
+## The checks that caught me
+
+- **The empty-frame check flagged my own reference shelf** at 68 ms: the shape opened with its content still faint, because the content faded in on a soft spring. The agent's copy had inherited it. Fixed with a quicker fade that starts with the shape.
+- **Removing a 30 ms wait exposed a crash:** when a file landed while the shelf was opening, an empty peek row passed nothing to the animation. The wait had been hiding it. Fixed at the source: the motion library now skips missing elements. *Lesson: a delay that "fixes" timing is often hiding a bug.*
+- **An agent's "original" page was 63 % my demo.** It changed the name and files, so it looked new. Now `scripts/check-copy.mjs` fails any page over 30 % similar to a kit demo.

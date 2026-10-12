@@ -205,15 +205,16 @@
   }
 
   // Bring a list of children in one after another (rise, fade, un-blur), or out in reverse.
-  function stagger(els, { show = true, gap = 40, distance = 10, scale = 0.92 } = {}) {
-    const list = show ? [...els] : [...els].reverse();
+  function stagger(els, { show = true, gap = 40, distance = 10, scale = 0.92, preset } = {}) {
+    const items = [...els].filter(Boolean);   // callers can pass an element that's already gone
+    const list = show ? items : items.reverse();
     return Promise.all(list.map((el, i) => new Promise((done) => setTimeout(() => {
       const a = show ? { o: 0, y: distance, s: scale, b: 6 } : { o: 1, y: 0, s: 1, b: 0 };
       const z = show ? { o: 1, y: 0, s: 1, b: 0 } : { o: 0, y: distance * 0.5, s: scale, b: 4 };
       claim(el, 'stagger', spring(a, z, ({ o, y, s, b }) => {
         el.style.opacity = clamp(o); el.style.transform = `translateY(${y}px) scale(${s})`;
         el.style.filter = b > 0.05 ? `blur(${b}px)` : '';
-      }, show ? 'smooth' : 'snappy')).then(done);
+      }, preset || (show ? 'smooth' : 'snappy'))).then(done);
     }, reduced() ? 0 : i * gap))));
   }
 
