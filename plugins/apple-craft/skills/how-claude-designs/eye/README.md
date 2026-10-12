@@ -67,3 +67,15 @@ What I see: a filmstrip of the notch opening. At 291 ms the notch has grown into
 Why it matters: the agent's own report said "no empty or doubled frames". It ran the filmstrip but read it quickly. For about a tenth of a second the panel is empty, which is exactly what reads as "laggy" at full speed. Content must start appearing as soon as the shape starts growing.
 
 This came from the best run so far (the designer agent on Muse Spark), which otherwise got the product, the assets and the honesty right. The last 10 % is looking at every frame.
+
+## 7. Small details Owen caught with "///"
+
+`07-menu-bar-details.png`, `07-dock-details.png` (crops from the same best run as example 6)
+
+What I missed the first time, and he didn't:
+- The clock is bold. A real menu bar clock is regular weight.
+- The menu bar icons are tiny and uneven, the battery is an empty outline, and Control Center is missing.
+- Safari in the Dock has a little alias arrow. That came from the kit's own asset script exporting the icon of a link; the script is fixed.
+- No divider before the Trash.
+
+Lesson: a short reply like "///" or "...." with a crop means the flaw is in that crop. Zoom in on every piece of a Mac scene and compare it, piece by piece, with a screenshot of your own real menu bar and Dock. See `mac-props`, "The details people notice".

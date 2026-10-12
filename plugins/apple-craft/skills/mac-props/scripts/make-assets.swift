@@ -41,7 +41,8 @@ let dock: [(String, String)] = [
   ("appstore", "/System/Applications/App Store.app"), ("settings", "/System/Applications/System Settings.app"),
 ]
 for (name, path) in dock where fm.fileExists(atPath: path) {
-  let icon = NSWorkspace.shared.icon(forFile: path)
+  // Safari in /Applications is a symlink; asking for the link's icon adds an alias arrow. Use the real app.
+  let icon = NSWorkspace.shared.icon(forFile: (path as NSString).resolvingSymlinksInPath)
   save(render(256) { icon.draw(in: $0) }, "dock/\(name).png")
 }
 if let trash = NSImage(named: NSImage.trashEmptyName) { save(render(256) { trash.draw(in: $0) }, "dock/trash.png") }
@@ -55,7 +56,7 @@ for trashPath in ["/System/Library/CoreServices/Dock.app/Contents/Resources/tras
 
 // Your app: its real icon, or a temporary one (an SF Symbol on a tinted rounded square).
 if let app = arg("--app") {
-  let icon = NSWorkspace.shared.icon(forFile: app)
+  let icon = NSWorkspace.shared.icon(forFile: (app as NSString).resolvingSymlinksInPath)
   save(render(256) { icon.draw(in: $0) }, "dock/app.png")
 } else if let symbolName = arg("--symbol"), let symbol = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil) {
   let hex = (arg("--tint") ?? "#0A84FF").dropFirst()

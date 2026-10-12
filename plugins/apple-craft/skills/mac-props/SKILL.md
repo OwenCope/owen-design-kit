@@ -153,6 +153,22 @@ When a section *becomes* the Mac's desktop (a signature moment that fills the sc
 - Keep the Dock, with the app's icon in it; the scene is a Mac, not a wallpaper.
 - Don't stack the website's own nav on top of the scene's menu bar. Hide or fade the site nav while the scene is pinned, so there's one bar at the top.
 
+## The details people notice
+
+These are small, and Owen spots every one of them.
+
+**Menu bar**
+- Text is regular weight (500 at most), including the clock. Only the app name next to the Apple logo is bold.
+- Right side, in order: battery, Wi-Fi, Spotlight (magnifying glass), Control Center (two toggles), then the date and time, e.g. "Mon Oct 12  9:41 AM". Control Center is always there.
+- Icons are about the height of the capital letters, all the same visual size, with even gaps. A full battery, not an empty outline.
+- Light text on dark wallpapers, dark text on light ones.
+
+**Dock**
+- App icons only from `mac-assets/dock/`. No alias arrows on any icon (if you see one, re-run the asset script; it now resolves links).
+- A thin divider before the Trash, as on a real Mac.
+- A running dot under the app being shown, centred under its icon.
+- All icons the same size; the Trash is a real exported icon, not a drawn bin.
+
 ## Check before showing
 
 **Then compare, part by part.** Before showing a mock-up, open the matching picture and put your render next to it at the same size:

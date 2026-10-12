@@ -77,3 +77,4 @@ Footage limits a video more than editing does. If a scene isn't working after tw
 - **Show the person early.** The fastest progress came from a screenshot shown halfway, not a finished page shown once.
 - **Ask what they're picturing** when the request is vague ("make it peak"), then offer three concrete options with a pick.
 - **When something keeps failing, change the approach, not the parameters.** Five tweaks to a drawn panel never beat switching to the real recording.
+- **Fake OS chrome gives itself away in small details.** A bold menu bar clock, a missing Control Center icon, an alias arrow on a Dock icon, no divider before the Trash. Compare piece by piece with a real screenshot of your own Mac.
