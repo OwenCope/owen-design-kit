@@ -31,7 +31,7 @@ If anything moves:
 
     node ~/Developer/owen-design-kit/plugins/apple-craft/skills/motion-kit/filmstrip.mjs <url> "<steps>"
 
-and read the strip for empty frames, doubled frames, and closing that doesn't mirror opening.
+and read the strip for empty frames, doubled frames, and closing that doesn't mirror opening. An empty frame is any frame where the shape has already grown but its content isn't visible yet, even for one frame. Count it as a failure, not a detail.
 
 Then read `how-claude-designs/eye/README.md` and compare what you see with its examples. If your work shares a mistake with a "before" example, fix it.
 
@@ -53,6 +53,7 @@ List the problems worst first: broken, then against the brief, then taste. Fix t
 - Real assets, real words, real data. Never a drawn copy of something that exists, never letter-tile or coloured-square icons.
 - A prototype is not a product page: the product is the first screen, no marketing headline unless asked.
 - Never copy another product's or the kit's demo content (files, words, layout).
+- A closed notch or collapsed panel shows only what it holds (tiny icons, a count), never the app's name or a label repeated from elsewhere.
 - No loud wallpapers. The background is there so the product reads.
 - Plain, short words. Show the work even when something still fails, and say what fails.
 - When asked for one small change, make only that change.

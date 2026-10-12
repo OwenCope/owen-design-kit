@@ -18,6 +18,10 @@ Copy both into OpenCode's prompts folder and add them to `~/.config/opencode/ope
 
 To give the director a stronger model, add `"model": "<provider>/<model-id>"` to its entry.
 
+## Every session, not just the agent
+
+Copy `opencode-global-AGENTS.md` to `~/.config/opencode/AGENTS.md`. OpenCode reads it in every session, so any model doing design work is pointed at the kit and Owen's rules.
+
 ## Use
 
 In OpenCode, switch to the designer agent (Tab cycles primary agents), or from the command line:

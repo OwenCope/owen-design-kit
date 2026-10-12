@@ -52,3 +52,4 @@ Habit brief:
 | habit-1 | 3.3.1 | Native-looking iPhone screen; last section hidden under the tab bar |
 | notch-3 | 3.4.0 | Own name ("Tuck") and own files, one shape grows from the notch, file visible when closed, all lint checks pass; layout still close to the reference (same desk row, same done and clear buttons) |
 | devtool-1 | 3.4.0 | Real terminal output as the product, one install command, no template sections; still Apple-styled (it chose the Apple landing-page route, since fixed in 3.4.1), letter-tile logo, phone terminal line clips |
+| designer-1 | 3.7.1, designer agent | Its own product ("Hatch") and files, product is the page, real assets, one shape growing, fixed its own 320 px bug, honest report; missed one empty frame at 291 ms and repeated the app name inside the closed notch on phone |

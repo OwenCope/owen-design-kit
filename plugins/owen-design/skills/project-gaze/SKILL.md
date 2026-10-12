@@ -10,7 +10,7 @@ Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` a
 ## Facts
 - Checkout `~/Developer/FaceID`, **public** repo `OwenCope/Gaze`, branch `main`.
 - Swift/SwiftUI/AppKit, macOS 26+. No Xcode project — `./build.sh`.
-- Latest shipped: 0.1.10 (2026-09-30: unlock on first match, Space to retry, a Security tab). 0.1.9 (2026-09-29) shipped App Lock, faster unlocks and Follow the light.
+- Latest shipped: 0.1.11 (2026-10-05: approve admin prompts and sudo with your face, a more reliable nod, clearer Follow the light, a stronger photo check, Liquid Glass panels). 0.1.10 (2026-09-30) added unlock on first match, Space to retry and a Security tab; 0.1.9 (2026-09-29) App Lock, faster unlocks and Follow the light.
 
 ## Gaze-specific design rules
 - Setup/onboarding uses **TourKit** (`ThirdParty/TourKit/TourKit.swift`) on every page; step counter in the footer at the bottom of the media.
@@ -49,7 +49,7 @@ Lock-screen flow is in `Sources/Security/LockWatcher.swift`: scans only with the
 ## Next up
 0.1.8, 0.1.9 and 0.1.10 shipped on 2026-09-28, 29 and 30. That is faster than the release rhythm in `ship-and-verify`; space the next one out. One tested release per checkpoint.
 
-Parked by Owen after 0.1.10 (raise them when he asks what's next; don't start them unasked):
+Parked by Owen after 0.1.10 (still parked after 0.1.11) (raise them when he asks what's next; don't start them unasked):
 - Space to retry needs Input Monitoring, which Gaze must ask for: a Security > Permissions row that calls `IOHIDRequestAccess`. Then put the Space line back in the release notes.
 - Filling macOS admin password pop-ups with the face (asked for by Rafael Reverberi on Discord). Needs a security review before anything is built.
 - Reddit posts are drafted; r/MacApps needs 10 local karma and its template, title prefixed [OS].

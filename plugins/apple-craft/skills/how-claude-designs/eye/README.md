@@ -57,3 +57,13 @@ Lesson: after any action, something visible should say it worked and where the t
 ## The pattern behind all of these
 
 Every mistake above was visible in a picture the agent had already taken. None needed a better model to see; each needed someone to look at the picture as a stranger would, and to read every word and number in it.
+
+## 6. An empty frame the agent missed
+
+`06-almost-empty-frame-at-291ms.jpg`
+
+What I see: a filmstrip of the notch opening. At 291 ms the notch has grown into a black shape with nothing inside; the file and buttons only appear at 418 ms. Every other frame is good.
+
+Why it matters: the agent's own report said "no empty or doubled frames". It ran the filmstrip but read it quickly. For about a tenth of a second the panel is empty, which is exactly what reads as "laggy" at full speed. Content must start appearing as soon as the shape starts growing.
+
+This came from the best run so far (the designer agent on Muse Spark), which otherwise got the product, the assets and the honesty right. The last 10 % is looking at every frame.
