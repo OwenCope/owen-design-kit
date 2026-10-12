@@ -83,3 +83,7 @@ The `owen-design` plugin in this repo is a real example of both: it's Owen's pri
 ## Checking the kit
 
 `node scripts/check-kit.mjs` checks every skill for broken links, missing skills and lines that contradict the kit's own rules (`scripts/check-kit.rules.json`). Run it after editing any skill.
+
+## Using the kit with other models
+
+Read `plugins/apple-craft/skills/how-claude-designs/working-without-me.md`: how to brief smaller models, review their work in ten minutes, and keep the kit learning.

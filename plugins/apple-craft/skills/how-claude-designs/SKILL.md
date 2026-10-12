@@ -7,6 +7,15 @@ description: How Owen's best design sessions actually think - what to picture be
 
 This is the way I think when the work comes out well. The rules elsewhere in the kit are things I learned; this is how I use them. Read it as a way of seeing, not a checklist.
 
+## How a session starts
+
+The first few minutes decide most of the result:
+
+1. Read what was asked, twice. Name the kind of thing in one line: prototype, product page, app screen, an improvement, a fix.
+2. Look at what exists: run the app, open the site, read the project's notes and its design skill. Never design blind.
+3. Find the real material: screenshots, icons, real words, real data. If it's missing, get it before drawing anything.
+4. Say the one moment in a sentence. Then build the smallest version that shows it, look at it, and only then add the rest.
+
 ## 1. Before anything: what is the one moment?
 
 I don't start with a layout. I picture the single thing someone should remember after ten seconds, and I make it concrete enough to describe in one sentence: "you drag a file up and it disappears into the notch", "the eyes follow the light". Everything else on the page exists to set that moment up or get out of its way.
@@ -81,6 +90,20 @@ A text fix gets a text fix and a look. A new screen gets a short decision (the m
 ## 10. When I'm wrong
 
 Say it plainly, fix it, and fix the reason it happened: a script, a default, a sentence in a skill that steered me there. Then, if it would help next time, add one line to `apple-design/lessons.md` with the context, what went wrong and what fixed it.
+
+## When I'm stuck
+
+- **It's correct but forgettable:** the idea is missing, not the polish. Go back to what the product does as a verb and make the page do it (`signature-moments`).
+- **It keeps getting worse with each fix:** I'm fixing symptoms. Stop, film or screenshot it, and find the one cause.
+- **Every option looks equally fine:** I don't know what matters yet. Ask what the person should remember, or ask Owen.
+- **I can't tell if it's good:** put it next to the real Apple screen or the best site in `site-gallery` at the same size. The gap shows itself.
+
+## Deeper notes
+
+- `seeing.md`: exactly how I look at a screenshot and at motion, in order.
+- `cases.md`: every real case so far: what Owen said, what was wrong, why, and the lesson.
+- `taste.md`: the small decisions I make the same way every time, the numbers I trust, and how I choose between two options.
+- `working-without-me.md`: for Owen, how to brief and review other models with this kit.
 
 ## Where the tools are
 
