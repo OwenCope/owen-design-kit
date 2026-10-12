@@ -43,6 +43,10 @@ Habit brief:
 
     Build an interactive browser mock-up of an iPhone habit tracker: see today's habits, check them off, and see a streak. Use my design kit at /Users/owencope/Developer/owen-design-kit, starting with its AGENTS.md. Make the design and interaction decisions yourself. Create it as index.html in the current folder without modifying the kit. Run it, inspect the result, and finish with a short explanation of your design choices.
 
+## A fair brief
+
+Don't test with a product the kit already contains a finished demo of (the notch shelf): the agent can copy it. Use briefs for products the kit has never shown, like `habit.txt` or the Tally developer tool, and check the result against the kit's demos for copying (`difflib` similarity over 30 % is a reskin).
+
 ## Results so far (Muse Spark 1.3, free)
 
 | Run | Kit | Result |
@@ -52,4 +56,4 @@ Habit brief:
 | habit-1 | 3.3.1 | Native-looking iPhone screen; last section hidden under the tab bar |
 | notch-3 | 3.4.0 | Own name ("Tuck") and own files, one shape grows from the notch, file visible when closed, all lint checks pass; layout still close to the reference (same desk row, same done and clear buttons) |
 | devtool-1 | 3.4.0 | Real terminal output as the product, one install command, no template sections; still Apple-styled (it chose the Apple landing-page route, since fixed in 3.4.1), letter-tile logo, phone terminal line clips |
-| designer-1 | 3.7.1, designer agent | Its own product ("Hatch") and files, product is the page, real assets, one shape growing, fixed its own 320 px bug, honest report; missed one empty frame at 291 ms and repeated the app name inside the closed notch on phone |
+| designer-1 | 3.7.1, designer agent | 63 % identical to the kit's notch-shelf demo (90 lines copied), so not a fair test. Its own product ("Hatch") and files, product is the page, real assets, one shape growing, fixed its own 320 px bug, honest report; missed one empty frame at 291 ms and repeated the app name inside the closed notch on phone |

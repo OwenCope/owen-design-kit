@@ -14,6 +14,10 @@ For a tiny fix (one string, one colour), skip this and just do the fix and look 
 
 Always read `plugins/apple-craft/skills/how-claude-designs/SKILL.md` first. For reviewing, also read its `seeing.md`.
 
+## Don't rebuild the kit's demos
+
+The kit's demos (`motion-kit/notch-shelf.html`, `tour.html`, `gallery.html`, the web examples) are finished designs. Don't open their source to build something similar; that produces a reskin, not a design. Read the explanation of why they work (for the notch: motion-kit SKILL.md, "Why the notch-shelf reference works", and its `why/` pictures) and design your own layout, controls and structure. `motion.js` is a library: copy and call it freely.
+
 ## 2. Build the smallest version that shows the moment
 
 Build only the core first: the one moment working with real content. No extra sections, no polish. Then look at it before adding anything else.

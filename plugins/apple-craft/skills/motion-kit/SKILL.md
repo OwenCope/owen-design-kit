@@ -83,6 +83,8 @@ The rules below are defaults that worked for Gaze, not requirements for every pr
 - **Reduce Motion:** every function jumps to the end state. Don't add your own motion around it.
 
 ## Why the notch-shelf reference works (take the reasons, not the look)
+
+Don't open `notch-shelf.html` to build something similar: an agent that did produced a page 63 % identical to it with a new name. Read this section and design your own. Copy `motion.js`, not the demo pages.
 Detached (an agent's mock-up) vs connected (this reference), and the closed notch still showing what it holds: ![Detached](why/detached.png) ![Connected](why/connected.png) ![Closed](why/closed-state.png)
 
 - **Continuity:** the notch itself grows into the shelf, one shape with the notch's own shoulders. A separate card appearing under a black notch breaks the idea that files go *into* the notch; it reads as a dropdown.

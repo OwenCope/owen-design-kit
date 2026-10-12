@@ -66,7 +66,7 @@ What I see: a filmstrip of the notch opening. At 291 ms the notch has grown into
 
 Why it matters: the agent's own report said "no empty or doubled frames". It ran the filmstrip but read it quickly. For about a tenth of a second the panel is empty, which is exactly what reads as "laggy" at full speed. Content must start appearing as soon as the shape starts growing.
 
-This came from the best run so far (the designer agent on Muse Spark), which otherwise got the product, the assets and the honesty right. The last 10 % is looking at every frame.
+This came from the designer agent on Muse Spark. It looked like the best run so far, but its page turned out to be 63 % identical to the kit's own notch-shelf demo: a reskin, not a design. Check for copying before praising a result. The last 10 % is looking at every frame.
 
 ## 7. Small details Owen caught with "///"
 
