@@ -161,7 +161,7 @@ These are small, and Owen spots every one of them.
 - Text is regular weight (500 at most), including the clock. Only the app name next to the Apple logo is bold.
 - Right side, in order: battery, Wi-Fi, Spotlight (magnifying glass), Control Center (two toggles), then the date and time, e.g. "Mon Oct 12  9:41 AM". Control Center is always there.
 - Icons are about the height of the capital letters, all the same visual size, with even gaps. A full battery, not an empty outline. The exported symbols share one scale on the same square canvas: give every icon the same box size (never a special width for the battery) and they line up like the real menu bar.
-- Light text on dark wallpapers, dark text on light ones.
+- Menu bar text and icons follow the wallpaper, not the page's light or dark mode: on the default Pro Black wallpaper they are white in both modes. Dark text on a dark wallpaper disappears.
 
 **Notch**
 - The closed notch hugs what it holds: its width is the peek content plus even padding, and the icons sit centred in it. No empty black band on one side, no icons crammed against an edge.
