@@ -9,3 +9,4 @@ One line per choice: date | what he saw | what he picked | his words.
 2026-10-11 | Codex's hedged review wording vs plain rules | Plain rules | "ok fix these"
 2026-10-13 | iMac Silver wallpaper behind the Hatch prototype | Rejected; picked the dark MacBook Pro "Pro Black" wallpaper instead | "i dont like the wallpaper too" (the designer agent called it too loud; Claude wrongly overruled it)
 2026-10-13 | Agent's note that desktop files "float with no anchor" | Agreed it's taste, not a bug | "yea true" (real Mac desktop icons have no shadow)
+2026-10-13 | The Gaze welcome tour demo (motion-kit/tour.html) | Loved it; wants it in the real app later | "that is sick can you put in the kit to add that to the product in the future"

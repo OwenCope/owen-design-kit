@@ -66,6 +66,9 @@ Parked by Owen after 0.1.10 (still parked after 0.1.11) (raise them when he asks
 - Filling macOS admin password pop-ups with the face (asked for by Rafael Reverberi on Discord). Needs a security review before anything is built.
 - Reddit posts are drafted; r/MacApps needs 10 local karma and its template, title prefixed [OS].
 
+Planned by Owen (2026-10-13, "that is sick"), for a future release, not to start unasked:
+- **Bring the welcome tour into the app.** The kit's `motion-kit/tour.html` (open it served with its assets: Welcome to Gaze, Just look, Follow the light, Nod to approve, Lock any app) is the direction for Gaze's own first-run tour. Build it natively in SwiftUI inside TourKit, not as a web view: the camera move into the MacBook, the notch growing into the live panel, pages that morph the same panel while the art, text and button stay still. Use the real face (Metal) and real art from `Resources/Art/`, Pro Black behind it, Reduce Motion handled. Fix the web version's empty first frame (button with no label, no title) so the native one starts with its content. Show Owen a recording before it ships.
+
 Older plans and open issues are in `reference.md` §9–10. Bluetooth unlock was considered and rejected: the face is the only way in.
 
 ## Code patterns specific to Gaze
