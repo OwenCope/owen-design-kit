@@ -14,6 +14,10 @@ For a tiny fix (one string, one colour), skip this and just do the fix and look 
 
 Always read `plugins/apple-craft/skills/how-claude-designs/SKILL.md` first. For reviewing, also read its `seeing.md`.
 
+## Real app UI comes from the real app
+
+When a design shows one of Owen's apps (Gaze, SakuraCord), never draw or vector-copy its UI. Capture it from the app itself using the documented review copy in that app's project skill (for Gaze: `owen-design/skills/project-gaze/SKILL.md`, "Review copy" and "Lock-screen pictures", and `reference.md`). Never touch Owen's installed app, and never patch the app's code or test harness just to get a picture; if the documented way fails, stop and tell Owen.
+
 ## Don't rebuild the kit's demos
 
 The kit's demos (`motion-kit/notch-shelf.html`, `tour.html`, `gallery.html`, the web examples) are finished designs. Don't open their source to build something similar; that produces a reskin, not a design. Read the explanation of why they work (for the notch: motion-kit SKILL.md, "Why the notch-shelf reference works", and its `why/` pictures) and design your own layout, controls and structure. `motion.js` is a library: copy and call it freely.
