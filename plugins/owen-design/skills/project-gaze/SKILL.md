@@ -26,6 +26,18 @@ Load `apple-design`, `macos-app-design`, `release-notes` and `ship-and-verify` a
 - Review copy (never touch Owen's installed Gaze): `ditto` to `/tmp/gut/Gaze.app`, set version 0.1.0 with PlistBuddy, re-sign with `codesign --force --preserve-metadata=entitlements,requirements,flags,runtime -s "Apple Development: owen.o.cope@gmail.com (Y6LG3Q6HV4)"`, run with `--ui-review --settings --settings-pane=face|movements|security|attempts|apps|notch|general|about|credits` or `--ui-review --setup --setup-step=how|capture|password|permission|done`.
 - Lock-screen pictures: run the copy with `--shoot-lockscreen --shoot-movements`, full-screen screenshot, crop, kill it.
 
+## For design agents (read before any Gaze picture, page or mock-up)
+
+- **Never draw Gaze's UI.** Its panels, the notch capsule and the face are real code (the face is Metal, `Sources/Companion/`). A vector or HTML copy always looks off. Get pictures from the app:
+  - Settings and setup screens: the review copy above with `--ui-review --settings --settings-pane=…` or `--ui-review --setup --setup-step=…`.
+  - Lock screen and movements: `--shoot-lockscreen --shoot-movements`.
+  - App Lock: `--ui-review --app-lock-preview=<bundle id of a running app>`, plus `--app-lock-preview-success` for the unlock.
+  - Screenshot the window with the `maccontrol` MCP `screenshot` tool, crop with a short Swift script (`sips --cropOffset` is unreliable).
+- **Real art already exists** in `Resources/Art/`: the tour and setup pictures and loops (`tour-*.png`, `how-*.mp4`, `setup-*.png`, `onboarding-*.png`), the five movement pictures (`movement-*.png`), the lock-screen base, the backdrop and the toolbar icons (`gaze-toolbar-black/white.png`). Use these before making anything new.
+- **The kit's `motion-kit/tour.html` is a Gaze welcome tour** built for the web (Welcome to Gaze, Just look, Follow the light, Nod to approve, Lock any app). It's a mechanics demo: reuse its ideas for Gaze, not for other products. Give it real art as `tour-art.jpg`; Owen's pick for Mac scenes is the dark Pro Black wallpaper.
+- **If the documented way to get a picture fails, stop and tell Owen.** Never patch the app's code, tests or `build.sh` just to get a picture, and never touch the running copy (see below).
+- **Check `git status` first.** Owen often has uncommitted work in progress in this repo; never revert or "clean up" files you didn't change.
+
 ## Letting Owen try a build (read this, agents get it wrong)
 Owen's Mac does **not** run Gaze from /Applications. A launch agent (`~/Library/LaunchAgents/com.gazeunlock.Gaze.agent.plist`, KeepAlive) runs `~/Developer/FaceID/build/Gaze.app`. That means:
 - **Building doesn't change what he sees.** Builds go to `build/dmg-launch/Gaze.app`, and the running copy stays the same.
