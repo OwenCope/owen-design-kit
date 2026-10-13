@@ -132,8 +132,12 @@ func saveWallpaper(_ path: String, as file: String) {
   written.append(file)
   print("wrote \(file) (\((path as NSString).lastPathComponent))")
 }
-let light = arg("--wallpaper") ?? firstExisting(["\(pictures)/iMac Silver.heic", "\(pictures)/Sonoma.heic"])
-let dark = arg("--wallpaper-dark") ?? firstExisting(["\(assets)/Pro Black.heic", "\(pictures)/Radial Sky Blue.heic"])
+// Owen's pick (2026-10-13): the dark MacBook Pro "Pro Black" wallpaper for every scene, light or dark.
+// He rejected Mac Blue (too loud) and iMac Silver. Fallback: the copy bundled with this skill.
+let bundled = URL(fileURLWithPath: CommandLine.arguments[0]).deletingLastPathComponent()
+  .appendingPathComponent("../assets/wallpaper-pro-black.jpg").standardized.path
+let light = arg("--wallpaper") ?? firstExisting(["\(assets)/Pro Black.heic", bundled])
+let dark = arg("--wallpaper-dark") ?? firstExisting(["\(assets)/Pro Black.heic", bundled])
 if let light { saveWallpaper(light, as: "wallpaper.jpg") } else { print("no calm light wallpaper found; pass --wallpaper /path/to/image") }
 if let dark { saveWallpaper(dark, as: "wallpaper-dark.jpg") } else { print("no calm dark wallpaper found; pass --wallpaper-dark /path/to/image") }
 
