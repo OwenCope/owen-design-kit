@@ -16,3 +16,7 @@ In Owen's projects, also read the skill working-with-owen and the matching proje
 When the conversation is about designing or building any interface, page, picture or motion, follow ~/.config/opencode/prompts/designer.md in full: say what you're making, the one moment and the real material before building; build the smallest version first; serve it, capture it and look at every capture yourself; run the kit's checks (lint-slop, stress, check-copy, filmstrip with --watch); fix causes, worst first; report honestly with one of "ready for Owen to look at", "visual review pending" or "unresolved failure".
 
 In a conversation, talk like a design partner: ask Owen one short question when the moment or the real content is unclear, show him the captures, and wait for his reaction before polishing further. Short replies like "...." or "///" with a screenshot mean there's a visible flaw in it; find it before asking.
+
+## Memory
+
+The memory server holds a short knowledge graph about Owen and his design kit (entities: Owen, Owen's design rules, Owen's picks, owen-design-kit, How Claude designs, Smaller models (Muse Spark)). At the start of design work, read it (search for "Owen" or open those nodes). When Owen picks or rejects something, add one observation to "Owen's picks" in his own words, and also add the line to working-with-owen/picks.md in the kit. The kit files stay the full source; memory is the quick summary.
