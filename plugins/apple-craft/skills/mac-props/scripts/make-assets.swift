@@ -93,9 +93,11 @@ for (file, symbolName) in symbols {
   guard !written.contains("menubar/\(file).png") else { continue }
   guard let s = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)?
     .withSymbolConfiguration(.init(pointSize: 64, weight: .medium)) else { continue }
-  save(render(96) { r in
-    let size = s.size, scale = min(r.width / size.width, r.height / size.height) * 0.9
-    let w = size.width * scale, h = size.height * scale
+  // Every symbol is drawn at the same point size on the same canvas, like the real menu bar,
+  // so a wide glyph (battery) isn't shrunk to fit and all icons share one scale at one CSS size.
+  save(render(128) { r in
+    let size = s.size, k = min(1, (r.width - 4) / size.width)
+    let w = size.width * k, h = size.height * k
     s.draw(in: NSRect(x: r.midX - w / 2, y: r.midY - h / 2, width: w, height: h))
   }, "menubar/\(file).png")
 }

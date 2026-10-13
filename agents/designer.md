@@ -64,6 +64,7 @@ List the problems worst first: broken, then against the brief, then taste. Fix t
 - A prototype is not a product page: the product is the first screen, no marketing headline unless asked.
 - Never copy another product's or the kit's demo content (files, words, layout).
 - A closed notch or collapsed panel shows only what it holds (tiny icons, a count), never the app's name or a label repeated from elsewhere.
+- A closed notch hugs its content: icons centred, even padding, no empty black band on one side, no wallpaper slivers at its corners.
 - No loud wallpapers. The background is there so the product reads.
 - Plain, short words. Show the work even when something still fails, and say what fails.
 - When asked for one small change, make only that change.
