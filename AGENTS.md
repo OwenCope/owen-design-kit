@@ -13,6 +13,7 @@ Name the kind of task in one line before doing anything, then read only the skil
 | An iPhone or iPad app screen | `how-claude-designs`, `ios-app-design` (its web mock-up section if it's a browser mock-up), `product-ui`, `mac-props` (devices/ for the real iPhone frame), `design-review` |
 | Improving something that exists | `how-claude-designs`, `improve-existing`, `match-the-project`, `design-review` |
 | Someone else's project | `match-the-project`, `design-review` |
+| A review or audit of a live site | `design-review` (then its `site-audit.md`), `web-design`, `motion-kit`, `site-gallery` for comparisons |
 | Words only | `product-writing` |
 | A release | `release-notes`, `ship-and-verify` |
 

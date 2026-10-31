@@ -10,7 +10,7 @@ Works with Claude Code as a plugin, and with any agent that reads `AGENTS.md` (C
 |---|---|
 | `how-claude-designs` | How the best design sessions think: the moment first, real before invented, compare against the real thing, find the cause, read feedback precisely. Load first. |
 | `apple-design` | The core method, the pre-show checklist, what always gets rejected, and real rejected-to-fixed examples |
-| `design-review` | A strict review before showing anything, with real approved and rejected pictures |
+| `design-review` | A strict review before showing anything, with real approved and rejected pictures, the site audit method (`site-audit.md`), and probes for every hover, press and focus state, every scroll animation, and Reduce Motion (`hover-probe.mjs`, `scroll-probe.mjs`, `reduced-motion.mjs`) |
 | `design-patterns` | Copy-ready SwiftUI and CSS for proven components: the glass button with a hover morph, progress swap, settings rows, update card, download button, type scale |
 | `liquid-glass` | Apple's Liquid Glass and the macOS 27 components, with exact values from Apple's Figma kit, reference pictures, and web and SwiftUI recipes |
 | `macos-app-design` | Mac and SwiftUI apps: controls, settings, update UI, onboarding, windows, screenshots |
@@ -75,6 +75,10 @@ The skills talk about "the person you work for". To teach the agent your own tas
 - a `project-<name>` skill per repo, with its commands and release steps
 
 The `owen-design` plugin in this repo is a real example of both: it's Owen's private layer and isn't meant to be installed by anyone else.
+
+## Reviews
+
+`reviews/` holds full audits done with the kit. `reviews/droppy-sites-2026-10-31/` is the worked example of the site audit method: two sibling product sites and an outside benchmark, with a ranked fix list, ten parts and every screenshot.
 
 ## Updating
 

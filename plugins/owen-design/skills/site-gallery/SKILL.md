@@ -1,6 +1,6 @@
 ---
 name: site-gallery
-description: Screenshots of 14 well-designed real websites (desktop sections and phone), each with the one decision that makes it work and what not to copy. Use when looking for a direction, when a page feels generic and needs a reference point, or before claiming something looks "like" a real site. Study the reason, never the layout.
+description: Screenshots of 17 well-designed real websites (desktop sections and phone), each with the one decision that makes it work and what not to copy. Use when looking for a direction, when a page feels generic and needs a reference point, or before claiming something looks "like" a real site. Study the reason, never the layout.
 ---
 
 # Site gallery
@@ -36,6 +36,12 @@ How to use it: open the shots, read the note, then ask what the equivalent decis
 **rauno** (rauno.me): a portfolio that is one giant headline with a yellow circle and a custom crosshair cursor. Pure personality, every other element held back. Copy only for personal sites: one idea, all the way.
 
 **teenage-engineering** (teenage.engineering): black-and-white photography of their own store, thin line icons as navigation, tiny type. Feels like a design studio, which it is. Don't copy for products that need clarity.
+
+**getdroppy** (getdroppy.app, captured 2026-10-31): a saturated blue world with a drop mascot, and scroll scenes that scrub the real notch UI and end on it. Feedback comes from content, never movement, and video is budgeted (two playing at once on desktop, one on phones). Copy: motion that explains the product and stops on the real thing. Don't copy: the hero, which shows no product; the two equal hero buttons; twelve identical "Learn more" links. Full audit in `reviews/droppy-sites-2026-10-31/`.
+
+**getdroppycode** (getdroppycode.app, captured 2026-10-31): dark with a reason (a coding tool), with the real app window starting in the first viewport. Copy: the product in the hero, mid-task. Don't copy: a five-line hero subtitle listing 13 providers, a headline that clips on 375 px phones, blocked copy and right click, one fade-up on every block.
+
+**launchme** (launchmeapp.com, captured 2026-10-31): white Apple-style page with a MacBook running the launcher right under one button; carousels start paused with a visible play control; the nav hides on scroll down and returns on scroll up. Owen rates it good but below Droppy. Copy: the Mac in the hero, paused carousels, one-sentence hero. Don't copy: a fade-up on 125 elements, 50 to 85 px radii on everything, 18 MB of media on first load, "works just like magic" copy.
 
 **posthog** (posthog.com): a desktop operating system as a website: windows, icons down both sides, a hedgehog mascot, jokes in the copy ("Legally-required cookie banner"). Dense and fun because its audience (developers) likes exploring. Copy: personality in the writing. Don't copy: the OS metaphor.
 
