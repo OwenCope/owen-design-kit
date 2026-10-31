@@ -5,6 +5,7 @@
 //
 // Writes one full-page PNG per scenario to out-dir (default ./stress),
 // plus stress-report.json and stress-report.md. Exits 1 on any FAIL.
+// Phone scenarios also load 375px and 320px widths and flag text clipped at the edge.
 import { createRequire as __cr } from 'node:module';
 import { join as __join } from 'node:path';
 // Load Playwright from the project you run this in, so the script works from the kit's own folder.
@@ -111,7 +112,83 @@ async function checkOverflow(page) {
   });
 }
 
-async function runScenario(browser, name, { viewport = DESKTOP, gotoOpts, mutate } = {}) {
+// Text that is cut off at the viewport edge without causing sideways scroll.
+// Measures each element's direct text with a Range and compares it to the
+// viewport and to every ancestor with overflow hidden or clip.
+async function checkPhoneClip(page, vwArg) {
+  return page.evaluate((vwArg) => {
+    const vw = vwArg ?? window.innerWidth;
+    const out = [];
+    const sel = (el) => {
+      let s = el.tagName.toLowerCase();
+      if (el.id) s += `#${el.id}`;
+      else if (typeof el.className === 'string' && el.className.trim()) s += `.${el.className.trim().split(/\s+/)[0]}`;
+      return s;
+    };
+    const seen = (el) => {
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) return false;
+      const st = getComputedStyle(el);
+      return st.display !== 'none' && st.visibility !== 'hidden' && Number(st.opacity) > 0.05;
+    };
+    // Content inside a horizontal scroller (carousels, rails) is meant to sit off screen.
+    const inScroller = (el) => {
+      for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+        const x = getComputedStyle(a).overflowX;
+        if (x === 'auto' || x === 'scroll') return true;
+      }
+      return false;
+    };
+    for (const el of document.querySelectorAll('*')) {
+      if (out.length >= 60) break;
+      if (/^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE)$/.test(el.tagName)) continue;
+      if (!seen(el)) continue;
+      if (inScroller(el)) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width > vw + 1) {
+        out.push(`wide ${sel(el)} at ${vw}px: element ${Math.round(r.width)}px wide, ${Math.round(r.width - vw)}px past viewport`);
+        continue;
+      }
+      const nodes = [...el.childNodes].filter((n) => n.nodeType === 3 && n.nodeValue.trim());
+      if (!nodes.length) continue;
+      let rects;
+      try {
+        const range = document.createRange();
+        range.setStart(nodes[0], 0);
+        range.setEnd(nodes[nodes.length - 1], nodes[nodes.length - 1].nodeValue.length);
+        rects = [...range.getClientRects()];
+      } catch { continue; }
+      if (!rects.length) continue;
+      const left = Math.min(...rects.map((t) => t.left));
+      const right = Math.max(...rects.map((t) => t.right));
+      const width = Math.round(right - left);
+      const overViewport = Math.max(0 - left, right - vw);
+      // Only text that crosses an edge is clipped; text wholly off screen is elsewhere on purpose (slides, drawers).
+      const crosses = (left < 0 && right > 0) || (left < vw && right > vw);
+      if (overViewport > 1 && crosses) {
+        out.push(`clipped text ${sel(el)} at ${vw}px: text ${width}px wide, ${Math.round(overViewport)}px past viewport`);
+        continue;
+      }
+      let a = el.parentElement;
+      while (a && out.length < 60) {
+        const st = getComputedStyle(a);
+        const clips = [st.overflow, st.overflowX, st.overflowY].some((v) => v === 'hidden' || v === 'clip');
+        if (clips) {
+          const ar = a.getBoundingClientRect();
+          const over = Math.max(ar.left - left, right - ar.right);
+          if (over > 1) {
+            out.push(`clipped text ${sel(el)} inside ${sel(a)} at ${vw}px: text ${width}px wide, ${Math.round(over)}px past container`);
+            break;
+          }
+        }
+        a = a.parentElement;
+      }
+    }
+    return out;
+  }, vwArg);
+}
+
+async function runScenario(browser, name, { viewport = DESKTOP, isMobile, hasTouch, gotoOpts, mutate, phoneClip } = {}) {
   const fileOf = (s) => `${out}/${s}.png`;
   if (name === 'slow-network') {
     const context = await browser.newContext({ viewport });
@@ -142,12 +219,13 @@ async function runScenario(browser, name, { viewport = DESKTOP, gotoOpts, mutate
       await context.close();
     }
   }
-  const page = await browser.newPage({ viewport });
+  const page = await browser.newPage({ viewport, ...(isMobile ? { isMobile, hasTouch } : {}) });
   try {
     await page.goto(url, gotoOpts ?? { waitUntil: 'networkidle' });
     if (mutate) await mutate(page);
     await capture(page, fileOf(name));
     const { fails, warns } = await checkOverflow(page);
+    if (phoneClip) fails.push(...await checkPhoneClip(page, viewport.width));
     return { scenario: name, screenshots: [`${name}.png`], status: fails.length ? 'FAIL' : 'PASS', fails, warns };
   } finally {
     await page.close();
@@ -207,6 +285,8 @@ const scenarios = [
     }),
   },
   { name: 'narrow', viewport: { width: 320, height: 700 } },
+  { name: 'phone-375', viewport: { width: 375, height: 667 }, isMobile: true, hasTouch: true, phoneClip: true },
+  { name: 'phone-320', viewport: { width: 320, height: 568 }, isMobile: true, hasTouch: true, phoneClip: true },
   {
     name: 'empty-lists',
     mutate: (page) => page.evaluate(() => {
@@ -238,7 +318,7 @@ try {
       results.push({ scenario: s.name, screenshots: [], status: 'ERROR', fails: [], warns: [], error: e.message });
     }
     const r = results[results.length - 1];
-    console.log(`${r.scenario}: ${r.status} (${r.screenshots.join(', ') || 'no screenshot'}) — ${r.fails.length} fail(s), ${r.warns.length} warning(s)${r.error ? ` — ${r.error}` : ''}`);
+    console.log(`${r.scenario}: ${r.status} (${r.screenshots.join(', ') || 'no screenshot'}): ${r.fails.length} fail(s), ${r.warns.length} warning(s)${r.error ? `, ${r.error}` : ''}`);
   }
 } finally {
   await browser?.close();
@@ -247,7 +327,7 @@ try {
 writeFileSync(`${out}/stress-report.json`, JSON.stringify({ url, date: new Date().toISOString(), results }, null, 2));
 writeFileSync(`${out}/stress-report.md`, ['# Layout stress report', '', `Tested: ${url}`, '',
   ...results.flatMap((r) => [
-    `## ${r.scenario} — ${r.status}`,
+    `## ${r.scenario}: ${r.status}`,
     ...r.screenshots.map((s) => `Screenshot: ${s}`),
     ...(r.error ? [`Error: ${r.error}`] : []),
     ...(r.cls !== undefined ? [`Cumulative layout shift: ${r.cls}`] : []),

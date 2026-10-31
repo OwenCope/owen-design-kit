@@ -78,7 +78,8 @@ try {
   await dismissBanner(page);
   await page.waitForTimeout(600);
 
-  const groups = await page.evaluate(() => {
+  // Members of each group get data-hp=<index>, so a group is probed on its own elements, not the first match of a loose selector.
+  const tagGroups = (pg) => pg.evaluate(() => {
     const seen = new Set();
     const cands = [];
     const push = (el) => {
@@ -102,10 +103,12 @@ try {
       }
     }
     const bySig = new Map();
-    const sigOf = (el) => {
+    const own = (el) => {
       const cls = typeof el.className === 'string' ? el.className.trim().split(/\s+/).filter(Boolean).sort().join('.') : '';
       return `${el.tagName.toLowerCase()}${cls ? '.' + cls : ''}`;
     };
+    // Class-less elements borrow their parent's signature so nav links and footer links stay apart.
+    const sigOf = (el) => (own(el).includes('.') || !el.parentElement ? own(el) : `${own(el.parentElement)} > ${own(el)}`);
     const selOf = (el) => {
       let s = el.tagName.toLowerCase();
       if (el.id) return `${s}#${el.id}`;
@@ -119,31 +122,38 @@ try {
       if (r.width === 0 && r.height === 0) continue;
       if (st.display === 'none' || st.visibility === 'hidden') continue;
       const sig = sigOf(el);
-      if (!bySig.has(sig)) bySig.set(sig, { sig, sel: selOf(el), count: 0 });
-      bySig.get(sig).count++;
+      if (!bySig.has(sig)) {
+        if (bySig.size >= 40) continue;
+        const label = own(el).includes('.') || el.id ? selOf(el) : `${selOf(el.parentElement || el)} > ${el.tagName.toLowerCase()}`;
+        bySig.set(sig, { sig, sel: label, loc: `[data-hp="${bySig.size}"]`, count: 0 });
+      }
+      const g = bySig.get(sig);
+      el.setAttribute('data-hp', g.loc.slice(10, -2));
+      g.count++;
     }
-    return [...bySig.values()].slice(0, 40);
+    return [...bySig.values()];
   });
+  const groups = await tagGroups(page);
 
   let gi = 0;
   let crashes = 0;
   for (const g of groups) {
     try {
-      const loc = page.locator(g.sel).first();
+      const loc = page.locator(g.loc).first();
       const count = await loc.count().catch(() => 0);
       if (!count) continue;
       const reps = Math.min(count, 2);
-      const row = { selector: g.sel, count: g.count, hover: [], press: [], focus: [], transition: '', flags: [] };
+      const row = { selector: g.sel, loc: g.loc, sig: g.sig, count: g.count, hover: [], press: [], focus: [], transition: '', flags: [] };
       let rest = null, hov = null, press = null, foc = null, trans = '';
       for (let i = 0; i < reps; i++) {
-        const h = await page.locator(g.sel).nth(i).elementHandle().catch(() => null);
+        const h = await page.locator(g.loc).nth(i).elementHandle().catch(() => null);
         if (!h) continue;
         await h.scrollIntoViewIfNeeded().catch(() => {});
         await page.waitForTimeout(300);
         await page.mouse.move(4, 4);
         await page.waitForTimeout(200);
         rest = await styles(h).catch(() => null);
-        await page.locator(g.sel).nth(i).hover({ timeout: 5000 }).catch(() => {});
+        await page.locator(g.loc).nth(i).hover({ timeout: 5000 }).catch(() => {});
         await page.waitForTimeout(600);
         hov = await styles(h).catch(() => null);
         const box = await h.boundingBox().catch(() => null);
@@ -161,10 +171,10 @@ try {
         for (let t = 0; t < 20; t++) {
           await page.keyboard.press('Tab');
           await page.waitForTimeout(80);
-          const active = await page.evaluate((sel, idx) => {
+          const active = await page.evaluate(([sel, idx]) => {
             const els = document.querySelectorAll(sel);
             return els[idx] === document.activeElement;
-          }, [g.sel, i]).catch(() => false);
+          }, [g.loc, i]).catch(() => false);
           if (active) { landed = true; break; }
         }
         if (!landed) await h.focus().catch(() => {});
@@ -178,7 +188,7 @@ try {
           await page.mouse.move(4, 4);
           await page.waitForTimeout(250);
           await page.screenshot({ path: `${out}/${gi}-rest.png`, clip }).catch(() => {});
-          await page.locator(g.sel).nth(i).hover({ timeout: 5000 }).catch(() => {});
+          await page.locator(g.loc).nth(i).hover({ timeout: 5000 }).catch(() => {});
           await page.waitForTimeout(600);
           await page.screenshot({ path: `${out}/${gi}-hover.png`, clip }).catch(() => {});
           await page.mouse.move(4, 4);
@@ -218,6 +228,7 @@ try {
       await page.goto(url, { waitUntil: 'networkidle' }).catch(() => {});
       await page.waitForTimeout(1500);
       await dismissBanner(page).catch(() => {});
+      await tagGroups(page).catch(() => {});
     }
   }
   await page.close().catch(() => {});
@@ -227,8 +238,11 @@ try {
   try {
     await touch.goto(url, { waitUntil: 'networkidle' });
     await touch.waitForTimeout(1500);
+    // The phone layout shows different elements, so tag again and match groups by signature.
+    const touchLoc = new Map((await tagGroups(touch)).map((g) => [g.sig, g.loc]));
     for (const row of results) {
-      const loc = touch.locator(row.selector).first();
+      if (!touchLoc.has(row.sig)) continue;
+      const loc = touch.locator(touchLoc.get(row.sig)).first();
       if ((await loc.count().catch(() => 0)) === 0) continue;
       const h = await loc.elementHandle().catch(() => null);
       if (!h) continue;
