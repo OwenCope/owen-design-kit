@@ -1,0 +1,344 @@
+<!doctype html>
+<!--
+  Demo for Motion.sheet. A fictional laptop lineup (AuraBook) with a local product
+  nav; the product name opens the switcher sheet. Copy the structure and the
+  script call, never this copy. Product art reuses the mac-props shell and
+  wallpaper with a different tint per model.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AuraBook Pro sheet demo</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f5f5f7; --ink: #1d1d1f; --muted: #6e6e73; --line: rgba(0,0,0,.12);
+    --sheet: #fff; --accent: #0071e3; --new: #b64400;
+    --hover-tint: rgba(0,0,0,.06); --press-tint: brightness(.94);
+    --focus-ring: 3px solid var(--accent);
+    --hover: 150ms cubic-bezier(.16,1,.3,1);
+    --ease-out: cubic-bezier(.22,1,.36,1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000; --ink: #f5f5f7; --muted: rgba(245,245,247,.6); --line: rgba(255,255,255,.14);
+      --sheet: #232326; --accent: #0a84ff; --new: #ff9d6b;
+      --hover-tint: rgba(255,255,255,.09);
+    }
+  }
+  * { box-sizing: border-box; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+         -webkit-font-smoothing: antialiased; }
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible { outline: var(--focus-ring); outline-offset: 3px; border-radius: 8px; }
+
+  /* Local product nav: sticky, with the product name as the sheet trigger. */
+  .mk-localnav { position: sticky; top: 0; z-index: 40; background: rgb(245 245 247 / 72%);
+                 border-bottom: 1px solid var(--line); }
+  @media (prefers-color-scheme: dark) { .mk-localnav { background: rgb(10 10 12 / 72%); } }
+  @supports (backdrop-filter: blur(20px)) { .mk-localnav { backdrop-filter: blur(20px) saturate(1.6); } }
+  .mk-localnav-inner { max-width: 1024px; margin: 0 auto; padding: 0 24px; height: 60px;
+                       display: flex; align-items: center; gap: 16px; }
+  .mk-pick { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none;
+             color: inherit; font-size: 21px; font-weight: 600; letter-spacing: -.02em;
+             padding: 8px 10px; margin-left: -10px; border-radius: 10px; cursor: pointer;
+             transition: background-color var(--hover); }
+  .mk-pick svg { transition: rotate var(--hover); }
+  .mk-pick[aria-expanded="true"] svg { rotate: 180deg; }
+  .mk-localnav-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+  .mk-localnav-price { font-size: 14px; color: var(--muted); }
+  .mk-buy { display: inline-flex; align-items: center; min-height: 36px; padding: 0 18px;
+            border-radius: 999px; background: var(--accent); color: #fff;
+            font-size: 15px; font-weight: 600; text-decoration: none; border: 0; cursor: pointer;
+            transition: filter var(--hover); }
+  @media (hover: hover) {
+    .mk-pick:hover { background: var(--hover-tint); }
+    .mk-buy:hover { filter: brightness(1.08); }
+  }
+  .mk-pick:active, .mk-buy:active { filter: var(--press-tint); }
+
+  /* Page behind: a large dark hero so the backdrop blur reads. */
+  .hero { background: radial-gradient(120% 90% at 50% 0%, #23235e 0%, #0b0d33 55%, #05061c 100%);
+          color: #fff; text-align: center; padding: 150px 24px 130px; }
+  .hero .kicker { margin: 0 0 12px; font-size: 21px; font-weight: 600; color: #a9a9ff; }
+  .hero h1 { margin: 0; font-size: clamp(2.75rem, 7.5vw, 5rem); font-weight: 600;
+             line-height: 1.02; letter-spacing: -.045em; }
+  .hero p { margin: 20px auto 0; max-width: 640px; font-size: 21px; color: rgba(255,255,255,.68); }
+  .hero .mk-buy { margin-top: 32px; min-height: 44px; padding: 0 28px; font-size: 17px; }
+  .section { max-width: 1024px; margin: 0 auto; padding: 96px 24px; }
+  .section h2 { margin: 0; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 600; letter-spacing: -.03em; }
+  .section p { color: var(--muted); max-width: 640px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 32px; }
+  .card { border: 1px solid var(--line); border-radius: 20px; padding: 24px; background: var(--sheet); }
+  .card b { display: block; font-size: 17px; }
+  .card span { color: var(--muted); font-size: 14px; }
+  footer { border-top: 1px solid var(--line); padding: 24px; font-size: 13px; color: var(--muted);
+           display: flex; justify-content: space-between; max-width: 1024px; margin: 0 auto; }
+
+  /* Backdrop: dims slightly and blurs strongly, fading in over about 320ms. */
+  .mk-sheet-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+                       padding: 40px 24px; background: rgb(0 0 0 / 28%); opacity: 0;
+                       transition: opacity 320ms ease, backdrop-filter 320ms ease; overflow-y: auto; }
+  .mk-sheet-backdrop.show { opacity: 1; }
+  @supports (backdrop-filter: blur(24px)) {
+    .mk-sheet-backdrop.show { backdrop-filter: blur(24px) saturate(1.4); }
+  }
+  .mk-sheet-backdrop[hidden] { display: none; }
+
+  /* Sheet: white (dark grey in dark mode), wide, generous padding. */
+  .mk-sheet { position: relative; width: 100%; max-width: 1400px; max-height: calc(100dvh - 80px);
+              overflow-y: auto; background: var(--sheet); color: var(--ink);
+              border-radius: 36px; padding: 40px 64px 56px;
+              box-shadow: 0 32px 90px rgba(0,0,0,.35); }
+  .mk-sheet[hidden] { display: none; }
+  .mk-close { position: absolute; top: 24px; right: 24px; width: 48px; height: 48px;
+              border: 0; border-radius: 50%; background: #1d1d1f; color: #fff; cursor: pointer;
+              display: grid; place-items: center; transition: filter var(--hover), background-color var(--hover); }
+  @media (prefers-color-scheme: dark) { .mk-close { background: #f5f5f7; color: #1d1d1f; } }
+  @media (hover: hover) { .mk-close:hover { filter: brightness(1.25); } }
+  .mk-close:active { filter: var(--press-tint); }
+  /* The sheet scrolls, which clips anything outside it, so the ring sits inside the button. */
+  .mk-close:focus-visible { outline: 3px solid var(--accent, #0071e3); outline-offset: -3px; }
+  /* Tiles stop short of the close button instead of running under it. */
+  .mk-tiles-wrap { margin-right: 48px; }
+
+  /* Tile row with edge fades and page chevrons. */
+  .mk-tiles-wrap { position: relative; }
+  .mk-tiles { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+              padding: 8px 4px 4px; scroll-padding: 0 48px; }
+  .mk-tiles::-webkit-scrollbar { display: none; }
+  .mk-tiles-wrap::before, .mk-tiles-wrap::after { content: ""; position: absolute; top: 0; bottom: 0;
+      width: 72px; pointer-events: none; opacity: 0; transition: opacity 200ms ease; z-index: 1; }
+  .mk-tiles-wrap::before { left: 0; background: linear-gradient(to right, var(--sheet), transparent); }
+  .mk-tiles-wrap::after { right: 0; background: linear-gradient(to left, var(--sheet), transparent); }
+  .mk-tiles-wrap.has-prev::before, .mk-tiles-wrap.has-next::after { opacity: 1; }
+  .mk-tile { flex: 0 0 148px; display: flex; flex-direction: column; align-items: center; gap: 2px;
+             padding: 12px 8px 14px; border-radius: 18px; color: inherit; text-decoration: none;
+             transition: background-color var(--hover), filter var(--hover); }
+  @media (hover: hover) { .mk-tile:hover { background: var(--hover-tint); } }
+  .mk-tile:active { filter: var(--press-tint); }
+  .mk-tile b { font-size: 17px; font-weight: 400; text-align: center; line-height: 1.3; }
+  .mk-flag { font-size: 13px; min-height: 20px; }
+  .mk-flag.viewing { color: var(--muted); }
+  .mk-flag.new { color: var(--new); }
+  /* Laptop art: shell on top, wallpaper showing through its transparent screen. */
+  .mk-art { position: relative; isolation: isolate; width: 132px; height: 100px; display: block; }
+  .mk-art img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; display: block; }
+  .mk-screen { position: absolute; left: 19.4%; top: 19%; width: 61.2%; height: 59.2%; z-index: -1;
+               background: url("../mac-props/assets/wallpaper-pro-black.jpg") center / cover no-repeat; }
+  .f1 .mk-screen { filter: hue-rotate(0deg) saturate(1); }
+  .f2 .mk-screen { filter: hue-rotate(40deg) saturate(1.2); }
+  .f3 .mk-screen { filter: hue-rotate(90deg) saturate(1.1); }
+  .f4 .mk-screen { filter: hue-rotate(150deg) saturate(1.2); }
+  .f5 .mk-screen { filter: hue-rotate(200deg) saturate(1.3); }
+  .f6 .mk-screen { filter: hue-rotate(260deg) saturate(1.2); }
+  .f7 .mk-screen { filter: grayscale(.7) brightness(1.15); }
+  .f8 .mk-screen { filter: hue-rotate(320deg) saturate(1.4); }
+  .mk-compare-art { width: 132px; height: 100px; display: grid; place-items: center; color: var(--muted); }
+  .mk-page { position: absolute; top: 50%; translate: 0 -50%; z-index: 2; width: 44px; height: 44px;
+             border: 1px solid var(--line); border-radius: 50%; background: var(--sheet); color: inherit;
+             cursor: pointer; display: none; place-items: center;
+             transition: background-color var(--hover), filter var(--hover); }
+  .mk-tiles-wrap.has-prev [data-tiles-prev] { display: grid; left: 0; }
+  .mk-tiles-wrap.has-next [data-tiles-next] { display: grid; right: 0; }
+  @media (hover: hover) { .mk-page:hover { background: var(--hover-tint); } }
+  .mk-page:active { filter: var(--press-tint); }
+
+  .mk-rule { border: 0; border-top: 1px solid var(--line); margin: 28px 0 0; }
+
+  /* Name, price and Buy. */
+  .mk-buyrow { display: flex; align-items: flex-end; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+  .mk-name { margin: 0; font-size: 48px; font-weight: 600; letter-spacing: -.03em; line-height: 1.05;
+             margin-right: auto; }
+  .mk-price { text-align: right; font-size: 17px; font-weight: 600; line-height: 1.4; }
+  .mk-price span { display: block; font-weight: 400; color: var(--muted); }
+  .mk-buyrow .mk-buy { min-height: 44px; padding: 0 26px; font-size: 17px; }
+
+  /* Overview disclosure: the grid animates real height in JS; links fade with CSS. */
+  .mk-ov-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 32px; border: 0;
+               background: none; color: inherit; font-size: 21px; font-weight: 600; cursor: pointer;
+               padding: 8px 10px; margin-left: -10px; border-radius: 10px;
+               transition: background-color var(--hover); }
+  .mk-ov-btn svg { transition: rotate var(--hover); }
+  .mk-ov-btn[aria-expanded="true"] svg { rotate: 180deg; }
+  @media (hover: hover) { .mk-ov-btn:hover { background: var(--hover-tint); } }
+  .mk-ov-btn:active { filter: var(--press-tint); }
+  .mk-ov-grid { overflow: hidden; }
+  .mk-ov-grid[hidden] { display: none; }
+  .mk-ov-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 32px;
+                 list-style: none; margin: 12px 0 0; padding: 0; }
+  .mk-ov-links a { display: block; padding: 10px; margin: 0 -10px; border-radius: 12px; font-size: 21px;
+                   color: inherit; text-decoration: none; opacity: 0;
+                   transition: opacity 240ms var(--ease-out), background-color var(--hover); }
+  .mk-ov-grid.in .mk-ov-links a { opacity: 1; }
+  .mk-ov-grid.in .mk-ov-links li:nth-child(2) a { transition-delay: 30ms; }
+  .mk-ov-grid.in .mk-ov-links li:nth-child(3) a { transition-delay: 60ms; }
+  .mk-ov-grid.in .mk-ov-links li:nth-child(4) a { transition-delay: 90ms; }
+  .mk-ov-grid.in .mk-ov-links li:nth-child(5) a { transition-delay: 120ms; }
+  .mk-ov-grid.in .mk-ov-links li:nth-child(6) a { transition-delay: 150ms; }
+  @media (hover: hover) { .mk-ov-links a:hover { background: var(--hover-tint); } }
+  .mk-ov-links a:active { filter: var(--press-tint); }
+
+  .mk-more { display: flex; align-items: center; gap: 8px; margin-top: 20px; font-size: 21px;
+             color: var(--accent); text-decoration: none; width: fit-content;
+             padding: 8px 10px; margin-left: -10px; border-radius: 10px;
+             transition: background-color var(--hover), filter var(--hover); }
+  @media (hover: hover) { .mk-more:hover { background: var(--hover-tint); } }
+  .mk-more:active { filter: var(--press-tint); }
+
+  @media (max-width: 733px) {
+    .mk-sheet-backdrop { padding: 24px 0 0; place-items: end center; }
+    .mk-sheet { border-radius: 24px 24px 0 0; padding: 84px 24px 48px;
+                max-height: 92dvh; }
+    .mk-name { font-size: 34px; flex-basis: 100%; }
+    .mk-tiles-wrap { margin-right: 0; }
+    .mk-close { top: 20px; right: 20px; width: 44px; height: 44px; }
+    .mk-buyrow { align-items: flex-start; flex-direction: column; gap: 12px; }
+    .mk-price { text-align: left; }
+    .mk-ov-links { grid-template-columns: 1fr; }
+    .mk-ov-links a, .mk-more { font-size: 19px; }
+    .mk-tile { flex-basis: 128px; }
+    .mk-art, .mk-compare-art { width: 112px; height: 84px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mk-sheet-backdrop { transition: none; backdrop-filter: none; }
+    .mk-sheet-backdrop.show { backdrop-filter: none; }
+    .mk-pick, .mk-pick svg, .mk-buy, .mk-tile, .mk-page, .mk-ov-btn, .mk-ov-btn svg,
+    .mk-ov-links a, .mk-more, .mk-tiles-wrap::before, .mk-tiles-wrap::after { transition: none; }
+    .mk-ov-links a { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header class="mk-localnav">
+  <div class="mk-localnav-inner">
+    <a class="mk-pick" href="#lineup" data-sheet-trigger aria-haspopup="dialog">AuraBook Pro
+      <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="mk-localnav-actions">
+      <span class="mk-localnav-price">From $1999</span>
+      <a class="mk-buy" href="#buy">Buy</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="kicker">AuraBook Pro 16</p>
+    <h1>Mind over everything.</h1>
+    <p>The fastest AuraBook ever, with all day battery and a display that makes work look like play.</p>
+    <p><a class="mk-buy" href="#buy">Buy</a></p>
+  </section>
+  <section class="section" id="lineup">
+    <h2>Which AuraBook is yours?</h2>
+    <p>Eight models, one lineup. Open the switcher from the product name above to compare them side by side.</p>
+    <div class="cards">
+      <div class="card"><b>AuraBook Air 13</b><span>Light, from $999.</span></div>
+      <div class="card"><b>AuraBook Pro 14</b><span>Power to carry, from $1599.</span></div>
+      <div class="card"><b>AuraBook Pro 16</b><span>The full studio, from $1999.</span></div>
+    </div>
+  </section>
+</main>
+
+<footer><span>AuraBook demo, built for motion-kit</span><span>2026</span></footer>
+
+<div class="mk-sheet-root" id="sheetRoot">
+  <div class="mk-sheet-backdrop" data-sheet-backdrop hidden>
+    <div class="mk-sheet" data-sheet role="dialog" aria-modal="true" aria-labelledby="mkSheetName" hidden>
+      <button class="mk-close" type="button" data-sheet-close aria-label="Close">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="mk-tiles-wrap" data-tiles-wrap>
+        <div class="mk-tiles" data-sheet-tiles>
+          <a class="mk-tile" href="#air13">
+            <span class="mk-art f1"><span class="mk-screen"></span><img src="../mac-props/assets/macbook-air-shell.webp" alt=""></span>
+            <b>AuraBook Air 13</b><span class="mk-flag"></span>
+          </a>
+          <a class="mk-tile" href="#air15">
+            <span class="mk-art f2"><span class="mk-screen"></span><img src="../mac-props/assets/macbook-air-shell.webp" alt=""></span>
+            <b>AuraBook Air 15</b><span class="mk-flag new">New</span>
+          </a>
+          <a class="mk-tile" href="#go12">
+            <span class="mk-art f7"><span class="mk-screen"></span><img src="../mac-props/assets/macbook-air-shell.webp" alt=""></span>
+            <b>AuraBook Go 12</b><span class="mk-flag"></span>
+          </a>
+          <a class="mk-tile" href="#pro14" aria-current="true">
+            <span class="mk-art f3"><span class="mk-screen"></span><img src="../mac-props/assets/macbook-air-shell.webp" alt=""></span>
+            <b>AuraBook Pro 14</b><span class="mk-flag viewing">Currently viewing</span>
+          </a>
+          <a class="mk-tile" href="#pro16">
+            <span class="mk-art f4"><span class="mk-screen"></span><img src="../mac-props/assets/macbook-air-shell.webp" alt=""></span>
+            <b>AuraBook Pro 16</b><span class="mk-flag new">New</span>
+          </a>
+          <a class="mk-tile" href="#studio16">
+            <span class="mk-art f5"><span class="mk-screen"></span><img src="../mac-props/assets/macbook-air-shell.webp" alt=""></span>
+            <b>AuraBook Studio 16</b><span class="mk-flag"></span>
+          </a>
+          <a class="mk-tile" href="#max18">
+            <span class="mk-art f6"><span class="mk-screen"></span><img src="../mac-props/assets/macbook-air-shell.webp" alt=""></span>
+            <b>AuraBook Max 18</b><span class="mk-flag"></span>
+          </a>
+          <a class="mk-tile" href="#lite11">
+            <span class="mk-art f8"><span class="mk-screen"></span><img src="../mac-props/assets/macbook-air-shell.webp" alt=""></span>
+            <b>AuraBook Lite 11</b><span class="mk-flag"></span>
+          </a>
+          <a class="mk-tile" href="#compare">
+            <span class="mk-compare-art" aria-hidden="true">
+              <svg viewBox="0 0 64 44" width="64" height="44"><rect x="4" y="10" width="34" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="26" y="4" width="34" height="24" rx="3" fill="var(--sheet)" stroke="currentColor" stroke-width="2"/></svg>
+            </span>
+            <b>Compare</b><span class="mk-flag"></span>
+          </a>
+        </div>
+        <button class="mk-page" type="button" data-tiles-prev aria-label="Scroll tiles back">
+          <svg viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="M7.5 2 3.5 6l4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="mk-page" type="button" data-tiles-next aria-label="Scroll tiles forward">
+          <svg viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="M4.5 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <hr class="mk-rule">
+
+      <div class="mk-buyrow">
+        <h2 class="mk-name" id="mkSheetName">AuraBook Pro 14</h2>
+        <p class="mk-price">From $1999<span>or $83.29/mo. for 24 mo.*</span></p>
+        <a class="mk-buy" href="#buy">Buy</a>
+      </div>
+
+      <button class="mk-ov-btn" type="button" data-overview-btn aria-expanded="false" aria-controls="mkOvGrid">Overview
+        <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mk-ov-grid" data-overview-grid id="mkOvGrid" hidden>
+        <ul class="mk-ov-links">
+          <li><a href="#highlights">Highlights</a></li>
+          <li><a href="#cameras">Cameras</a></li>
+          <li><a href="#shared">Shared Features</a></li>
+          <li><a href="#design">Design</a></li>
+          <li><a href="#performance">Performance</a></li>
+          <li><a href="#accessories">Accessories</a></li>
+        </ul>
+      </div>
+
+      <a class="mk-more" href="#specs">Tech Specs
+        <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M4.5 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="mk-more" href="#switch">Switch from Android
+        <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M4.5 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="motion.js"></script>
+<script src="sheet.js"></script>
+<script>
+  Motion.sheet(document.getElementById('sheetRoot'));
+</script>
+</body>
+</html>

@@ -25,10 +25,10 @@
 
     let current = null;
     let opener = null;
-    let intentT = 0, switchT = 0, closeT = 0;
+    let intentT = 0, switchT = 0, closeT = 0, searchT = 0;
     let gen = 0; // height springs check this so a newer open wins over an older one
     let lastX = 0, lastY = 0, inPanel = false;
-    const clearTimers = () => { clearTimeout(intentT); clearTimeout(switchT); clearTimeout(closeT); };
+    const clearTimers = () => { clearTimeout(intentT); clearTimeout(switchT); clearTimeout(closeT); clearTimeout(searchT); };
 
     const colsOf = (panel) => {
       const cols = panel.querySelectorAll('[data-stagger]');
@@ -41,6 +41,7 @@
       const panel = panelFor(id);
       if (!panel) return;
       clearTimers();
+      if (id === 'search' && typeof renderSearch === 'function') renderSearch(searchInput ? searchInput.value : '', false);
       const wasOpen = current !== null;
       const prev = current;
       current = id;
@@ -209,6 +210,114 @@
       else { opener = searchBtn; open('search', true); }
     });
 
+    // Search results filter the menu links as the visitor types.
+    const searchPanel = panelFor('search');
+    const searchInput = searchPanel ? searchPanel.querySelector('input') : null;
+    const searchBox = searchPanel ? searchPanel.querySelector('[data-search-results]') : null;
+    const searchIndex = [...root.querySelectorAll('[data-panel]:not([data-panel="search"]) a')].map((a) => ({
+      href: a.getAttribute('href') || '#',
+      title: (a.querySelector('b') ? a.querySelector('b').textContent : a.textContent).trim(),
+      desc: a.querySelector('span') ? a.querySelector('span').textContent.trim() : '',
+    })).filter((r, i, arr) => r.title && arr.findIndex((x) => x.href === r.href && x.title === r.title) === i);
+    let quickLinks = ['#features', '#timer', '#pair', '#contact']
+      .map((h) => searchIndex.find((r) => r.href === h)).filter(Boolean);
+    if (!quickLinks.length) quickLinks = searchIndex.slice(0, 4);
+    let searchGen = 0;
+    let activeResult = -1;
+    const escMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => escMap[c]);
+    function mark(text, q) {
+      const needle = q.trim();
+      if (!needle) return esc(text);
+      const i = text.toLowerCase().indexOf(needle.toLowerCase());
+      if (i < 0) return esc(text);
+      return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + needle.length)) + '</mark>' + esc(text.slice(i + needle.length));
+    }
+    function searchItem(r, q) {
+      const desc = r.desc ? '<span class="mk-search-desc">' + mark(r.desc, q) + '</span>' : '';
+      return '<li><a class="mk-search-item" href="' + esc(r.href) + '"><span class="mk-search-title">' + mark(r.title, q) + '</span>' + desc + '</a></li>';
+    }
+    function syncSearchHeight() {
+      if (reduced() || phone() || current !== 'search' || !flyout || flyout.hidden) return;
+      const my = ++searchGen;
+      const from = flyout.offsetHeight;
+      flyout.style.height = from + 'px';
+      requestAnimationFrame(() => {
+        if (my !== searchGen || current !== 'search') return;
+        const target = searchPanel.offsetHeight || searchPanel.scrollHeight;
+        if (!target || target === from) { flyout.style.height = 'auto'; return; }
+        M.spring({ h: from }, { h: target }, (v) => {
+          if (my !== searchGen || current !== 'search') return;
+          flyout.style.height = Math.max(0, v.h) + 'px';
+        }, 'island').then(() => { if (my === searchGen && current === 'search') flyout.style.height = 'auto'; });
+      });
+    }
+    function renderSearch(q, sync) {
+      if (!searchPanel || !searchBox) return;
+      const query = String(q == null ? '' : q).trim();
+      activeResult = -1;
+      if (!query) {
+        searchBox.innerHTML = '<p class="mk-search-label">Quick links</p><ul>' +
+          quickLinks.map((r) => searchItem(r, '')).join('') + '</ul>';
+      } else {
+        const hits = searchIndex.filter((r) => (r.title + ' ' + r.desc).toLowerCase().includes(query.toLowerCase())).slice(0, 6);
+        if (!hits.length) {
+          searchBox.innerHTML = '<div class="mk-search-empty"><p>No results for &ldquo;' + esc(query) + '&rdquo;</p>' +
+            '<p>Try a different term or visit <a href="#contact">Support</a>.</p></div>';
+        } else {
+          searchBox.innerHTML = '<ul>' + hits.map((r) => searchItem(r, query)).join('') + '</ul>';
+        }
+      }
+      if (sync !== false) syncSearchHeight();
+    }
+    function focusResult(dir) {
+      if (!searchBox) return;
+      const links = [...searchBox.querySelectorAll('.mk-search-item')];
+      if (!links.length) return;
+      const at = links.indexOf(document.activeElement);
+      const base = at < 0 ? (dir > 0 ? -1 : 0) : at;
+      const next = (base + dir + links.length) % links.length;
+      activeResult = next;
+      links[next].focus();
+    }
+    if (searchInput && searchBox) {
+      renderSearch('', false);
+      on(searchInput, 'input', () => {
+        clearTimeout(searchT);
+        searchT = setTimeout(() => renderSearch(searchInput.value), 120);
+      });
+      on(searchInput, 'keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          e.stopPropagation();
+          if (searchInput.value) { searchInput.value = ''; renderSearch(''); }
+          else close(true);
+          return;
+        }
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          focusResult(e.key === 'ArrowDown' ? 1 : -1);
+        } else if (e.key === 'Enter' && activeResult >= 0) {
+          const links = [...searchBox.querySelectorAll('.mk-search-item')];
+          if (links[activeResult]) { e.preventDefault(); links[activeResult].click(); }
+        }
+      });
+      on(searchBox, 'keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          e.stopPropagation();
+          searchInput.value = '';
+          renderSearch('');
+          searchInput.focus();
+          return;
+        }
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          focusResult(e.key === 'ArrowDown' ? 1 : -1);
+        }
+      });
+    }
+
     // Tone: follow the section under the bar, crossfading on the hover token.
     // rootMargin cannot use calc(), so read the section under the bar's midline on scroll instead.
     let toneSections = [];
@@ -225,14 +334,19 @@
     }
 
     // Glass after scrolling past the top. Optional hide on scroll down.
+    // The bar returns on any upward move and stays put while a menu is open.
     let lastYpos = scrollY;
     const onScroll = () => {
       const y = scrollY;
       root.classList.toggle('is-scrolled', y > 8);
-      if (o.hideOnScroll && !reduced()) {
+      if (!o.hideOnScroll || reduced()) {
+        root.classList.remove('is-hidden');
+      } else if (current !== null || root.classList.contains('is-menu-open')) {
+        root.classList.remove('is-hidden');
+      } else {
         const dy = y - lastYpos;
-        if (y > 72 && dy > 6) root.classList.add('is-hidden');
-        else if (dy < -6 || y <= 72) root.classList.remove('is-hidden');
+        if (y > 72 && dy > 0) root.classList.add('is-hidden');
+        else if (dy < 0 || y <= 72) root.classList.remove('is-hidden');
       }
       lastYpos = y;
       if (toneSections.length) updateTone();
@@ -276,6 +390,7 @@
     function showSub(id, fromEl) {
       const panel = panelFor(id);
       if (!panel) return;
+      if (id === 'search') renderSearch(searchInput ? searchInput.value : '', false);
       sheetPanels().forEach((p) => { p.hidden = p !== panel; });
       root.classList.add('is-sub');
       panel.hidden = false;
@@ -320,6 +435,10 @@
     return {
       open: (id) => open(id),
       close: () => close(false),
+      setOption: (name, value) => {
+        o[name] = value;
+        if (name === 'hideOnScroll' && !value) root.classList.remove('is-hidden');
+      },
       destroy: () => {
         abort.abort();
         clearTimers();

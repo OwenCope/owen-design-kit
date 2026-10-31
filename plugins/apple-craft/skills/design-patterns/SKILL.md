@@ -441,6 +441,18 @@ One row of small links with the product name and year, in light and dark.
 
 Rules: one row of small links, product name and year, secondary colour so it reads in light and dark.
 
+### Apple page sections
+Demo code: `design-patterns/apple-sections.html` (fictional laptop page, works from disk). Follows the type scale, colours, spacing, press feedback (tint only), hover wrapped in `@media (hover: hover)`, and focus-visible rules above.
+- Local product nav: use under a global bar when a page has its own product pages. Product name 21px semibold with a small grey subtitle under it on the left; links right with the current one marked by a 1px underline at the bar bottom edge and a small blue Buy pill; hairline bottom border; glass (blur 20px, saturate 1.8, bg at 72%) after scrolling 8px.
+- Card gallery: use for 3 to 6 feature stories. Cards radius 28px at about 60 percent of viewport width with the next card peeking; media on top and caption below; scroll-snap; round paddle buttons bottom right that disable at the ends; arrow keys move one card; the page side margin stays on the first card.
+- Layered panel: use to move from a dark story into light details. Light panel with radius 28px rises over the dark section by 120px; holds a two column compare (CSS chip badge row, large number with small label above and below, one feature row per column) then a centred pill link with a round blue arrow button inside on the right.
+- Stats grid: use after a headline like "Strength in numbers." Three columns of big numbers with small labels above or below, plus a second row of short feature names; collapses to 2 then 1 column on phones.
+- Feature tile pair: use for two closing details. Two rounded media tiles side by side with the same caption rule as the gallery.
+- Caption rule for gallery and tiles: the caption starts with a bold lead-in sentence in full colour, then the rest of the paragraph in muted grey. Numbers in the compare and stats are demo values; label them as such in a code comment.
+
+### Segmented switcher
+Demo code: `design-patterns/switcher.html` (dark and light variants, works from disk). Use when one picture or paragraph has 3 to 5 mutually exclusive options (aperture, size, finish). Track is a centred capsule (dark: white at 12%, light: `#e8e8ed`) with a sliding inner pill (dark `#0b0b0c` with `#f5c400` text, light white with shadow and `#0071e3` text); the caption is a centred 21px bold lead-in plus grey rest, swapped with `Motion.blurSwap`. Real radiogroup semantics with roving tabindex and arrow keys, generation counter so rapid input always lands on the final option, and re-sync of the pill on resize.
+
 ## Spacing and shape (measured from the code)
 
 App (keep these as named constants in one `Theme` file):

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MacBook Aurora: Take a closer look</title>
+<style>
+  :root {
+    --motion-hover: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-hover-tint: rgb(255 255 255 / 0.12);
+    --motion-press-tint: brightness(0.94);
+    --motion-focus-ring: 3px solid #fff;
+    --motion-ui: 300ms ease-out;
+    --motion-reveal: 460ms cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-scene: 560ms cubic-bezier(0.32, 1.22, 0.36, 1);
+    --glass: rgb(40 40 44 / 0.72);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; overflow-x: clip; overscroll-behavior-x: none; }
+  body {
+    background: #000;
+    color: #f5f5f7;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; margin: -1px;
+    clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+  }
+
+  .explorer {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+    background: #000;
+  }
+
+  /* Stage: one lit scene with a real laptop. Each feature is a camera move toward its own part
+     of the machine, so the picture always explains the open panel. Points are in vw from the
+     laptop's centre (laptop 64vw wide, 3:2), so the zoom lands on the same spot at every width. */
+  .stage { position: absolute; inset: 0; overflow: hidden; contain: paint; }
+  .view { display: none; }
+  .scene {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: radial-gradient(ellipse 60% 55% at 50% 58%, #2c2c31 0%, #111114 55%, #000 85%);
+    --s: 1; --px: 0vw; --py: 0vw; --ox: 9vw;
+    transform: translate(calc(var(--ox) - var(--s) * var(--px)), calc(var(--s) * var(--py) * -1)) scale(var(--s));
+    transition: transform 900ms cubic-bezier(0.32, 0.72, 0, 1), opacity 600ms ease;
+    opacity: 0;
+  }
+  .scene.is-ready { opacity: 1; }
+  .mac { position: relative; width: 64vw; aspect-ratio: 3 / 2; isolation: isolate; }
+  .mac .shell { display: block; width: 100%; height: 100%; transition: filter 600ms ease; }
+  /* The shell's screen is transparent; the wallpaper sits behind it at the measured cutout. */
+  .mac .screen { position: absolute; left: 19.4%; top: 19%; width: 61.2%; height: 59.2%; z-index: -1; overflow: hidden; background: #000; }
+  .mac .screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mac::after { /* soft floor shadow so the machine sits on something */
+    content: ""; position: absolute; left: 6%; right: 6%; bottom: 13%; height: 6%; z-index: -2;
+    background: radial-gradient(closest-side, rgb(0 0 0 / 0.7), transparent); filter: blur(10px);
+  }
+  .stage:has([data-view="colors-black"].is-active) .scene { --s: 1.12; --py: 1vw; }
+  .stage:has([data-view="colors-silver"].is-active) .scene { --s: 1.12; --py: 1vw; }
+  .stage:has([data-view="colors-silver"].is-active) .shell { filter: brightness(1.55) saturate(0.4); }
+  .stage:has([data-view="display"].is-active) .scene { --s: 1.75; --py: -0.6vw; }
+  .stage:has([data-view="touch"].is-active) .scene { --s: 2.4; --py: 15.3vw; }
+  .stage:has([data-view="speakers"].is-active) .scene { --s: 2.6; --px: -21vw; --py: 14.8vw; }
+  .stage:has([data-view="camera"].is-active) .scene { --s: 3.4; --py: -7.3vw; }
+  .stage:has([data-view="connectivity"].is-active) .scene { --s: 2.6; --px: 21vw; --py: 14.8vw; }
+  /* Legibility shade over the left edge where the pills sit. */
+  .stage::after {
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(90deg, rgb(0 0 0 / 0.5), transparent 46%);
+  }
+
+  /* Controls: stepper plus the pill column, layered over the picture. */
+  .controls {
+    position: absolute; z-index: 3;
+    left: clamp(16px, 4vw, 56px); top: 50%; transform: translateY(-50%);
+    display: flex; gap: 14px; align-items: center;
+    max-width: calc(100vw - clamp(16px, 4vw, 56px) - 16px);
+  }
+  .stepper { display: flex; flex-direction: column; gap: 8px; }
+  .stepper button {
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    color: #fff; cursor: pointer; padding: 0;
+    display: grid; place-items: center;
+    transition: background-color var(--motion-hover);
+  }
+  .stepper button:hover { background-color: rgb(58 58 64 / 0.72); }
+  .stepper button:active { filter: var(--motion-press-tint); }
+  .stepper button:focus-visible { outline: var(--motion-focus-ring); outline-offset: 3px; }
+
+  .list {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
+  }
+  .list li { margin: 0; padding: 0; max-width: 100%; }
+
+  .pill {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    max-width: 100%;
+    padding: 8px 18px 8px 8px;
+    border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    color: #fff; font: inherit; text-align: left; cursor: pointer;
+    transition: border-radius var(--motion-ui), background-color var(--motion-hover);
+  }
+  .pill:hover { background-color: rgb(58 58 64 / 0.72); }
+  .pill:active { filter: var(--motion-press-tint); }
+  .pill:focus-visible { outline: var(--motion-focus-ring); outline-offset: 3px; }
+  /* Blur is paused while the box moves, so the swap stays at 60 fps. */
+  .pill.swapping {
+    overflow: hidden;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgb(40 40 44 / 0.96);
+  }
+  .plus {
+    width: 26px; height: 26px; border-radius: 50%; flex: none;
+    border: 1.5px solid rgb(255 255 255 / 0.7);
+    display: grid; place-items: center;
+    transition: transform var(--motion-ui);
+  }
+  .label { font-size: 17px; line-height: 1.3; white-space: nowrap; }
+  /* The open panel is only the paragraph: the plus icon leaves with the label. */
+  .pill.is-open {
+    width: 380px; max-width: min(380px, calc(100vw - 32px));
+    border-radius: 24px;
+    padding: 22px 24px;
+    cursor: pointer;
+  }
+  .pill.is-open .plus { display: none; }
+  .pill.is-open .label { display: none; }
+  .body {
+    display: none;
+    flex: 1 1 100%;
+    margin: 0;
+    font-size: 17px; line-height: 1.47; letter-spacing: -0.01em;
+    color: rgb(255 255 255 / 0.86);
+  }
+  .pill.is-open .body { display: block; width: 332px; max-width: calc(100vw - 96px); }
+  .body strong { color: #fff; font-weight: 600; }
+  .shown { display: block; }
+  .swatches { display: flex; gap: 8px; margin-top: 12px; }
+  .swatch {
+    width: 30px; height: 30px; border-radius: 50%; padding: 0; cursor: pointer;
+    border: 1px solid rgb(255 255 255 / 0.3);
+  }
+  .swatch[data-variant="black"] { background: radial-gradient(circle at 35% 30%, #6e6e73, #1a1a1e 70%); }
+  .swatch[data-variant="silver"] { background: radial-gradient(circle at 35% 30%, #ffffff, #b9b9c0 70%); }
+  .swatch[aria-pressed="true"] { outline: 2px solid #fff; outline-offset: 2px; }
+  .swatch:focus-visible { outline: var(--motion-focus-ring); outline-offset: 3px; }
+  .shown { margin: 10px 0 0; font-size: 13px; color: rgb(255 255 255 / 0.75); }
+
+  .slot { display: none; }
+
+  @media (max-width: 733px) {
+    /* Phones: the laptop fills the width and the column sits below, so no sideways offset. */
+    .scene { --ox: 0vw; }
+    .mac { width: 92vw; }
+    .explorer { display: flex; flex-direction: column; min-height: 0; }
+    .stage { position: relative; height: 72vw; min-height: 260px; max-height: 380px; flex: none; }
+    .stage::after {
+      background: linear-gradient(0deg, rgb(0 0 0 / 0.55), transparent 50%);
+    }
+    .controls {
+      position: static; transform: none;
+      flex-direction: column; align-items: stretch;
+      padding: 14px 16px 30px;
+      background: #000;
+    }
+    .stepper { flex-direction: row; padding-top: 0; }
+    .list { flex-direction: row; overflow-x: auto; padding-bottom: 6px; }
+    .list li { flex: none; }
+    /* The open panel leaves the row and lands in the slot below it. */
+    .slot:not([hidden]) { display: block; }
+    .slot li { list-style: none; }
+    .slot .pill.is-open { width: 100%; max-width: none; }
+    .slot .pill.is-open .body { width: auto; max-width: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scene { transition: opacity 200ms ease; }
+    .pill, .plus { transition: none; }
+  }
+</style>
+</head>
+<body>
+<h1 class="visually-hidden">MacBook Aurora: take a closer look</h1>
+
+<section class="explorer" data-explorer aria-label="Take a closer look at MacBook Aurora">
+  <div class="stage" data-stage aria-hidden="true">
+    <i class="view is-active" data-view="sizes"></i>
+    <i class="view" data-view="colors-black"></i>
+    <i class="view" data-view="colors-silver"></i>
+    <i class="view" data-view="display"></i>
+    <i class="view" data-view="touch"></i>
+    <i class="view" data-view="speakers"></i>
+    <i class="view" data-view="camera"></i>
+    <i class="view" data-view="connectivity"></i>
+    <div class="scene" data-scene>
+      <div class="mac">
+        <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt="" decoding="async"></span>
+        <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="stepper" role="group" aria-label="Browse features">
+      <button type="button" data-prev aria-label="Previous feature">
+        <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 7 6 2l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" data-next aria-label="Next feature">
+        <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <ul class="list" data-list>
+      <li>
+        <button type="button" class="pill" data-item="sizes" aria-expanded="false" aria-controls="body-sizes">
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 10 10" width="10" height="10"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="label" data-label>Sizes and weights</span>
+          <span class="body" data-body id="body-sizes"><strong>Sizes and weights.</strong> The 14 inch Aurora is 1.55 cm thin and weighs 1.51 kg, so it disappears into a bag and stays comfortable on a tray table for a whole flight.</span>
+        </button>
+      </li>
+      <li>
+        <!-- A div, not a button: the swatch buttons live inside it, and a button cannot contain buttons. -->
+        <div class="pill" role="button" tabindex="0" data-item="colors" aria-expanded="false" aria-controls="body-colors">
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 10 10" width="10" height="10"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="label" data-label>Colors</span>
+          <span class="body" data-body id="body-colors"><strong>Colors.</strong> Two finishes, both sealed against fingerprints. Pick one to see it on stage.
+            <span class="swatches">
+              <button type="button" class="swatch" data-variant="black" data-name="Space Black" aria-pressed="true" aria-label="Space Black"></button>
+              <button type="button" class="swatch" data-variant="silver" data-name="Silver" aria-pressed="false" aria-label="Silver"></button>
+            </span>
+            <span class="shown" data-shown>Shown in Space Black.</span>
+          </span>
+        </div>
+      </li>
+      <li>
+        <button type="button" class="pill" data-item="display" aria-expanded="false" aria-controls="body-display">
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 10 10" width="10" height="10"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="label" data-label>Display</span>
+          <span class="body" data-body id="body-display"><strong>Display.</strong> A 14.2 inch Liquid Retina panel at 3024 by 1964, up to 1000 nits outdoors, with a 120Hz refresh that keeps scrolling calm and text sharp.</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="pill" data-item="touch" aria-expanded="false" aria-controls="body-touch">
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 10 10" width="10" height="10"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="label" data-label>Touch</span>
+          <span class="body" data-body id="body-touch"><strong>Touch.</strong> A full height function row, a large glass trackpad, and Touch ID in the power button, so unlocking and paying take one tap.</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="pill" data-item="speakers" aria-expanded="false" aria-controls="body-speakers">
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 10 10" width="10" height="10"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="label" data-label>Speakers and mics</span>
+          <span class="body" data-body id="body-speakers"><strong>Speakers and mics.</strong> Four speakers shape sound around the room, and three studio mics isolate your voice, so calls sound clear from a busy kitchen.</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="pill" data-item="camera" aria-expanded="false" aria-controls="body-camera">
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 10 10" width="10" height="10"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="label" data-label>Camera</span>
+          <span class="body" data-body id="body-camera"><strong>Camera.</strong> A 12MP Center Stage camera keeps you framed as you move, and Desk View shows your face and your desk at once for demos.</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="pill" data-item="connectivity" aria-expanded="false" aria-controls="body-connectivity">
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 10 10" width="10" height="10"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="label" data-label>Connectivity</span>
+          <span class="body" data-body id="body-connectivity"><strong>Connectivity.</strong> Three Thunderbolt 5 ports, HDMI, an SDXC slot, and MagSafe 3, so the dongle bag can stay home. Wi-Fi 7 included.</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="slot" data-slot hidden></div>
+  </div>
+</section>
+
+<script src="motion.js"></script>
+<script src="explorer.js"></script>
+<script>
+  Motion.explorer(document.querySelector('[data-explorer]'), { start: 'display' });
+</script>
+<script>
+  // Fade the scene in once both pictures are decoded, so it never paints half loaded.
+  (function () {
+    var scene = document.querySelector('[data-scene]');
+    var imgs = [].slice.call(scene.querySelectorAll('img'));
+    Promise.all(imgs.map(function (i) { return i.decode ? i.decode().catch(function () {}) : Promise.resolve(); }))
+      .then(function () { scene.classList.add('is-ready'); });
+  })();
+</script>
+</body>
+</html>
