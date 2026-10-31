@@ -39,7 +39,7 @@
   .mk-nav.is-open, .mk-nav.is-menu-open { --motion-hover-tint: rgb(var(--fg-rgb) / 0.12); }
   .mk-bar { position: relative; z-index: 3; display: flex; align-items: center; gap: 28px;
             height: 64px; padding: 0 28px; color: var(--nav-ink);
-            transition: color var(--motion-hover), background-color 350ms var(--ease-out); }
+            transition: color var(--motion-hover), background-color 350ms var(--ease-out), translate var(--motion-hover); }
   .mk-nav.is-scrolled .mk-bar { background: var(--glass); }
   @supports (backdrop-filter: blur(20px)) {
     .mk-nav.is-scrolled .mk-bar { backdrop-filter: blur(20px) saturate(1.6); }
@@ -110,9 +110,34 @@
   .mk-search-row { display: flex; align-items: center; gap: 12px; max-width: 560px; margin: 0 auto; }
   .mk-search-row input { flex: 1; min-height: 48px; border-radius: 999px; border: 1px solid var(--line);
                          padding: 0 20px; font-size: 16px; background: none; color: inherit; }
+  .mk-search-list { max-width: 560px; margin: 16px auto 0; }
+  .mk-search-label { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: .04em;
+                     text-transform: uppercase; color: var(--muted); }
+  .mk-search-list ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 2px; }
+  .mk-search-item { display: block; padding: 10px 14px; border-radius: 12px; color: inherit;
+                    text-decoration: none; transition: background-color var(--motion-hover), filter var(--motion-hover); }
+  @media (hover: hover) { .mk-search-item:hover { background: var(--motion-hover-tint); } }
+  .mk-search-item:active { filter: var(--motion-press-tint); }
+  .mk-search-title { display: block; font-size: 16px; }
+  .mk-search-title mark, .mk-search-desc mark { font-weight: 600; background: none; color: inherit; }
+  .mk-search-desc { display: block; font-size: 13px; color: var(--muted); }
+  .mk-search-empty { padding: 8px 2px 0; }
+  .mk-search-empty p { margin: 0 0 6px; }
+  .mk-search-empty a { color: var(--accent); }
+  .mk-demo-row { max-width: 1000px; margin: 0 auto; padding: 20px 24px 0; font-size: 14px; }
+  .mk-switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+  .mk-switch input { appearance: none; -webkit-appearance: none; position: relative; width: 46px; height: 27px;
+                     margin: 0; border-radius: 999px; background: rgb(var(--fg-rgb) / 0.22); cursor: pointer;
+                     transition: background-color var(--motion-hover); }
+  .mk-switch input:checked { background: var(--accent); }
+  .mk-switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 21px; height: 21px;
+                            border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.3);
+                            transition: translate var(--motion-hover); }
+  .mk-switch input:checked::after { translate: 19px 0; }
   .mk-back { display: none; }
 
-  .hero { background: #0a0c33; color: #fff; padding: 120px 24px 140px; text-align: center; }
+  /* The hero runs under the bar, so the bar's dark tone sits on dark from the first frame. */
+  .hero { background: #0a0c33; color: #fff; padding: 184px 24px 140px; margin-top: -64px; text-align: center; }
   .hero h1 { margin: 0; font-size: clamp(2.75rem, 7.5vw, 4.75rem); font-weight: 600; line-height: 1.02; letter-spacing: -.045em; }
   .hero p { color: rgba(255,255,255,.65); font-size: 21px; max-width: 620px; margin: 18px auto 0; }
   .section { padding: 96px 24px; max-width: 1000px; margin: 0 auto; }
@@ -154,7 +179,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .mk-bar, .mk-item > a, .mk-icon-btn, .mk-buy, .mk-chev svg, .mk-group a, .mk-dim, .mk-menu-btn span { transition: none; }
+    .mk-bar, .mk-item > a, .mk-icon-btn, .mk-buy, .mk-chev svg, .mk-group a, .mk-dim, .mk-menu-btn span,
+    .mk-search-item, .mk-switch input, .mk-switch input::after { transition: none; }
     .mk-dim.show { backdrop-filter: none; }
   }
 </style>
@@ -281,10 +307,12 @@
         </div>
       </section>
       <section class="mk-panel" data-panel="search" hidden>
+        <button class="mk-back" type="button" data-back>Back</button>
         <div class="mk-search-row">
           <svg viewBox="0 0 17 17" width="18" height="18" aria-hidden="true"><circle cx="7" cy="7" r="5.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m11.2 11.2 4.6 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <input type="search" name="q" placeholder="Search Beacon" aria-label="Search Beacon" autocomplete="off" spellcheck="false">
+          <input type="search" name="q" placeholder="Search Beacon" aria-label="Search Beacon" autocomplete="off" spellcheck="false" data-search-input role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="mk-search-list">
         </div>
+        <div class="mk-search-list" data-search-results id="mk-search-list"></div>
       </section>
     </div>
   </div>
@@ -296,6 +324,9 @@
     <p>Beacon times your work, holds your day, and gets out of the way.</p>
   </section>
   <section class="section" id="overview" data-nav-tone="light">
+    <div class="mk-demo-row" style="max-width:none;padding:0 0 20px;">
+      <label class="mk-switch"><input type="checkbox" data-hide-toggle> Hide on scroll</label>
+    </div>
     <h2>One bar, every session.</h2>
     <p>Start a timer, see what is next, and capture anything without opening a window.</p>
     <div class="cards">
@@ -315,7 +346,10 @@
 <script src="motion.js"></script>
 <script src="nav.js"></script>
 <script>
-  Motion.nav(document.querySelector('.mk-nav'), { tone: 'auto' });
+  const demoNav = Motion.nav(document.querySelector('.mk-nav'), { tone: 'auto' });
+  document.querySelector('[data-hide-toggle]').addEventListener('change', (e) => {
+    demoNav.setOption('hideOnScroll', e.target.checked);
+  });
 </script>
 </body>
 </html>

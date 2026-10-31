@@ -76,12 +76,13 @@
   .dl { position: relative; height: 52px; width: 236px; border: 0; border-radius: 26px; background: var(--accent); color: #fff; cursor: pointer;
         font: 600 17px -apple-system, sans-serif; display: grid; place-items: center; overflow: hidden; }
   .dl > * { grid-area: 1 / 1; transition: opacity 340ms var(--ease), filter 340ms var(--ease); }
+  /* Inline SVG masks: a mask image loaded from a file is blocked when the page is opened from disk. */
   .dl .sym, .dl .ok { background: #fff; -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
-  .dl .sym { width: 24px; height: 24px; --m: url(mac-assets/menubar/download.png); opacity: 0; filter: blur(14px); }
+  .dl .sym { width: 24px; height: 24px; --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3v12m0 0-5-5m5 5 5-5M5 20h14' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); opacity: 0; filter: blur(14px); }
   .dl .prog, .dl .done { opacity: 0; filter: blur(14px); display: flex; align-items: center; gap: 10px; }
   .dl .prog b { width: 120px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.3); overflow: hidden; } .dl .prog b i { display: block; height: 100%; width: 0; background: #fff; }
   .dl .prog em { font: 600 13px -apple-system, sans-serif; font-style: normal; font-variant-numeric: tabular-nums; width: 36px; text-align: right; }
-  .dl .ok { width: 16px; height: 16px; --m: url(mac-assets/menubar/checkmark.png); }
+  .dl .ok { width: 16px; height: 16px; --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5 6.5 12 13 4.5' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
   .dl[data-s="hover"] .rest { opacity: 0; filter: blur(14px); } .dl[data-s="hover"] .sym { opacity: 1; filter: blur(0); }
   @media (hover: hover) and (pointer: fine) { .dl[data-s="rest"]:hover .rest { opacity: 0; filter: blur(14px); } .dl[data-s="rest"]:hover .sym { opacity: 1; filter: blur(0); } }
   .dl[data-s="prog"] .rest, .dl[data-s="done"] .rest { opacity: 0; filter: blur(14px); }
@@ -100,12 +101,31 @@
   .mdock img { width: 36px; height: 36px; display: block; }
   .ptr { position: absolute; width: 14px; height: 20px; pointer-events: none; opacity: 0; transition: opacity .2s;
          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 20'%3E%3Cpath d='M1 1v15l4-4 3 7 3-1-3-7h5z' fill='%23000' stroke='%23fff' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat; }
+
+  .wscrub { margin: 0 30px; font-size: 22px; letter-spacing: -.02em; line-height: 1.35; text-align: center; }
+  .wscrub span { transition: opacity .2s linear; }
+  .accentline { margin: 0 20px; font-size: 27px; letter-spacing: -.03em; text-align: center; line-height: 1.2; }
+  .sheenbtn { position: relative; overflow: hidden; border: 0; border-radius: 999px; background: var(--accent); color: #fff;
+             font: 600 15px -apple-system, sans-serif; padding: 13px 28px; cursor: pointer; }
+  .marq { width: 100%; overflow: hidden; font-size: 15px; font-weight: 600; color: var(--muted); }
+  .marq span { white-space: nowrap; }
+  .tabs2 { position: relative; display: flex; gap: 4px; background: var(--fill); border-radius: 14px; padding: 4px; }
+  .tabs2 button { border: 0; background: none; color: var(--ink); font: 600 13px -apple-system, sans-serif;
+                 padding: 8px 14px; border-radius: 10px; cursor: pointer; }
+  .panels2 { margin-top: 12px; font-size: 13px; color: var(--muted); text-align: center; max-width: 240px; }
+  #fscrub { width: 220px; height: 140px; border-radius: 14px; background: #111; }
+  .gnav { width: 250px; }
+  .gbar { position: relative; display: flex; gap: 4px; background: var(--fill); border-radius: 14px; padding: 4px; }
+  .gbar a { font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 10px; color: var(--ink); text-decoration: none; }
+  .gfly { margin-top: 8px; background: var(--card); border-radius: 14px; padding: 14px 16px; text-align: left;
+         box-shadow: 0 0 0 .5px var(--line), 0 12px 30px rgba(0,0,0,.14); overflow: hidden; }
+  .gfly b { display: block; font-size: 14px; } .gfly span { font-size: 12px; color: var(--muted); }
 </style>
 </head>
 <body>
 <header>
   <h1>motion-kit</h1>
-  <p>Every part, playing on its own. Hover or touch a card to take over. Full pieces: <a href="tour.html">welcome tour</a> · <a href="notch-shelf.html">notch shelf</a> · <a href="nav.html">global nav</a> · <a href="scroll.html">scroll parts</a> · <a href="loops.html">loops</a> · <a href="media.html">films and frames</a>.</p>
+  <p>Every part, playing on its own. Hover or touch a card to take over. Full pieces: <a href="tour.html">welcome tour</a> · <a href="notch-shelf.html">notch shelf</a> · <a href="nav.html">global nav</a> · <a href="scroll.html">scroll parts</a> · <a href="loops.html">loops</a> · <a href="explorer.html">closer-look explorer</a> · <a href="showcase.html">showcase</a> · <a href="sheet.html">product sheet</a> · <a href="../design-patterns/apple-sections.html">Apple page sections</a> · <a href="media.html">films and frames</a>.</p>
 </header>
 
 <main class="grid">
@@ -159,9 +179,35 @@
   <section class="demo" data-demo="scene"><div class="stage"><div class="screen"><div class="notch" id="snotch"><div class="face" id="sface"><i></i><i></i></div></div>
       <div class="clock"><b>9:41</b><span id="sstate">Locked</span></div></div></div>
     <div class="meta"><b>Pinned scene</b><span>Scroll progress drives a story: the notch opens, Gaze looks, the Mac unlocks. Here progress plays by itself.</span><code>Motion.scene(section, p => …) · Motion.segment(p, a, b)</code></div></section>
+
+  <section class="demo" data-demo="wscrub"><div class="stage"><p class="wscrub" id="wscrub">A calm week starts Sunday night.</p></div>
+    <div class="meta"><b>Word scrub</b><span>Words light one by one as progress runs; scroll-driven on a real page.</span><code>Motion.wordScrub(el)</code></div></section>
+
+  <section class="demo" data-demo="accent"><div class="stage"><h2 class="accentline">Focus on <span id="accent2">today</span></h2></div>
+    <div class="meta"><b>Accent wipe</b><span>The highlight sweeps in, then replays every few seconds.</span><code>Motion.accentWipe(el)</code></div></section>
+
+  <section class="demo" data-demo="sheen"><div class="stage"><button class="sheenbtn" id="sheenbtn2">Get Harbor</button></div>
+    <div class="meta"><b>Sheen</b><span>One light pass crosses the button, then replays.</span><code>Motion.sheen(el)</code></div></section>
+
+  <section class="demo" data-demo="marq"><div class="stage"><div class="marq" id="marks2"><span>Juniper Press</span><span>Copperline</span><span>Alder and Ash</span><span>Moonjar</span><span>Palisade</span><span>Wrenfield</span><span>Northloop</span><span>Cinderbox</span></div></div>
+    <div class="meta"><b>Marquee</b><span>A wordmark row gliding at constant speed. Hover pauses it.</span><code>Motion.marquee(el, { speed })</code></div></section>
+
+  <section class="demo" data-demo="rot"><div class="stage"><div><div class="tabs2" id="feat2"><button role="tab" aria-selected="true" aria-controls="fp1" id="ft1">Plan</button><button role="tab" aria-selected="false" aria-controls="fp2" id="ft2" tabindex="-1">Focus</button><button role="tab" aria-selected="false" aria-controls="fp3" id="ft3" tabindex="-1">Review</button></div>
+      <div class="panels2"><div id="fp1" aria-labelledby="ft1">Plan the week in one sitting.</div><div id="fp2" aria-labelledby="ft2" hidden>Focus with a quiet timer.</div><div id="fp3" aria-labelledby="ft3" hidden>Review Friday in five minutes.</div></div></div></div>
+    <div class="meta"><b>Tab rotator</b><span>Tabs advance on a timer with a progress bar, then replay.</span><code>Motion.rotator(tablist, { autoplay: true })</code></div></section>
+
+  <section class="demo" data-demo="fscrub"><div class="stage"><canvas id="fscrub"></canvas></div>
+    <div class="meta"><b>Frame scrub</b><span>Frames 001 to 060 play from a looping progress value.</span><code>Motion.frameScrub(canvas, { pattern, count })</code></div></section>
+
+  <section class="demo" data-demo="gnav"><div class="stage"><div class="gnav"><div class="gbar" id="gbar"><a href="nav.html" id="g1">Features</a><a href="nav.html" id="g2">Pricing</a></div>
+      <div class="gfly" id="gfly"><b id="gtitle">Features</b><span id="gsub">Three ways to plan</span></div></div><i class="ptr" id="gptr"></i></div>
+    <div class="meta"><b>Global nav</b><span>One flyout grows and morphs between menus. Full bar in <a href="nav.html">nav.html</a>.</span><code>Motion.nav(root)</code></div></section>
 </main>
 
 <script src="motion.js"></script>
+<script src="scroll.js"></script>
+<script src="loops.js"></script>
+<script src="media.js"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const wait = (ms) => new Promise((r) => setTimeout(r, Motion.reduced() ? Math.min(ms, 400) : ms));
@@ -283,6 +329,58 @@
     $('sstate').textContent = unlock > 0.5 ? 'Unlocked' : look > 0.3 ? 'Looking…' : 'Locked';
   };
   autoplay(card('scene'), async () => { await Motion.spring({ p: 0 }, { p: 1 }, ({ p }) => drawScene(p), { k: 3.2, c: 3.6, m: 1 }); drawScene(0); });
+
+  // Word scrub is scroll-driven on a real page, so the card emulates it by driving the same lit state with a timer.
+  $('wscrub').innerHTML = 'A calm week starts Sunday night.'.split(' ').map((w) => `<span>${w}</span>`).join(' ');
+  const paintW = (p) => { const words = [...$('wscrub').children]; const lit = p * words.length;
+    words.forEach((w, i) => { w.style.opacity = String(0.18 + 0.82 * Math.min(1, Math.max(0, lit - i))); }); };
+  paintW(Motion.reduced() ? 1 : 0);
+  autoplay(card('wscrub'), async () => {
+    if (Motion.reduced()) { paintW(1); await wait(2000); return; }
+    await Motion.spring({ p: 0 }, { p: 1 }, ({ p }) => paintW(p), 'smooth'); await wait(1400);
+  });
+
+  autoplay(card('accent'), async () => {
+    const el = $('accent2'); el.textContent = 'today'; Motion.accentWipe(el); await wait(3200);
+  });
+
+  autoplay(card('sheen'), async () => { Motion.sheen($('sheenbtn2')); await wait(3000); });
+
+  Motion.marquee($('marks2'), { speed: 50 });
+  autoplay(card('marq'), async () => { await wait(4000); });
+
+  const rot = Motion.rotator($('feat2'), { autoplay: true, interval: 2200 });
+  autoplay(card('rot'), async () => { await wait(7600); if (!Motion.reduced()) rot.play(); });
+
+  // frameScrub follows page scroll, so the card draws the same frames directly from a looping progress value.
+  const furls = []; for (let k = 1; k <= 60; k++) furls.push('media-demo/frames/frame-' + String(k).padStart(3, '0') + '.jpg');
+  const fimgs = furls.map((u) => { const im = new Image(); im.src = u; return im; });
+  const fdraw = (i) => { const img = fimgs[i]; if (!img || !img.complete || !img.naturalWidth) return;
+    const fc = $('fscrub'), fx = fc.getContext('2d'), dpr = Math.min(devicePixelRatio || 1, 2);
+    const W = Math.max(2, Math.round(fc.clientWidth * dpr)), H = Math.max(2, Math.round(fc.clientHeight * dpr));
+    if (fc.width !== W || fc.height !== H) { fc.width = W; fc.height = H; }
+    const s = Math.max(fc.width / img.naturalWidth, fc.height / img.naturalHeight);
+    const dw = img.naturalWidth * s, dh = img.naturalHeight * s;
+    fx.drawImage(img, (fc.width - dw) / 2, (fc.height - dh) / 2, dw, dh); };
+  autoplay(card('fscrub'), async () => {
+    if (Motion.reduced()) { fdraw(59); await wait(2000); return; }
+    await Motion.spring({ p: 0 }, { p: 1 }, ({ p }) => fdraw(Math.min(59, Math.round(p * 59))), 'smooth'); await wait(900);
+  });
+
+  autoplay(card('gnav'), async () => {
+    const fly = $('gfly'), title = $('gtitle'), sub = $('gsub'), p = $('gptr'), s = card('gnav').querySelector('.stage');
+    const goTo = async (link, t, st, wide) => {
+      const r = link.getBoundingClientRect(), b = s.getBoundingClientRect(), qx = parseFloat(p.style.left), qy = parseFloat(p.style.top);
+      const px = r.left - b.left + r.width / 2, py = r.top - b.top + r.height / 2;
+      p.style.opacity = 1;
+      await Motion.spring({ x: isNaN(qx) ? px : qx, y: isNaN(qy) ? py : qy }, { x: px, y: py },
+        ({ x, y }) => { p.style.left = x + 'px'; p.style.top = y + 'px'; }, 'snappy');
+      Motion.blurSwap(fly, () => { title.textContent = t; sub.textContent = st; });
+      await Motion.morph(fly, { width: wide, height: 66, radius: 14 }, 'smooth'); await wait(1100);
+    };
+    await goTo($('g2'), 'Pricing', 'One plan, every device', 200);
+    await goTo($('g1'), 'Features', 'Three ways to plan', 232);
+  });
 </script>
 </body>
 </html>

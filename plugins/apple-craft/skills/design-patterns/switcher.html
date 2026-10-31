@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Segmented Switcher (Concept Demo)</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #f5f5f7;
+    color: #1d1d1f;
+  }
+  .demo-dark { background: #000; color: #f5f5f7; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 64px 20px; }
+  @media (min-width: 700px) { .wrap { padding: 96px 64px; } }
+
+  .frame {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: #111;
+  }
+  .frame img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+  }
+  .frame img.on { opacity: 1; }
+  .frame img.fade { transition: opacity 300ms ease-out; }
+  @media (prefers-reduced-motion: reduce) { .frame img.fade { transition: none; } }
+
+  .switch {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  .track {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-radius: 999px;
+    padding: 6px;
+    background: rgb(255 255 255 / 0.12);
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .pill {
+    position: absolute;
+    top: 6px; bottom: 6px;
+    left: 0; width: 0;
+    border-radius: 999px;
+    background: #0b0b0c;
+  }
+  .opt {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    border: 0;
+    background: transparent;
+    border-radius: 999px;
+    min-height: 44px;
+    padding: 0 22px;
+    font: inherit;
+    font-size: 19px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    color: rgb(255 255 255 / 0.8);
+  }
+  .opt[aria-checked="true"] { color: #f5c400; }
+  @media (hover: hover) {
+    .opt[aria-checked="false"]:hover { background: rgb(255 255 255 / 0.1); }
+  }
+  .opt:active { background: rgb(255 255 255 / 0.06); }
+  .opt[aria-checked="true"]:active { background: transparent; }
+  .opt:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+  .caption {
+    max-width: 640px;
+    margin: 20px auto 0;
+    text-align: center;
+    font-size: 21px;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: rgb(255 255 255 / 0.6);
+    min-height: 2.7em;
+  }
+  .caption strong { color: #fff; font-weight: 600; }
+
+  /* Light variant on the same page to show both tones. */
+  .demo-light { background: #f5f5f7; color: #1d1d1f; }
+  .demo-light .frame { background: #e8e8ed; }
+  .demo-light .track { background: #e8e8ed; }
+  .demo-light .pill { background: #fff; box-shadow: 0 2px 8px rgb(0 0 0 / 0.12); }
+  .demo-light .opt { color: rgb(0 0 0 / 0.65); }
+  .demo-light .opt[aria-checked="true"] { color: #0071e3; }
+  @media (hover: hover) {
+    .demo-light .opt[aria-checked="false"]:hover { background: rgb(0 0 0 / 0.05); }
+  }
+  .demo-light .opt:active { background: rgb(0 0 0 / 0.04); }
+  .demo-light .opt[aria-checked="true"]:active { background: transparent; }
+  .demo-light .opt:focus-visible { outline-color: #0071e3; }
+  .demo-light .caption { color: #6e6e73; }
+  .demo-light .caption strong { color: #1d1d1f; }
+</style>
+</head>
+<body>
+
+<section class="demo-dark" aria-label="Dark segmented switcher demo">
+  <div class="wrap">
+    <div class="frame" id="frame-dark">
+      <img alt="" id="photo-dark-a">
+      <img alt="" id="photo-dark-b">
+    </div>
+    <div class="switch">
+      <div class="track" role="radiogroup" aria-label="Aperture" id="track-dark">
+        <span class="pill" aria-hidden="true" id="pill-dark"></span>
+      </div>
+    </div>
+    <p class="caption" id="caption-dark" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="demo-light" aria-label="Light segmented switcher demo">
+  <div class="wrap">
+    <div class="frame" id="frame-light">
+      <img alt="" id="photo-light-a">
+      <img alt="" id="photo-light-b">
+    </div>
+    <div class="switch">
+      <div class="track" role="radiogroup" aria-label="Aperture" id="track-light">
+        <span class="pill" aria-hidden="true" id="pill-light"></span>
+      </div>
+    </div>
+    <p class="caption" id="caption-light" aria-live="polite"></p>
+  </div>
+</section>
+
+<script src="../motion-kit/motion.js"></script>
+<script>
+(function () {
+  var SRC = "../mac-props/assets/wallpaper-pro-black.jpg";
+  var OPTIONS = [
+    { value: "f/1.48", blur: 9, lead: "f/1.48 Wide open.", rest: " The background melts away so the subject stands out." },
+    { value: "f/1.8", blur: 5, lead: "f/1.8 Soft background.", rest: " Shapes stay readable while the subject stays sharp." },
+    { value: "f/2.8", blur: 2, lead: "f/2.8 More depth.", rest: " Foreground and background start to come into focus." },
+    { value: "f/4.0", blur: 0, lead: "f/4.0 Everything sharp.", rest: " The whole scene is crisp from front to back." }
+  ];
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)");
+
+  function build(trackId, pillId, captionId, photoIds, startIndex) {
+    var track = document.getElementById(trackId);
+    var pill = document.getElementById(pillId);
+    var caption = document.getElementById(captionId);
+    var layers = [document.getElementById(photoIds[0]), document.getElementById(photoIds[1])];
+    layers.forEach(function (img) { img.src = SRC; img.alt = ""; });
+    var buttons = OPTIONS.map(function (opt, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "opt";
+      b.setAttribute("role", "radio");
+      b.textContent = opt.value;
+      b.tabIndex = i === startIndex ? 0 : -1;
+      b.setAttribute("aria-checked", i === startIndex ? "true" : "false");
+      b.addEventListener("click", function () { select(i, true); });
+      track.appendChild(b);
+      return b;
+    });
+
+    var current = startIndex;
+    var gen = 0; // latest selection wins; stale async swaps do nothing
+    var first = layers[0];
+
+    function paintPhoto(i, instant, g) {
+      var blur = OPTIONS[i].blur;
+      if (reduced.matches || instant) {
+        first.style.transition = "";
+        first.style.filter = "blur(" + blur + "px)";
+        first.style.transform = blur ? "scale(1.04)" : "none"; // hides pale blur edges
+        layers.forEach(function (img) { img.classList.toggle("on", img === first); });
+        return;
+      }
+      var next = layers[1 - layers.indexOf(first)];
+      next.style.transition = "";
+      next.style.filter = "blur(" + blur + "px)";
+      next.style.transform = blur ? "scale(1.04)" : "none";
+      next.classList.add("fade", "on");
+      first.classList.add("fade");
+      requestAnimationFrame(function () { first.classList.remove("on"); });
+      setTimeout(function () {
+        if (g !== gen) return;
+        first.classList.remove("fade");
+        next.classList.remove("fade");
+        first = next;
+      }, 320);
+    }
+
+    function syncPill() {
+      var t = track.getBoundingClientRect();
+      var r = buttons[current].getBoundingClientRect();
+      pill.style.left = (r.left - t.left + track.scrollLeft) + "px";
+      pill.style.width = r.width + "px";
+      // Keep the selected option on screen inside the track, never scroll the page.
+      var over = (r.left - t.left) + r.width - t.width;
+      if (r.left < t.left) track.scrollLeft += (r.left - t.left);
+      else if (over > 0) track.scrollLeft += over;
+    }
+
+    function writeCaption(i) {
+      caption.innerHTML = "";
+      var s = document.createElement("strong");
+      s.textContent = OPTIONS[i].lead;
+      caption.appendChild(s);
+      caption.appendChild(document.createTextNode(OPTIONS[i].rest));
+    }
+
+    function select(i, animate) {
+      if (i === current && animate) { syncPill(); return; }
+      current = i;
+      buttons.forEach(function (b, k) {
+        b.setAttribute("aria-checked", k === i ? "true" : "false");
+        b.tabIndex = k === i ? 0 : -1;
+      });
+      var g = ++gen;
+      if (reduced.matches || !animate) {
+        writeCaption(i);
+        paintPhoto(i, true, g);
+        syncPill();
+        return;
+      }
+      Motion.slideTo(pill, buttons[i]).then(function () {
+        if (g === gen) syncPill();
+      });
+      Motion.blurSwap(caption, function () {
+        if (g === gen) writeCaption(i);
+      });
+      paintPhoto(i, false, g);
+    }
+
+    track.addEventListener("keydown", function (e) {
+      var i = current;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") i = (current + 1) % buttons.length;
+      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") i = (current + buttons.length - 1) % buttons.length;
+      else if (e.key === "Home") i = 0;
+      else if (e.key === "End") i = buttons.length - 1;
+      else return;
+      e.preventDefault();
+      buttons[i].focus();
+      select(i, true);
+    });
+
+    var raf = 0;
+    addEventListener("resize", function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () { raf = 0; syncPill(); });
+    });
+
+    // First paint after layout so the pill starts under the right option.
+    writeCaption(startIndex);
+    paintPhoto(startIndex, true, gen);
+    requestAnimationFrame(function () { requestAnimationFrame(syncPill); });
+  }
+
+  build("track-dark", "pill-dark", "caption-dark", ["photo-dark-a", "photo-dark-b"], 2);
+  build("track-light", "pill-light", "caption-light", ["photo-light-a", "photo-light-b"], 2);
+})();
+</script>
+</body>
+</html>

@@ -32,6 +32,7 @@ For any live site with hover, scroll or motion, run these after capture:
     node scripts/scroll-probe.mjs http://localhost:3000
     node scripts/reduced-motion.mjs http://localhost:3000
 Fix MOVES_ON_HOVER, MOVES_ON_PRESS, SNAP and STICKY_TOUCH. NO_HOVER on a control and NO_FOCUS_RING are fails. Make SMALL_TARGET controls at least 44 px. reduced-motion.mjs prints CHECK for content left at opacity 0: inactive tabs are fine, a reveal that never resolved is not. The scripts load Playwright from the folder you run them in.
+For the kit's own demo pages, `node scripts/selftest-kit.mjs` runs all of the above plus error, overflow and broken-image checks over every page in motion-kit/ and design-patterns/ (desktop and phone, light and dark, served from a local server), writes selftest-report.md and exits 1 on any failure; pass --quick to skip the two probe subprocesses and --webkit to run in the engine behind Safari.
 For a full review of a live site, follow site-audit.md in this folder.
 
 ## Run the slop linter

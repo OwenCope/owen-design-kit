@@ -14,8 +14,8 @@
      The content is Gaze's own: its face blinks, follows the light, nods and opens into App Lock.
      4. Each page morphs the same panel into the next feature, content blur-crossfading in place.
      The art, text position, button and close never move; only the panel and the words change.
-     Put the product's own artwork beside this file as tour-art.jpg (calm and dark, drawn from the product's own world; never a loud wallpaper, never another product's scene).
-     Needs ./mac-assets (mac-props/scripts/make-assets.swift ./mac-assets) and ../mac-props/assets/macbook-air-shell.webp or a copy beside it. -->
+     Replace the default art (mac-assets/wallpaper-dark.jpg) with the product's own artwork (calm and dark, drawn from the product's own world; never a loud wallpaper, never another product's scene).
+     Uses ./mac-assets (made by mac-props/scripts/make-assets.swift) and ../mac-props/assets/macbook-air-shell.webp. -->
 <style>
   * { box-sizing: border-box; }
   html, body { height: 100%; margin: 0; background: #0b0b10; }
@@ -28,11 +28,11 @@
 
   /* The camera stage: the art and the Mac live here and are zoomed together. */
   .stage { position: absolute; inset: 0; }
-  .art { position: absolute; inset: 0; background: url(tour-art.jpg) center / cover; }
+  .art { position: absolute; inset: 0; background: url(mac-assets/wallpaper-dark.jpg) center / cover; }
     .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,.7) 78%); }
   .mac { position: absolute; left: 21%; top: 5%; width: 58%; }
   .mac img { width: 100%; display: block; }
-  .screen { position: absolute; left: 19.444%; top: 19.067%; width: 61.111%; height: 58.933%; background: url(tour-art.jpg) center / cover; z-index: -1; }
+  .screen { position: absolute; left: 19.444%; top: 19.067%; width: 61.111%; height: 58.933%; background: url(mac-assets/wallpaper-dark.jpg) center / cover; z-index: -1; }
   .mac { isolation: isolate; }
 
   /* The panel: lives on the window, not the stage, so it's crisp at any zoom. Starts as the notch. */
@@ -81,7 +81,7 @@
   <div class="win" id="win">
     <div class="stage" id="stage">
       <div class="art"></div>
-      <div class="mac" id="mac"><img src="macbook-air-shell.webp" alt=""><div class="screen" id="screen"></div></div>
+      <div class="mac" id="mac"><img src="../mac-props/assets/macbook-air-shell.webp" alt=""><div class="screen" id="screen"></div></div>
     </div>
     <div class="panel" id="panel"><div class="pc" id="pc"></div></div>
 

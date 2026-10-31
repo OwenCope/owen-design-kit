@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>showcase gallery</title>
+<!-- Demo for Motion.showcase: a peeking card gallery with a dot pill and play button.
+     Compositions use only the two mac-props assets, arranged differently per slide. -->
+<style>
+  :root { color-scheme: light dark; }
+  html, html[data-tone="light"] {
+    --page: #f5f5f7; --card: #fff; --ink: #1d1d1f; --muted: rgba(0,0,0,.6);
+    --line: rgba(0,0,0,.08); --accent: #0071e3;
+    --showcase-pill: #e8e8ed; --showcase-dot: rgba(0,0,0,.35); --showcase-fill: #29292a;
+  }
+  html[data-tone="dark"] {
+    --page: #000; --card: #1d1d1f; --ink: #f5f5f7; --muted: rgba(255,255,255,.6);
+    --line: rgba(255,255,255,.12); --accent: #0a84ff;
+    --showcase-pill: rgba(255,255,255,.16); --showcase-dot: rgba(255,255,255,.4); --showcase-fill: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    html:not([data-tone="light"]) {
+      --page: #000; --card: #1d1d1f; --ink: #f5f5f7; --muted: rgba(255,255,255,.6);
+      --line: rgba(255,255,255,.12); --accent: #0a84ff;
+      --showcase-pill: rgba(255,255,255,.16); --showcase-dot: rgba(255,255,255,.4); --showcase-fill: #fff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink);
+         font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+         -webkit-font-smoothing: antialiased; }
+  header { max-width: 1120px; margin: 0 auto; padding: 64px 24px 8px;
+           display: flex; flex-wrap: wrap; align-items: end; gap: 16px 24px; }
+  header h1 { margin: 0; font-size: 44px; letter-spacing: -.03em; line-height: 1.05; }
+  header p { margin: 8px 0 0; color: var(--muted); max-width: 620px; font-size: 17px; }
+  .tones { margin-left: auto; display: flex; background: var(--showcase-pill); border-radius: 999px; padding: 3px; }
+  .tones button { border: 0; background: none; color: inherit; font: 600 13px -apple-system, sans-serif;
+                  padding: 7px 16px; border-radius: 999px; cursor: pointer; }
+  .tones button[aria-pressed="true"] { background: var(--card); box-shadow: 0 1px 4px rgba(0,0,0,.18); }
+  main { padding: 24px 0 80px; }
+  .usage { max-width: 1120px; margin: 28px auto 0; padding: 0 24px; color: var(--muted); font-size: 14px; }
+  code { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+
+  [data-showcase-track]::-webkit-scrollbar { display: none; }
+  [data-showcase-track]:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+  [data-showcase] button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  .slide { background: var(--card); box-shadow: 0 0 0 .5px var(--line);
+           padding: clamp(32px, 5vw, 64px) clamp(20px, 4vw, 64px) 0; }
+  .slide h2 { margin: 0; text-align: center; font-size: clamp(30px, 4.2vw, 54px);
+              letter-spacing: -.03em; line-height: 1.08; text-wrap: balance; }
+  .slide h2 .l { display: block; }
+  .slide h2 .sub { display: block; margin-top: 10px; font-size: .52em; font-weight: 500;
+                   letter-spacing: 0; color: var(--muted); }
+  .art { position: relative; height: clamp(260px, 34vw, 400px); margin-top: 8px;
+         display: grid; place-items: end center; overflow: hidden; perspective: 1400px; }
+
+  /* The shell has a transparent screen cutout: the wallpaper sits behind it (z-index -1)
+     at the cutout's measured position, so the bezel and notch frame the picture. */
+  .lap { position: relative; width: min(560px, 86%); isolation: isolate; }
+  .lap img.shell { display: block; width: 100%; }
+  .lap .screen { position: absolute; left: 19.4%; top: 19%; width: 61.2%; height: 59.2%; z-index: -1;
+                overflow: hidden; }
+  .lap .screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .art-trio .lap { width: min(400px, 62%); }
+  .art-trio .lap.side { position: absolute; bottom: 0; width: min(330px, 52%); }
+  .art-trio .lap.left { left: 2%; transform: rotateY(22deg) scale(.92); }
+  .art-trio .lap.right { right: 2%; transform: rotateY(-22deg) scale(.92); }
+  .art-trio .lap.mid { z-index: 1; }
+
+  .art-close .lap { width: 130%; max-width: none; transform: translateX(14%); }
+  .art-pair .lap { width: min(460px, 70%); }
+  .art-pair .lap.back { position: absolute; bottom: 24px; transform: translateX(-16%) scale(.9); opacity: .95; }
+  .art-pair .lap.front { z-index: 1; transform: translateX(16%); }
+  .art-stage { place-items: center; }
+  /* A dark slide: the card itself goes black so the backdrop has no light frame around it. */
+  .slide.is-dark { background: #000; color: #f5f5f7; }
+  .art-stage .bg { position: absolute; inset: 0; }
+  .art-stage .bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .art-stage .lap { width: min(430px, 66%); z-index: 1; margin-bottom: -24px; }
+  .art-angle .lap { transform: rotateY(-17deg); }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Vela notebooks</h1>
+    <p>A peeking card gallery. It plays once through, then waits for you. Hover, focus or a press holds the timer where it is.</p>
+  </div>
+  <div class="tones" role="group" aria-label="Colour scheme">
+    <button type="button" data-set-tone="light" aria-pressed="false">Light</button>
+    <button type="button" data-set-tone="auto" aria-pressed="true">System</button>
+    <button type="button" data-set-tone="dark" aria-pressed="false">Dark</button>
+  </div>
+</header>
+
+<main>
+  <section class="showcase" data-showcase aria-roledescription="gallery" aria-label="Vela notebooks">
+    <div data-showcase-track>
+      <article class="slide" data-title="Vela Air. Thin enough to forget.">
+        <h2><span class="l">Vela Air.</span><span class="sub">Thin enough to forget. Quiet enough to keep.</span></h2>
+        <div class="art">
+          <figure class="lap" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="Vela Air notebook open, showing a dark abstract wallpaper">
+          </figure>
+        </div>
+      </article>
+      <article class="slide" data-title="Three sizes. One quiet machine.">
+        <h2><span class="l">Three sizes.</span><span class="sub">One quiet machine. Pick the one that fits your bag.</span></h2>
+        <div class="art art-trio">
+          <figure class="lap side left" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="">
+          </figure>
+          <figure class="lap mid" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="Three Vela notebooks fanned out">
+          </figure>
+          <figure class="lap side right" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="">
+          </figure>
+        </div>
+      </article>
+      <article class="slide" data-title="A screen that keeps up with your eyes.">
+        <h2><span class="l">A screen that keeps up</span><span class="l">with your eyes.</span></h2>
+        <div class="art art-close">
+          <figure class="lap" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="Close view of the Vela display">
+          </figure>
+        </div>
+      </article>
+      <article class="slide" data-title="Home and away. Same desk.">
+        <h2><span class="l">Home and away.</span><span class="sub">Same desk. Your windows wait where you left them.</span></h2>
+        <div class="art art-pair">
+          <figure class="lap back" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="">
+          </figure>
+          <figure class="lap front" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="Two Vela notebooks, one behind the other">
+          </figure>
+        </div>
+      </article>
+      <article class="slide is-dark" data-title="Night shift, handled.">
+        <h2><span class="l">Night shift,</span><span class="l">handled.</span></h2>
+        <div class="art art-stage">
+          <span class="bg"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+          <figure class="lap" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="Vela notebook against a dark abstract backdrop">
+          </figure>
+        </div>
+      </article>
+      <article class="slide" data-title="Turns heads. Barely sips power.">
+        <h2><span class="l">Turns heads.</span><span class="sub">Barely sips power. Eighteen hours on a charge.</span></h2>
+        <div class="art art-angle">
+          <figure class="lap" style="margin:0">
+            <span class="screen"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></span>
+            <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="Vela notebook at an angle">
+          </figure>
+        </div>
+      </article>
+    </div>
+  </section>
+  <p class="usage"><code>Motion.showcase(document.querySelector('[data-showcase]'), { interval: 5200 })</code> returns <code>{ go, play, pause, destroy }</code>. Slides need only a headline; the title announced comes from <code>data-title</code>.</p>
+</main>
+
+<script src="motion.js"></script>
+<script src="showcase.js"></script>
+<script>
+  Motion.showcase(document.querySelector('[data-showcase]'));
+  const toneBtns = [...document.querySelectorAll('[data-set-tone]')];
+  toneBtns.forEach((b) => b.addEventListener('click', () => {
+    const t = b.dataset.setTone;
+    if (t === 'auto') document.documentElement.removeAttribute('data-tone');
+    else document.documentElement.dataset.tone = t;
+    toneBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  }));
+</script>
+</body>
+</html>

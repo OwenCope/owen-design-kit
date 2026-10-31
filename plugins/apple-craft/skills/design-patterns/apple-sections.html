@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meridian Air (Concept Demo) - Apple Page Sections</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --foreground: #1d1d1f;
+    --secondary-label: #6e6e73;
+    --hairline: rgba(0, 0, 0, 0.12);
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-tint: #0060c9;
+    --fill-quaternary: rgba(0, 0, 0, 0.05);
+    --gutter: clamp(20px, 5vw, 64px);
+    --radius-card: 28px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000000;
+      --surface: #161617;
+      --foreground: #f5f5f7;
+      --secondary-label: #a1a1a6;
+      --hairline: rgba(255, 255, 255, 0.16);
+      --fill-quaternary: rgba(255, 255, 255, 0.08);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--foreground);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+  .type-display { font-size: clamp(2.75rem, 7.5vw, 4.75rem); font-weight: 600; line-height: 1.02; letter-spacing: -0.045em; margin: 0; }
+  .type-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; line-height: 1.06; letter-spacing: -0.035em; margin: 0; }
+  .type-heading { font-size: 28px; font-weight: 600; line-height: 1.15; letter-spacing: -0.025em; margin: 0; }
+  .type-subhead { font-size: 21px; font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; }
+  .type-body { font-size: 17px; font-weight: 400; line-height: 1.55; letter-spacing: -0.01em; }
+  .type-caption { font-size: 14px; line-height: 1.45; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding-inline: var(--gutter); }
+  section.block { padding-block: 64px; }
+  @media (min-width: 700px) { section.block { padding-block: 96px; } }
+
+  /* ---------- Pattern 1: Local product nav ---------- */
+  .site-eyebrow {
+    font-size: 12px; text-align: center; padding: 10px 16px;
+    color: var(--secondary-label); background: var(--bg);
+  }
+  .localnav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 24px;
+    padding: 12px var(--gutter);
+    background: var(--bg);
+    border-bottom: 1px solid var(--hairline);
+    transition: background-color 0.35s var(--ease);
+  }
+  .localnav.scrolled { background: var(--bg); }
+  @supports (backdrop-filter: blur(20px)) {
+    .localnav.scrolled {
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+    }
+  }
+  .localnav-name { margin-right: auto; line-height: 1.2; }
+  .localnav-name strong { display: block; font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
+  .localnav-name span { display: block; font-size: 12px; font-weight: 500; color: var(--secondary-label); }
+  .localnav-links { display: flex; align-items: stretch; gap: 4px; }
+  .localnav-links a {
+    position: relative; display: inline-flex; align-items: center;
+    padding: 10px 12px; font-size: 14px; color: var(--foreground); text-decoration: none;
+    border-radius: 8px;
+  }
+  .localnav-links a[aria-current="page"]::after {
+    content: ""; position: absolute; left: 12px; right: 12px; bottom: -13px;
+    height: 1px; background: var(--foreground);
+  }
+  .btn-buy {
+    display: inline-flex; align-items: center; min-height: 36px;
+    padding: 6px 18px; border-radius: 999px; border: 0;
+    background: var(--accent); color: #fff; font-size: 14px; font-weight: 500;
+    text-decoration: none; cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  @media (hover: hover) {
+    .localnav-links a:hover { background: var(--fill-quaternary); }
+    .btn-buy:hover { background: var(--accent-hover); }
+  }
+  .btn-buy:active { background: var(--accent-tint); }
+  @media (max-width: 640px) { .localnav-links a { display: none; } .localnav-links a[aria-current="page"] { display: inline-flex; } }
+
+  /* ---------- Pattern 2: Card gallery with paddles ---------- */
+  .gallery-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+  .gallery-track {
+    display: flex; gap: 24px; overflow-x: auto;
+    /* Full bleed to the window edges while the first card still lines up with the page column. */
+    scroll-snap-type: x mandatory; scroll-padding-inline: calc(50vw - 50%);
+    padding-inline: calc(50vw - 50%); padding-bottom: 8px; margin-inline: calc(50% - 50vw);
+    scrollbar-width: thin;
+  }
+  .gallery-card {
+    flex: 0 0 clamp(280px, 60vw, 640px); scroll-snap-align: start;
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: var(--radius-card); overflow: hidden;
+  }
+  .gallery-media { aspect-ratio: 16 / 10; overflow: hidden; background: #0a0a0c; position: relative; }
+  .gallery-media img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-media img.crop-top { object-position: center 20%; }
+  .gallery-stack { position: relative; }
+  .gallery-stack .under { position: absolute; inset: 0; }
+  .gallery-stack .under img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-stack .over { position: absolute; inset: auto 8% 6% 8%; }
+  .gallery-stack .over img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+  .gallery-card figcaption { padding: 20px 24px 24px; }
+  .caption { font-size: 17px; line-height: 1.55; letter-spacing: -0.01em; margin: 0; }
+  .caption span { color: var(--secondary-label); }
+  .gallery-foot { display: flex; justify-content: flex-end; gap: 12px; padding: 20px var(--gutter) 0; }
+  .paddle {
+    width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--hairline);
+    background: var(--fill-quaternary); color: var(--foreground); font-size: 18px; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
+  }
+  .paddle[disabled] { opacity: 0.4; cursor: default; }
+  @media (hover: hover) {
+    .paddle:not([disabled]):hover { background: color-mix(in srgb, var(--foreground) 11%, transparent); }
+  }
+  .paddle:not([disabled]):active { background: color-mix(in srgb, var(--foreground) 16%, transparent); }
+
+  /* ---------- Pattern 3: Layered panel ---------- */
+  .layer-dark { background: #000; color: #f5f5f7; text-align: center; padding: 96px var(--gutter) 180px; }
+  .layer-dark p { color: #a1a1a6; max-width: 640px; margin: 16px auto 0; }
+  .layer-light {
+    background: var(--surface); color: var(--foreground);
+    border-radius: var(--radius-card);
+    max-width: 1100px; margin: -120px auto 0;
+    padding: 48px clamp(20px, 4vw, 56px);
+    border: 1px solid var(--hairline);
+    position: relative;
+  }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
+  @media (max-width: 640px) { .compare-grid { grid-template-columns: 1fr; } }
+  .compare-col { text-align: center; padding: 8px; }
+  .badge-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .chip {
+    font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px;
+    background: var(--fill-quaternary); color: var(--foreground); border: 1px solid var(--hairline);
+  }
+  .chip.blue { background: var(--accent); border-color: transparent; color: #fff; }
+  .stat-eyebrow { font-size: 14px; color: var(--secondary-label); margin: 0; }
+  .stat-big { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.06; margin: 4px 0; }
+  .stat-label { font-size: 14px; color: var(--secondary-label); margin: 0 0 16px; }
+  .feature-row { font-size: 14px; border-top: 1px solid var(--hairline); padding-top: 16px; margin-top: 8px; }
+  .compare-cta { text-align: center; margin-top: 36px; }
+  .pill-link {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 8px 8px 24px; border-radius: 999px; min-height: 52px;
+    background: var(--fill-quaternary); color: var(--foreground); text-decoration: none; font-weight: 500;
+    border: 1px solid var(--hairline);
+    transition: background-color 0.15s ease;
+  }
+  .pill-link .round-arrow {
+    width: 36px; height: 36px; border-radius: 999px; background: var(--accent); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background-color 0.15s ease;
+  }
+  .pill-link .round-arrow svg { width: 16px; height: 16px; }
+  @media (hover: hover) {
+    .pill-link:hover { background: color-mix(in srgb, var(--foreground) 11%, transparent); }
+    .pill-link:hover .round-arrow { background: var(--accent-hover); }
+  }
+  .pill-link:active { background: color-mix(in srgb, var(--foreground) 16%, transparent); }
+  .pill-link:active .round-arrow { background: var(--accent-tint); }
+
+  /* ---------- Pattern 4: Stats grid ---------- */
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 24px; margin-top: 40px; }
+  @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .stats-grid { grid-template-columns: 1fr; } }
+  .stat-cell { border-top: 1px solid var(--hairline); padding-top: 20px; }
+  .stat-cell .stat-big { font-variant-numeric: tabular-nums; }
+  .stat-sub { display: block; font-size: 14px; color: var(--secondary-label); margin-top: 8px; }
+
+  /* ---------- Pattern 5: Feature tile pair ---------- */
+  .tile-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+  @media (max-width: 700px) { .tile-pair { grid-template-columns: 1fr; } }
+  .tile {
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: var(--radius-card); overflow: hidden;
+  }
+  .tile .tile-media { aspect-ratio: 16 / 10; overflow: hidden; background: #0a0a0c; }
+  .tile .tile-media img { width: 100%; height: 100%; object-fit: cover; }
+  .tile figcaption { padding: 20px 24px 24px; }
+
+  /* ---------- Pattern 6: Floating product bar ---------- */
+  .floatbar-stage { min-height: 170vh; }
+  .floatbar {
+    /* This demo page also has the full-width local nav (64px), so the bar sits under it. On a real page use top: 12px. */
+    position: sticky; top: 76px; z-index: 60;
+    max-width: min(1400px, calc(100% - 24px)); margin: 12px auto;
+    min-height: 72px; border-radius: 20px;
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 12px 12px 24px;
+    background: rgb(22 22 23 / 0.8);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  }
+  @supports (backdrop-filter: blur(20px)) {
+    .floatbar {
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+    }
+  }
+  .floatbar.is-visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+  .floatbar-name { margin-right: auto; font-size: 24px; font-weight: 600; letter-spacing: -0.015em; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .floatbar-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .btn-explore {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 36px;
+    padding: 6px 20px; border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 0.4);
+    background: transparent; color: #fff; font-size: 15px; font-weight: 500;
+    text-decoration: none; cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .floatbar .btn-buy { font-size: 15px; }
+  @media (hover: hover) {
+    .btn-explore:hover { background: rgb(255 255 255 / 0.12); }
+  }
+  .btn-explore:active { background: rgb(255 255 255 / 0.2); }
+  @media (prefers-color-scheme: light) {
+    .floatbar { background: rgb(255 255 255 / 0.8); border-color: rgba(0, 0, 0, 0.1); }
+    .floatbar-name { color: #1d1d1f; }
+    .btn-explore { border-color: rgba(0, 0, 0, 0.3); color: #1d1d1f; }
+  }
+  @media (prefers-color-scheme: light) and (hover: hover) {
+    .btn-explore:hover { background: rgba(0, 0, 0, 0.06); }
+  }
+  @media (prefers-color-scheme: light) {
+    .btn-explore:active { background: rgba(0, 0, 0, 0.1); }
+  }
+  @media (max-width: 480px) {
+    .floatbar { padding: 10px 10px 10px 18px; }
+    .floatbar-name { font-size: 20px; }
+    .btn-explore { padding: 6px 14px; }
+    .floatbar .btn-buy { padding: 6px 14px; }
+  }
+  .floatbar-hero {
+    border-radius: var(--radius-card); border: 1px solid var(--hairline);
+    background: var(--surface); padding: clamp(32px, 6vw, 72px) clamp(20px, 5vw, 56px);
+    text-align: center; margin-top: 24px;
+  }
+  .floatbar-spacer { padding: 32px 0 60vh; text-align: center; color: var(--secondary-label); }
+
+  /* ---------- Pattern 7: Highlight paragraph ---------- */
+  .highlight-media {
+    position: relative; isolation: isolate;
+    border-radius: var(--radius-card); overflow: hidden;
+    border: 1px solid var(--hairline); background: #0a0a0c;
+    max-width: 1100px; margin: 32px auto 0;
+  }
+  .highlight-media .screen {
+    position: absolute; left: 19.4%; top: 19%; width: 61.2%; height: 59.2%;
+    z-index: -1; overflow: hidden;
+  }
+  .highlight-media .screen img { width: 100%; height: 100%; object-fit: cover; }
+  .highlight-media .shell { position: relative; width: 100%; height: auto; }
+  .highlight-para {
+    max-width: 980px; margin: 40px auto 0; padding-inline: var(--gutter);
+    text-align: center; font-size: clamp(21px, 4.5vw, 28px);
+    line-height: 1.4; letter-spacing: -0.01em; font-weight: 500;
+    color: rgb(110 110 115);
+  }
+  .highlight-para strong { font-weight: 600; color: rgb(110 110 115); transition: color 0.15s ease; }
+  .highlight-para.lit strong { color: #1d1d1f; }
+  @media (prefers-color-scheme: dark) {
+    .highlight-para { color: rgb(134 134 139); }
+    .highlight-para strong { color: rgb(134 134 139); }
+    .highlight-para.lit strong { color: #fff; }
+  }
+  @media (hover: hover) {
+    .highlight-para strong:hover { color: #1d1d1f; }
+  }
+  @media (prefers-color-scheme: dark) and (hover: hover) {
+    .highlight-para strong:hover { color: #fff; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .floatbar { transform: none; }
+    .highlight-para strong { transition: none; }
+  }
+
+  .footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px var(--gutter); border-top: 1px solid var(--hairline); font-size: 13px; color: var(--secondary-label); }
+  .footer nav { display: flex; gap: 16px; }
+  .footer a { color: inherit; text-decoration: none; }
+  @media (hover: hover) { .footer a:hover { color: var(--foreground); } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<div class="site-eyebrow">Concept demo page. Fictional product, demo copy and images only.</div>
+
+<!-- Pattern 1: Local product nav -->
+<header class="localnav" id="localnav">
+  <div class="localnav-name">
+    <strong>Meridian Air</strong>
+    <span>Fictional thin laptop</span>
+  </div>
+  <nav class="localnav-links" aria-label="Product">
+    <a href="#overview" aria-current="page">Overview</a>
+    <a href="#specs">Tech Specs</a>
+    <a href="#compare">Compare</a>
+  </nav>
+  <a class="btn-buy" href="#buy">Buy</a>
+</header>
+
+<main id="overview">
+  <section class="block wrap" data-reveal>
+    <h1 class="type-display">Meridian Air.<br>Light. Done right.</h1>
+    <p class="type-subhead" style="color: var(--secondary-label); max-width: 640px;">A fictional thin laptop used to show page section patterns. Every number on this page is placeholder copy for layout.</p>
+    <img src="../mac-props/assets/macbook-air-shell.webp" alt="Fictional thin laptop shell, three quarter view" style="margin-top: 40px; border-radius: 28px; border: 1px solid var(--hairline);" width="1600">
+  </section>
+
+  <!-- Pattern 2: Card gallery with paddles -->
+  <section class="block" id="gallery" aria-labelledby="gallery-title" data-reveal>
+    <div class="wrap">
+      <h2 class="type-title" id="gallery-title">Made to move with you.</h2>
+    </div>
+    <div class="gallery-track" id="gallery-track" tabindex="0" aria-label="Feature cards. Use left and right arrow keys to move.">
+      <figure class="gallery-card" style="margin: 0;">
+        <div class="gallery-media">
+          <img src="../mac-props/assets/macbook-air-shell.webp" alt="Laptop shell open on a desk">
+        </div>
+        <figcaption><p class="caption"><strong>Works with your files.</strong> <span>Open anything from your last laptop and pick up where you left off, tabs and windows intact.</span></p></figcaption>
+      </figure>
+      <figure class="gallery-card" style="margin: 0;">
+        <div class="gallery-media">
+          <img class="crop-top" src="../mac-props/assets/wallpaper-pro-black.jpg" alt="Dark abstract wallpaper cropped close">
+        </div>
+        <figcaption><p class="caption"><strong>Quiet in dark rooms.</strong> <span>The display dims smoothly after sunset so late night work stays easy on the eyes.</span></p></figcaption>
+      </figure>
+      <figure class="gallery-card" style="margin: 0;">
+        <div class="gallery-media gallery-stack">
+          <div class="under"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></div>
+          <div class="over"><img src="../mac-props/assets/macbook-air-shell.webp" alt="Laptop shell over dark wallpaper"></div>
+        </div>
+        <figcaption><p class="caption"><strong>Ready when you open it.</strong> <span>The lid wakes the machine instantly, so the desktop is there before you settle in.</span></p></figcaption>
+      </figure>
+    </div>
+    <div class="gallery-foot">
+      <button class="paddle" id="paddle-prev" type="button" aria-label="Previous card">&#8592;</button>
+      <button class="paddle" id="paddle-next" type="button" aria-label="Next card">&#8594;</button>
+    </div>
+  </section>
+
+  <!-- Pattern 3: Layered panel. Demo values below are layout placeholders, not real measurements. -->
+  <section id="compare" aria-labelledby="compare-title" data-reveal>
+    <div class="layer-dark">
+      <h2 class="type-title" id="compare-title" style="margin: 0;">Which Air is yours?</h2>
+      <p class="type-body">Two sizes, same quiet design. Pick the screen that fits your desk and your bag.</p>
+    </div>
+    <div style="background: var(--bg); padding: 0 var(--gutter) 8px;">
+      <div class="layer-light">
+        <div class="compare-grid">
+          <!-- Demo values for layout only, not real measurements. -->
+          <div class="compare-col">
+            <div class="badge-row"><span class="chip blue">New</span><span class="chip">13 in.</span></div>
+            <p class="stat-eyebrow">Up to</p>
+            <p class="stat-big">24 hours</p>
+            <p class="stat-label">battery life, video playback</p>
+            <p class="feature-row">Three microphones. Clear calls from the couch or the cafe.</p>
+          </div>
+          <div class="compare-col">
+            <div class="badge-row"><span class="chip">15 in.</span></div>
+            <p class="stat-eyebrow">Up to</p>
+            <p class="stat-big">24 hours</p>
+            <p class="stat-label">battery life, video playback</p>
+            <p class="feature-row">Six speakers. A wider stage for films and music.</p>
+          </div>
+        </div>
+        <div class="compare-cta">
+          <a class="pill-link" href="#compare">Compare all models
+            <span class="round-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pattern 4: Stats grid. Demo values for layout only, not real measurements. -->
+  <section class="block wrap" id="specs" aria-labelledby="stats-title" data-reveal>
+    <h2 class="type-title" id="stats-title">Strength in numbers.</h2>
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <p class="stat-eyebrow">Up to</p>
+        <p class="stat-big">1600 nits</p>
+        <span class="stat-sub">sustained brightness outdoors</span>
+      </div>
+      <div class="stat-cell">
+        <p class="stat-eyebrow">Up to</p>
+        <p class="stat-big">24 hours</p>
+        <span class="stat-sub">video playback on one charge</span>
+      </div>
+      <div class="stat-cell">
+        <p class="stat-eyebrow">As light as</p>
+        <p class="stat-big">2.7 pounds</p>
+        <span class="stat-sub">thin enough for any bag</span>
+      </div>
+      <div class="stat-cell"><span class="stat-sub">Liquid Retina display</span></div>
+      <div class="stat-cell"><span class="stat-sub">Four studio microphones</span></div>
+      <div class="stat-cell"><span class="stat-sub">Two Thunderbolt ports</span></div>
+    </div>
+  </section>
+
+  <!-- Pattern 5: Feature tile pair -->
+  <section class="block wrap" aria-labelledby="tiles-title" data-reveal>
+    <h2 class="type-title" id="tiles-title">Small things, done well.</h2>
+    <div class="tile-pair">
+      <figure class="tile" style="margin: 0;">
+        <div class="tile-media"><img src="../mac-props/assets/macbook-air-shell.webp" alt="Laptop shell half open"></div>
+        <figcaption><p class="caption"><strong>Opens with one finger.</strong> <span>The hinge is balanced so the base stays put while the lid lifts.</span></p></figcaption>
+      </figure>
+      <figure class="tile" style="margin: 0;">
+        <div class="tile-media"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt="Dark wallpaper full bleed"></div>
+        <figcaption><p class="caption"><strong>Calm after dark.</strong> <span>The desktop fades to deep tones that keep focus on the window in front.</span></p></figcaption>
+      </figure>
+    </div>
+  </section>
+  <!-- Pattern 6: Floating product bar. Tall stage so the demo scrolls past the hero. -->
+  <section class="block wrap" id="floatbar-demo" aria-labelledby="floatbar-title" data-reveal>
+    <h2 class="type-title" id="floatbar-title">There when you need it.</h2>
+    <p class="type-body" style="color: var(--secondary-label); max-width: 640px;">Scroll past the hero below. The floating bar slides in after the hero leaves the view and hides again at the top.</p>
+    <div class="floatbar-stage">
+      <div class="floatbar" id="floatbar">
+        <span class="floatbar-name">Meridian Air</span>
+        <span class="floatbar-actions">
+          <a class="btn-explore" href="#overview">Explore</a>
+          <a class="btn-buy" href="#buy">Buy</a>
+        </span>
+      </div>
+      <div class="floatbar-hero" id="floatbar-hero">
+        <p class="type-heading">Meridian Air hero</p>
+        <p class="type-body" style="color: var(--secondary-label);">Placeholder hero content. Keep scrolling to see the floating bar appear.</p>
+      </div>
+      <p class="floatbar-spacer type-body">Keep scrolling. The bar stays pinned while this stage is in view.</p>
+    </div>
+  </section>
+
+  <!-- Pattern 7: Highlight paragraph -->
+  <section class="block" id="highlight" aria-labelledby="highlight-title" data-reveal>
+    <div class="wrap" style="text-align: center;">
+      <h2 class="type-title" id="highlight-title">Power in plain words.</h2>
+    </div>
+    <div class="wrap">
+      <figure class="highlight-media" style="margin-inline: auto;">
+        <div class="screen" aria-hidden="true"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt=""></div>
+        <img class="shell" src="../mac-props/assets/macbook-air-shell.webp" alt="Fictional thin laptop with dark wallpaper on its display">
+      </figure>
+    </div>
+    <p class="highlight-para" id="highlight-para">Aurora lets you <strong>edit 8K video on battery</strong>, even on a long flight, so the cut is done before you land.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <p style="margin: 0;">Concept demo. Fictional product, 2026.</p>
+  <nav aria-label="Footer"><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#contact">Contact</a></nav>
+</footer>
+
+<script src="../motion-kit/motion.js"></script>
+<script>
+  (function () {
+    var nav = document.getElementById('localnav');
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    var track = document.getElementById('gallery-track');
+    var prev = document.getElementById('paddle-prev');
+    var next = document.getElementById('paddle-next');
+    function cardStep() {
+      var card = track.querySelector('.gallery-card');
+      return card ? card.getBoundingClientRect().width + 24 : Math.round(track.clientWidth * 0.6);
+    }
+    function updatePaddles() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max;
+    }
+    prev.addEventListener('click', function () { track.scrollBy({ left: -cardStep(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: cardStep(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', updatePaddles, { passive: true });
+    addEventListener('resize', updatePaddles);
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left: cardStep(), behavior: 'smooth' }); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); track.scrollBy({ left: -cardStep(), behavior: 'smooth' }); }
+    });
+    updatePaddles();
+
+    if (window.Motion && Motion.reveal) { Motion.reveal('[data-reveal]'); }
+
+    var floatbar = document.getElementById('floatbar');
+    var floatbarHero = document.getElementById('floatbar-hero');
+    if (floatbar && floatbarHero && 'IntersectionObserver' in window) {
+      var barObserver = new IntersectionObserver(function (entries) {
+        floatbar.classList.toggle('is-visible', !entries[0].isIntersecting);
+      }, { rootMargin: '-72px 0px 0px 0px' });
+      barObserver.observe(floatbarHero);
+    }
+
+    var highlightPara = document.getElementById('highlight-para');
+    if (highlightPara && 'IntersectionObserver' in window) {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        highlightPara.classList.add('lit');
+      } else {
+        var litObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            highlightPara.classList.toggle('lit', entry.isIntersecting);
+          });
+        }, { rootMargin: '-40% 0px -40% 0px' });
+        litObserver.observe(highlightPara);
+      }
+    }
+  })();
+</script>
+</body>
+</html>
