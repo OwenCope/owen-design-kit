@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scroll parts</title>
+<!-- One demo per scroll part for Northlight, a fictional calm photo editor for Mac. -->
+<style>
+  :root { --bg: #f5f5f7; --card: #fff; --ink: #1d1d1f; --muted: rgba(0,0,0,.56); --line: rgba(0,0,0,.08); --fill: rgba(0,0,0,.06);
+          --accent: #0071e3; --night: #000; --night-ink: #f5f5f7; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #000; --card: #161618; --ink: #f5f5f7; --muted: rgba(255,255,255,.6);
+          --line: rgba(255,255,255,.1); --fill: rgba(255,255,255,.08); --accent: #0a84ff; --night: #0b0b0d; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 120px 0 72px; }
+  h1 { margin: 0; font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: -.04em; line-height: 1.03; font-weight: 600; }
+  header p { color: var(--muted); font-size: 21px; max-width: 620px; margin: 16px 0 0; }
+  .label { font-size: 14px; color: var(--muted); margin: 0 0 18px; }
+  .label b { color: inherit; font-weight: 600; }
+  code { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+  .tall { min-height: 240vh; }
+  .pin { position: sticky; top: 0; min-height: 100vh; display: grid; align-content: center; }
+
+  /* Word scrub on a dark stage, at the size a real product page would use it. */
+  .night { background: var(--night); color: var(--night-ink); --muted: rgba(255,255,255,.55); }
+  .scrub { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height: 1.14; letter-spacing: -.03em; font-weight: 600; margin: 0; max-width: 980px; }
+
+  /* Smoothed progress drives a develop preview: exposure lifts and the checklist fills as you scroll. */
+  .develop { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; }
+  .photo { aspect-ratio: 4 / 3; border-radius: 22px; overflow: hidden; background: #000; box-shadow: 0 0 0 .5px var(--line); }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(var(--exp, .55)) contrast(1.08); }
+  .checks { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 12px; }
+  .checks li { display: flex; align-items: center; gap: 12px; font-size: 19px; color: var(--muted); transition: color 150ms cubic-bezier(.16,1,.3,1); }
+  .checks li::before { content: ""; width: 20px; height: 20px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px currentColor; flex: none; }
+  .checks li.done { color: var(--ink); }
+  .checks li.done::before { background: var(--accent); box-shadow: none; }
+  .bar { height: 6px; border-radius: 3px; background: var(--fill); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 12px; }
+  button.toggle { border: 0; border-radius: 999px; background: var(--fill); color: var(--ink); font: 600 14px -apple-system, sans-serif;
+                  min-height: 36px; padding: 0 18px; cursor: pointer; transition: background-color 150ms cubic-bezier(.16,1,.3,1); }
+  @media (hover: hover) { button.toggle:hover { background: rgba(127,127,127,.18); } }
+
+  /* Timeline: a finished print rises into place as it crosses the viewport. */
+  .print { width: min(460px, 82vw); margin: 0 auto; background: #fff; color: #1d1d1f; padding: 18px 18px 22px; border-radius: 6px;
+           box-shadow: 0 30px 80px rgba(0,0,0,.18), 0 0 0 .5px rgba(0,0,0,.08); }
+  .print img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .print p { margin: 14px 2px 0; font-size: 14px; color: rgba(0,0,0,.55); display: flex; justify-content: space-between; }
+
+  .big { font-size: clamp(2.25rem, 5.6vw, 4.25rem); line-height: 1.05; letter-spacing: -.04em; font-weight: 600; margin: 0; }
+  .dl { border: 0; border-radius: 999px; background: var(--accent); color: #fff; font: 600 17px -apple-system, sans-serif;
+        min-height: 50px; padding: 0 30px; cursor: pointer; transition: filter 150ms cubic-bezier(.16,1,.3,1); }
+  @media (hover: hover) { .dl:hover { filter: brightness(1.08); } }
+  .dl:active { filter: brightness(.94); }
+  .center { text-align: center; }
+  .spacer { height: 40vh; }
+  footer { padding: 80px 0 120px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 760px) { .develop { grid-template-columns: 1fr; gap: 24px; } }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <h1>Scroll parts</h1>
+  <p>Five scroll techniques, shown on Northlight, a fictional photo editor for Mac. Scroll slowly, then fling, then scroll back up.</p>
+</header>
+
+<!-- Word scrub: the pin is as long as the lighting needs, no longer. -->
+<section class="tall night" id="s-scrub">
+  <div class="pin"><div class="wrap">
+    <p class="label"><b>Word scrub.</b> Each word lights as it crosses the band and dims again on the way back. <code>Motion.wordScrub(el)</code></p>
+    <p class="scrub" id="scrub">Northlight keeps every edit where you left it. Raw files stay on your Mac, versions stack quietly, and exports remember their settings, so Sunday sorting feels like finishing, not filing.</p>
+  </div></div>
+</section>
+
+<!-- Smoothed progress: a fling glides instead of jumping; the toggle pauses it. -->
+<section class="tall" id="s-smooth">
+  <div class="pin"><div class="wrap">
+    <p class="label"><b>Smoothed progress.</b> Progress chases the scroll with a soft lag. <code>Motion.smoothProgress(section, p =&gt; …, { play })</code></p>
+    <div class="develop">
+      <div class="photo"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt="The photo being developed"></div>
+      <div>
+        <div class="row"><b style="font-size:21px;letter-spacing:-.02em">Develop</b><button class="toggle" id="playbtn">Pause</button></div>
+        <div class="bar"><i id="smoothbar"></i></div>
+        <ul class="checks" id="checks"><li>Exposure</li><li>White balance</li><li>Dust</li><li>Crop</li><li>Caption</li></ul>
+        <p class="label" style="margin-top:18px"><span id="smoothpct" style="font-variant-numeric:tabular-nums">0</span>% through the print checklist</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- Timeline: native view timeline where supported, the same stops through rAF elsewhere. -->
+<section class="wrap">
+  <p class="label"><b>Timeline.</b> The print rises and settles with scroll position. <code>Motion.timeline(el, [{ at, style }])</code></p>
+  <div class="spacer"></div>
+  <div class="print" id="tile"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt="A finished print"><p><span>Pro Black, 12 x 12</span><span>Sunday set</span></p></div>
+  <div class="spacer"></div>
+</section>
+
+<!-- Accent wipe: fires once when the highlighted word is first seen. -->
+<section class="wrap" style="padding:20vh 24px">
+  <p class="label"><b>Accent wipe.</b> The highlight sweeps in once, then stays. <code>Motion.accentWipe(el)</code></p>
+  <p class="big">Finish the photo,<br>keep the <span id="accent">afternoon</span>.</p>
+</section>
+
+<!-- Sheen: a single light pass over a headline and a button, then gone. -->
+<section class="wrap center" style="padding:20vh 24px">
+  <p class="label"><b>Sheen.</b> One light pass when first seen, never loops. <code>Motion.sheen(el)</code></p>
+  <h2 class="big" id="sheenline" style="margin-bottom:28px">Prints that match the screen.</h2>
+  <button class="dl" id="sheenbtn">Download for Mac</button>
+</section>
+
+<footer class="wrap">Demo copy is for Northlight, a fictional app. Open this file straight from disk; it loads motion.js, then scroll.js, from this folder.</footer>
+
+<script src="motion.js"></script>
+<script src="scroll.js"></script>
+<script>
+  Motion.wordScrub(document.getElementById('scrub'));
+
+  Motion.smoothProgress(document.getElementById('s-smooth'), (p) => {
+    document.getElementById('smoothbar').style.width = (p * 100).toFixed(1) + '%';
+    document.getElementById('smoothpct').textContent = Math.round(p * 100);
+    document.querySelector('.photo img').style.setProperty('--exp', (0.55 + p * 0.5).toFixed(3));
+    document.querySelectorAll('#checks li').forEach((li, i) => li.classList.toggle('done', p >= (i + 1) / 5 - 0.02));
+  }, { play: document.getElementById('playbtn') });
+
+  Motion.timeline(document.getElementById('tile'), [
+    { at: 0, style: { transform: 'translateY(120px) rotate(-3deg) scale(.94)', opacity: 0 } },
+    { at: 0.5, style: { transform: 'translateY(0) rotate(0deg) scale(1)', opacity: 1 } },
+    { at: 1, style: { transform: 'translateY(-60px) rotate(1deg) scale(.98)', opacity: 0.4 } },
+  ]);
+
+  Motion.accentWipe(document.getElementById('accent'));
+  Motion.sheen(document.getElementById('sheenline'));
+  Motion.sheen(document.getElementById('sheenbtn'));
+</script>
+</body>
+</html>

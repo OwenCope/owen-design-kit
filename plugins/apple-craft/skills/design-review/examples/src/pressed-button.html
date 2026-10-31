@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidepool: pressed-button pair</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1d1d1f; background: #fbfbfd; }
+  .state { max-width: 1000px; margin: 0 auto; padding: 80px 40px; text-align: center; }
+  h1 { font-size: 28px; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .note { font-size: 14px; color: #6e6e73; margin-bottom: 32px; }
+  .frames { display: flex; gap: 20px; justify-content: center; }
+  .frame { background: #fff; border: 1px solid #e5e5ea; border-radius: 16px; padding: 28px 20px 22px; width: 220px; }
+  .frame .cap { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: #6e6e73; margin-bottom: 16px; }
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; font-weight: 600; min-width: 150px; height: 48px; border-radius: 999px; border: 0; background: #0071e3; color: #fff; }
+  .btn svg { display: none; width: 20px; height: 20px; }
+  /* Bad: pressed frame visibly shrinks */
+  #bad .is-hover { filter: brightness(1.08); }
+  #bad .is-pressed { transform: scale(0.9); filter: brightness(0.94); }
+  /* Good: press only darkens the tint, icon carries the feedback */
+  #good .is-hover { filter: brightness(1.08); }
+  #good .is-pressed { filter: brightness(0.82); }
+  #good .is-pressed .lbl { display: none; }
+  #good .is-pressed svg { display: block; }
+</style>
+</head>
+<body>
+<section class="state" id="bad">
+  <h1>Button feedback: shrinking press</h1>
+  <p class="note">Rest, hover and pressed side by side. The pressed button dips smaller.</p>
+  <div class="frames">
+    <div class="frame"><div class="cap">Rest</div><button class="btn"><span class="lbl">Download</span></button></div>
+    <div class="frame"><div class="cap">Hover</div><button class="btn is-hover"><span class="lbl">Download</span></button></div>
+    <div class="frame"><div class="cap">Pressed</div><button class="btn is-pressed"><span class="lbl">Download</span></button></div>
+  </div>
+</section>
+<section class="state" id="good">
+  <h1>Button feedback: tint and icon</h1>
+  <p class="note">Rest, hover and pressed side by side. Press darkens the tint and the label becomes a check.</p>
+  <div class="frames">
+    <div class="frame"><div class="cap">Rest</div><button class="btn"><span class="lbl">Download</span><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></button></div>
+    <div class="frame"><div class="cap">Hover</div><button class="btn is-hover"><span class="lbl">Download</span><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></button></div>
+    <div class="frame"><div class="cap">Pressed</div><button class="btn is-pressed"><span class="lbl">Download</span><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></button></div>
+  </div>
+</section>
+<script>
+  function s(){var h=(location.hash||"#bad");document.querySelectorAll(".state").forEach(function(e){e.style.display=("#"+e.id===h)?"block":"none";});}
+  addEventListener("hashchange",s);s();
+</script>
+</body>
+</html>

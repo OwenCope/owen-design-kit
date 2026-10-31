@@ -6,6 +6,8 @@ description: Screenshots of 17 well-designed real websites (desktop sections and
 # Site gallery
 
 Real sites, captured 2026-10-11 in `shots/<site>/`: `hero.jpg`, `section-01.jpg` onwards (each a 900 px scroll step), and `phone-hero.jpg`. `shots/index.json` lists the files and URLs. Some captures include cookie banners, and on Arc the product images failed to load; ignore those.
+Refresh the shots with `node scripts/capture.mjs [folder ...]` from this skill folder (no folders means all sites).
+The script rewrites the JPGs and updates `shots/index.json` in place.
 
 How to use it: open the shots, read the note, then ask what the equivalent decision is for your product. If your page could be described as "their page with our logo", start again. Measured values for Linear, Raycast, Stripe, Notion and Duolingo are in `design-directions/research/`.
 

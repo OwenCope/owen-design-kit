@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidepool: faq-no-hover pair</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1d1d1f; background: #fbfbfd; }
+  .state { max-width: 760px; margin: 0 auto; padding: 90px 40px; }
+  h1 { font-size: 30px; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .note { font-size: 14px; color: #6e6e73; margin-bottom: 26px; }
+  .faq { border-top: 1px solid #e5e5ea; }
+  .faq button { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 16px; background: none; border: 0; border-bottom: 1px solid #e5e5ea; padding: 18px 14px; font-size: 16px; color: #1d1d1f; text-align: left; cursor: pointer; border-radius: 8px; }
+  .faq button .chev { color: #6e6e73; font-size: 18px; }
+  #bad .faq button:hover { background: none; }
+  #bad .faq button:focus { outline: none; }
+  #good .faq button { transition: background-color .15s ease; }
+  #good .faq button:hover { background: #e8e8ed; }
+  #good .faq button:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
+</style>
+</head>
+<body>
+<section class="state" id="bad">
+  <h1>Questions</h1>
+  <p class="note">Second row shown hovered. Nothing changes.</p>
+  <div class="faq">
+    <button>Is Tidepool free to try?<span class="chev">›</span></button>
+    <button class="probe">Does it work offline?<span class="chev">›</span></button>
+    <button>Can I share lists with my team?<span class="chev">›</span></button>
+  </div>
+</section>
+<section class="state" id="good">
+  <h1>Questions</h1>
+  <p class="note">Second row shown hovered. A quiet tint answers the pointer, and Tab shows a ring.</p>
+  <div class="faq">
+    <button>Is Tidepool free to try?<span class="chev">›</span></button>
+    <button class="probe">Does it work offline?<span class="chev">›</span></button>
+    <button>Can I share lists with my team?<span class="chev">›</span></button>
+  </div>
+</section>
+<script>
+  function s(){var h=(location.hash||"#bad");document.querySelectorAll(".state").forEach(function(e){e.style.display=("#"+e.id===h)?"block":"none";});}
+  addEventListener("hashchange",s);s();
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>motion-kit media</title>
+<!-- Demo for media.js: budgeted films and a scroll-scrubbed frame sequence.
+     Opens straight from disk (file://), no server needed. -->
+<style>
+  :root { --bg: #f2f2f5; --card: #fff; --ink: #1d1d1f; --muted: rgba(0,0,0,.5); --line: rgba(0,0,0,.08);
+          --accent: #0071e3; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #000; --card: #161618; --ink: #f5f5f7; --muted: rgba(255,255,255,.55);
+          --line: rgba(255,255,255,.1); --accent: #0a84ff; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+         -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  header { max-width: 760px; margin: 0 auto; padding: 72px 24px 8px; }
+  h1 { margin: 0; font-size: 48px; letter-spacing: -.03em; line-height: 1.05; }
+  header p { color: var(--muted); font-size: 19px; max-width: 640px; }
+  .status { max-width: 760px; margin: 24px auto; padding: 16px 22px; background: var(--card); border-radius: 20px;
+            box-shadow: 0 0 0 .5px var(--line); }
+  .status b { display: block; font-size: 15px; }
+  .status span { color: var(--muted); font-size: 13px; display: block; margin-top: 2px; }
+  .status code { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); display: block; margin-top: 10px; }
+  .film { min-height: 92vh; display: grid; place-items: center; margin: 0; padding: 24px; }
+  .film figure { margin: 0; width: min(640px, 92vw); background: var(--card); border-radius: 28px; overflow: hidden;
+                 box-shadow: 0 0 0 .5px var(--line); }
+  .film video { display: block; width: 100%; aspect-ratio: 16/9; background: #000; }
+  .film figcaption { display: flex; align-items: center; gap: 12px; padding: 16px 22px 22px; }
+  .film figcaption div { flex: 1; }
+  .film b { display: block; font-size: 15px; } .film span { color: var(--muted); font-size: 13px; }
+  .film button { border: 0; border-radius: 999px; background: var(--accent); color: #fff; font: 600 13px -apple-system, sans-serif;
+                 min-height: 36px; padding: 0 16px; cursor: pointer; transition: filter 150ms cubic-bezier(.16,1,.3,1); }
+  @media (hover: hover) { .film button:hover { filter: brightness(1.08); } }
+  .film button:active { filter: brightness(.94); }
+  .film code { font: 12px ui-monospace, Menlo, monospace; color: var(--muted); }
+  .scrub { height: 300vh; }
+  .sticky { position: sticky; top: 0; height: 100vh; display: grid; place-items: center; align-content: center; gap: 14px; }
+  .sticky canvas { width: min(960px, 94vw); aspect-ratio: 16/9; border-radius: 20px; background: #0b0b10;
+                   box-shadow: 0 0 0 .5px var(--line); }
+  .sticky p { color: var(--muted); font-size: 13px; margin: 0; }
+  footer { max-width: 760px; margin: 0 auto; padding: 40px 24px 96px; color: var(--muted); font-size: 13px; }
+  footer code { font: 12px ui-monospace, Menlo, monospace; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Budgeted films, scrubbed frames</h1>
+  <p>Three films share one playback budget, so only the ones most in view play. Further down, a frame sequence follows the scroll. Open this file straight from disk, it needs no server.</p>
+</header>
+
+<section class="status" aria-live="polite">
+  <b>Now playing: <span id="now" style="display:inline">none</span></b>
+  <span id="limits"></span>
+  <code>Motion.videoBudget() · Motion.frameScrub(canvas, { pattern, count })</code>
+</section>
+
+<section class="film"><figure>
+  <video data-budget data-toggle="#tgl-a" data-src="media-demo/clip-a.mp4" poster="media-demo/clip-a.jpg" muted loop playsinline preload="none"></video>
+  <figcaption><div><b>Harbour light</b><span>First film. Scroll it out of view and it pauses.</span></div><code data-state>paused</code><button id="tgl-a" type="button">Play film</button></figcaption>
+</figure></section>
+
+<section class="film"><figure>
+  <video data-budget data-toggle="#tgl-b" data-src="media-demo/clip-b.mp4" poster="media-demo/clip-b.jpg" muted loop playsinline preload="none"></video>
+  <figcaption><div><b>Meadow</b><span>Second film. Pausing here keeps it paused until you resume it.</span></div><code data-state>paused</code><button id="tgl-b" type="button">Play film</button></figcaption>
+</figure></section>
+
+<section class="film"><figure>
+  <video data-budget data-toggle="#tgl-c" data-src="media-demo/clip-c.mp4" poster="media-demo/clip-c.jpg" muted loop playsinline preload="none"></video>
+  <figcaption><div><b>Dusk</b><span>Third film. Only two of the three ever play at once.</span></div><code data-state>paused</code><button id="tgl-c" type="button">Play film</button></figcaption>
+</figure></section>
+
+<section class="scrub">
+  <div class="sticky">
+    <canvas id="scrub"></canvas>
+    <p>Keep scrolling. The pill grows as this section passes.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Films have no autoplay attribute. The manager lazy-loads each source near the viewport, plays at most two at once (one on narrow screens), and pauses everything when the tab hides, on save-data, or under Reduce Motion. The scrub draws the nearest loaded frame and redraws only when the frame changes.</p>
+  <p><code>media-demo/</code> holds three clips with posters plus sixty scrub frames, 936K in total.</p>
+</footer>
+
+<script src="motion.js"></script>
+<script src="media.js"></script>
+<script>
+  Motion.videoBudget();
+  Motion.frameScrub(document.getElementById('scrub'), { pattern: 'media-demo/frames/frame-{i}.jpg', count: 60 });
+
+  // Live readout: which films the budget currently lets play.
+  const vids = Array.from(document.querySelectorAll('video[data-budget]'));
+  const names = ['Harbour light', 'Meadow', 'Dusk'];
+  function readout() {
+    const playing = vids.filter((v) => !v.paused);
+    document.getElementById('now').textContent = playing.length
+      ? playing.map((v) => names[vids.indexOf(v)]).join(', ') : 'none';
+    vids.forEach((v, i) => {
+      const tag = v.closest('figure').querySelector('[data-state]');
+      if (tag) tag.textContent = v.paused ? 'paused' : 'playing';
+    });
+    const conn = navigator.connection;
+    document.getElementById('limits').textContent =
+      'Limit: ' + (innerWidth < 834 ? '1' : '2') + ' at once · save-data: ' +
+      (conn && conn.saveData ? 'on' : 'off') + ' · reduced motion: ' +
+      (Motion.reduced() ? 'on' : 'off');
+  }
+  vids.forEach((v) => { v.addEventListener('play', readout); v.addEventListener('pause', readout); });
+  addEventListener('resize', readout);
+  setInterval(readout, 500); // catches play() refusals and late loads between events
+  readout();
+</script>
+</body>
+</html>

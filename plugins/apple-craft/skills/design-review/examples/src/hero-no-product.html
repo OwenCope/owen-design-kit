@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidepool: hero-no-product pair</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1d1d1f; background: #fbfbfd; }
+  .state { max-width: 1000px; margin: 0 auto; padding: 64px 48px 56px; text-align: center; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #6e6e73; }
+  h1 { font-size: 44px; line-height: 1.08; letter-spacing: -0.02em; margin: 12px auto 12px; max-width: 640px; }
+  .sub { font-size: 17px; color: #6e6e73; margin-bottom: 28px; }
+  /* Bad: mascot-style illustration fills the hero, no product */
+  .mascot { width: 300px; height: 260px; margin: 8px auto 0; position: relative; }
+  .mascot .blob { position: absolute; left: 40px; top: 20px; width: 220px; height: 200px; background: linear-gradient(160deg, #7dd3fc, #818cf8 60%, #c084fc); border-radius: 46% 54% 52% 48% / 55% 50% 50% 45%; }
+  .mascot .eye { position: absolute; top: 100px; width: 26px; height: 34px; background: #fff; border-radius: 50%; }
+  .mascot .eye::after { content: ""; display: block; width: 12px; height: 16px; background: #1d1d1f; border-radius: 50%; margin: 9px auto 0; }
+  .mascot .e1 { left: 118px; } .mascot .e2 { left: 158px; }
+  .mascot .smile { position: absolute; left: 132px; top: 148px; width: 40px; height: 20px; border: 4px solid #fff; border-top: 0; border-left-color: transparent; border-right-color: transparent; border-radius: 0 0 40px 40px; }
+  .mascot .arm { position: absolute; top: 130px; width: 60px; height: 22px; background: #818cf8; border-radius: 12px; }
+  .mascot .a1 { left: 6px; transform: rotate(-24deg); } .mascot .a2 { right: 6px; transform: rotate(24deg); }
+  /* Good: compact hero with the app on a Mac */
+  #good h1 { font-size: 34px; }
+  .laptop { position: relative; max-width: 760px; margin: 24px auto 0; }
+  .laptop img.frame { position: relative; display: block; width: 100%; }
+  .laptop .screen { position: absolute; left: 19.4%; top: 19%; width: 61.2%; height: 59.2%; overflow: hidden; background: url("../../../mac-props/assets/wallpaper-pro-black.jpg") center/cover; text-align: left; }
+  .screen .menubar { height: 16px; background: rgba(255,255,255,.72); font-size: 9px; color: #1d1d1f; padding: 3px 8px; font-weight: 600; }
+  .screen .appwin { position: absolute; left: 50%; top: 48%; transform: translate(-50%,-50%); width: 68%; background: rgba(255,255,255,.94); border-radius: 8px; padding: 8px 10px; box-shadow: 0 10px 28px rgba(0,0,0,.35); }
+  .appwin .t { font-size: 11px; font-weight: 700; }
+  .appwin .row { display: flex; align-items: center; gap: 6px; font-size: 9px; color: #3a3a3c; padding: 4px 0; border-top: 1px solid #e8e8ed; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #0a84ff; flex: none; }
+  .dot.done { background: #0a84ff; }
+  .screen .dock { position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%); display: flex; gap: 4px; background: rgba(255,255,255,.5); border-radius: 8px; padding: 4px 6px; }
+  .screen .dock i { width: 13px; height: 13px; border-radius: 4px; background: #0a84ff; display: block; }
+  .screen .dock i:nth-child(2) { background: #30d158; } .screen .dock i:nth-child(3) { background: #ff9f0a; } .screen .dock i:nth-child(4) { background: #bf5af2; }
+</style>
+</head>
+<body>
+<section class="state" id="bad">
+  <p class="eyebrow">Tidepool for Mac</p>
+  <h1>A calm home for every task</h1>
+  <p class="sub">Lists, plans and reminders in one quiet app.</p>
+  <div class="mascot" aria-hidden="true"><div class="blob"></div><div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div><div class="arm a1"></div><div class="arm a2"></div></div>
+</section>
+<section class="state" id="good">
+  <p class="eyebrow">Tidepool for Mac</p>
+  <h1>A calm home for every task</h1>
+  <p class="sub">Lists, plans and reminders in one quiet app.</p>
+  <div class="laptop">
+    <div class="screen" aria-label="Tidepool running on a Mac">
+      <div class="menubar">Tidepool &nbsp; File &nbsp; Edit &nbsp; View</div>
+      <div class="appwin">
+        <div class="t">Today</div>
+        <div class="row"><span class="dot done"></span>Send the launch notes</div>
+        <div class="row"><span class="dot done"></span>Review the budget draft</div>
+        <div class="row"><span class="dot"></span>Plan next week</div>
+      </div>
+      <div class="dock"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <img class="frame" src="../../../mac-props/assets/macbook-air-shell.webp" alt="">
+  </div>
+</section>
+<script>
+  function s(){var h=(location.hash||"#bad");document.querySelectorAll(".state").forEach(function(e){e.style.display=("#"+e.id===h)?"block":"none";});}
+  addEventListener("hashchange",s);s();
+</script>
+</body>
+</html>

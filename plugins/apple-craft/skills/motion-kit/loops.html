@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loop parts</title>
+<!-- Demos for Harbor, a fictional week planner for Mac. Open straight from disk. -->
+<style>
+  :root { --bg: #f5f5f7; --card: #fff; --ink: #1d1d1f; --muted: rgba(0,0,0,.56); --line: rgba(0,0,0,.08); --fill: rgba(0,0,0,.06);
+          --accent: #0071e3; --night: #000; --night-ink: #f5f5f7;
+          --motion-hover: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+          --motion-reveal: 460ms cubic-bezier(0.16, 1, 0.3, 1); color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #000; --card: #161618; --ink: #f5f5f7; --muted: rgba(255,255,255,.6);
+          --line: rgba(255,255,255,.1); --fill: rgba(255,255,255,.08); --accent: #0a84ff; --night: #0b0b0d; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 120px 0 64px; }
+  h1 { margin: 0; font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: -.04em; line-height: 1.03; font-weight: 600; }
+  header p { color: var(--muted); font-size: 21px; max-width: 640px; margin: 16px 0 0; }
+  section.block { padding: 72px 0; }
+  .label { font-size: 14px; color: var(--muted); margin: 0 0 18px; }
+  .label b { color: inherit; font-weight: 600; }
+  code { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .night :focus-visible { outline-color: #fff; }
+
+  /* Dark hero with a slow drift layer behind the headline. */
+  .night { background: var(--night); color: var(--night-ink); --muted: rgba(255,255,255,.55); }
+  .hero { position: relative; overflow: hidden; border-radius: 0; }
+  .hero .wrap { position: relative; padding-top: 140px; padding-bottom: 140px; }
+  .hero h2 { margin: 0; font-size: clamp(2.5rem, 6vw, 4.25rem); letter-spacing: -.04em; line-height: 1.03; font-weight: 600; max-width: 800px; }
+  .hero p { color: var(--muted); font-size: 21px; max-width: 600px; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5; pointer-events: none; }
+  .blob.a { width: 480px; height: 480px; left: -120px; top: -140px; background: #0a84ff; }
+  .blob.b { width: 420px; height: 420px; right: -100px; bottom: -160px; background: #5e5ce6; opacity: .4; }
+  .dl { border: 0; border-radius: 999px; background: var(--accent); color: #fff; font: 600 17px -apple-system, sans-serif;
+        min-height: 50px; padding: 0 30px; cursor: pointer; transition: filter var(--motion-hover); }
+  @media (hover: hover) { .dl:hover { filter: brightness(1.08); } }
+  .dl:active { filter: brightness(.94); }
+
+  /* Wordmark marquee: plain text names, each in its own voice. */
+  .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 26px 0; }
+  /* Names fade at the edges instead of being cut mid-word. */
+  .marquee { -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .marquee span { font-size: 20px; white-space: nowrap; color: var(--muted); }
+  .marquee span:nth-child(odd) { font-weight: 600; color: var(--ink); letter-spacing: -.01em; }
+  .marquee span:nth-child(3n) { font-style: italic; }
+
+  /* Feature tabs with a sliding pill and a progress fill. */
+  .tabs { display: flex; gap: 4px; padding-bottom: 2px; }
+  .tabs [role="tab"] { position: relative; border: 0; background: none; color: var(--muted); font: 600 17px -apple-system, sans-serif;
+                       padding: 12px 18px 14px; cursor: pointer; transition: color 150ms cubic-bezier(.16,1,.3,1); }
+  @media (hover: hover) { .tabs [role="tab"]:hover { color: var(--ink); } }
+  .tabs [role="tab"][aria-selected="true"] { color: var(--ink); }
+  .panel { background: var(--card); border-radius: 22px; box-shadow: 0 0 0 .5px var(--line); padding: 36px; margin-top: 20px; min-height: 220px; }
+  .panel h3 { margin: 0 0 10px; font-size: 28px; letter-spacing: -.02em; }
+  .panel p { margin: 0; color: var(--muted); font-size: 19px; max-width: 640px; }
+
+  /* Carousel: a snap row of cards with dots and steppers. */
+  .track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 12px;
+           scrollbar-width: thin; }
+  .card { flex: 0 0 min(320px, 78vw); scroll-snap-align: center; background: var(--card); border-radius: 22px;
+          box-shadow: 0 0 0 .5px var(--line); overflow: hidden; }
+  .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: #000; }
+  .card div { padding: 20px 22px 24px; }
+  .card h3 { margin: 0 0 6px; font-size: 19px; letter-spacing: -.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  footer { padding: 80px 0 120px; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <h1>Loop parts</h1>
+  <p>Four pieces of motion that run on their own, shown on Harbor, a fictional week planner for Mac. Each one starts paused or stops on its own, and each one answers to Reduce Motion.</p>
+</header>
+
+<!-- Drift: two soft color fields breathing behind the hero copy. -->
+<section class="night hero" id="s-drift">
+  <div class="blob a" id="blobA"></div>
+  <div class="blob b" id="blobB"></div>
+  <div class="wrap">
+    <p class="label"><b>Drift.</b> Ambient layers breathe a few pixels behind the headline, never on text. <code>Motion.drift(el)</code></p>
+    <h2>Your week, planned on Sunday night.</h2>
+    <p>Harbor lays out projects, habits and rest in one calm view, then keeps it where you left it.</p>
+    <p><button class="dl">Download for Mac</button></p>
+  </div>
+</section>
+
+<!-- Marquee: a seamless loop of made up customer names in text. -->
+<section class="block wrap">
+  <p class="label"><b>Marquee.</b> A constant speed text loop. Hover or tab in to pause it. <code>Motion.marquee(el, { speed })</code></p>
+  <div class="marquee" id="marks">
+    <span>Fern and Field</span><span>Copper Kettle</span><span>Bright Harbor</span><span>Paper Lantern</span><span>Saltbox Studio</span><span>Juniper and Co</span><span>Foxglove</span><span>Alder Works</span>
+  </div>
+</section>
+
+<!-- Rotator: feature tabs that step through once, then hand over. -->
+<section class="block wrap" style="padding-top:0">
+  <p class="label"><b>Rotator.</b> Tabs advance every 6 seconds, stop after one full pass, and keep arrow key support. <code>Motion.rotator(tablist, { autoplay: true })</code></p>
+  <div class="tabs" id="features">
+    <button role="tab" aria-selected="true" aria-controls="panel-plan" id="tab-plan">Plan</button>
+    <button role="tab" aria-selected="false" aria-controls="panel-focus" id="tab-focus" tabindex="-1">Focus</button>
+    <button role="tab" aria-selected="false" aria-controls="panel-review" id="tab-review" tabindex="-1">Review</button>
+  </div>
+  <div>
+    <div class="panel" id="panel-plan" aria-labelledby="tab-plan">
+      <h3>Plan the week in one sitting</h3>
+      <p>Drag projects into days, cap each day at three big tasks, and leave Friday half empty on purpose. Harbor remembers the shape of a good week and suggests it back.</p>
+    </div>
+    <div class="panel" id="panel-focus" aria-labelledby="tab-focus" hidden>
+      <h3>Focus with the day you planned</h3>
+      <p>One task fills the menu bar with a quiet timer. Breaks arrive before you burn out, and the plan waits exactly where you left it.</p>
+    </div>
+    <div class="panel" id="panel-review" aria-labelledby="tab-review" hidden>
+      <h3>Review in five minutes on Friday</h3>
+      <p>Finished work stacks itself into a week note. Carry one thing forward, archive the rest, and start Monday with a clean list.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Carousel: six cards, starts paused, any grab stops the show. -->
+<section class="block wrap" style="padding-top:0">
+  <p class="label"><b>Carousel.</b> Starts paused. Press play for a 5 second tour, grab the row any time to take over. <code>Motion.carousel(track)</code></p>
+  <div class="track" id="tour">
+    <article class="card"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt="Week view in Harbor"><div><h3>Week view</h3><p>Seven days, three tasks each, nothing else shouting.</p></div></article>
+    <article class="card"><div><h3>Menu bar timer</h3><p>One glance tells you what is running and what is next.</p></div></article>
+    <article class="card"><div><h3>Habits ride along</h3><p>Water, walks and reading sit beside work, not under it.</p></div></article>
+    <article class="card"><img src="../mac-props/assets/wallpaper-pro-black.jpg" alt="Friday review in Harbor"><div><h3>Friday review</h3><p>Five minutes, one carry forward, a clean Monday.</p></div></article>
+    <article class="card"><div><h3>Stays on your Mac</h3><p>Plans live in a local file you can keep and copy.</p></div></article>
+    <article class="card"><div><h3>Prints beautifully</h3><p>Pin the week to the fridge with one click.</p></div></article>
+  </div>
+</section>
+
+<footer class="wrap">Demo copy is for Harbor, a fictional app. Open this file straight from disk; it loads motion.js, then loops.js, from this folder.</footer>
+
+<script src="motion.js"></script>
+<script src="loops.js"></script>
+<script>
+  Motion.marquee(document.getElementById('marks'), { speed: 60 });
+  Motion.rotator(document.getElementById('features'), { autoplay: true, interval: 6000 });
+  Motion.carousel(document.getElementById('tour'), { interval: 5000 });
+  Motion.drift(document.getElementById('blobA'), { distance: 14, duration: 9000 });
+  Motion.drift(document.getElementById('blobB'), { distance: 10, duration: 11000 });
+</script>
+</body>
+</html>

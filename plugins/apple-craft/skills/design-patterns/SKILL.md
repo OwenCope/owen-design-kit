@@ -386,7 +386,7 @@ A dense table with a sticky header, right-aligned numbers, hairline dividers and
 Rules: sticky header, tabular-nums for numbers, numeric columns right-aligned, hairline row dividers, hover tint, compact 40 px rows, horizontal scroll wrapper on phones.
 
 ### Navigation bar (transparent, then glass)
-Sticky bar that starts transparent and turns to glass after scrolling, with 3 to 5 links and one action.
+Sticky bar that starts transparent and turns to glass after scrolling, with 3 to 5 links and one action. For a product with many pages (a features catalogue, platforms, docs), use the mega-menu nav in `motion-kit/nav.js` instead; its demo is `motion-kit/nav.html`.
 
     <header class="nav" id="nav">
       <a class="brand" href="/">[Product]</a> <!-- replace with the real product name -->

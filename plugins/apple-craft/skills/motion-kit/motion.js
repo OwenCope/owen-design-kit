@@ -119,7 +119,7 @@
     }, 'bouncy'), () => { el.style.scale = ''; });
   }
 
-  // Press feedback for draggable objects and app-like tiles only — never page buttons (they must not move or shrink).
+  // Press feedback for draggable objects and app-like tiles only, never page buttons (they must not move or shrink).
   function pressable(el, amount = 0.96) {
     if (el.closest('button, a, [role="button"]')) return;
     const go = (to) => claim(el, 'press', spring({ s: parseFloat(el.style.scale) || 1 }, { s: to }, ({ s }) => {
@@ -208,6 +208,8 @@
   function stagger(els, { show = true, gap = 40, distance = 10, scale = 0.92, preset } = {}) {
     const items = [...els].filter(Boolean);   // callers can pass an element that's already gone
     const list = show ? items : items.reverse();
+    // Hide every item up front; otherwise later items sit fully visible until their turn, then blink out.
+    if (show && !reduced()) list.forEach((el) => { el.style.opacity = 0; el.style.transform = `translateY(${distance}px) scale(${scale})`; });
     return Promise.all(list.map((el, i) => new Promise((done) => setTimeout(() => {
       const a = show ? { o: 0, y: distance, s: scale, b: 6 } : { o: 1, y: 0, s: 1, b: 0 };
       const z = show ? { o: 1, y: 0, s: 1, b: 0 } : { o: 0, y: distance * 0.5, s: scale, b: 4 };

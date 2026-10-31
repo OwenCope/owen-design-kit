@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidepool: small-phone-clip pair</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1d1d1f; background: #e9e9ee; }
+  .state { padding: 24px 12px; }
+  .phone { width: 375px; margin: 0 auto; background: #fbfbfd; border-radius: 36px; padding: 56px 0 40px; text-align: center; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,.18); }
+  #bad .phone h1 { font-size: 40px; line-height: 1.05; letter-spacing: -0.02em; white-space: nowrap; }
+  #good .phone h1 { font-size: clamp(28px, 8.5vw, 40px); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; padding: 0 24px; }
+  .phone .sub { font-size: 15px; color: #6e6e73; margin: 12px 24px 22px; }
+  .phone .btn { font-size: 16px; font-weight: 600; padding: 12px 28px; border-radius: 999px; border: 0; background: #0071e3; color: #fff; }
+</style>
+</head>
+<body>
+<section class="state" id="bad">
+  <div class="phone"><h1>The coding agent for Mac</h1><p class="sub">Tidepool for Mac. Free to try.</p><button class="btn">Download</button></div>
+</section>
+<section class="state" id="good">
+  <div class="phone"><h1>The coding agent for Mac</h1><p class="sub">Tidepool for Mac. Free to try.</p><button class="btn">Download</button></div>
+</section>
+<script>
+  function s(){var h=(location.hash||"#bad");document.querySelectorAll(".state").forEach(function(e){e.style.display=("#"+e.id===h)?"block":"none";});}
+  addEventListener("hashchange",s);s();
+</script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!doctype html>
+<!--
+  Demo for Motion.nav. The nav below is a working example for Beacon, a fictional
+  Mac menu-bar app. Copy the structure and the script call, never this copy.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beacon nav demo</title>
+<style>
+  :root {
+    --motion-hover: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-hover-tint: rgb(var(--fg-rgb) / 0.12);
+    --motion-press-tint: brightness(0.94);
+    --motion-focus-ring: 3px solid var(--accent);
+    --motion-ui: 300ms ease-out;
+    --motion-reveal: 460ms cubic-bezier(0.16, 1, 0.36, 1);
+    --motion-scene: 560ms cubic-bezier(0.32, 1.22, 0.36, 1);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    color-scheme: light dark;
+    --bg: #f5f5f7; --ink: #1d1d1f; --muted: rgba(0,0,0,.55); --line: rgba(0,0,0,.1);
+    --glass: rgb(245 245 247 / 72%); --fg-rgb: 0 0 0; --accent: #0071e3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #000; --ink: #f5f5f7; --muted: rgba(255,255,255,.6); --line: rgba(255,255,255,.12);
+            --glass: rgb(22 22 24 / 72%); --fg-rgb: 255 255 255; --accent: #0a84ff; }
+  }
+  * { box-sizing: border-box; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; -webkit-font-smoothing: antialiased; }
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible { outline: var(--motion-focus-ring); outline-offset: 3px; border-radius: 8px; }
+
+  /* Bar: transparent at the top, glass after scrolling. */
+  .mk-nav { position: sticky; top: 0; z-index: 50; --nav-ink: var(--ink); }
+  .mk-nav[data-tone="dark"] { --nav-ink: #fff; --motion-hover-tint: rgb(255 255 255 / 14%); }
+  .mk-nav.is-open, .mk-nav.is-menu-open { --motion-hover-tint: rgb(var(--fg-rgb) / 0.12); }
+  .mk-bar { position: relative; z-index: 3; display: flex; align-items: center; gap: 28px;
+            height: 64px; padding: 0 28px; color: var(--nav-ink);
+            transition: color var(--motion-hover), background-color 350ms var(--ease-out); }
+  .mk-nav.is-scrolled .mk-bar { background: var(--glass); }
+  @supports (backdrop-filter: blur(20px)) {
+    .mk-nav.is-scrolled .mk-bar { backdrop-filter: blur(20px) saturate(1.6); }
+  }
+  .mk-nav.is-hidden .mk-bar { translate: 0 -100%; }
+  /* While a menu is open the bar and the flyout read as one surface, so the bar takes the flyout's colours. */
+  .mk-nav.is-open, .mk-nav.is-menu-open { --nav-ink: var(--ink); }
+  .mk-nav.is-open .mk-bar, .mk-nav.is-menu-open .mk-bar { background: var(--bg); backdrop-filter: none; }
+  .mk-brand { font-weight: 700; font-size: 19px; letter-spacing: -.02em; color: inherit; text-decoration: none; margin-right: auto; }
+  .mk-links { display: flex; align-items: center; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .mk-item { position: relative; display: flex; align-items: center; }
+  .mk-item > a { color: inherit; text-decoration: none; font-size: 15px; padding: 10px 12px; border-radius: 10px;
+                 transition: background-color var(--motion-hover); }
+  @media (hover: hover) { .mk-item > a:hover { background: var(--motion-hover-tint); } }
+  /* The chevron only appears for keyboard users, or while its menu is open. */
+  /* Absolutely placed so hidden chevrons never change the gaps between items. */
+  .mk-chev { position: absolute; left: 100%; top: 50%; translate: -6px -50%; display: inline-grid; place-items: center;
+             width: 22px; height: 28px; border: 0; padding: 0;
+             background: none; color: inherit; opacity: 0; cursor: pointer; border-radius: 6px; }
+  .mk-chev:focus-visible, .mk-chev[aria-expanded="true"] { opacity: 1; }
+  .mk-chev[aria-expanded="true"] svg { rotate: 180deg; }
+  .mk-chev svg { transition: rotate var(--motion-hover); }
+  .mk-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+  .mk-icon-btn { display: inline-grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%;
+                 background: none; color: inherit; cursor: pointer; transition: background-color var(--motion-hover), filter var(--motion-hover); }
+  @media (hover: hover) {
+    .mk-icon-btn:hover { background: var(--motion-hover-tint); }
+    .mk-buy:hover { filter: brightness(1.08); }
+    .mk-brand:hover { opacity: .72; }
+  }
+  .mk-brand { transition: opacity var(--motion-hover); }
+  .mk-icon-btn:active { filter: var(--motion-press-tint); }
+  .mk-buy { display: inline-flex; align-items: center; min-height: 40px; padding: 0 20px; border-radius: 999px;
+            background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; text-decoration: none;
+            transition: filter var(--motion-hover); }
+  .mk-buy:active { filter: var(--motion-press-tint); }
+  .mk-menu-btn { display: none; position: relative; width: 40px; height: 40px; border: 0; background: none;
+                 color: inherit; cursor: pointer; }
+  .mk-menu-btn span { position: absolute; left: 10px; right: 10px; height: 2px; border-radius: 1px; background: currentColor;
+                      transition: transform 360ms var(--ease-out), top 360ms var(--ease-out); }
+  .mk-menu-btn span:first-child { top: 15px; } .mk-menu-btn span:last-child { top: 23px; }
+  .mk-nav.is-menu-open .mk-menu-btn span:first-child { top: 19px; transform: rotate(45deg); }
+  .mk-nav.is-menu-open .mk-menu-btn span:last-child { top: 19px; transform: rotate(-45deg); }
+
+  /* The dim drops the page back while a menu is open. */
+  .mk-dim { position: fixed; inset: 0; z-index: 1; border: 0; padding: 0; background: rgb(4 6 64 / 34%);
+            opacity: 0; transition: opacity 320ms cubic-bezier(0.4, 0, 0.6, 1); cursor: default; }
+  .mk-dim.show { opacity: 1; }
+  @supports (backdrop-filter: blur(20px)) { .mk-dim.show { backdrop-filter: blur(20px); } }
+
+  /* One shared flyout. JS sets its height; content swaps inside it. */
+  .mk-flyout { position: absolute; left: 0; right: 0; top: 100%; z-index: 2; overflow: hidden;
+               border-radius: 0 0 24px 24px; background: var(--bg); color: var(--ink);
+               box-shadow: 0 24px 60px rgba(0,0,0,.22); }
+  .mk-flyout[hidden] { display: none; }
+  .mk-panel { padding: 28px 32px 32px; }
+  .mk-panel[hidden] { display: none; }
+  .mk-cols { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 32px; max-width: 1020px; margin: 0 auto; }
+  .mk-cols.narrow { grid-template-columns: 1fr 1fr; max-width: 560px; }
+  .mk-group-title { margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: .04em;
+                    text-transform: uppercase; color: var(--muted); }
+  .mk-group { list-style: none; margin: 0; padding: 0; display: grid; }
+  .mk-group a { display: block; padding: 7px 10px; margin: 0 -10px; border-radius: 10px; color: inherit;
+                text-decoration: none; transition: background-color var(--motion-hover); }
+  @media (hover: hover) { .mk-group a:hover { background: var(--motion-hover-tint); } }
+  .mk-group a b { display: block; font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+  .mk-group a span { font-size: 13px; color: var(--muted); }
+  .mk-search-row { display: flex; align-items: center; gap: 12px; max-width: 560px; margin: 0 auto; }
+  .mk-search-row input { flex: 1; min-height: 48px; border-radius: 999px; border: 1px solid var(--line);
+                         padding: 0 20px; font-size: 16px; background: none; color: inherit; }
+  .mk-back { display: none; }
+
+  .hero { background: #0a0c33; color: #fff; padding: 120px 24px 140px; text-align: center; }
+  .hero h1 { margin: 0; font-size: clamp(2.75rem, 7.5vw, 4.75rem); font-weight: 600; line-height: 1.02; letter-spacing: -.045em; }
+  .hero p { color: rgba(255,255,255,.65); font-size: 21px; max-width: 620px; margin: 18px auto 0; }
+  .section { padding: 96px 24px; max-width: 1000px; margin: 0 auto; }
+  .section h2 { margin: 0; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; letter-spacing: -.035em; }
+  .section p { color: var(--muted); max-width: 640px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 32px; }
+  .card { border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+  .card b { display: block; font-size: 17px; } .card span { color: var(--muted); font-size: 14px; }
+  footer { border-top: 1px solid var(--line); padding: 24px; font-size: 13px; color: var(--muted);
+           display: flex; justify-content: space-between; max-width: 1000px; margin: 0 auto; }
+
+  @media (max-width: 833px) {
+    .mk-bar { padding: 0 16px; gap: 12px; }
+    .mk-links { display: none; }
+    .mk-nav.is-menu-open .mk-links { display: flex; position: fixed; inset: 0; z-index: 2; flex-direction: column;
+        align-items: stretch; gap: 2px; padding: 88px 20px 40px; background: var(--bg); color: var(--ink); overflow-y: auto; }
+    .mk-nav.is-menu-open .mk-bar { z-index: 5; }
+    /* The brand and the close button stay above the full screen list. */
+    .mk-nav.is-menu-open .mk-brand, .mk-nav.is-menu-open .mk-actions { position: relative; z-index: 6; }
+    .mk-chev { position: static; translate: none; }
+    .mk-nav.is-menu-open .mk-item > a { font-size: 28px; font-weight: 600; letter-spacing: -.02em; padding: 12px 4px; }
+    .mk-nav.is-menu-open .mk-chev { opacity: 1; width: 32px; height: 44px; margin-left: auto; }
+    .mk-menu-btn { display: block; }
+    .mk-nav.is-menu-open .mk-buy { display: none; }
+    /* Sub panels become full screen sheets over the row list. */
+    .mk-nav.is-menu-open .mk-flyout { display: block; position: fixed; inset: 0; z-index: 4; margin: 0; height: auto !important;
+        border-radius: 0; box-shadow: none; overflow-y: auto; }
+    .mk-nav:not(.is-sub) .mk-flyout { display: none; }
+    .mk-nav.is-menu-open:not(.is-sub) .mk-flyout { display: none; }
+    .mk-nav.is-menu-open.is-sub .mk-flyout { display: block; }
+    .mk-nav.is-menu-open.is-sub .mk-links { display: none; }
+    .mk-panel { padding: 88px 20px 40px; }
+    .mk-cols, .mk-cols.narrow { grid-template-columns: 1fr; gap: 20px; }
+    .mk-group a { font-size: 20px; padding: 10px 4px; }
+    .mk-back { display: flex; align-items: center; gap: 8px; border: 0; background: none; color: inherit;
+               font-size: 17px; padding: 12px 4px; margin-bottom: 8px; cursor: pointer; }
+    .mk-back::before { content: ""; width: 8px; height: 8px; border-left: 1.75px solid currentColor;
+                       border-bottom: 1.75px solid currentColor; rotate: 45deg; margin-left: 4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mk-bar, .mk-item > a, .mk-icon-btn, .mk-buy, .mk-chev svg, .mk-group a, .mk-dim, .mk-menu-btn span { transition: none; }
+    .mk-dim.show { backdrop-filter: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="mk-nav" data-tone="dark">
+  <div class="mk-bar">
+    <a class="brand mk-brand" href="#">Beacon</a>
+    <ul class="mk-links">
+      <li class="mk-item"><a href="#overview">Overview</a></li>
+      <li class="mk-item" data-menu="features"><a href="#features">Features</a></li>
+      <li class="mk-item" data-menu="iphone"><a href="#iphone">iPhone</a></li>
+      <li class="mk-item"><a href="#pricing">Pricing</a></li>
+      <li class="mk-item" data-menu="changelog"><a href="#changelog">Changelog</a></li>
+      <li class="mk-item" data-menu="support"><a href="#contact">Support</a></li>
+    </ul>
+    <div class="mk-actions">
+      <button class="mk-icon-btn" type="button" data-search-btn aria-label="Search">
+        <svg viewBox="0 0 17 17" width="17" height="17" aria-hidden="true"><circle cx="7" cy="7" r="5.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m11.2 11.2 4.6 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <a class="mk-buy" href="#pricing">Buy</a>
+      <button class="mk-menu-btn" type="button" data-menu-btn aria-expanded="false" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mk-dim" data-dim hidden></div>
+  <div class="mk-flyout" data-flyout hidden>
+    <div data-flyout-inner>
+      <section class="mk-panel" data-panel="features" hidden>
+        <button class="mk-back" type="button" data-back>Back</button>
+        <div class="mk-cols">
+          <div data-stagger>
+            <p class="mk-group-title">Start here</p>
+            <ul class="mk-group">
+              <li><a href="#features"><b>Explore all features</b><span>Everything Beacon can do</span></a></li>
+              <li><a href="#timer"><b>Focus Timer</b><span>Sessions in your menu bar</span></a></li>
+              <li><a href="#tray"><b>Day Tray</b><span>Today in one glance</span></a></li>
+            </ul>
+          </div>
+          <div data-stagger>
+            <p class="mk-group-title">Plan</p>
+            <ul class="mk-group">
+              <li><a href="#calendar">Calendar</a></li>
+              <li><a href="#reminders">Reminders</a></li>
+              <li><a href="#timebox">Timeboxing</a></li>
+              <li><a href="#goals">Weekly goals</a></li>
+            </ul>
+          </div>
+          <div data-stagger>
+            <p class="mk-group-title">Capture</p>
+            <ul class="mk-group">
+              <li><a href="#notes">Quick note</a></li>
+              <li><a href="#clip">Clip</a></li>
+              <li><a href="#voice">Voice memo</a></li>
+              <li><a href="#links">Link shelf</a></li>
+            </ul>
+          </div>
+          <div data-stagger>
+            <p class="mk-group-title">System</p>
+            <ul class="mk-group">
+              <li><a href="#shortcuts">Shortcuts</a></li>
+              <li><a href="#widgets">Widgets</a></li>
+              <li><a href="#meetings">Meeting mode</a></li>
+              <li><a href="#focus">Focus filters</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="mk-panel" data-panel="iphone" hidden>
+        <button class="mk-back" type="button" data-back>Back</button>
+        <div class="mk-cols narrow">
+          <div data-stagger>
+            <p class="mk-group-title">Beacon for iPhone</p>
+            <ul class="mk-group">
+              <li><a href="#iphone"><b>Get the app</b><span>Sessions on the go</span></a></li>
+              <li><a href="#pair"><b>Pair with Mac</b><span>Handoff in seconds</span></a></li>
+            </ul>
+          </div>
+          <div data-stagger>
+            <p class="mk-group-title">Good to know</p>
+            <ul class="mk-group">
+              <li><a href="#sync">Private sync</a></li>
+              <li><a href="#offline">Works offline</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="mk-panel" data-panel="changelog" hidden>
+        <button class="mk-back" type="button" data-back>Back</button>
+        <div class="mk-cols narrow">
+          <div data-stagger>
+            <p class="mk-group-title">What is new</p>
+            <ul class="mk-group">
+              <li><a href="#changelog"><b>Beacon 2.4</b><span>Meeting mode arrives</span></a></li>
+              <li><a href="#changelog"><b>Beacon 2.3</b><span>Faster pairing</span></a></li>
+            </ul>
+          </div>
+          <div data-stagger>
+            <p class="mk-group-title">More</p>
+            <ul class="mk-group">
+              <li><a href="#blog">Release notes</a></li>
+              <li><a href="#roadmap">Roadmap</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="mk-panel" data-panel="support" hidden>
+        <button class="mk-back" type="button" data-back>Back</button>
+        <div class="mk-cols narrow">
+          <div data-stagger>
+            <p class="mk-group-title">Get help</p>
+            <ul class="mk-group">
+              <li><a href="#contact"><b>Contact</b><span>Replies within a day</span></a></li>
+              <li><a href="#handbook"><b>Handbook</b><span>Guides and setup</span></a></li>
+            </ul>
+          </div>
+          <div data-stagger>
+            <p class="mk-group-title">Account</p>
+            <ul class="mk-group">
+              <li><a href="#license">Recover license</a></li>
+              <li><a href="#refund">Refund policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="mk-panel" data-panel="search" hidden>
+        <div class="mk-search-row">
+          <svg viewBox="0 0 17 17" width="18" height="18" aria-hidden="true"><circle cx="7" cy="7" r="5.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m11.2 11.2 4.6 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="search" name="q" placeholder="Search Beacon" aria-label="Search Beacon" autocomplete="off" spellcheck="false">
+        </div>
+      </section>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" data-nav-tone="dark">
+    <h1>Focus lives in your menu bar.</h1>
+    <p>Beacon times your work, holds your day, and gets out of the way.</p>
+  </section>
+  <section class="section" id="overview" data-nav-tone="light">
+    <h2>One bar, every session.</h2>
+    <p>Start a timer, see what is next, and capture anything without opening a window.</p>
+    <div class="cards">
+      <div class="card"><b>Focus Timer</b><span>Sessions with gentle breaks.</span></div>
+      <div class="card"><b>Day Tray</b><span>Calendar and tasks in one list.</span></div>
+      <div class="card"><b>Quick note</b><span>Capture before it fades.</span></div>
+    </div>
+  </section>
+  <section class="section" id="pricing" data-nav-tone="light">
+    <h2>One price, yours to keep.</h2>
+    <p>Pay once. Updates for a year, every Mac included.</p>
+  </section>
+</main>
+
+<footer><span>Beacon demo, built for motion-kit</span><span>2026</span></footer>
+
+<script src="motion.js"></script>
+<script src="nav.js"></script>
+<script>
+  Motion.nav(document.querySelector('.mk-nav'), { tone: 'auto' });
+</script>
+</body>
+</html>
