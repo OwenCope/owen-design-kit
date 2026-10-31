@@ -46,7 +46,7 @@ Habit brief:
 ## A fair brief
 
 notch.txt is now only for checking copying, since the kit has a notch demo.
-Don't test with a product the kit already contains a finished demo of (the notch shelf): the agent can copy it. Use briefs for products the kit has never shown, like `habit.txt` or the Tally developer tool, and check the result against the kit's demos for copying (`difflib` similarity over 30 % is a reskin).
+Don't test with a product the kit already contains a finished demo of (the notch shelf): the agent can copy it. Use briefs for products the kit has never shown, like `habit.txt` or the Tally developer tool, and check the result against the kit's demos for copying (run `node scripts/check-copy.mjs <folder>` and treat a score of 30 % or more against a kit demo as a reskin).
 
 ## Running the suite
 

@@ -26,7 +26,7 @@
             -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
   .mbar .gap { width: 22cqw; flex: none; }   /* the notch */
   .mbar .right { margin-left: auto; display: flex; align-items: center; gap: 1.4cqw; }
-  @media (prefers-color-scheme: dark) { .mbar { color: #fff; } }
+  /* White on the Pro Black wallpaper in both modes; use #1d1d1f only on a light wallpaper. */
 
   /* The window: a real screenshot, light and dark. Sits just above the Dock. */
   .window { width: 100%; height: auto; border-radius: 1.6cqh; box-shadow: 0 1cqh 4cqh rgb(0 0 0 / 0.3); }

@@ -37,7 +37,7 @@ Writing the decisions first is the step that separates designed work from placed
 ## Rules for the brief
 
 Write it in the reply or in BRIEF.md before code.
-Read DESIGN-NOTES.md and the project's `project-<name>` skill first; record the decision they point to.
+Read the project's `DESIGN-NOTES.md` if it has one (`new-project-setup` describes it) and the project's `project-<name>` skill first; record the decision they point to.
 On a product page, every item needs an answer except Concepts (item 5), which is N/A when no real design question is open. Nothing else may be blank or 'n/a'.
 If an item can't be answered, ask the person or stop.
 The brief is shown to the person with the first screenshot.

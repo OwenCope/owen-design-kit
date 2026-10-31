@@ -50,7 +50,7 @@ The layers, back to front:
 1. **The laptop shell**: `assets/macbook-air-shell.webp`, or another MacBook image with a transparent screen. Other sources: Apple device frames in Figma at https://www.figma.com/design/cYBOvNXVRbS1THF1nMkd2l/Apple-Mockups--Community-?node-id=182-4621, the free Figma mockup https://www.figma.com/community/file/1210198565936992993/free-macbook-air-m2-frontview-mockup (export the frame as PNG at 2× and measure where its screen sits), Apple's product bezels at https://developer.apple.com/design/resources/, or a device-frame tool such as MacProps if you have it. The menu bar and Dock sizes below are already measured; Apple's macOS 27 Figma kit (links in `figma-mockups` §2; values cached in `../liquid-glass/`) is only needed for something not covered here.
 2. **A black plate** behind the screen, so the bezel never shows the page through.
 3. **The wallpaper** (`make-assets.swift` exports Owen's pick, the dark MacBook Pro "Pro Black" wallpaper, as both `wallpaper.jpg` and `wallpaper-dark.jpg`, with a bundled copy in `assets/` for Macs that don't have it; with it, menu bar text is white): a real macOS or brand wallpaper, filling the screen. Pick one that lets the product read: calm, low contrast behind the window. A loud, saturated wallpaper (the bright blue macOS default) drowns the UI. Don't reuse the same wallpaper as the last site you made.
-4. **The menu bar**: the Apple logo on the left; battery, Wi-Fi, Control Center and the time on the right, starting *after* the notch. The right side must be the real SF Symbols from `make-assets.swift` (battery, Wi-Fi, Control Center, Spotlight), exported as images at 2x and drawn at the real size: about 15 pt tall glyphs, 18 to 22 pt apart, the clock in SF Pro Medium 13 pt. Hand-drawn or emoji-like icons, wrong weights, or symbols floating at different heights fail review. Compare with a real screenshot of your own menu bar at the same scale. Menu bar text follows the wallpaper: dark on a light wallpaper, white on a dark one, as macOS does. Size it from the screen *width* (`cqw`) so it clears the notch at every size.
+4. **The menu bar**: the Apple logo on the left; battery, Wi-Fi, Spotlight, Control Center and the date and time on the right, starting *after* the notch. The right side must be the real SF Symbols from `make-assets.swift` (battery, Wi-Fi, Spotlight, Control Center), exported as images at 2x and drawn at the real size: about 15 pt tall glyphs, 18 to 22 pt apart, the clock in SF Pro Medium 13 pt. Hand-drawn or emoji-like icons, wrong weights, or symbols floating at different heights fail review. Compare with a real screenshot of your own menu bar at the same scale. Menu bar text follows the wallpaper: dark on a light wallpaper, white on a dark one, as macOS does. Size it from the screen *width* (`cqw`) so it clears the notch at every size.
 5. **The app's window**: a real screenshot, sitting between the menu bar and the Dock, just above the Dock with the same small gap on every screen. If several screenshots rotate through the same Mac, give them all the same height so none jumps. Measure the gap in pixels; don't eyeball it.
 6. **The Dock**: a glass capsule of real app icons, with the product's icon in it and a running dot under it. Keep real proportions: small icons (about 3.6 % of the screen width), tight padding. A chunky Dock reads as a toy.
 
@@ -68,7 +68,7 @@ HTML and CSS:
         <div class="mbar" aria-hidden="true">
           <img class="apple" src="mac-assets/menubar/apple.png" alt="">
           <span class="gap"></span>
-          <span class="right"><img src="mac-assets/menubar/battery.png" alt=""><img src="mac-assets/menubar/wifi.png" alt=""><img src="mac-assets/menubar/control.png" alt=""> <b>Thu 9:41 AM</b></span>
+          <span class="right"><img src="mac-assets/menubar/battery.png" alt=""><img src="mac-assets/menubar/wifi.png" alt=""><img src="mac-assets/menubar/search.png" alt=""><img src="mac-assets/menubar/control.png" alt=""> <b>Mon Oct 12  9:41 AM</b></span>
         </div>
         <img class="window light" src="shot-light.webp" alt="What the window shows">
         <img class="window dark" src="shot-dark.webp" alt="" aria-hidden="true">
@@ -89,10 +89,10 @@ HTML and CSS:
     .mac .shell  { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
     .mbar { position: absolute; inset: 0 0 auto; height: 2.5cqw; padding: 0 1.6cqw; display: flex; align-items: center;
-            gap: 1.6cqw; font: 500 1.2cqw/1 -apple-system, BlinkMacSystemFont, sans-serif; color: #1d1d1f; }
+            gap: 1.6cqw; font: 500 1.2cqw/1 -apple-system, BlinkMacSystemFont, sans-serif; color: #fff; }
     .mbar .gap { width: 22cqw; }            /* the notch */
     .mbar .right { margin-left: auto; display: flex; gap: 1.4cqw; }
-    .dark .mbar { color: #fff; }
+    /* White on the Pro Black wallpaper in both modes; use #1d1d1f only on a light wallpaper. */
 
     .mac .window { width: 100%; height: auto; border-radius: 1.6cqh; }
     .mac .window.dark, .dark .mac .window.light { display: none; }

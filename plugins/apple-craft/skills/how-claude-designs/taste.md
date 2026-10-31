@@ -37,7 +37,7 @@ Taste is mostly a long list of small decisions made the same way every time. The
 2. Which one could only belong to this product? Prefer it.
 3. Which one has fewer parts? Prefer it.
 4. Which one will still look right with real, messy content? Prefer it.
-5. If it's still a tie, it's taste: show Owen both and let him pick. Record what he picked in `picks.md`.
+5. If it's still a tie, it's taste: show Owen both and let him pick. Record what he picked in the person's profile skill (for Owen, `plugins/owen-design/skills/working-with-owen/picks.md`).
 
 ## Owen's taste specifically
 

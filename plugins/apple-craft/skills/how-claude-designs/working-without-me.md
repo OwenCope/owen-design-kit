@@ -12,7 +12,7 @@ From the evals (Muse Spark on OpenCode, several runs):
 
 ## Use the agents
 
-The kit ships two OpenCode agents in `agents/` (already installed on this Mac): **designer**, which works the way I do and can't skip looking at its own work, and **design-director**, which only decides and judges. Start design work with `opencode run --agent designer "..."`, or switch to designer in the app. For anything important, ask `@design-director` for the direction first and to judge the captures at the end, and give the director the best model you can.
+The kit ships two OpenCode agents in the kit's `agents/` folder (`<kit>/agents/`) (already installed on this Mac): **designer**, which works the way I do and can't skip looking at its own work, and **design-director**, which only decides and judges. Start design work with `opencode run --agent designer "..."`, or switch to designer in the app. For anything important, ask `@design-director` for the direction first and to judge the captures at the end, and give the director the best model you can.
 
 ## How to brief them
 
@@ -42,9 +42,9 @@ Then: "Use my design kit at ~/Developer/owen-design-kit, starting with its AGENT
 
 ## Keeping the kit good
 
-- After a model edits a skill, run `node scripts/check-kit.mjs`. It catches broken links and rules being contradicted.
-- When you reject something, add one line to `apple-design/lessons.md` and your pick to `working-with-owen/picks.md`. That's how the kit keeps learning without me.
-- Rerun an eval after big changes: `scripts/EVAL.md` has the briefs and the runner. Compare the screenshots side by side; trust your eyes over any score.
+- After a model edits a skill, run `node <kit>/scripts/check-kit.mjs`. It catches broken links and rules being contradicted.
+- When you reject something, add one line to `plugins/apple-craft/skills/apple-design/lessons.md` and your pick to `plugins/owen-design/skills/working-with-owen/picks.md`. That's how the kit keeps learning without me.
+- Rerun an eval after big changes: `<kit>/scripts/EVAL.md` has the briefs and the runner. Compare the screenshots side by side; trust your eyes over any score.
 - Resist adding more rules when something fails. The fixes that worked were routing (which skills to read), reasons (why an example works), and checks (a script that fails on the mistake). More rules made agents more careful and less good.
 
 ## The honest limit

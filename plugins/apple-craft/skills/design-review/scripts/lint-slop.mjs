@@ -529,7 +529,7 @@ try {
     if (count < 4) return ['menu bar is missing Control Center (and maybe battery, Wi-Fi, Spotlight)'];
     if (!urls.some((u) => /control/i.test(u))) return ['menu bar is missing Control Center (and maybe battery, Wi-Fi, Spotlight)'];
     return [];
-  }), 'WARN');
+  }));
 } catch { report('missing Control Center', ['check could not run'], 'WARN'); }
 
 // q. Dock without a divider before the Trash
@@ -575,7 +575,7 @@ try {
       }
     }
     return [];
-  }), 'WARN');
+  }));
 } catch { report('Dock divider before Trash', ['check could not run'], 'WARN'); }
 
 // r. alias arrows on Dock icons
@@ -641,7 +641,7 @@ try {
       if (out.length >= 40) break;
     }
     return out;
-  }), 'WARN');
+  }));
 } catch { report('alias arrows on Dock icons', ['check could not run'], 'WARN'); }
 
 failed = 0;

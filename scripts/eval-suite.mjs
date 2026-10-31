@@ -2,7 +2,7 @@
 // single report page so the runs can be judged side by side.
 //
 // Usage:
-//   node scripts/eval-suite.mjs --model <model-id> --out <dir> [--agent designer] [--briefs tally,settings,music,recipe,habit] [--parallel 2] [--timeout 1800]
+//   node scripts/eval-suite.mjs --model <model-id> --out <dir> [--agent designer] [--briefs tally,settings,music,recipe,habit] [--parallel 2] [--timeout 1800] [--port 8600]
 //
 // eval-run.mjs has no --agent flag, so this script spawns `opencode run`
 // directly (same flags eval-run.mjs uses, plus --agent when given) and reuses
@@ -23,7 +23,7 @@ const kitRoot = join(here, '..');
 const args = process.argv.slice(2);
 const flag = (n) => { const i = args.indexOf(n); return i === -1 ? null : args[i + 1]; };
 
-const USAGE = 'usage: node scripts/eval-suite.mjs --model <model-id> --out <dir> [--agent <name>] [--briefs tally,settings,music,recipe,habit] [--parallel 2] [--timeout 1800]';
+const USAGE = 'usage: node scripts/eval-suite.mjs --model <model-id> --out <dir> [--agent <name>] [--briefs tally,settings,music,recipe,habit] [--parallel 2] [--timeout 1800] [--port 8600]';
 if (args.includes('--help') || args.includes('-h')) { console.error(USAGE); process.exit(0); }
 
 const model = flag('--model'), outRaw = flag('--out');
@@ -31,6 +31,7 @@ const agent = flag('--agent');
 const briefs = (flag('--briefs') ?? 'tally,settings,music,recipe,habit').split(',').map((s) => s.trim()).filter(Boolean);
 const parallel = Number(flag('--parallel') ?? 2) || 2;
 const timeoutSec = Number(flag('--timeout') ?? 1800);
+const portBase = Number(flag('--port') ?? 8600) || 8600;
 if (!model || !outRaw || briefs.length === 0) { console.error(USAGE); process.exit(1); }
 const out = resolve(outRaw.replace(/^~/, process.env.HOME ?? ''));
 if (existsSync(out) && readdirSync(out).length > 0) { console.error(`Refusing: ${out} already exists and is not empty.`); process.exit(1); }
@@ -174,7 +175,7 @@ let next = 0;
 async function worker(slot) {
   while (next < briefs.length) {
     const name = briefs[next++];
-    results.push(await runBrief(name, 8600 + slot));
+    results.push(await runBrief(name, portBase + slot));
   }
 }
 await Promise.all(Array.from({ length: Math.min(parallel, briefs.length) }, (_, i) => worker(i)));
