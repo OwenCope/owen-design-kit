@@ -57,7 +57,7 @@ Optional techniques:
 - **Buttons never move.** No press shrink, lift or bounce on buttons (house pick). Hover feedback is the MorphLabel from `design-patterns`: the label blurs into a symbol. `Motion.pressable` exists only for draggable objects and app-like tiles, never page buttons.
 - **Drag:** `Motion.draggable(el, { targets: [{ el, radius, magnet, onEnter, onLeave, onDrop }] })` lifts the element and tilts it with its speed, pulls it towards a target when close (`magnet`, 0 to 0.5), lets the visitor flick it at a target, tells the target when it's near (grow it a little in `onEnter`), and springs home with the throw's momentum if it misses. Works with mouse, pen and touch.
 - **Stagger:** `Motion.stagger(children, { show })` brings items in one after another, and out in reverse.
-- **Reveal:** `Motion.reveal('[data-reveal]')` gives each section one entrance the first time it is seen. Put `data-reveal` on the headline group and the visual, not on every paragraph.
+- **Reveal:** `Motion.reveal('[data-reveal]')` gives each section one entrance the first time it is seen. Put `data-reveal` on the headline group and the visual, not on every paragraph; stagger children 40 to 60ms rather than fading up every element as one block.
 - **Expand and collapse:** `Motion.expand(detail, thumb)` grows a view out of the thing that opened it (card into detail); `Motion.collapse(detail, thumb)` shrinks it back.
 - **Sliding selection:** `Motion.slideTo(indicator, button)` for segmented controls and tabs.
 - **Count:** `Motion.countTo(el, value)` rolls numbers with tabular figures.
@@ -80,7 +80,24 @@ The rules below are defaults that worked for Gaze, not requirements for every pr
 - **Near:** a target answers when something approaches it (grows slightly), so the visitor knows a drop will work.
 - **Leave:** what left comes back the same way it went, reversed.
 - **One intent at a time** per area; a new input takes over the running animation smoothly instead of waiting for it or stacking a second one.
-- **Reduce Motion:** every function jumps to the end state. Don't add your own motion around it.
+- **Reduce Motion:** every function jumps to the end state. Don't add your own motion around it. The pass covers marquees, html smooth scroll, spinners which stop rather than slow down, theme crossfades, ambient drift, and tint feedback on controls.
+- **Web motion tokens** (one set for pages; 150ms wins over 180ms since most tints settle there, 460ms wins over 600ms since the shorter reveal never flattened sections):
+  ```css
+  :root {
+    --motion-hover: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-hover-tint: rgb(var(--fg-rgb) / 0.12);
+    --motion-press-tint: brightness(0.94);
+    --motion-focus-ring: 3px solid var(--accent);
+    --motion-ui: 300ms ease-out;
+    --motion-reveal: 460ms cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-scene: 560ms cubic-bezier(0.32, 1.22, 0.36, 1);
+  }
+  ```
+  Hover and press answer in tint only; focus is a 3px ring (white on dark) with 3px offset; buttons never move when pressed.
+- **Scroll pins earn their length:** a pin is only as long as its animation, so a pin that travels about 1980px with movement only in its last third is too long.
+- **Pinned demos get a toggle:** demo films inside scroll scenes get a play/pause button like any other autoplay film.
+- **Canvas art stays cheap:** canvas backgrounds that redraw on scroll throttle their redraws and pause off screen.
+- **Keep scenes that land:** scrubbed scenes end on real product UI, with budgeted playback (a cap on how many films play at once, pause off screen and on save-data).
 
 ## Why the notch-shelf reference works (take the reasons, not the look)
 
@@ -112,12 +129,12 @@ These transfer to any product: continuity, visible state, hierarchy, grouping, r
 
 - `transition: all`, linear easing, or durations picked by hand for these interactions.
 - A panel that fades in under a shape instead of growing out of it.
-- Motion that only plays on page load, or anything that loops for decoration.
+- Motion that only plays on page load, or anything that loops for decoration. Anything that loops or rotates on its own starts paused or stops after one pass.
 - Writing your own spring or drag code when this kit covers it.
 
 ## Check
 
-Run `self-improve` and capture the states that matter for this interaction (approach, mid-flight, landed, open, closing). Each frame should be a good still, with nothing duplicated, seamed or left behind. Then interrupt it: press again mid-animation, reverse halfway, repeat fast. The latest input should win and the end state should be right.
+Run `self-improve` and capture the states that matter for this interaction (approach, mid-flight, landed, open, closing). Each frame should be a good still, with nothing duplicated, seamed or left behind. Then interrupt it: press again mid-animation, reverse halfway, repeat fast. The latest input should win and the end state should be right. For web pages, verify with `design-review/scripts/scroll-probe.mjs` and `reduced-motion.mjs`; `reviews/droppy-sites-2026-10-31/` is a worked example.
 
 To see what really happened, film it. `<kit>` is the kit folder (for example ~/Developer/owen-design-kit). `filmstrip.mjs` slows the page down (CSS and JS springs alike), does the interaction and saves the frames side by side with timestamps, plus every running animation at each frame:
 

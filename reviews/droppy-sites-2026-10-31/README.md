@@ -59,6 +59,7 @@ UI and UX:
 - **getdroppy.app: the cookie banner covers the H1 and both CTAs on phones** until it's dismissed [03].
 - **Tap targets under 44px.** getdroppy.app: nav chevrons 14x22, nav Buy 43x24, finish swatches 30x30, carousel dots 24 wide, segmented tabs 40 tall on phones (R-03) [01, 03]. getdroppycode.app: see [05].
 - **getdroppycode.app: the changelog has 22 entries with no search, filters or per-version anchors** [05].
+- **getdroppycode.app: the hero headline clips on small phones.** "coding agent for Mac" fits edge to edge at 390px and is cut off on both sides at 370px, so it clips on 375px phones such as the iPhone SE. The page reports no horizontal overflow because the clipped line is hidden, not scrolled. Scale the H1 with `clamp()` or let the line wrap below 400px ([370px capture](../../plugins/owen-design/skills/site-gallery/shots/getdroppycode/phone-hero.jpg), found while building the gallery entry).
 - **getdroppycode.app: the hero subtitle runs 5 lines** and lists 13 providers. Keep one sentence and move the providers into a strip below the buttons [10].
 
 Cross-site:

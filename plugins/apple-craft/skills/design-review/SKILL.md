@@ -26,6 +26,13 @@ Review what changed, not the whole product: a checklist is not a reason to redes
     node scripts/capture.mjs http://localhost:3000 review
 - Hover every control and watch every transition once.
 - **Stress it** (web): `node scripts/stress.mjs http://localhost:3000 stress` refills the page with long German words, doubled text, 200 % text, right-to-left, 320 px width, empty and 200-item lists and a slow network, then reports anything that overflows, clips or overlaps. Real content breaks layouts that sample data never does.
+### Interaction audit (sites)
+For any live site with hover, scroll or motion, run these after capture:
+    node scripts/hover-probe.mjs http://localhost:3000
+    node scripts/scroll-probe.mjs http://localhost:3000
+    node scripts/reduced-motion.mjs http://localhost:3000
+Fix MOVES_ON_HOVER, MOVES_ON_PRESS, SNAP and STICKY_TOUCH. NO_HOVER on a control and NO_FOCUS_RING are fails. Make SMALL_TARGET controls at least 44 px. reduced-motion.mjs prints CHECK for content left at opacity 0: inactive tabs are fine, a reveal that never resolved is not. The scripts load Playwright from the folder you run them in.
+For a full review of a live site, follow site-audit.md in this folder.
 
 ## Run the slop linter
 

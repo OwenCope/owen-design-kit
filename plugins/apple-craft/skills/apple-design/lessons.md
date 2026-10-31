@@ -62,6 +62,20 @@ What got approved and what got rejected across many rounds of building apps, web
 | Generated music | A real track; it lifts a video more than any edit |
 | "Look at the dot" when the feature is "follow the light" | Show exactly what the feature does, in motion |
 
+Caught in a full audit of two shipped product sites (`reviews/droppy-sites-2026-10-31/` in this repo):
+
+| Rejected | What worked |
+|---|---|
+| A hero carried by a mascot scene, the product a scroll away | The scene can lead, but the real product on its device is visible before the first scroll |
+| A Download button that quietly served a 145 MB beta | The label says stable or beta, with the file size; every download URL checked, including ones only in unreleased source |
+| "41 extensions" in the text and 43 in the screenshot; "10 providers" above a list of 13 | Numbers that match the list they count, or no number |
+| Copying, selection and right click blocked on a site for developers | Nothing blocked; people copy commands and names |
+| Buttons that dip when pressed while a label morph already gives feedback | Tint and the morph only; the button never moves |
+| FAQ questions and pricing options with no hover at all | Every control answers hover, press and keyboard focus the same way |
+| A logo marquee, smooth scroll and a spinner still moving with Reduce Motion on | Every loop, drift, crossfade and spinner stops under Reduce Motion |
+| A hero headline that fit at 390 px and clipped at 375 px | Check the smallest phone, not the common one; scale type with clamp() |
+| A sibling product that linked one way only | Both sites link each other and share one nav, one button and one download label |
+
 Footage limits a video more than editing does. If a scene isn't working after two edits, re-record it.
 
 ## Copy

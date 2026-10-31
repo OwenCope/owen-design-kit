@@ -52,7 +52,7 @@ Use `motion-kit` for every interaction and animation: tuned springs, morphs, fly
 ### Every page
 
 - **Every interactive part animates its change, both ways.** See `motion-kit` Must-be-true ("Things close the way they opened").
-- Hover and press feedback on everything clickable (colour, glow or content — never movement).
+- Hover and press feedback on everything clickable (colour, glow or content, never movement).
 - Use motion where it says something. A static page is fine when nothing needs saying. When these parts are on the page, this is how they move:
   - **Disclosures (FAQ, "show more"):** the answer opens with a height animation (`grid-template-rows: 0fr → 1fr`, about 350 ms, ease-out), its text fades and rises a few pixels, and a chevron on the right rotates 180°. Never an instant jump. Code in `design-patterns` → FAQ disclosure (house pick).
   - **Buttons:** the label-to-symbol morph from `design-patterns`. See `motion-kit` Must-be-true ("Buttons never move…") (house pick).
@@ -126,6 +126,27 @@ Restraint means no filler, not no motion. Good product pages have rich, crafted 
 - Headlines are read once by screen readers (no duplicated animated text in the accessibility tree).
 - Visible focus rings, correct labels, enough contrast, semantic headings.
 - **Focus rings belong to the control:** rounded to match it, inset or offset so they never touch dividers or neighbours (`outline-offset: 4px; border-radius` equal to the control's). A square ring cutting across the lines above and below fails review.
+
+## Before it ships
+
+Run this list on the live page at desktop and phone widths before calling it done.
+
+- Hero shows the real product on its device in the first viewport; a mascot or art scene can lead but the product appears before the first scroll.
+- One primary action in the hero; the second is visibly secondary.
+- The download button states channel, file size, and arch (stable vs beta, Apple silicon vs Intel); every download URL returns 200 or a redirect to a file, including ones only in unreleased source.
+- Every number agrees with itself and with the list it counts, or it goes.
+- Faded text still meets contrast; measure faded headings, helper text, badges, and footer text.
+- Never block selection, copying, or the context menu.
+- Every interactive element answers hover, press, and keyboard focus with tint or content change, including FAQ rows, pricing options, and links inside answers; buttons never move when pressed; gate hover styles behind @media (hover: hover); focus-visible runs the same change as hover.
+- Anything that moves on its own starts paused or stops after one pass, pauses on hover, focus, and pointer down, and shows a pause control past 5 seconds.
+- Reduce Motion covers marquees, smooth scroll, spinners, theme crossfades, footer drift, press feedback, and autoplay video.
+- The hero headline fits at 375px wide without clipping; a line hidden by overflow does not show up as horizontal scroll, so look at the capture.
+- Tap targets are at least 44px on phones, including nav chevrons, swatches, dots, and segmented tabs.
+- The cookie banner never covers the hero headline or CTA on a phone.
+- Empty alt is fine for decorative images; mark decorative looping video aria-hidden and hide duplicated marquee sets from screen readers.
+- Sibling sites link both ways and share one nav pattern, one button component, and one download label.
+- Heavy film gets a byte budget and loads lazily.
+- Worked example: reviews/droppy-sites-2026-10-31/README.md in this repo; design-review scripts hover-probe.mjs, scroll-probe.mjs, and reduced-motion.mjs check these.
 
 ## Engineering discipline
 

@@ -229,5 +229,50 @@
     ],
     "title": "PostHog - your product’s context layer",
     "error": ""
+  },
+  {
+    "folder": "getdroppy",
+    "url": "https://getdroppy.app/",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "phone-hero.jpg"
+    ],
+    "title": "Droppy. Supercharged Dynamic Island for Mac",
+    "error": ""
+  },
+  {
+    "folder": "getdroppycode",
+    "url": "https://getdroppycode.app/",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "phone-hero.jpg"
+    ],
+    "title": "Droppy Code. Supercharged coding agent for Mac",
+    "error": ""
+  },
+  {
+    "folder": "launchme",
+    "url": "https://launchmeapp.com/",
+    "captured": true,
+    "files": [
+      "hero.jpg",
+      "section-01.jpg",
+      "section-02.jpg",
+      "section-03.jpg",
+      "section-04.jpg",
+      "phone-hero.jpg"
+    ],
+    "title": "LaunchMe — Customizable App Launcher for Mac",
+    "error": ""
   }
 ]
