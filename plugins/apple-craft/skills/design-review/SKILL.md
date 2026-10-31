@@ -93,7 +93,7 @@ End with one of the three verdicts in [Seeing clearly](../self-improve/reference
 
 ## Last step: record what was rejected
 
-When the person rejects or corrects something, keep their exact words next to the screenshot or moment they were about. Work out what they meant before fixing (see `how-claude-designs`). Once you know what worked, add one row to apple-craft's apple-design/lessons.md (what was rejected | what worked), in general words with no private names. Keep the scope honest: "too slow when used often" is not "never animate". Don't add the same lesson twice.
+When the person rejects or corrects something, keep their exact words next to the screenshot or moment they were about. Work out what they meant before fixing (see `how-claude-designs`). Once you know what worked, add one row to `plugins/apple-craft/skills/apple-design/lessons.md` (what was rejected | what worked), in general words with no private names. Keep the scope honest: "too slow when used often" is not "never animate". Don't add the same lesson twice.
 
 ## Hunt for these first
 

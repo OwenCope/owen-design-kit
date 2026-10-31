@@ -9,7 +9,7 @@ Most real design work is this, not a blank page. Every bad redesign we've seen s
 
 ## 1. Use it before you touch it
 
-Open it like a first-time visitor and like a daily user. Do the main task once. Capture what you see now (`design-review/scripts/capture.mjs` for web, `design-review/scripts/capture-app.sh` for apps): these are the "before" pictures you'll show at the end.
+Open it like a first-time visitor and like a daily user. Do the main task once. Capture what you see now (`<kit>/plugins/apple-craft/skills/design-review/scripts/capture.mjs` for web, `<kit>/plugins/apple-craft/skills/design-review/scripts/capture-app.sh` for apps): these are the "before" pictures you'll show at the end.
 
 Write down, in plain sentences:
 
@@ -19,7 +19,7 @@ Write down, in plain sentences:
   1. You can't tell what it is or what to do within a few seconds.
   2. The product isn't visible, or is fake.
   3. The main action is hidden, duplicated or goes nowhere.
-  4. It breaks: phone layout, contrast, long text, empty states (`design-review/scripts/stress.mjs` finds these fast).
+  4. It breaks: phone layout, contrast, long text, empty states (`<kit>/plugins/apple-craft/skills/design-review/scripts/stress.mjs` finds these fast).
   5. It looks generic: could be any product.
   6. Polish: spacing, type, motion.
 

@@ -43,6 +43,7 @@ Owen builds products solo with testers and agents: Gaze (a Mac face-unlock app),
 - Capsules at the large control sizes and large concentric containers everywhere ("Recommended picks" in `liquid-glass` are his picks).
 - No hover lift: buttons never move up on hover.
 - His Mac appearance is light. Restore it after any capture that changes it.
+- The exception is SakuraCord, which Owen doesn't own, where the repo's own `AGENTS.md` and `docs/` win (see `project-sakuracord`).
 
 ## Starting in a project
 1. Load `apple-craft:apple-design` and the matching `project-*` skill.

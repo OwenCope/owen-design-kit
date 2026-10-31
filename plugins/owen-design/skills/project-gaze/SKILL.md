@@ -59,7 +59,7 @@ Exact steps in `reference.md` §6: bump `Resources/Info.plist` → universal bui
 Lock-screen flow is in `Sources/Security/LockWatcher.swift`: scans only with the display on; any key/click after the wake settle stops Gaze for that lock; 2 s match hold → movement challenge → anti-spoof → password; six misses lock out. Don't trade any of this for smoothness.
 
 ## Next up
-0.1.8, 0.1.9 and 0.1.10 shipped on 2026-09-28, 29 and 30. That is faster than the release rhythm in `ship-and-verify`; space the next one out. One tested release per checkpoint.
+0.1.8, 0.1.9, 0.1.10 and 0.1.11 shipped on 2026-09-28, 29, 30 and 2026-10-05. That is faster than the release rhythm in `ship-and-verify`; space the next one out. One tested release per checkpoint.
 
 Parked by Owen after 0.1.10 (still parked after 0.1.11) (raise them when he asks what's next; don't start them unasked):
 - Space to retry needs Input Monitoring, which Gaze must ask for: a Security > Permissions row that calls `IOHIDRequestAccess`. Then put the Space line back in the release notes.
